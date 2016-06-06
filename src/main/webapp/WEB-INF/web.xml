@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>matcher.rest.sw</display-name>
+  <display-name>yamgui</display-name>
  <servlet>
     <servlet-name>Jersey REST Service</servlet-name>
     <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
@@ -29,7 +29,7 @@
   
  <servlet>
 	<servlet-name>Aboutus</servlet-name>
-	<servlet-class>matcher.rest.sw.Aboutus</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.Aboutus</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -40,7 +40,7 @@
   
   <servlet>
 	<servlet-name>ChangePassword</servlet-name>
-	<servlet-class>matcher.rest.sw.ChangePassword</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.ChangePassword</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -51,7 +51,7 @@
   
   <servlet>
 	<servlet-name>Disconnect</servlet-name>
-	<servlet-class>matcher.rest.sw.Disconnect</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.Disconnect</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -62,7 +62,7 @@
   
   <servlet>
 	<servlet-name>Download</servlet-name>
-	<servlet-class>matcher.rest.sw.Download</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.Download</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -73,7 +73,7 @@
   
   <servlet>
 	<servlet-name>DownloadYam</servlet-name>
-	<servlet-class>matcher.rest.sw.DownloadYam</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.DownloadYam</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -85,7 +85,7 @@
   
     <servlet>
 	<servlet-name>DownloadYamDemo</servlet-name>
-	<servlet-class>matcher.rest.sw.DownloadYamDemo</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.DownloadYamDemo</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -96,7 +96,7 @@
   
   <servlet>
 	<servlet-name>Evaluation</servlet-name>
-	<servlet-class>matcher.rest.sw.Evaluation</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.Evaluation</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -107,7 +107,7 @@
   
    <servlet>
 	<servlet-name>Evaluator</servlet-name>
-	<servlet-class>matcher.rest.sw.EvaluatorPage</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.EvaluatorPage</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -118,7 +118,7 @@
   
   <servlet>
 	<servlet-name>Index</servlet-name>
-	<servlet-class>matcher.rest.sw.Index</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.Index</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -129,7 +129,7 @@
   
   <servlet>
 	<servlet-name>Matcher</servlet-name>
-	<servlet-class>matcher.rest.sw.MatcherPage</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.MatcherPage</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -140,7 +140,7 @@
   
   <servlet>
 	<servlet-name>Result</servlet-name>
-	<servlet-class>matcher.rest.sw.Result</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.Result</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -151,7 +151,7 @@
   
   <servlet>
 	<servlet-name>Signin</servlet-name>
-	<servlet-class>matcher.rest.sw.Signin</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.Signin</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -162,7 +162,7 @@
   
   <servlet>
 	<servlet-name>Validation</servlet-name>
-	<servlet-class>matcher.rest.sw.Validation</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.Validation</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -173,7 +173,7 @@
   
   <servlet>
 	<servlet-name>ValidationDownload</servlet-name>
-	<servlet-class>matcher.rest.sw.ValidationDownload</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.ValidationDownload</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
@@ -184,7 +184,7 @@
   
   <servlet>
 	<servlet-name>Validator</servlet-name>
-	<servlet-class>matcher.rest.sw.ValidatorPage</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.ValidatorPage</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 

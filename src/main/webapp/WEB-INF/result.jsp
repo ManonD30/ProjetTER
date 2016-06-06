@@ -34,7 +34,7 @@
 		</table>
 		<%
 					//get lists from response
-					ArrayList<matcher.rest.sw.Map> liste = (ArrayList) request
+					ArrayList<fr.lirmm.opendata.yamgui.Map> liste = (ArrayList) request
 							.getAttribute("data");
 
 					java.util.Map<String, String> onto1 = (java.util.Map) request
@@ -44,7 +44,7 @@
 							.getAttribute("onto2");
 				%>
 
-		<form action='http://193.49.107.124/matcher.rest.sw/download'
+		<form action='http://localhost/matcher.rest.sw/download'
 			method='post'>
 			<div class=tabDiv>
 				<table id=table>
