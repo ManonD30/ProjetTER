@@ -30,7 +30,7 @@
 			</table>
 			<%
 				//get list from response
-				ArrayList<matcher.rest.sw.Map> liste = (ArrayList) request
+				ArrayList<fr.lirmm.opendata.yamgui.Map> liste = (ArrayList) request
 						.getAttribute("data");
 
 				//get the execution time from response

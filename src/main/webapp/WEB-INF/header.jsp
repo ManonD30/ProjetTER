@@ -22,9 +22,9 @@
 				<%
 					String name = (String) request.getSession().getAttribute("name");
 					if(name==null){
-						out.println("<li><a href=http://193.49.107.124/matcher.rest.sw/sign>Sign in/up</a></li>");
+						out.println("<li><a href=sign>Sign in/up</a></li>");
 					} else {
-						out.println("<li><a href=http://193.49.107.124/matcher.rest.sw/sign>"+name+"</a></li>");
+						out.println("<li><a href=sign>"+name+"</a></li>");
 					}
 				%>
 			</ul>
