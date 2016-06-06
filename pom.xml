@@ -46,7 +46,7 @@
             <artifactId>align</artifactId>
             <version>1.0</version>
             <!--scope>system</scope>
-            <systemPath>${project.basedir}/WebContent-WEB-INF/lib/align.jar</systemPath-->
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/align.jar</systemPath-->
         </dependency>
     </dependencies>
 
