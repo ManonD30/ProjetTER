@@ -36,6 +36,7 @@
             <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/align.jar</systemPath>
             <!--systemPath>${project.basedir}/WebContent-WEB-INF/lib/owlapi-bin.jar</systemPath-->
         </dependency>
+        <!-- Dependency for Yam++2012 -->
         <dependency>
             <groupId>Main</groupId>
             <artifactId>main</artifactId>
