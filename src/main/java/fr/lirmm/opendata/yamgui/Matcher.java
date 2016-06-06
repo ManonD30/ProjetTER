@@ -42,7 +42,7 @@ public class Matcher extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		if(session.getAttribute("mail")==null){
-			URI uri = new URL("http://193.49.107.124/matcher.rest.sw/sign").toURI();
+			URI uri = new URL("http://localhost:8080/yam-gui-0.1/sign").toURI();
 			return Response.seeOther(uri).build();
 		} else {
 		// delete old files in temp folder

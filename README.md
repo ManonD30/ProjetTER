@@ -11,3 +11,11 @@ cp target/yam-gui-0.1.war /opt/tomcat/webapps/
 ```
 
 Then go to `http://localhost:8080/yam-gui-0.1/index`
+
+## MySQL
+
+`mysql -u root -p`
+
+```sql
+CREATE DATABASE yam;
+```

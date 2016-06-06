@@ -7,16 +7,20 @@
 
     <init-param>
         <param-name>jersey.config.server.provider.packages</param-name>
-        <param-value>matcher.rest.sw</param-value>
+        <param-value>fr.lirmm.opendata.yamgui</param-value>
     </init-param>
      <init-param>
         <param-name>jersey.config.server.provider.packages</param-name>
-        <param-value>matcher.rest.sw/index</param-value>
+        <param-value>yam-gui-0.1/index</param-value>
     </init-param>
     <init-param>
+        <param-name>com.sun.jersey.config.property.packages</param-name>
+        <param-value>fr.lirmm.opendata.yamgui</param-value>
+    </init-param>
+    <!--init-param>
         <param-name>jersey.config.server.provider.classnames</param-name>
         <param-value>org.glassfish.jersey.filter.LoggingFilter; org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
-    </init-param>
+    </init-param-->
     
     <load-on-startup>1</load-on-startup>
     <async-supported>true</async-supported>
