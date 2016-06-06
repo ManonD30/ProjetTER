@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>matcher.rest.sw</display-name>
+ <servlet>
+    <servlet-name>Jersey REST Service</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+
+    <init-param>
+        <param-name>jersey.config.server.provider.packages</param-name>
+        <param-value>matcher.rest.sw</param-value>
+    </init-param>
+     <init-param>
+        <param-name>jersey.config.server.provider.packages</param-name>
+        <param-value>matcher.rest.sw/index</param-value>
+    </init-param>
+    <init-param>
+        <param-name>jersey.config.server.provider.classnames</param-name>
+        <param-value>org.glassfish.jersey.filter.LoggingFilter; org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
+    </init-param>
+    
+    <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Jersey REST Service</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+  
+  
+ <servlet>
+	<servlet-name>Aboutus</servlet-name>
+	<servlet-class>matcher.rest.sw.Aboutus</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Aboutus</servlet-name>
+	<url-pattern>/aboutus</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>ChangePassword</servlet-name>
+	<servlet-class>matcher.rest.sw.ChangePassword</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>ChangePassword</servlet-name>
+	<url-pattern>/changePassword</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>Disconnect</servlet-name>
+	<servlet-class>matcher.rest.sw.Disconnect</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Disconnect</servlet-name>
+	<url-pattern>/disconnect</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>Download</servlet-name>
+	<servlet-class>matcher.rest.sw.Download</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Download</servlet-name>
+	<url-pattern>/download</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>DownloadYam</servlet-name>
+	<servlet-class>matcher.rest.sw.DownloadYam</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>DownloadYam</servlet-name>
+	<url-pattern>/downloadYam</url-pattern>
+  </servlet-mapping>
+  
+  
+    <servlet>
+	<servlet-name>DownloadYamDemo</servlet-name>
+	<servlet-class>matcher.rest.sw.DownloadYamDemo</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>DownloadYamDemo</servlet-name>
+	<url-pattern>/downloadYamDemo</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>Evaluation</servlet-name>
+	<servlet-class>matcher.rest.sw.Evaluation</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Evaluation</servlet-name>
+	<url-pattern>/evaluation</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+	<servlet-name>Evaluator</servlet-name>
+	<servlet-class>matcher.rest.sw.EvaluatorPage</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Evaluator</servlet-name>
+	<url-pattern>/evaluator</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>Index</servlet-name>
+	<servlet-class>matcher.rest.sw.Index</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Index</servlet-name>
+	<url-pattern>/index</url-pattern>
+  </servlet-mapping>   
+  
+  <servlet>
+	<servlet-name>Matcher</servlet-name>
+	<servlet-class>matcher.rest.sw.MatcherPage</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Matcher</servlet-name>
+	<url-pattern>/matcher</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+	<servlet-name>Result</servlet-name>
+	<servlet-class>matcher.rest.sw.Result</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Result</servlet-name>
+	<url-pattern>/result</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>Signin</servlet-name>
+	<servlet-class>matcher.rest.sw.Signin</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Signin</servlet-name>
+	<url-pattern>/sign</url-pattern>
+  </servlet-mapping> 
+  
+  <servlet>
+	<servlet-name>Validation</servlet-name>
+	<servlet-class>matcher.rest.sw.Validation</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Validation</servlet-name>
+	<url-pattern>/validation</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+	<servlet-name>ValidationDownload</servlet-name>
+	<servlet-class>matcher.rest.sw.ValidationDownload</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>ValidationDownload</servlet-name>
+	<url-pattern>/validationDownload</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>Validator</servlet-name>
+	<servlet-class>matcher.rest.sw.ValidatorPage</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Validator</servlet-name>
+	<url-pattern>/validator</url-pattern>
+  </servlet-mapping>  
+
+</web-app>

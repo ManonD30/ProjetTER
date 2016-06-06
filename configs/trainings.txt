@@ -1,0 +1,6 @@
+# Benchmark2009 folders used for buidling training data (NO SPACE between numbers)
+TRAIN_DIRS	=	204-2009,205-2009,238-2009,301-2009,304-2009
+#TRAIN_DIRS	=	animalsA-animalsB,networkA-networkB,russiaA-russiaB
+#TRAIN_DIRS	=	205,animalsA-animalsB,238,networkA-networkB,304
+
+#END
