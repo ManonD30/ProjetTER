@@ -42,7 +42,7 @@ public class Signup {
 			String myUrl = "jdbc:mysql://localhost/yam";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, "root",
-					"khongco0");
+					"lirmmpass");
 
 			// check if user is in database
 			// the mysql insert statement

@@ -51,7 +51,7 @@ public class Result extends HttpServlet {
 			String myUrl = "jdbc:mysql://localhost/yam";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, "root",
-					"khongco0");
+					"lirmmpass");
 
 			// get user's mail
 			String mail = (String) request.getSession().getAttribute("mail");

@@ -29,7 +29,7 @@ public class ChangePassword extends HttpServlet {
 			String myUrl = "jdbc:mysql://localhost/yam";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, "root",
-					"khongco0");
+					"lirmmpass");
 
 			// mysql request
 			String query =  "SELECT name FROM user WHERE mail= ? AND password = ?";

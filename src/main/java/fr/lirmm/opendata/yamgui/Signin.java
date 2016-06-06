@@ -30,7 +30,7 @@ public class Signin extends HttpServlet {
 			String myUrl = "jdbc:mysql://localhost/yam";
 			Class.forName(myDriver);
 			Connection conn = DriverManager.getConnection(myUrl, "root",
-					"khongco0");
+					"lirmmpass");
 
 			// mysql request
 			String query = "SELECT name, canMatch FROM user WHERE mail= ? AND password = ?";
