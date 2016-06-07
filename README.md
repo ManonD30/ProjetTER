@@ -29,3 +29,7 @@ canMatch int,
 password varchar(255)
 );
 ```
+
+* Start MySQL daemon
+
+`sudo /etc/init.d/mysql start`
