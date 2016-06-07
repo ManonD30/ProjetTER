@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +17,13 @@ public class DownloadYam extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+            /*response.setCharacterEncoding("UTF-8");
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter();
+            out.println(System.getProperty("user.dir"));*/
+            
 		InputStream is = new FileInputStream(
-				"WebContent/YamFileAndDemo/Yam++.zip");
+				"/home/emonet/java_workspace/yam-gui/WebContent/YamFileAndDemo/Yam++.zip");
 		OutputStream os = response.getOutputStream();
 		response.setHeader("Content-Disposition",
 				"attachment;filename=Yam++.zip");

@@ -15,6 +15,6 @@ public class Disconnect extends HttpServlet {
         HttpSession session = request.getSession();
         session.invalidate();
 
-        response.sendRedirect( "http://193.49.107.124/matcher.rest.sw/index" );
+        response.sendRedirect( "index" );
     }
 }

@@ -11,11 +11,11 @@
 				out.println("<br><h2>Connected as " + name + ".</h2>");
 				out.println("<p class=contentCenter>You can do " + canMatch
 						+ " matching each day.</p>");
-				out.println("<form action='http://193.49.107.124/matcher.rest.sw/changePassword'"
+				out.println("<form action='changePassword'"
 						+ "method='get'name=modify enctype='multipart/form-data'>"
 						+ "<input type='submit' class=btnBig value='Change my password'>"
 						+ "</form>"
-						+ "<form action='http://193.49.107.124/matcher.rest.sw/disconnect'"
+						+ "<form action='disconnect'"
 						+ "method='post'name=disconnect enctype='multipart/form-data'>"
 						+ "<input type='submit' class=btnBig value='Disconnect'>"
 						+ "</form>" + "<div class=sign style='display:none'>");
@@ -62,7 +62,7 @@
 
 		<div class=signin>
 			<h1>Sign in:</h1>
-			<form action="http://193.49.107.124/matcher.rest.sw/sign"
+			<form action="sign"
 				method="post" name=signin>
 				<p>Mail:</p>
 				<input type="email" name="mailIn" placeholder=joesmith@example.com
