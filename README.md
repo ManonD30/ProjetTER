@@ -18,4 +18,13 @@ Then go to `http://localhost:8080/yam-gui-0.1/index`
 
 ```sql
 CREATE DATABASE yam;
+USE	yam
+
+CREATE TABLE user
+(
+mail varchar(255),
+name varchar(255),
+isAffiliateTo varchar(255),
+password varchar(255)
+);
 ```
