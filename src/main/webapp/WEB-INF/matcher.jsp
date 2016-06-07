@@ -23,7 +23,7 @@
 		</div>
 
 		<div class=btnMatch id=btnMatch style="display: none;">
-			<form action="http://193.49.107.124/matcher.rest.sw/result"
+			<form action="result"
 				method="post" name=runMatch
 				onsubmit="document.location.href = '#overlay';">
 

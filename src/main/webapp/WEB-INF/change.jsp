@@ -7,7 +7,7 @@
 
 		<h1>Change your password:</h1>
 		<div class=changePassword>
-			<form action="http://193.49.107.124/matcher.rest.sw/changePassword"
+			<form action="changePassword"
 				method="post" name=changePassword>
 				<p>Old password:</p>
 				<input type="password" id=oldPassword name="oldPassword"
