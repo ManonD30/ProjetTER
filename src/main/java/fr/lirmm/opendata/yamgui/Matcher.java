@@ -9,6 +9,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Date;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +41,12 @@ public class Matcher extends HttpServlet {
 			@FormDataParam("secondFile") InputStream uploadedSecondInputStream,
 			@FormDataParam("secondFile") FormDataContentDisposition secondFileDetail,
 			@Context HttpServletRequest request,
-			@CookieParam("key") String key) throws MalformedURLException, URISyntaxException {
-
+			@CookieParam("key") String key) throws MalformedURLException, URISyntaxException, IOException {
+                
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+            
 		HttpSession session = request.getSession();
 		if(session.getAttribute("mail")==null){
 			URI uri = new URL("http://localhost:8080/yam-gui-0.1/sign").toURI();
@@ -50,11 +57,11 @@ public class Matcher extends HttpServlet {
 		deleteOldFiles();
 
 		// upload first file
-		String firstFileLocation = "WebContent/ontologies/first" + key + ".owl";
+		String firstFileLocation = prop.getProperty("workdir") + "/ontologies/first" + key + ".owl";
 		uploadFile(uploadedFirstInputStream, firstFileLocation);
 
 		// upload second file
-		String secondFileLocation = "WebContent/ontologies/second" + key
+		String secondFileLocation = prop.getProperty("workdir") + "/ontologies/second" + key
 				+ ".owl";
 		uploadFile(uploadedSecondInputStream, secondFileLocation);
 		}
@@ -79,12 +86,16 @@ public class Matcher extends HttpServlet {
 	}
 
 	// delete old files which doesn't have to be saved or already saved
-	public void deleteOldFiles() {
+	public void deleteOldFiles() throws IOException {
 		long numDays = 1; // files will be kept 'numDays' days
 		// if you change this, think about change it in Validator.java too
 
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+                
 		// /!\ WARNING! /!\ OLD FILES IN THIS DIRECTORY WILL BE DELETED. /!\
-		String dir = "WebContent/ontologies";
+		String dir = prop.getProperty("workdir") + "/ontologies";
 		// /!\ DON'T POINT THIS ON ANY SENSITIVE FILE /!\
 
 		File directory = new File(dir);

@@ -1,4 +1,6 @@
 nb-configuration.xml
 /target/
 
+src/main/resources/conf.properties
+
 mvn-repo/

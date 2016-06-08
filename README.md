@@ -12,6 +12,21 @@ cp target/yam-gui-0.1.war /opt/tomcat/webapps/
 
 Then go to `http://localhost:8080/yam-gui-0.1/index`
 
+
+## Config file
+
+Fill the `src/main/resources/config.properties` file with MySQL credentials and working directory.
+
+## Working directory
+
+The working directory (i.e.: /srv/yam-gui) is the place where the ontologies and alignments are stored on the server. It should have a read, write and execute accessible for everyone and the followings diretories in it: ontologies and save
+
+```bash
+mkdir /srv/yam-gui/ontologies
+mkdir /srv/yam-gui/save
+chmod -R 777 /srv/yam-gui
+```
+
 ## MySQL
 
 `mysql -u root -p`

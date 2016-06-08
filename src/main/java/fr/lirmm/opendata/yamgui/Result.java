@@ -33,6 +33,7 @@ import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import fr.inrialpes.exmo.align.parser.AlignmentParser;
+import java.util.Properties;
 import main.MainProgram;
 
 public class Result extends HttpServlet {
@@ -45,6 +46,9 @@ public class Result extends HttpServlet {
 		// check and update "asMatched" value
 		int asMatched = 0;
 		int canMatch = 0;
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
 		try {
 			// create a mysql database connection
 			String myDriver = "org.gjt.mm.mysql.Driver";
@@ -119,9 +123,9 @@ public class Result extends HttpServlet {
 			long begin = System.currentTimeMillis();
 
 			// run YAM++ with two ontologies (.owl) to a new .rdf
-			MainProgram.match("WebContent/ontologies/first" + key + ".owl",
-					"WebContent/ontologies/second" + key + ".owl",
-					"WebContent/ontologies/result" + key + ".rdf");
+			MainProgram.match(prop.getProperty("workdir") + "/ontologies/first" + key + ".owl",
+					prop.getProperty("workdir") + "/ontologies/second" + key + ".owl",
+					prop.getProperty("workdir") + "/ontologies/result" + key + ".rdf");
 
 			// get time at the matching end
 			long end = System.currentTimeMillis();
@@ -144,10 +148,10 @@ public class Result extends HttpServlet {
 			request.setAttribute("data", liste);
 
 			// add ontologies label<-->key translation to response
-			InputStream in1 = new FileInputStream("WebContent/ontologies/first"
+			InputStream in1 = new FileInputStream(prop.getProperty("workdir") + "/ontologies/first"
 					+ key + ".owl");
 			InputStream in2 = new FileInputStream(
-					"WebContent/ontologies/second" + key + ".owl");
+					prop.getProperty("workdir") + "/ontologies/second" + key + ".owl");
 			Onto1.clear();
 			Onto2.clear();
 			loadOnto(in1, Onto1);
@@ -175,13 +179,17 @@ public class Result extends HttpServlet {
 
 		FileChannel in = null; // input
 		FileChannel out = null; // output
+                
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
 
 		try {
 			// Init
 
-			in = new FileInputStream("WebContent/ontologies/first" + key
+			in = new FileInputStream(prop.getProperty("workdir") + "/ontologies/first" + key
 					+ ".owl").getChannel();
-			out = new FileOutputStream("WebContent/save/" + dateName + "_"
+			out = new FileOutputStream(prop.getProperty("workdir") + "/save/" + dateName + "_"
 					+ key + "source.owl").getChannel();
 
 			// Copy from in to out
@@ -214,12 +222,16 @@ public class Result extends HttpServlet {
 
 		FileChannel in = null; // input
 		FileChannel out = null; // output
+                
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
 
 		try {
 			// Init
-			in = new FileInputStream("WebContent/ontologies/second" + key
+			in = new FileInputStream(prop.getProperty("workdir") + "/ontologies/second" + key
 					+ ".owl").getChannel();
-			out = new FileOutputStream("WebContent/save/" + dateName + "_"
+			out = new FileOutputStream(prop.getProperty("workdir") + "/save/" + dateName + "_"
 					+ key + "target.owl").getChannel();
 
 			// Copy from in to out
@@ -244,9 +256,14 @@ public class Result extends HttpServlet {
 
 	public void getCellData(ArrayList<Map> liste, String key)
 			throws AlignmentException, IOException {
+            
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+                
 		AlignmentParser aparser = new AlignmentParser(0);
 		// rdf file
-		Alignment file = aparser.parse(new File("WebContent/ontologies/result"
+		Alignment file = aparser.parse(new File(prop.getProperty("workdir") + "/ontologies/result"
 				+ key + ".rdf").toURI());
 
 		// cell iterator
