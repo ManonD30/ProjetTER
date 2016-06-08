@@ -26,6 +26,7 @@ import org.semanticweb.owl.align.AlignmentVisitor;
 import fr.inrialpes.exmo.align.impl.BasicParameters;
 import fr.inrialpes.exmo.align.impl.URIAlignment;
 import fr.inrialpes.exmo.align.impl.renderer.RDFRendererVisitor;
+import java.util.Properties;
 
 public class ValidationDownload extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -35,6 +36,10 @@ public class ValidationDownload extends HttpServlet {
 	// allow user to download result.rdf
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+            
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
 
 		// get the key in the cookie
 		String key = null;
@@ -60,7 +65,7 @@ public class ValidationDownload extends HttpServlet {
 		saveRDFFile(key); // save rdf file
 
 		InputStream is = new FileInputStream(
-				"WebContent/ontologies/finalValidationResult" + key + ".rdf");
+				prop.getProperty("workdir") + "/ontologies/finalValidationResult" + key + ".rdf");
 		OutputStream os = response.getOutputStream();
 		response.setHeader("Content-Disposition",
 				"attachment;filename=result.rdf");
@@ -80,6 +85,10 @@ public class ValidationDownload extends HttpServlet {
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date date = new Date();
 		String dateName = dateFormat.format(date);
+                
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
 
 		FileChannel in = null; // input
 		FileChannel out = null; // output
@@ -87,9 +96,9 @@ public class ValidationDownload extends HttpServlet {
 		try {
 			// Init
 
-			in = new FileInputStream("WebContent/ontologies/rdf" + key + ".rdf")
+			in = new FileInputStream(prop.getProperty("workdir") + "/ontologies/rdf" + key + ".rdf")
 					.getChannel();
-			out = new FileOutputStream("WebContent/save/" + dateName + "_"
+			out = new FileOutputStream(prop.getProperty("workdir") + "/save/" + dateName + "_"
 					+ key + "rdf.rdf").getChannel();
 
 			// Copy from in to out
@@ -113,8 +122,10 @@ public class ValidationDownload extends HttpServlet {
 	}
 
 
-	public static String generateAlignement(ArrayList<Map> MapFinal, String key) {
-
+	public static String generateAlignement(ArrayList<Map> MapFinal, String key) throws IOException {
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
 		Alignment alignments = new URIAlignment();
 		try {
 			alignments.init(new URI("c"), new URI("c"));
@@ -156,7 +167,7 @@ public class ValidationDownload extends HttpServlet {
 			alignments.clone();
 			// cmt-conference-confOf-iasted-sigkdd
 			PrintWriter out = new PrintWriter(
-					"WebContent/ontologies/finalValidationResult" + key
+					prop.getProperty("workdir") + "/ontologies/finalValidationResult" + key
 							+ ".rdf");
 			out.println(swriter.toString());
 			out.close();

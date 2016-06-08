@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.util.Date;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,24 +38,28 @@ public class Validator extends HttpServlet {
 			@FormDataParam("rdfFile") InputStream uploadedRDFInputStream,
 			@FormDataParam("rdfFile") FormDataContentDisposition rdfFileDetail,
 			@Context HttpServletRequest request, @CookieParam("key") String key)
-			throws MalformedURLException, URISyntaxException {
+			throws MalformedURLException, URISyntaxException, IOException {
 
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+            
 		// delete old files in temp folder
 		// in uploadFiles() because this is the most used function
 		deleteOldFiles();
 
 		// upload first file
-		String firstFileLocation = "WebContent/ontologies/validationSource"
+		String firstFileLocation = prop.getProperty("workdir") + "/ontologies/validationSource"
 				+ key + ".owl";
 		uploadFile(uploadedFirstInputStream, firstFileLocation);
 
 		// upload second file
-		String secondFileLocation = "WebContent/ontologies/validationTarget"
+		String secondFileLocation = prop.getProperty("workdir") + "/ontologies/validationTarget"
 				+ key + ".owl";
 		uploadFile(uploadedSecondInputStream, secondFileLocation);
 
 		// upload rdf file
-		String rdfFileLocation = "WebContent/ontologies/rdf" + key + ".rdf";
+		String rdfFileLocation = prop.getProperty("workdir") + "/ontologies/rdf" + key + ".rdf";
 		uploadFile(uploadedRDFInputStream, rdfFileLocation);
 		return null;
 	}
@@ -77,12 +82,16 @@ public class Validator extends HttpServlet {
 	}
 
 	// delete old files which doesn't have to be saved or already saved
-	public void deleteOldFiles() {
+	public void deleteOldFiles() throws IOException {
 		long numDays = 1; // files will be kept 'numDays' days
 		// if you change this, think about change it in Matcher.java too
+                
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
 
 		// WARNING! /!\ OLD FILES IN THIS DIRECTORY WILL BE DELETED. /!\
-		String dir = "WebContent/ontologies";
+		String dir = prop.getProperty("workdir") + "/ontologies";
 		// /!\ DON'T POINT THIS ON ANY SENSITIVE FILE /!\
 
 		File directory = new File(dir);

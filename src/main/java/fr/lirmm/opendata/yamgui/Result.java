@@ -34,6 +34,8 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import fr.inrialpes.exmo.align.parser.AlignmentParser;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import main.MainProgram;
 
 public class Result extends HttpServlet {
@@ -49,6 +51,9 @@ public class Result extends HttpServlet {
                 // Load properties file for work directory
                 Properties prop = new Properties();
                 prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+                
+                Logger myLog = Logger.getLogger (Result.class.getName());
+                myLog.log(Level.INFO, "Dans Result");
 		try {
 			// create a mysql database connection
 			String myDriver = "org.gjt.mm.mysql.Driver";
@@ -101,7 +106,7 @@ public class Result extends HttpServlet {
 					.forward(request, response);
 			;
 		} else {
-
+                        myLog.log(Level.INFO, "else après asMatched check");
 			// get the key in the cookie
 			String key = null;
 			Cookie[] cookies = request.getCookies();
@@ -121,12 +126,15 @@ public class Result extends HttpServlet {
 
 			// get time at the matching beginning
 			long begin = System.currentTimeMillis();
+                        
+                        myLog.log(Level.INFO, "Juste avant main");
 
 			// run YAM++ with two ontologies (.owl) to a new .rdf
 			MainProgram.match(prop.getProperty("workdir") + "/ontologies/first" + key + ".owl",
 					prop.getProperty("workdir") + "/ontologies/second" + key + ".owl",
 					prop.getProperty("workdir") + "/ontologies/result" + key + ".rdf");
 
+                        myLog.log(Level.INFO, "Juste apres main");
 			// get time at the matching end
 			long end = System.currentTimeMillis();
 
@@ -136,11 +144,14 @@ public class Result extends HttpServlet {
 			String s = Float.toString(execTime);
 			// add matching time to response
 			request.setAttribute("time", s);
+                        
+                        myLog.log(Level.INFO, "apres set attribute");
 
 			// add cell data to the list
 			try {
 				getCellData(liste, key);
 			} catch (AlignmentException e) {
+                                myLog.log(Level.INFO, "dans catch: " + e.getMessage());
 				e.printStackTrace();
 			}
 
@@ -152,6 +163,7 @@ public class Result extends HttpServlet {
 					+ key + ".owl");
 			InputStream in2 = new FileInputStream(
 					prop.getProperty("workdir") + "/ontologies/second" + key + ".owl");
+                        myLog.log(Level.INFO, "apres in2");
 			Onto1.clear();
 			Onto2.clear();
 			loadOnto(in1, Onto1);
@@ -159,6 +171,8 @@ public class Result extends HttpServlet {
 			request.setAttribute("onto1", Onto1);
 			request.setAttribute("onto2", Onto2);
 
+                        
+                        myLog.log(Level.INFO, "avant get servlet context");
 			// send response
 			this.getServletContext()
 					.getRequestDispatcher("/WEB-INF/result.jsp")
