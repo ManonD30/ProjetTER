@@ -33,3 +33,10 @@ password varchar(255)
 * Start MySQL daemon
 
 `sudo /etc/init.d/mysql start`
+
+
+## Use logger
+```java
+Logger myLog = Logger.getLogger (MyClass.class.getName());
+myLog.log(Level.INFO, "hello world");
+```

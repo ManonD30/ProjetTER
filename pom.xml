@@ -21,6 +21,19 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- http://mvnrepository.com/artifact/com.hp.hpl.jena/jena -->
+        <dependency>
+            <groupId>com.hp.hpl.jena</groupId>
+            <artifactId>jena</artifactId>
+            <version>2.6.4</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-multipart -->
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>2.22.1</version>
+        </dependency>
+
         <!-- http://mvnrepository.com/artifact/edu.stanford.protege/org.semanticweb.owl.owlapi -->
         <!--mvn install:install-file 
               -Dfile=src/main/webapp/WEB-INF/lib/align.jar 
@@ -34,7 +47,7 @@
             <version>3.4.4</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/align.jar</systemPath>
-            <!--systemPath>${project.basedir}/WebContent-WEB-INF/lib/owlapi-bin.jar</systemPath-->
+            <!--systemPath>${project.basedir}/lib/owlapi-bin.jar</systemPath-->
         </dependency>
         <!-- Dependency for Yam++2012 -->
         <dependency>
@@ -43,19 +56,7 @@
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/Main.jar</systemPath>
-            <!--systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/YamAPI.jar</systemPath-->
-        </dependency>
-        <!-- http://mvnrepository.com/artifact/com.hp.hpl.jena/jena -->
-        <dependency>
-            <groupId>com.hp.hpl.jena</groupId>
-            <artifactId>jena</artifactId>
-            <version>2.6.4</version>
-        </dependency>
-        <!-- http://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-multipart -->
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-multipart</artifactId>
-            <version>2.22.1</version>
+            <!--systemPath>${project.basedir}/lib/YamAPI.jar</systemPath-->
         </dependency>
         <!--
         mvn install:install-file 
@@ -69,7 +70,8 @@
             <artifactId>align</artifactId>
             <version>1.0</version>
             <!--scope>system</scope>
-            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/procalign.jar</systemPath-->
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/procalign.jar</systemPath>
+            <systemPath>${project.basedir}/lib/procalign.jar</systemPath-->
         </dependency>
     </dependencies>
 
