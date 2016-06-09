@@ -4,3 +4,4 @@ nb-configuration.xml
 src/main/resources/conf.properties
 
 mvn-repo/
+/nbproject/
