@@ -80,7 +80,7 @@ public class YamDatabaseConnector {
         // get user
         while (result.next()) {
             user = new YamUser(result.getString("name"), result.getString("mail"), 
-                    result.getString("password"), result.getString("isAffiliateTo"), result.getString("asMatched"));
+                    result.getString("password"), result.getString("isAffiliateTo"), result.getString("asMatched"), result.getString("canMatch"));
                 
         }
         

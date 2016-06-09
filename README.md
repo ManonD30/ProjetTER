@@ -41,6 +41,7 @@ mail varchar(255),
 name varchar(255),
 isAffiliateTo varchar(255),
 asMatched int,
+canMatch int,
 password varchar(255),
 PRIMARY KEY (mail)
 );
