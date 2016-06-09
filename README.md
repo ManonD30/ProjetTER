@@ -1,5 +1,14 @@
 # Graphical User Interface for the Ontology matcher YAM++
 
+## Install WordNet
+
+Install WordNet on Ubuntu (used by Yam)
+
+```bash
+sudo apt-get upgrade
+sudo apt-get install wordnet
+```
+
 ## Install it
 
 ```bash
