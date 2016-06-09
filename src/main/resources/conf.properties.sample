@@ -1,5 +1,5 @@
 dbhost=localhost
-dbuser=root
+dbusername=root
 dbpassword=mypassword
 dbname=yam
 workdir=/srv/yam-gui

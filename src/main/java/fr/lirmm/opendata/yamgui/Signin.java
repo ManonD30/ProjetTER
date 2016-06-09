@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,39 +26,18 @@ public class Signin extends HttpServlet {
 		String password = request.getParameter("passwordIn");
 		String name = null;
 		String canMatch = null;
+                
+                // write logs to catalina.out
+                Logger myLog = Logger.getLogger (Signin.class.getName());
 
 		try {
-			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/yam";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root",
-					"lirmmpass");
-
-			// mysql request
-			String query = "SELECT name, canMatch FROM user WHERE mail= ? AND password = ?";
-
-			// create the mysql prepared statement
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setString(1, mail);
-			String hashed = hash(password);
-			preparedStmt.setString(2, hashed);
-
-			// execute the prepared statement
-			ResultSet result = preparedStmt.executeQuery();
-
-			// get user's name
-			while (result.next()) {
-				name = result.getString("name");
-				canMatch = result.getString("canMatch");
-			}
-
-			// close connection to database
-			conn.close();
+                        YamDatabaseConnector dbConnector = new YamDatabaseConnector();
+                        YamUser user = dbConnector.userConnection(mail, password);
+                        name = user.getName();
 
 		} catch (Exception e) {
-			System.err.println("Exception catched!");
-			System.err.println(e.getMessage());
+                        myLog.log(Level.INFO, "Login failed!!!");
+                        myLog.log(Level.INFO, e.getMessage());
 		}
 
 		// if invalid password or mail
