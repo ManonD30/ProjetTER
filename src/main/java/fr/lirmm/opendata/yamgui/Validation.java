@@ -29,11 +29,16 @@ import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import fr.inrialpes.exmo.align.parser.AlignmentParser;
+import java.util.Properties;
 
 public class Validation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+            
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
 
 		// get the key in the cookie
 		String key = null;
@@ -63,9 +68,9 @@ public class Validation extends HttpServlet {
 
 		// add ontologies label<-->key translation to response
 		InputStream in1 = new FileInputStream(
-				"WebContent/ontologies/validationSource" + key + ".owl");
+				prop.getProperty("workdir") + "/ontologies/validationSource" + key + ".owl");
 		InputStream in2 = new FileInputStream(
-				"WebContent/ontologies/validationTarget" + key + ".owl");
+				prop.getProperty("workdir") + "/ontologies/validationTarget" + key + ".owl");
 		validationOnto1.clear();
 		validationOnto2.clear();
 		loadOnto(in1, validationOnto1);
@@ -92,13 +97,17 @@ public class Validation extends HttpServlet {
 
 		FileChannel in = null; // input
 		FileChannel out = null; // output
+                
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
 
 		try {
 			// Init
 
-			in = new FileInputStream("WebContent/ontologies/validationSource"
+			in = new FileInputStream(prop.getProperty("workdir") + "/ontologies/validationSource"
 					+ key + ".owl").getChannel();
-			out = new FileOutputStream("WebContent/save/" + dateName + "_"
+			out = new FileOutputStream(prop.getProperty("workdir") + "/save/" + dateName + "_"
 					+ key + "validationSource.owl").getChannel();
 
 			// Copy from in to out
@@ -128,15 +137,19 @@ public class Validation extends HttpServlet {
 		DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 		Date date = new Date();
 		String dateName = dateFormat.format(date);
+                
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
 
 		FileChannel in = null; // input
 		FileChannel out = null; // output
 
 		try {
 			// Init
-			in = new FileInputStream("WebContent/ontologies/validationTarget"
+			in = new FileInputStream(prop.getProperty("workdir") + "/ontologies/validationTarget"
 					+ key + ".owl").getChannel();
-			out = new FileOutputStream("WebContent/save/" + dateName + "_"
+			out = new FileOutputStream(prop.getProperty("workdir") + "/save/" + dateName + "_"
 					+ key + "validationTarget.owl").getChannel();
 
 			// Copy from in to out
@@ -162,9 +175,14 @@ public class Validation extends HttpServlet {
 
 	public void getCellData(ArrayList<Map> validationListe, String key)
 			throws AlignmentException, IOException {
+            
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+                
 		AlignmentParser aparser = new AlignmentParser(0);
 		// rdf file
-		Alignment file = aparser.parse(new File("WebContent/ontologies/rdf"
+		Alignment file = aparser.parse(new File(prop.getProperty("workdir") + "/ontologies/rdf"
 				+ key + ".rdf").toURI());
 
 		// cell iterator

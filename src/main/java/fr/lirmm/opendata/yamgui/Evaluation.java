@@ -76,11 +76,15 @@ public class Evaluation extends HttpServlet {
 	}
 
 	//get F measure
-	private double getFm(String key) throws AlignmentException {
-		AlignmentParser aparser = new AlignmentParser(0);
+	private double getFm(String key) throws AlignmentException, IOException {
+		// Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+            
+                AlignmentParser aparser = new AlignmentParser(0);  
 		Alignment reference = aparser.parse(new File(
-				"WebContent/ontologies/reference" + key + ".rdf").toURI());
-		Alignment a1 = aparser.parse(new File("WebContent/ontologies/alignment"
+				prop.getProperty("workdir") + "/ontologies/reference" + key + ".rdf").toURI());
+		Alignment a1 = aparser.parse(new File(prop.getProperty("workdir") + "/ontologies/alignment"
 				+ key + ".rdf").toURI());
 		Evaluator evaluator2 = new PRecEvaluator(reference, a1);
 		Properties p1 = new Properties();
@@ -90,11 +94,15 @@ public class Evaluation extends HttpServlet {
 	}
 
 	//get precision
-	private double getPr(String key) throws AlignmentException {
+	private double getPr(String key) throws AlignmentException, IOException {
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+                
 		AlignmentParser aparser = new AlignmentParser(0);
 		Alignment reference = aparser.parse(new File(
-				"WebContent/ontologies/reference" + key + ".rdf").toURI());
-		Alignment a1 = aparser.parse(new File("WebContent/ontologies/alignment"
+				prop.getProperty("workdir") + "/ontologies/reference" + key + ".rdf").toURI());
+		Alignment a1 = aparser.parse(new File(prop.getProperty("workdir") + "/ontologies/alignment"
 				+ key + ".rdf").toURI());
 		Evaluator evaluator2 = new PRecEvaluator(reference, a1);
 		Properties p1 = new Properties();
@@ -104,11 +112,15 @@ public class Evaluation extends HttpServlet {
 	}
 
 	//get recall
-	private double getRec(String key) throws AlignmentException {
+	private double getRec(String key) throws AlignmentException, IOException {
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+            
 		AlignmentParser aparser = new AlignmentParser(0);
 		Alignment reference = aparser.parse(new File(
-				"WebContent/ontologies/reference" + key + ".rdf").toURI());
-		Alignment a1 = aparser.parse(new File("WebContent/ontologies/alignment"
+				prop.getProperty("workdir") + "/ontologies/reference" + key + ".rdf").toURI());
+		Alignment a1 = aparser.parse(new File(prop.getProperty("workdir") + "/ontologies/alignment"
 				+ key + ".rdf").toURI());
 		Evaluator evaluator2 = new PRecEvaluator(reference, a1);
 		Properties p1 = new Properties();
@@ -118,11 +130,15 @@ public class Evaluation extends HttpServlet {
 	}
 
 	//get f measure table
-	private double[] getFMTab(String key) throws AlignmentException {
+	private double[] getFMTab(String key) throws AlignmentException, IOException {
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+                
 		AlignmentParser aparser = new AlignmentParser(0);
 		Alignment reference = aparser.parse(new File(
-				"WebContent/ontologies/reference" + key + ".rdf").toURI());
-		Alignment a1 = aparser.parse(new File("WebContent/ontologies/alignment"
+				prop.getProperty("workdir") + "/ontologies/reference" + key + ".rdf").toURI());
+		Alignment a1 = aparser.parse(new File(prop.getProperty("workdir") + "/ontologies/alignment"
 				+ key + ".rdf").toURI());
 		Evaluator evaluator2 = new PRecEvaluator(reference, a1);
 		Properties p1 = new Properties();
@@ -139,11 +155,15 @@ public class Evaluation extends HttpServlet {
 	}
 
 	//get precision table
-	private double[] getPrTab(String key) throws AlignmentException {
+	private double[] getPrTab(String key) throws AlignmentException, IOException {
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+                
 		AlignmentParser aparser = new AlignmentParser(0);
 		Alignment reference = aparser.parse(new File(
-				"WebContent/ontologies/reference" + key + ".rdf").toURI());
-		Alignment a1 = aparser.parse(new File("WebContent/ontologies/alignment"
+				prop.getProperty("workdir") + "/ontologies/reference" + key + ".rdf").toURI());
+		Alignment a1 = aparser.parse(new File(prop.getProperty("workdir") + "/ontologies/alignment"
 				+ key + ".rdf").toURI());
 		Evaluator evaluator2 = new PRecEvaluator(reference, a1);
 		Properties p1 = new Properties();
@@ -160,11 +180,15 @@ public class Evaluation extends HttpServlet {
 	}
 
 	//get recall tab
-	private double[] getRecTab(String key) throws AlignmentException {
+	private double[] getRecTab(String key) throws AlignmentException, IOException {
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+                
 		AlignmentParser aparser = new AlignmentParser(0);
 		Alignment reference = aparser.parse(new File(
-				"WebContent/ontologies/reference" + key + ".rdf").toURI());
-		Alignment a1 = aparser.parse(new File("WebContent/ontologies/alignment"
+				prop.getProperty("workdir") + "/ontologies/reference" + key + ".rdf").toURI());
+		Alignment a1 = aparser.parse(new File(prop.getProperty("workdir") + "/ontologies/alignment"
 				+ key + ".rdf").toURI());
 		Evaluator evaluator2 = new PRecEvaluator(reference, a1);
 		Properties p1 = new Properties();
