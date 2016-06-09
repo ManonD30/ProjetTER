@@ -40,8 +40,9 @@ CREATE TABLE user
 mail varchar(255),
 name varchar(255),
 isAffiliateTo varchar(255),
-canMatch int,
-password varchar(255)
+asMatched int,
+password varchar(255),
+PRIMARY KEY (mail)
 );
 ```
 

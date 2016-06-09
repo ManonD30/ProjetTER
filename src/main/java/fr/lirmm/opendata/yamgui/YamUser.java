@@ -14,7 +14,7 @@ public class YamUser {
     String mail;
     String passwordHash;
     String isAffiliateTo;
-    Integer canMatch;
+    Integer asMatched;
 
     /**
      * YamUser constructor
@@ -23,19 +23,19 @@ public class YamUser {
      * @param mail
      * @param passwordHash
      * @param isAffiliateTo
-     * @param canMatch 
+     * @param asMatched 
      */
-    public YamUser(String name, String mail, String passwordHash, String isAffiliateTo, String canMatch) {
+    public YamUser(String name, String mail, String passwordHash, String isAffiliateTo, String asMatched) {
         this.name = name;
         this.mail = mail;
         this.passwordHash = passwordHash;
         this.isAffiliateTo = isAffiliateTo;
         
         // If canMatch is null we set it to 5 by default
-        if (canMatch == null) {
-            this.canMatch = 5;
+        if (asMatched == null) {
+            this.asMatched = 5;
         } else {
-            this.canMatch = Integer.parseInt(canMatch);
+            this.asMatched = Integer.parseInt(asMatched);
         }
     }
 
@@ -63,12 +63,12 @@ public class YamUser {
         this.isAffiliateTo = isAffiliateTo;
     }
 
-    public Integer getCanMatch() {
-        return canMatch;
+    public Integer getAsMatched() {
+        return asMatched;
     }
 
-    public void setCanMatch(Integer canMatch) {
-        this.canMatch = canMatch;
+    public void setAsMatched(Integer asMatched) {
+        this.asMatched = asMatched;
     }
     
     
