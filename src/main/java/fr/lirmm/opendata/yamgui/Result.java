@@ -53,44 +53,16 @@ public class Result extends HttpServlet {
                 prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
                 
                 Logger myLog = Logger.getLogger (Result.class.getName());
-                myLog.log(Level.INFO, "Dans Result");
 		try {
-			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/yam";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root",
-					"lirmmpass");
-
-			// get user's mail
-			String mail = (String) request.getSession().getAttribute("mail");
-
-			// increment asMatched value
-			String query = "UPDATE user SET asMatched=asMatched+1 WHERE mail=?";
-
-			// create the mysql prepared statement
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setString(1, mail);
-
-			// execute the preparedstatement
-			preparedStmt.execute();
-
-			// check asMatched value
-			query = "SELECT asMatched, canMatch FROM user WHERE mail=?";
-
-			// create the mysql prepared statement
-			preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setString(1, mail);
-
-			// execute the preparedstatement
-			ResultSet result = preparedStmt.executeQuery();
-
-			while (result.next()) {
-				asMatched = Integer.parseInt(result.getString("asMatched"));
-				canMatch = Integer.parseInt(result.getString("canMatch"));
-			}
-			// close connection to database
-			conn.close();
+                    
+                        // get user's mail
+                        String mail = (String) request.getSession().getAttribute("mail");
+                        
+                        YamDatabaseConnector dbConnector = new YamDatabaseConnector();
+                        YamUser user = dbConnector.updateAsMatched(mail);
+                    
+                        asMatched = user.getAsMatched();
+                        canMatch = user.getCanMatch();
 
 		} catch (Exception e) {
 			System.err.println("Exception catched!");
@@ -106,7 +78,6 @@ public class Result extends HttpServlet {
 					.forward(request, response);
 			;
 		} else {
-                        myLog.log(Level.INFO, "else après asMatched check");
 			// get the key in the cookie
 			String key = null;
 			Cookie[] cookies = request.getCookies();
@@ -144,8 +115,6 @@ public class Result extends HttpServlet {
 			String s = Float.toString(execTime);
 			// add matching time to response
 			request.setAttribute("time", s);
-                        
-                        myLog.log(Level.INFO, "apres set attribute");
 
 			// add cell data to the list
 			try {
@@ -171,8 +140,6 @@ public class Result extends HttpServlet {
 			request.setAttribute("onto1", Onto1);
 			request.setAttribute("onto2", Onto2);
 
-                        
-                        myLog.log(Level.INFO, "avant get servlet context");
 			// send response
 			this.getServletContext()
 					.getRequestDispatcher("/WEB-INF/result.jsp")

@@ -37,74 +37,31 @@ public class Signup {
 			throws MalformedURLException, URISyntaxException {
 
 		try {
-			// create a mysql database connection
-			String myDriver = "org.gjt.mm.mysql.Driver";
-			String myUrl = "jdbc:mysql://localhost/yam";
-			Class.forName(myDriver);
-			Connection conn = DriverManager.getConnection(myUrl, "root",
-					"lirmmpass");
-
-			// check if user is in database
-			// the mysql insert statement
-			String query = "SELECT name FROM user WHERE mail=?";
-
-			// create the mysql insert preparedstatement
-			PreparedStatement preparedStmt = conn.prepareStatement(query);
-			preparedStmt.setString(1, mail);
-
-			// execute the prepared statement
-			ResultSet result = preparedStmt.executeQuery();
-
-			// get result
-			String inDatabase = null;
-			while (result.next()) {
-				inDatabase = result.getString("name");
-			}
-
-			// if user not in database
-			System.out.println(name);
-			if (inDatabase == null) {
-				// Insert into Database
-				// the mysql insert statement
-				query = " insert into user (mail, name, isAffiliateTo, password)"
-						+ " values (?, ?, ?, ?)";
-
-				// create the mysql insert preparedstatement
-				preparedStmt = conn.prepareStatement(query);
-				preparedStmt.setString(1, mail);
-				preparedStmt.setString(2, name);
-				String hashed = hash(password);
-				preparedStmt.setString(3, affiliation);
-				preparedStmt.setString(4, hashed);
-
-				// execute the preparedstatement
-				preparedStmt.execute();
-
-				conn.close();
-
-				// create session
-				HttpSession session = request.getSession();
-				// add user's key (mail) to session
-				session.setAttribute("mail", mail);
-				// add user's name to session
-				session.setAttribute("name", name);
-				//add default canMatch to session
-				String canMatch= "5";
-				session.setAttribute("canMatch", canMatch);
-				// send response
-
-			
-			} else { // if user not in database redirect to sign
-				System.out.println("In DB");
-				URI uri = new URL("http://193.49.107.124/matcher.rest.sw/sign")
-						.toURI();
-				return Response.seeOther(uri).build();
-			}
+                        YamDatabaseConnector dbConnector = new YamDatabaseConnector();
+                        YamUser user = dbConnector.userCreate(mail, name, affiliation, password);
+                    
+                        if (user == null) {
+                            System.out.println("In DB");
+                            //response.sendRedirect("sign")
+                            URI uri = new URL("http://localhost:8080/yam-gui-0.1/sign")
+                                            .toURI();
+                            return Response.seeOther(uri).build();
+                        } else {
+                            // create session
+                            HttpSession session = request.getSession();
+                            // add user's key (mail) to session
+                            session.setAttribute("mail", user.getMail());
+                            // add user's name to session
+                            session.setAttribute("name", user.getName());
+                            //add canMatch to session
+                            session.setAttribute("canMatch", user.getCanMatch());
+                            // send response
+                        }
 		} catch (Exception e) {
 			System.err.println("Exception catched!");
 			System.err.println(e.getMessage());
 		}
-		URI uri = new URL("http://193.49.107.124/matcher.rest.sw/index")
+		URI uri = new URL("http://localhost:8080/yam-gui-0.1/index")
 		.toURI();
 		return Response.seeOther(uri).build();
 	}
