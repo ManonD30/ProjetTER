@@ -42,7 +42,7 @@
 			%>
 
 			<form
-				action='http://193.49.107.124/matcher.rest.sw/validationDownload'
+				action='validationDownload'
 				method='post'>
 				<div class=tabDiv>
 					<table id=table>

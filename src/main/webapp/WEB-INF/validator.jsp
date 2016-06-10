@@ -26,7 +26,7 @@
 		</div>
 
 		<div class=btnMatch id=btnValidate style="display: none;">
-			<form action="http://193.49.107.124/matcher.rest.sw/validation"
+			<form action="validation"
 				method="post" name=runMatch
 				onsubmit="document.location.href = '#overlay';">
 

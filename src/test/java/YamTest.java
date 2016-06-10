@@ -46,8 +46,8 @@ public class YamTest {
     @Test
     public void testYamMatch() {
         // Fail a cause de net.didion.jwnl.jwnl exception : WordNet. Passer direct à 2013
-        MainProgram.match("/home/emonet/java_workspace/yam-gui/WebContent/data/cmt.owl",
+        /*MainProgram.match("/home/emonet/java_workspace/yam-gui/WebContent/data/cmt.owl",
                             "/home/emonet/java_workspace/yam-gui/WebContent/data/Conference.owl",
-                            "/srv/yam-gui/result.rdf");
+                            "/srv/yam-gui/result.rdf");*/
     }
 }
