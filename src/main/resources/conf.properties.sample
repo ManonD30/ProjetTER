@@ -3,3 +3,4 @@ dbusername=root
 dbpassword=mypassword
 dbname=yam
 workdir=/srv/yam-gui
+appurl=http://localhost:8080/yam-gui-0.1

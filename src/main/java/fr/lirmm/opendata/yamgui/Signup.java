@@ -1,5 +1,6 @@
 package fr.lirmm.opendata.yamgui;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,7 +36,11 @@ public class Signup {
 			@FormDataParam("nameUp") String name,
 			@FormDataParam("affiliationUp") String affiliation,
 			@FormDataParam("passwordUp") String password)
-			throws MalformedURLException, URISyntaxException {
+			throws MalformedURLException, URISyntaxException, IOException {
+            
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
 
 		try {
                         YamDatabaseConnector dbConnector = new YamDatabaseConnector();
@@ -43,7 +49,7 @@ public class Signup {
                         if (user == null) {
                             System.out.println("In DB");
                             //response.sendRedirect("sign")
-                            URI uri = new URL("http://localhost:8080/yam-gui-0.1/sign")
+                            URI uri = new URL(prop.getProperty("appurl") + "/sign")
                                             .toURI();
                             return Response.seeOther(uri).build();
                         } else {
@@ -61,7 +67,7 @@ public class Signup {
 			System.err.println("Exception catched!");
 			System.err.println(e.getMessage());
 		}
-		URI uri = new URL("http://localhost:8080/yam-gui-0.1/index")
+		URI uri = new URL(prop.getProperty("appurl") + "/index")
 		.toURI();
 		return Response.seeOther(uri).build();
 	}
