@@ -36,7 +36,7 @@ import fr.inrialpes.exmo.align.parser.AlignmentParser;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.MainProgram;
+import main2.MainProgram;
 
 public class Result extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -98,7 +98,7 @@ public class Result extends HttpServlet {
 			// get time at the matching beginning
 			long begin = System.currentTimeMillis();
                         
-                        myLog.log(Level.INFO, "Juste avant main");
+                        myLog.log(Level.INFO, "Juste avant main: " + prop.getProperty("workdir") + "/ontologies/first" + key + ".owl");
 
 			// run YAM++ with two ontologies (.owl) to a new .rdf
 			MainProgram.match(prop.getProperty("workdir") + "/ontologies/first" + key + ".owl",

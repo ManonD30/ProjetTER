@@ -1,5 +1,16 @@
 # Graphical User Interface for the Ontology matcher YAM++
 
+Using Apache Tomcat 7 and Java 8
+
+## Install Tomcat
+
+* On Ubuntu
+
+```bash
+sudo apt-get install tomcat7
+sudo apt-get install tomcat7-docs tomcat7-admin tomcat7-examples
+```
+
 ## Install WordNet
 
 Install WordNet on Ubuntu (used by Yam)
@@ -8,6 +19,13 @@ Install WordNet on Ubuntu (used by Yam)
 sudo apt-get upgrade
 sudo apt-get install wordnet
 ```
+
+You also have to make the dictionary used by "Main.jar" MainProgram available on your server.
+
+Using WordNet needs you to provide a path to the wordnet dictionary in configs/WNTemplate.xml in Main.jar
+By default it is `/home/emonet/wordnet_dict`
+
+You can find the content of this directory in this Git repository under "wordnet_dict"
 
 ## Install it
 
@@ -42,7 +60,7 @@ chmod -R 777 /srv/yam-gui
 
 ```sql
 CREATE DATABASE yam;
-USE	yam
+USE	yam;
 
 CREATE TABLE user
 (
@@ -62,6 +80,8 @@ PRIMARY KEY (mail)
 
 
 ## Use logger
+
+To log to tomcat catalina log
 ```java
 Logger myLog = Logger.getLogger (MyClass.class.getName());
 myLog.log(Level.INFO, "hello world");

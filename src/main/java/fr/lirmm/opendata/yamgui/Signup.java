@@ -37,7 +37,7 @@ public class Signup {
 			@FormDataParam("affiliationUp") String affiliation,
 			@FormDataParam("passwordUp") String password)
 			throws MalformedURLException, URISyntaxException, IOException {
-            
+                
                 // Load properties file for work directory
                 Properties prop = new Properties();
                 prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));

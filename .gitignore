@@ -5,6 +5,7 @@ nb-configuration.xml
 src/main/resources/conf.properties
 src/main/resources/conf.properties.infodemo
 src/main/resources/conf.properties.local
+src/main/resources/conf.properties.advanse
 
 mvn-repo/
 /nbproject/

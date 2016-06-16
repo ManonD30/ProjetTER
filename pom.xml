@@ -62,12 +62,20 @@
             <!--systemPath>${project.basedir}/lib/owlapi-bin.jar</systemPath-->
         </dependency>
         <!-- Dependency for Yam++2012 -->
+        <!--
+        mvn install:install-file 
+          -Dfile=src/main/webapp/WEB-INF/lib/Main2.jar
+          -DgroupId=MainYam
+          -DartifactId=main 
+          -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
+          mvn install:install-file -Dfile=src/main/webapp/WEB-INF/lib/Main2.jar -DgroupId=MainYam -DartifactId=main -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
+        -->
         <dependency>
-            <groupId>Main</groupId>
+            <groupId>MainYam</groupId>
             <artifactId>main</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/Main.jar</systemPath>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/Main2.jar</systemPath>
             <!--systemPath>${project.basedir}/lib/YamAPI.jar</systemPath-->
         </dependency>
         <!--
@@ -94,22 +102,41 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <compilerArguments>
                         <endorseddirs>${endorsed.dir}</endorseddirs>
                     </compilerArguments>
                 </configuration>
             </plugin>
+            
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                </configuration>
+              <artifactId>maven-war-plugin</artifactId>
+              <version>2.3</version>
+              <executions>
+                  <execution>
+                      <id>default-war</id>
+                      <phase>package</phase>
+                      <goals>
+                          <goal>war</goal>
+                      </goals>
+                  </execution>
+              </executions>
+              <configuration>
+                  <webResources>
+                      <webResource>
+                          <directory>src/main/webapp/META-INF</directory>
+                          <includes>
+                              <include>context.xml</include>
+                          </includes>
+                          <filtering>true</filtering>
+                          <targetPath>META-INF</targetPath>
+                      </webResource>
+                  </webResources>
+              </configuration>
             </plugin>
-            <plugin>
+            
+            <!--plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>2.6</version>
@@ -133,7 +160,26 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin-->
+
+            <!--plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-shade-plugin</artifactId>
+              <version>2.3</version>
+              <configuration>
+                <createDependencyReducedPom>false</createDependencyReducedPom>
+                <shadedArtifactAttached>true</shadedArtifactAttached>
+                <shadedClassifierName>full</shadedClassifierName>
+              </configuration>
+              <executions>
+                <execution>
+                  <phase>package</phase>
+                  <goals>
+                    <goal>shade</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin-->
         </plugins>
     </build>
 
