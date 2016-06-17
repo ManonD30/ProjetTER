@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Properties;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +23,11 @@ public class DownloadYam extends HttpServlet {
             PrintWriter out = response.getWriter();
             out.println(System.getProperty("user.dir"));*/
             
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+            
 		InputStream is = new FileInputStream(
-				"/home/emonet/java_workspace/yam-gui/WebContent/YamFileAndDemo/Yam++.zip");
+				prop.getProperty("workdir") + "/yam_files/Yam++.zip");
 		OutputStream os = response.getOutputStream();
 		response.setHeader("Content-Disposition",
 				"attachment;filename=Yam++.zip");
