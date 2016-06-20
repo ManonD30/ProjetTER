@@ -36,7 +36,7 @@ import fr.inrialpes.exmo.align.parser.AlignmentParser;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main2.MainProgram;
+import mainyam.MainProgram;
 
 public class Result extends HttpServlet {
 	private static final long serialVersionUID = 1L;
