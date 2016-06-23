@@ -1,3 +1,10 @@
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="org.json.simple.JSONArray"%>
+<%@page import="org.apache.http.client.methods.HttpGet"%>
+<%@page import="org.apache.http.HttpResponse"%>
+<%@page import="org.apache.http.impl.client.HttpClientBuilder"%>
+<%@page import="org.apache.http.impl.client.CloseableHttpClient"%>
+<%@page import="java.nio.charset.Charset"%>
 <%@include file="header.jsp" %>
 
 	<script>
@@ -13,13 +20,83 @@
 			<form action="rest/matcher/uploadValidationFiles" method="post"
 				enctype="multipart/form-data" name=form
 				onsubmit="display_div('btnValidate');">
-				<label for=firstFile>Source ontology</label> <input type="file"
-					id=firstFile name="firstFile" accept=".owl" required /> <br>
-				<label for=secondFile>Target ontology&nbsp;</label> <input
-					id=secondFile type="file" name="secondFile" accept=".owl" required />
-				<br> <label for=rdfFile>Alignment
-					&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-				<input id=rdfFile type="file" name="rdfFile" accept=".rdf" required />
+                          <div style="padding-bottom: 20px">
+				<label for=firstFile>Source ontology</label> <br/>
+                                <input type="file" id=firstFile name="firstFile" accept=".owl" required /> <br/>
+                                <%@page import="java.io.*" %>
+<%@page import="java.net.*" %>
+<%@page import="org.apache.http.client.utils.URIBuilder" %>
+
+<%   
+  // TODO: define ApiKey in conf.properties
+  String myApiKey = "ffdfa1d6-8db4-4257-a25f-43dd9671063e";
+   
+  CloseableHttpClient client = HttpClientBuilder.create().build();
+  HttpResponse httpResponse = null;
+  try{
+    URI uri = new URI("http://data.stageportal.lirmm.fr/ontologies?apikey=" + myApiKey);
+    httpResponse = client.execute(new HttpGet(uri));
+  } catch (URISyntaxException e) {
+  }catch(IOException e){
+  }
+
+  // process response
+  String recv;
+  String ontologiesString = null;
+  BufferedReader reader = null;
+  try{
+    reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), Charset.forName("UTF-8")));
+  }catch (IOException e){
+    
+  }
+  
+  while ((recv = reader.readLine()) != null) {
+    ontologiesString += recv;
+  }
+  reader.close();
+  //JSONObject jsonObject = new JSONObject(ontologiesString);
+  //JSONArray jsonArray = new JSONArray(ontologiesString);
+
+  out.println(ontologiesString);
+  
+   /*
+   URL requestUrl = new URL("http://data.bioontology.org/?apikey=" + myApiKey);
+   //URL requestUrl = new URL("http://data.stageportal.lirmm.fr");
+   //URL requestUrl = new URL("http://advanse.lirmm.fr:8082/advanse_api");
+   
+   //URI buildy = new URIBuilder("http://data.stageportal.lirmm.fr").addParameter("apikey", "1cfae05f-9e67-486f-820b-b393dec5764b").build();
+   //URI buildy = new URIBuilder("http://advanse.lirmm.fr:8082/advanse_api").build();
+   
+   HttpURLConnection httpConn = (HttpURLConnection) (requestUrl).openConnection();
+   httpConn.setRequestMethod("GET");
+   httpConn.setRequestProperty("Content-Type", "application/json");
+   httpConn.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36 OPR/38.0.2220.31");
+   httpConn.setRequestProperty ("Authorization", "apikey token=" + myApiKey);
+
+    InputStream is;
+    if (httpConn.getResponseCode() >= 400) {
+        is = httpConn.getErrorStream();
+    } else {
+        out.println("pas error");
+        is = httpConn.getInputStream();
+    }
+  
+  BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+   
+   
+   /*URL jsonpage = new URL("http://data.stageportal.lirmm.fr/ontologies/?apikey=1cfae05f-9e67-486f-820b-b393dec5764b");
+   URLConnection urlcon = jsonpage.openConnection();
+   BufferedReader buffread = new BufferedReader(new InputStreamReader(urlcon.getInputStream()));*/
+%>
+                          </div>
+                          <div style="padding-bottom: 20px">
+				<label for=secondFile>Target ontology&nbsp;</label> <br/>
+                                <input id=secondFile type="file" name="secondFile" accept=".owl" required />
+                          </div>
+                          <div style="padding-bottom: 20px">
+                                <label for=rdfFile>Alignment &nbsp;</label> <br/>
+                                <input id=rdfFile type="file" name="rdfFile" accept=".rdf" required />
+                          </div>
 				<br> <br> <input class=btn type="submit" value="Upload" />
 			</form>
 
