@@ -134,6 +134,8 @@ footer {
 	color: #f2f7f9;
 	background-color: #8ab7d1;
 	text-align: center;
+        position:fixed;
+        bottom:0;
 }
 
 .footerText {
