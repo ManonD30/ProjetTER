@@ -1,4 +1,4 @@
-	<footer>
+	<!--footer>
 		<a href=http://www.lirmm.fr target="_blank"><img class=footerImg
 			alt="LIRMM" src="images/favicon.ico"></a> <a
 			href=http://www.umontpellier.fr target="_blank"><img
@@ -9,6 +9,6 @@
 			alt="LIRMM" src="images/doremus.png"></a> <a
 			href=https://www.mesrs.dz target="_blank"><img class=footerImg
 			alt="LIRMM" src="images/MESRS.png"> </a>
-	</footer>
+	</footer-->
 </body>
 </html>
