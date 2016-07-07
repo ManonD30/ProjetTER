@@ -29,6 +29,7 @@
 
 <%   
   // TODO: define ApiKey in conf.properties
+  // Goal here: getting Stageportal ontologies to let the user choose from them
   String myApiKey = "ffdfa1d6-8db4-4257-a25f-43dd9671063e";
    
   CloseableHttpClient client = HttpClientBuilder.create().build();
