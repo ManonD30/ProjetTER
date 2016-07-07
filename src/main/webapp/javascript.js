@@ -46,6 +46,9 @@ function refreshTab() {
 	tableLines = table.rows;
 	// get number of lines
 	tableLength = tableLines.length;
+        
+        // update threshold display text
+        document.getElementById("threshold_display").innerHTML = threshold;
 
 	for ( var i = 0; i < tableLength; i++) { // for each line
 		// get columns
