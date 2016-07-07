@@ -25,6 +25,7 @@ import org.semanticweb.owl.align.AlignmentVisitor;
 import fr.inrialpes.exmo.align.impl.BasicParameters;
 import fr.inrialpes.exmo.align.impl.URIAlignment;
 import fr.inrialpes.exmo.align.impl.renderer.RDFRendererVisitor;
+import java.util.Properties;
 
 public class Download extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -35,6 +36,10 @@ public class Download extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+            
 		// get the key in the cookie
 		String key = null;
 		Cookie[] cookies = request.getCookies();
@@ -59,7 +64,7 @@ public class Download extends HttpServlet {
 		saveRDFFile(key); // save the final .rdf file
 
 		InputStream is = new FileInputStream(
-				"WebContent/ontologies/finalResult" + key + ".rdf");
+				prop.getProperty("workdir") + "/ontologies/finalResult" + key + ".rdf");
 		OutputStream os = response.getOutputStream();
 		response.setHeader("Content-Disposition",
 				"attachment;filename=result.rdf");
@@ -80,15 +85,19 @@ public class Download extends HttpServlet {
 		Date date = new Date();
 		String dateName = dateFormat.format(date);
 
+                // Load properties file for work directory
+                Properties prop = new Properties();
+                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+                
 		FileChannel in = null; // input
 		FileChannel out = null; // output
 
 		try {
 			// Init
 
-			in = new FileInputStream("WebContent/ontologies/finalResult" + key
+			in = new FileInputStream(prop.getProperty("workdir") + "/ontologies/finalResult" + key
 					+ ".rdf").getChannel();
-			out = new FileOutputStream("WebContent/save/" + dateName + "_"
+			out = new FileOutputStream(prop.getProperty("workdir") + "/save/" + dateName + "_"
 					+ key + "rdf.rdf").getChannel();
 
 			// Copy from in to out
@@ -152,9 +161,13 @@ public class Download extends HttpServlet {
 
 			alignments.render(renderer);
 			alignments.clone();
+                        
+                        // Load properties file for work directory
+                        Properties prop = new Properties();
+                        prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
 			// cmt-conference-confOf-iasted-sigkdd
 			PrintWriter out = new PrintWriter(
-					"WebContent/ontologies/finalResult" + key + ".rdf");
+					prop.getProperty("workdir") + "/ontologies/finalResult" + key + ".rdf");
 			out.println(swriter.toString());
 			out.close();
 			swriter.flush();

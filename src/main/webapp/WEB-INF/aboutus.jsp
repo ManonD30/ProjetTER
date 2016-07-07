@@ -5,9 +5,9 @@
 
 		<div class=contactUs>
 			<h1 style="margin-top: 0;padding-top:1%; text-align: left;">Contact us:</h1>
-			<h3 class=contactName>Zohra.Bellahsene@lirmm.fr &nbsp; | &nbsp;
-				Konstantin.Todorov@lirmm.fr &nbsp; | &nbsp;
-				Abdennasser.Tigrine@lirmm.fr</h3>
+			<h3 class=contactName><a href="mailto:Zohra.Bellahsene@lirmm.fr" target="_top">Zohra.Bellahsene@lirmm.fr</a> &nbsp; | &nbsp;
+				<a href="mailto:Konstantin.Todorov@lirmm.fr" target="_top">Konstantin.Todorov@lirmm.fr</a> &nbsp; | &nbsp;
+				<a href="mailto:Abdennasser.Tigrine@lirmm.fr" target="_top">Abdennasser.Tigrine@lirmm.fr</a></h3>
 			<br>
 		</div>
 		

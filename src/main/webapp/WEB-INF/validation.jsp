@@ -10,9 +10,11 @@
 
 		<div id=toHideWhenDownload>
 
-			<label for=seuilDynamic>Select your threshold</label> <br> <input
-				id=seuilDynamic name=seuilDynamic type="number" min=0 max=1
-				step=0.05 size=3 value=0 onchange="refreshTab();"> <br>
+			<label for=seuilDynamic>Select your threshold</label> 
+                        <span id="threshold_display">0</span>
+                        <br> <input
+				id=seuilDynamic name=seuilDynamic type="range" min=0 max=1
+				step=0.05 size=3 value=0 oninput="refreshTab();" onchange="refreshTab();"> <br>
 			<br>
 
 			<table>

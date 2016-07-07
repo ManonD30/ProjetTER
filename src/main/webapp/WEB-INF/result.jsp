@@ -10,9 +10,12 @@
 
 	<div id=toHideWhenDownload>
 
-		<label for=seuilDynamic>Select your threshold</label> <br> <input
-			id=seuilDynamic name=seuilDynamic type="number" min=0 max=1 step=0.05
-			size=3 value=0 onchange="refreshTab();">
+		<label for=seuilDynamic>Select your threshold:</label>
+                <span id="threshold_display">0</span>
+                <br> <input
+			id=seuilDynamic name=seuilDynamic type="range" min=0 max=1 step=0.05
+			size=3 value=0 oninput="refreshTab();" onchange="refreshTab();">
+                
 		<%
 					//get the execution time from response
 					String time = (String) request.getAttribute("time");
@@ -44,7 +47,7 @@
 							.getAttribute("onto2");
 				%>
 
-		<form action='http://localhost/matcher.rest.sw/download'
+		<form action='download'
 			method='post'>
 			<div class=tabDiv>
 				<table id=table>
