@@ -44,7 +44,7 @@
 							.getAttribute("onto2");
 				%>
 
-		<form action='http://localhost/matcher.rest.sw/download'
+		<form action='download'
 			method='post'>
 			<div class=tabDiv>
 				<table id=table>
