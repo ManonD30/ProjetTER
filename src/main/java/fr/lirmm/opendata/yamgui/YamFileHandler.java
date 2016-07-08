@@ -6,9 +6,13 @@
 package fr.lirmm.opendata.yamgui;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
@@ -17,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.HttpResponse;
@@ -41,7 +46,7 @@ public class YamFileHandler {
     }
     
     /**
-     * Upload a file taking its ontId in the params (i.e.: ont1 or ont2) and the HTTP request
+     * Upload a file taking its filename in the params (i.e.: ont1 or ont2) and the HTTP request
      * It download the file if it is an URL or get it from the POST request
      * 
      * @param ontId
@@ -49,10 +54,10 @@ public class YamFileHandler {
      * @return
      * @throws IOException 
      */
-    public String uploadFile(String ontId, HttpServletRequest request) throws IOException {
+    public String uploadFile(String ontName, String subDir, HttpServletRequest request) throws IOException {
       
       String ontologyString = null;
-      String sourceUrl = request.getParameter(ontId); // Retrieves <input type="text" name="description">
+      String sourceUrl = request.getParameter(ontName); // Retrieves <input type="text" name="description">
       Part filePart = null;
       String filename = null;
       
@@ -61,7 +66,7 @@ public class YamFileHandler {
       } else {
         
         try {
-          filePart = request.getPart(ontId); // Retrieves <input type="file" name="file">
+          filePart = request.getPart(ontName); // Retrieves <input type="file" name="file">
         } catch (Exception e) {
           ontologyString = "Could not load provided ontology file";
         }
@@ -72,27 +77,29 @@ public class YamFileHandler {
         }
       }
       
-      String randomId = storeFile(filename, ontologyString, false);
+      String randomId = storeFile(ontName + ".txt", subDir, ontologyString, false);
       
       return randomId;
     }
     
     
     /**
-     * Store the contentString in a file in the working directory
-     * The filename is randomly generated
+     * Store the contentString in a file in the working directory in a subdirectory
+     * Usually the sub directory is randomly generated before calling uploadFile
      * And returns the path to the created file
      * 
-     * @param contentString
      * @param filename
+     * @param subDir
+     * @param contentString
      * @param saveFile
      * @return 
      */
-    public String storeFile(String filename, String contentString, boolean saveFile) {
-      
-      String randomId = RandomStringUtils.randomAlphanumeric(20).toUpperCase();
-      
-      return randomId;
+    public String storeFile(String filename, String subDir, String contentString, boolean saveFile) 
+            throws FileNotFoundException, UnsupportedEncodingException, IOException {
+      // Generate file storage name: /$WORKING_DIR/ontologies/MYRANDOMID/ont1.txt for example
+      String storageName = this.workDir + "/data/tmp/" + subDir + "/" + filename;
+      FileUtils.writeStringToFile(new File(storageName), contentString);
+      return storageName;
     }
     
     

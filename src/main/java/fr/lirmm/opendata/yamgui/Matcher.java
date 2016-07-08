@@ -32,6 +32,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -64,12 +65,15 @@ public class Matcher extends HttpServlet {
         
         YamFileHandler fileHandler = new YamFileHandler();
         
-        String ontologyString1 = fileHandler.uploadFile("ont1", request);
-        String ontologyString2 = fileHandler.uploadFile("ont2", request);
+        // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
+        String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
+        
+        String ontologyString1 = fileHandler.uploadFile("ont1", subDirName, request);
+        String ontologyString2 = fileHandler.uploadFile("ont2", subDirName, request);
         
         responseString = ontologyString2;
         
-        out.print(responseString);
+        out.print(subDirName);
         out.flush();
       } catch (ClassNotFoundException ex) {
         Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
