@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -39,11 +40,21 @@ public class YamFileHandler {
         this.workDir = prop.getProperty("workdir");
     }
     
+    /**
+     * Upload a file taking its ontId in the params (i.e.: ont1 or ont2) and the HTTP request
+     * It download the file if it is an URL or get it from the POST request
+     * 
+     * @param ontId
+     * @param request
+     * @return
+     * @throws IOException 
+     */
     public String uploadFile(String ontId, HttpServletRequest request) throws IOException {
       
       String ontologyString = null;
       String sourceUrl = request.getParameter(ontId); // Retrieves <input type="text" name="description">
       Part filePart = null;
+      String filename = null;
       
       if (sourceUrl != null) {
         ontologyString = getUrlContent(sourceUrl);
@@ -55,12 +66,33 @@ public class YamFileHandler {
           ontologyString = "Could not load provided ontology file";
         }
         if (filePart != null) {
-          String fileName = filePart.getSubmittedFileName();
+          filename = filePart.getSubmittedFileName();
           InputStream fileContent = filePart.getInputStream();
           ontologyString = IOUtils.toString(fileContent, "UTF-8");
         }
       }
-      return ontologyString;
+      
+      String randomId = storeFile(filename, ontologyString, false);
+      
+      return randomId;
+    }
+    
+    
+    /**
+     * Store the contentString in a file in the working directory
+     * The filename is randomly generated
+     * And returns the path to the created file
+     * 
+     * @param contentString
+     * @param filename
+     * @param saveFile
+     * @return 
+     */
+    public String storeFile(String filename, String contentString, boolean saveFile) {
+      
+      String randomId = RandomStringUtils.randomAlphanumeric(20).toUpperCase();
+      
+      return randomId;
     }
     
     
