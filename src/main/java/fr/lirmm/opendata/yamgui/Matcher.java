@@ -1,14 +1,17 @@
 package fr.lirmm.opendata.yamgui;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -28,6 +31,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -38,7 +46,7 @@ public class Matcher extends HttpServlet {
 
     /**
     * Display infos about uploaded file (like its content)
-    * Upload a file using cURL: curl -X POST -H "Content-Type: multipart/form-data" -F file=@/srv/yam2013/cmt-conference.rdf http://localhost:8083/rest/matcher
+    * Upload a file using cURL: curl -X POST -H \"Content-Type: multipart/form-data\ -F ontFile1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?sourceUrl2=http://purl.obolibrary.org/obo/po.owl
     * 
     * @param request
     * @param response
@@ -50,12 +58,48 @@ public class Matcher extends HttpServlet {
       response.setCharacterEncoding("UTF-8");
       response.setContentType("text/html");
       PrintWriter out = response.getWriter();
-
-      //String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
-      Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-      String fileName = filePart.getSubmittedFileName();
-      InputStream fileContent = filePart.getInputStream();
-      out.print(fileName);
+      
+      String responseString = null;
+      
+      String ontologyString1 = null;
+      String sourceUrl1 = request.getParameter("sourceUrl1"); // Retrieves <input type="text" name="description">
+      Part filePart1 = null;
+      try {
+        filePart1 = request.getPart("ontFile1"); // Retrieves <input type="file" name="file">
+      } catch (Exception e) {
+        responseString = "Could not load provided ontology file ontFile1";
+      }
+      if (sourceUrl1 == null && filePart1 != null) {
+        String fileName = filePart1.getSubmittedFileName();
+        InputStream fileContent = filePart1.getInputStream();
+        ontologyString1 = IOUtils.toString(fileContent, "UTF-8");
+        
+      } else if (sourceUrl1 != null) {
+        
+        ontologyString1 = getUrlContent(sourceUrl1);
+        
+      }
+      
+      String ontologyString2 = null;
+      String sourceUrl2 = request.getParameter("sourceUrl2"); // Retrieves <input type="text" name="description">
+      Part filePart2 = null;
+      try {
+        filePart2 = request.getPart("ontFile2"); // Retrieves <input type="file" name="file">
+      } catch (Exception e) {
+        responseString = "Could not load provided ontology file ontFile2";
+      }
+      if (sourceUrl2 == null && filePart2 != null) {
+        String fileName = filePart2.getSubmittedFileName();
+        InputStream fileContent = filePart2.getInputStream();
+        ontologyString2 = IOUtils.toString(fileContent, "UTF-8"); 
+        
+      } else if (sourceUrl2 != null) {
+        
+        ontologyString2 = getUrlContent(sourceUrl2);
+        responseString = ontologyString2;
+      }
+     
+      out.print(responseString);
       out.flush();
     }
     
@@ -64,8 +108,23 @@ public class Matcher extends HttpServlet {
       response.setCharacterEncoding("UTF-8");
       response.setContentType("text/html");
       PrintWriter out = response.getWriter();
-
-      out.print("helllo");
+      
+      String responseString = null;
+      
+      // Check if source URL are fill, if not display a help text
+      String sourceUrl1 = request.getParameter("sourceUrl1");
+      String sourceUrl2 = request.getParameter("sourceUrl2");
+      if (sourceUrl1 != null && sourceUrl2 != null) {
+        String ontologyString1 = getUrlContent(sourceUrl1);
+        String ontologyString2 = getUrlContent(sourceUrl2);
+        responseString = ontologyString1;
+      } else {
+        responseString = "Example: <br/> curl -X POST -H \"Content-Type: multipart/form-data\" "
+                + "-F ontFile1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?sourceUrl2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl <br/>"
+                + "http://localhost:8083/rest/matcher?sourceUrl2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl&sourceUrl1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl";
+      }
+      
+      out.print(responseString);
       out.flush();
     }
 
@@ -155,6 +214,42 @@ public class Matcher extends HttpServlet {
                             }
                     }
             }
+    }
+    
+    /**
+     * Get the content of a URL page (to get ontologies from the URL)
+     * 
+     * @param sourceUrl
+     * @return
+     * @throws IOException 
+     */
+    public String getUrlContent(String sourceUrl) throws IOException {
+      CloseableHttpClient client = HttpClientBuilder.create().build();
+        HttpResponse httpResponse = null;
+        try{
+          URI uri = new URI(sourceUrl);
+          httpResponse = client.execute(new HttpGet(uri));
+        }catch(IOException e){
+          Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
+        } catch (URISyntaxException ex) {
+          Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // process response
+        BufferedReader reader = null;
+        try{
+          reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), Charset.forName("UTF-8")));
+        } catch (IOException e){
+          Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        String contentString = "";
+        String line;
+        while ((line = reader.readLine()) != null) {
+          contentString += line;
+        }
+        reader.close();
+        return contentString;
     }
 
 }
