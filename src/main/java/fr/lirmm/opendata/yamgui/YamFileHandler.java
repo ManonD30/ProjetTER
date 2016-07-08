@@ -77,9 +77,9 @@ public class YamFileHandler {
         }
       }
       
-      String randomId = storeFile(ontName + ".txt", subDir, ontologyString, false);
+      String storagePath = storeFile(ontName + ".txt", subDir, ontologyString, false);
       
-      return randomId;
+      return storagePath;
     }
     
     
@@ -97,9 +97,9 @@ public class YamFileHandler {
     public String storeFile(String filename, String subDir, String contentString, boolean saveFile) 
             throws FileNotFoundException, UnsupportedEncodingException, IOException {
       // Generate file storage name: /$WORKING_DIR/ontologies/MYRANDOMID/ont1.txt for example
-      String storageName = this.workDir + "/data/tmp/" + subDir + "/" + filename;
-      FileUtils.writeStringToFile(new File(storageName), contentString);
-      return storageName;
+      String storagePath = this.workDir + "/data/tmp/" + subDir + "/" + filename;
+      FileUtils.writeStringToFile(new File(storagePath), contentString);
+      return storagePath;
     }
     
     

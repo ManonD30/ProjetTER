@@ -41,6 +41,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
+import mainyam.MainProgram;
+
 @WebServlet("/rest/matcher")
 public class Matcher extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -48,6 +50,7 @@ public class Matcher extends HttpServlet {
     /**
     * Display infos about uploaded file (like its content)
     * Upload a file using cURL: curl -X POST -H \"Content-Type: multipart/form-data\ -F ontFile1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?sourceUrl2=http://purl.obolibrary.org/obo/po.owl
+    * curl -X POST -H "Content-Type: multipart/form-data" -F ont2=@/srv/yam2013/cmt.owl -F ont1=@/srv/yam2013/Conference.owl http://localhost:8083/rest/matcher
     * 
     * @param request
     * @param response
@@ -68,11 +71,15 @@ public class Matcher extends HttpServlet {
         // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
         String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
         
-        String ontologyString1 = fileHandler.uploadFile("ont1", subDirName, request);
-        String ontologyString2 = fileHandler.uploadFile("ont2", subDirName, request);
+        String storagePath1 = fileHandler.uploadFile("ont1", subDirName, request);
+        String storagePath2 = fileHandler.uploadFile("ont2", subDirName, request);
         
-        responseString = ontologyString2;
+        String resultStoragePath = "/srv/yam-gui/data/tmp/" + subDirName + "/result.rdf";
         
+        // Execute YAM to get the mappings in RDF/XML
+        MainProgram.match(storagePath1, storagePath2, resultStoragePath);
+        
+        // TODO: output result.rdf content
         out.print(subDirName);
         out.flush();
       } catch (ClassNotFoundException ex) {
