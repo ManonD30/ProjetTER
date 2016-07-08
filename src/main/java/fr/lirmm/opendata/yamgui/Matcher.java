@@ -56,7 +56,7 @@ public class Matcher extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {    
       response.setCharacterEncoding("UTF-8");
-      response.setContentType("text/html");
+      response.setContentType("text/plain");
       PrintWriter out = response.getWriter();
       
       String responseString = null;
@@ -96,8 +96,9 @@ public class Matcher extends HttpServlet {
       } else if (sourceUrl2 != null) {
         
         ontologyString2 = getUrlContent(sourceUrl2);
-        responseString = ontologyString2;
       }
+      
+      responseString = ontologyString2;
      
       out.print(responseString);
       out.flush();
@@ -106,7 +107,7 @@ public class Matcher extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {    
       response.setCharacterEncoding("UTF-8");
-      response.setContentType("text/html");
+      response.setContentType("text/plain");
       PrintWriter out = response.getWriter();
       
       String responseString = null;
@@ -117,7 +118,7 @@ public class Matcher extends HttpServlet {
       if (sourceUrl1 != null && sourceUrl2 != null) {
         String ontologyString1 = getUrlContent(sourceUrl1);
         String ontologyString2 = getUrlContent(sourceUrl2);
-        responseString = ontologyString1;
+        responseString = ontologyString1 + " LE 2 " + ontologyString2;
       } else {
         responseString = "Example: <br/> curl -X POST -H \"Content-Type: multipart/form-data\" "
                 + "-F ontFile1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?sourceUrl2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl <br/>"
