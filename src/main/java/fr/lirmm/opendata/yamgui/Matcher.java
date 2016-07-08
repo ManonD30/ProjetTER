@@ -55,53 +55,25 @@ public class Matcher extends HttpServlet {
     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {    
-      response.setCharacterEncoding("UTF-8");
-      response.setContentType("text/plain");
-      PrintWriter out = response.getWriter();
-      
-      String responseString = null;
-      
-      String ontologyString1 = null;
-      String sourceUrl1 = request.getParameter("sourceUrl1"); // Retrieves <input type="text" name="description">
-      Part filePart1 = null;
-      try {
-        filePart1 = request.getPart("ontFile1"); // Retrieves <input type="file" name="file">
-      } catch (Exception e) {
-        responseString = "Could not load provided ontology file ontFile1";
+      try {    
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/plain");
+        PrintWriter out = response.getWriter();
+        
+        String responseString = null;
+        
+        YamFileHandler fileHandler = new YamFileHandler();
+        
+        String ontologyString1 = fileHandler.uploadFile("ont1", request);
+        String ontologyString2 = fileHandler.uploadFile("ont2", request);
+        
+        responseString = ontologyString2;
+        
+        out.print(responseString);
+        out.flush();
+      } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
       }
-      if (sourceUrl1 == null && filePart1 != null) {
-        String fileName = filePart1.getSubmittedFileName();
-        InputStream fileContent = filePart1.getInputStream();
-        ontologyString1 = IOUtils.toString(fileContent, "UTF-8");
-        
-      } else if (sourceUrl1 != null) {
-        
-        ontologyString1 = getUrlContent(sourceUrl1);
-        
-      }
-      
-      String ontologyString2 = null;
-      String sourceUrl2 = request.getParameter("sourceUrl2"); // Retrieves <input type="text" name="description">
-      Part filePart2 = null;
-      try {
-        filePart2 = request.getPart("ontFile2"); // Retrieves <input type="file" name="file">
-      } catch (Exception e) {
-        responseString = "Could not load provided ontology file ontFile2";
-      }
-      if (sourceUrl2 == null && filePart2 != null) {
-        String fileName = filePart2.getSubmittedFileName();
-        InputStream fileContent = filePart2.getInputStream();
-        ontologyString2 = IOUtils.toString(fileContent, "UTF-8"); 
-        
-      } else if (sourceUrl2 != null) {
-        
-        ontologyString2 = getUrlContent(sourceUrl2);
-      }
-      
-      responseString = ontologyString2;
-     
-      out.print(responseString);
-      out.flush();
     }
     
     @Override
@@ -166,7 +138,7 @@ public class Matcher extends HttpServlet {
             }
             return null;
     }
-
+    
     // upload "fileToUpload" into "fileLocation"
     public void uploadFile(InputStream fileToUpload, String fileLocation) {
             try {
