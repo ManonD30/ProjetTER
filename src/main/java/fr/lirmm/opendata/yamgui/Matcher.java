@@ -63,34 +63,15 @@ public class Matcher extends HttpServlet {
     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {    
-      try {    
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/plain");
-        PrintWriter out = response.getWriter();
-        
-        String responseString = null;
-        
-        YamFileHandler fileHandler = new YamFileHandler();
-        
-        // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
-        String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
-        
-        String storagePath1 = fileHandler.uploadFile("ont1", subDirName, request);
-        String storagePath2 = fileHandler.uploadFile("ont2", subDirName, request);
-        
-        String resultStoragePath = "/srv/yam-gui/data/tmp/" + subDirName + "/result.rdf";
-        
-        // Execute YAM to get the mappings in RDF/XML
-        MainProgram.match(storagePath1, storagePath2, resultStoragePath);
-        
-        responseString = FileUtils.readFileToString(new File(resultStoragePath));
-        
-        // TODO: output result.rdf content
-        out.print(responseString);
-        out.flush();
-      } catch (ClassNotFoundException ex) {
-        Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
-      }
+      response.setCharacterEncoding("UTF-8");
+      response.setContentType("text/plain");
+      PrintWriter out = response.getWriter();
+      
+      String responseString = processRequest(request);
+      
+      // TODO: output result.rdf content
+      out.print(responseString);
+      out.flush();
     }
     
     /**
@@ -140,6 +121,30 @@ public class Matcher extends HttpServlet {
       
       out.print(responseString);
       out.flush();
+    }
+    
+    static String processRequest(HttpServletRequest request) throws IOException {
+      String responseString = null;
+      try {        
+        YamFileHandler fileHandler = new YamFileHandler();
+        
+        // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
+        String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
+        
+        String storagePath1 = fileHandler.uploadFile("ont1", subDirName, request);
+        String storagePath2 = fileHandler.uploadFile("ont2", subDirName, request);
+        
+        String resultStoragePath = fileHandler.getWorkDir() + "/data/tmp/" + subDirName + "/result.rdf";
+        
+        // Execute YAM to get the mappings in RDF/XML
+        MainProgram.match(storagePath1, storagePath2, resultStoragePath);
+        
+        responseString = FileUtils.readFileToString(new File(resultStoragePath));
+      } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      
+      return responseString;
     }
 
 

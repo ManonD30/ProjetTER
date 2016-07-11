@@ -139,4 +139,8 @@ public class YamFileHandler {
         reader.close();
         return contentString;
     }
+    
+    public String getWorkDir() {
+      return workDir;
+    }
 }
