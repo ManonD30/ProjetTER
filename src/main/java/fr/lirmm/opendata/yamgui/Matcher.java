@@ -53,8 +53,8 @@ public class Matcher extends HttpServlet {
     * Upload file using either a local file or an URL. 
     * Use ont1 and ont2 parameters to define the 2 ontologies to work with
     * Upload a file using cURL: curl -X POST -H \"Content-Type: multipart/form-data\ -F ont1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?ont2=http://purl.obolibrary.org/obo/po.owl
-    * curl -X POST http://localhost:8083/rest/matcher?ont2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl&ont1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
-    * curl -X POST -H "Content-Type: multipart/form-data" -F ont2=@/srv/yam2013/cmt.owl -F ont1=@/srv/yam2013/Conference.owl http://localhost:8083/rest/matcher
+    * Only files: curl -X POST -H "Content-Type: multipart/form-data" -F ont2=@/srv/yam2013/cmt.owl -F ont1=@/srv/yam2013/Conference.owl http://localhost:8083/rest/matcher
+    * Only URL: curl -X POST http://localhost:8083/rest/matcher -d 'ont1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl' -d 'ont2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl'
     * 
     * @param request
     * @param response
@@ -94,30 +94,12 @@ public class Matcher extends HttpServlet {
       String ont1 = request.getParameter("ont1");
       String ont2 = request.getParameter("ont2");
       if (ont1 != null && ont2 != null) {
-        // Get file and upload it to the server
-        YamFileHandler fileHandler = null;
-        try {
-          fileHandler = new YamFileHandler();
-        } catch (ClassNotFoundException ex) {
-          Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
-        String storagePath1 = fileHandler.uploadFile("ont1", subDirName, request);
-        String storagePath2 = fileHandler.uploadFile("ont2", subDirName, request);
-        
-        String resultStoragePath = "/srv/yam-gui/data/tmp/" + subDirName + "/result.rdf";
-        
-        // Execute YAM to get the mappings in RDF/XML
-        MainProgram.match(storagePath1, storagePath2, resultStoragePath);
-        
-        responseString = FileUtils.readFileToString(new File(resultStoragePath));
+        responseString = processRequest(request);
       } else {
         responseString = "Example: <br/> curl -X POST -H \"Content-Type: multipart/form-data\" "
                 + "-F ont1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?ont2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl <br/>"
                 + "http://localhost:8083/rest/matcher?ont1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl&ont2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl";
       }
-      
-      //responseString = ont1 + " et " + ont2;
       
       out.print(responseString);
       out.flush();
