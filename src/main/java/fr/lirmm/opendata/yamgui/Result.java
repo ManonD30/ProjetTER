@@ -35,6 +35,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import fr.inrialpes.exmo.align.parser.AlignmentParser;
 import static fr.lirmm.opendata.yamgui.Matcher.processRequest;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URI;
@@ -288,7 +289,7 @@ public class Result extends HttpServlet {
                 
 		AlignmentParser aparser = new AlignmentParser(0);
 		// rdf file
-                Alignment file = aparser.parse(matcherResult);
+                Alignment file = aparser.parseString(matcherResult);
 
 		// cell iterator
 		Iterator<Cell> align = file.iterator();
@@ -326,7 +327,7 @@ public class Result extends HttpServlet {
 			java.util.Map<String, String> label) throws IOException {
 
 		OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-		model.read(in, null);
+                model.read(new ByteArrayInputStream(in.getBytes()), null);
 		// OntResource
 
 		Iterator<OntProperty> it1 = model.listAllOntProperties();

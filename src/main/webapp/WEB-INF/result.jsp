@@ -16,12 +16,12 @@
 			id=seuilDynamic name=seuilDynamic type="range" min=0 max=1 step=0.05
 			size=3 value=0 oninput="refreshTab();" onchange="refreshTab();">
                 
-		<%
-					//get the execution time from response
-					String time = (String) request.getAttribute("time");
-					out.println("<p class=contentTime> Calculated with YAM++ in "
-							+ time + " seconds</p>");
-				%>
+                    <%
+                      //get the execution time from response
+                      String time = (String) request.getAttribute("time");
+                      out.println("<p class=contentTime> Calculated with YAM++ in "
+                                      + time + " seconds</p>");
+                    %>
 		<table>
 			<thead>
 				<tr>
@@ -35,40 +35,40 @@
 			</thead>
 
 		</table>
-		<%
-					//get lists from response
-					ArrayList<fr.lirmm.opendata.yamgui.Map> liste = (ArrayList) request
-							.getAttribute("data");
+                    <%
+                        //get lists from response
+                        ArrayList<fr.lirmm.opendata.yamgui.Map> liste = (ArrayList) request
+                                        .getAttribute("data");
 
-					java.util.Map<String, String> onto1 = (java.util.Map) request
-							.getAttribute("onto1");
+                        java.util.Map<String, String> onto1 = (java.util.Map) request
+                                        .getAttribute("onto1");
 
-					java.util.Map<String, String> onto2 = (java.util.Map) request
-							.getAttribute("onto2");
-				%>
+                        java.util.Map<String, String> onto2 = (java.util.Map) request
+                                        .getAttribute("onto2");
+                    %>
 
 		<form action='download'
 			method='post'>
 			<div class=tabDiv>
 				<table id=table>
-					<%
-								//for each cell in the list
-								for (int line = 0; line < liste.size(); line++) {
-									int numLine = line + 1;
-									out.println("<tr>"); //new table line
-									out.println("<td class=tdSmall>" + numLine + "</td>"); //display line number
-									out.println("<td>" + onto1.get(liste.get(line).getE1())
-											+ "</td>"); //display first entity
-									out.println("<td>" + onto2.get(liste.get(line).getE2())
-											+ "</td>"); //display second entity
-									out.println("<td>" + liste.get(line).getRelation() + "</td>"); //display relation
-									out.println("<td>" + liste.get(line).getScore() + "</td>"); //display score
-									out.println("<td class=tdSmall" + line
-											+ "><INPUT type='checkbox' name='checkbox' value='"
-											+ line + "' id='" + line + "' checked></td>"); //display checkbox
-									out.println("</tr>"); //close table line
-								}
-							%>
+                                    <%
+                                        //for each cell in the list
+                                        for (int line = 0; line < liste.size(); line++) {
+                                                int numLine = line + 1;
+                                                out.println("<tr>"); //new table line
+                                                out.println("<td class=tdSmall>" + numLine + "</td>"); //display line number
+                                                out.println("<td>" + onto1.get(liste.get(line).getE1())
+                                                                + "</td>"); //display first entity
+                                                out.println("<td>" + onto2.get(liste.get(line).getE2())
+                                                                + "</td>"); //display second entity
+                                                out.println("<td>" + liste.get(line).getRelation() + "</td>"); //display relation
+                                                out.println("<td>" + liste.get(line).getScore() + "</td>"); //display score
+                                                out.println("<td class=tdSmall" + line
+                                                                + "><INPUT type='checkbox' name='checkbox' value='"
+                                                                + line + "' id='" + line + "' checked></td>"); //display checkbox
+                                                out.println("</tr>"); //close table line
+                                        }
+                                    %>
 				</table>
 			</div>
 
