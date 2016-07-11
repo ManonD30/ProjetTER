@@ -49,7 +49,7 @@ public class Matcher extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
-    * Display infos about uploaded file (like its content)
+    * POST request. Use the processRequest method to upload file and run YAM
     * Upload file using either a local file or an URL. 
     * Use ont1 and ont2 parameters to define the 2 ontologies to work with
     * Upload a file using cURL: curl -X POST -H \"Content-Type: multipart/form-data\ -F ont1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?ont2=http://purl.obolibrary.org/obo/po.owl
@@ -75,6 +75,7 @@ public class Matcher extends HttpServlet {
     }
     
     /**
+     * Get request. Use the processRequest method to upload file and run YAM
      * curl -X GET http://localhost:8083/rest/matcher?ont2=http://purl.obolibrary.org/obo/po.owl&ont1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
      * 
      * @param request
@@ -216,41 +217,4 @@ public class Matcher extends HttpServlet {
                     }
             }
     }
-    
-    /**
-     * Get the content of a URL page (to get ontologies from the URL)
-     * 
-     * @param sourceUrl
-     * @return
-     * @throws IOException 
-     */
-    public String getUrlContent(String sourceUrl) throws IOException {
-      CloseableHttpClient client = HttpClientBuilder.create().build();
-        HttpResponse httpResponse = null;
-        try{
-          URI uri = new URI(sourceUrl);
-          httpResponse = client.execute(new HttpGet(uri));
-        }catch(IOException e){
-          Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
-        } catch (URISyntaxException ex) {
-          Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        // process response
-        BufferedReader reader = null;
-        try{
-          reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), Charset.forName("UTF-8")));
-        } catch (IOException e){
-          Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
-        }
-
-        String contentString = "";
-        String line;
-        while ((line = reader.readLine()) != null) {
-          contentString += line;
-        }
-        reader.close();
-        return contentString;
-    }
-
 }
