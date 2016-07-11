@@ -13,21 +13,34 @@
 			<form action="result" method="post"
 				enctype="multipart/form-data" name=form
 				onsubmit="document.location.href = '#overlay';">
+                          
+                                <div class="row">
 
-				<label for=firstFile>Source ontology</label> 
-                                <br/>
-                                <label class="btn btn-info btn-file">
-                                  Choose file
-                                  <input type="file" id=ont1 name="ont1" accept=".owl" style="display: none;"required /> <br>
-                                </label>
-                                <br/>
-				<label for=secondFile>Target ontology&nbsp;</label> 
-                                <br/>
-                                <label class="btn btn-info btn-file">
-                                  Choose file
-                                  <input id=ont2 type="file" name="ont2" accept=".owl" style="display: none;" required />
-                                </label>
-				<br> <br> <input class=btn type="submit" value="Upload" />
+                                  <div class="col-md-6">
+                                    <label for=firstFile>Source ontology</label> 
+                                    <br/>
+                                    <label id="labelOnt1" class="btn btn-info btn-file">
+                                      Choose file
+                                      <input id=ont1 type="file" name="ont1" accept=".owl" style="display: none;" required />
+                                    </label>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <label for=secondFile>Target ontology&nbsp;</label> 
+                                    <br/>
+                                    <input type="url" id="ont3" name="ont3"/>
+                                    <br/>
+                                    <span style="text-align: center">or</span>
+                                    <br/>
+                                    <label id="labelOnt2" class="btn btn-info btn-file">
+                                      Choose file
+                                      <input id=ont2 type="file" name="ont2" accept=".owl" style="display: none;" />
+                                    </label>
+                                  </div>
+                                </div>
+				<br/><br/>
+                                <label style="font-weight: normal;"><input type="checkbox" value="save" checked>I'm agreeing to let YAM++ save my ontologies</label>
+                                <br/><br/>
+                                <input class=btn type="submit" value="Match!" />
 			</form>
 		</div>
 
@@ -55,5 +68,5 @@
 
 	</div>
 	<div class="sideRight"></div>
-
+        
 <%@include file="footer.jsp" %>
