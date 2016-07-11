@@ -10,11 +10,10 @@
 
 		<h3 class=contentText>Select your ontologies.</h3>
 		<div class=form>
-			<form action="rest/matcher" method="post"
+			<form action="result" method="post"
 				enctype="multipart/form-data" name=form
 				onsubmit="document.location.href = '#overlay';">
 
-                          
 				<label for=firstFile>Source ontology</label> 
                                 <br/>
                                 <label class="btn btn-info btn-file">
