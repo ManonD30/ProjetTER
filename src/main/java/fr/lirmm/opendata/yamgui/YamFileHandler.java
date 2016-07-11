@@ -85,6 +85,7 @@ public class YamFileHandler {
     
     /**
      * Store the contentString in a file in the working directory in a subdirectory
+     * working dir + /data/tmp/ + sub dir auto generated + / + filename (ont1.txt or ont2.txt)
      * Usually the sub directory is randomly generated before calling uploadFile
      * And returns the path to the created file
      * 

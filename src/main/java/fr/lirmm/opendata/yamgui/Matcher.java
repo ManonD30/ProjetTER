@@ -42,6 +42,7 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import mainyam.MainProgram;
+import org.apache.commons.io.FileUtils;
 
 @WebServlet("/rest/matcher")
 public class Matcher extends HttpServlet {
@@ -49,6 +50,8 @@ public class Matcher extends HttpServlet {
 
     /**
     * Display infos about uploaded file (like its content)
+    * Upload file using either a local file or an URL. 
+    * Use ont1 and ont2 parameters to define the 2 ontologies to work with
     * Upload a file using cURL: curl -X POST -H \"Content-Type: multipart/form-data\ -F ontFile1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?sourceUrl2=http://purl.obolibrary.org/obo/po.owl
     * curl -X POST -H "Content-Type: multipart/form-data" -F ont2=@/srv/yam2013/cmt.owl -F ont1=@/srv/yam2013/Conference.owl http://localhost:8083/rest/matcher
     * 
@@ -79,8 +82,10 @@ public class Matcher extends HttpServlet {
         // Execute YAM to get the mappings in RDF/XML
         MainProgram.match(storagePath1, storagePath2, resultStoragePath);
         
+        responseString = FileUtils.readFileToString(new File(resultStoragePath));
+        
         // TODO: output result.rdf content
-        out.print(subDirName);
+        out.print(responseString);
         out.flush();
       } catch (ClassNotFoundException ex) {
         Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
