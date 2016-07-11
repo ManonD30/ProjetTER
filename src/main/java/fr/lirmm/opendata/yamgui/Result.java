@@ -33,10 +33,21 @@ import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import fr.inrialpes.exmo.align.parser.AlignmentParser;
+import static fr.lirmm.opendata.yamgui.Matcher.processRequest;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mainyam.MainProgram;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 public class Result extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -48,13 +59,9 @@ public class Result extends HttpServlet {
 		// check and update "asMatched" value
 		int asMatched = 0;
 		int canMatch = 0;
-                // Load properties file for work directory
-                Properties prop = new Properties();
-                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
                 
                 Logger myLog = Logger.getLogger (Result.class.getName());
 		try {
-                    
                         // get user's mail
                         String mail = (String) request.getSession().getAttribute("mail");
                         
@@ -63,12 +70,53 @@ public class Result extends HttpServlet {
                     
                         asMatched = user.getAsMatched();
                         canMatch = user.getCanMatch();
-
 		} catch (Exception e) {
 			System.err.println("Exception catched!");
 			System.err.println(e.getMessage());
 		}
+                
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("text/plain");
 
+                // Process request (upload files and run YAM)
+                String matcherResult = fr.lirmm.opendata.yamgui.Matcher.processRequest(request);
+                
+                request.setAttribute("matcherResult", matcherResult);
+                
+                // add cell data to the list
+                try {
+                        getCellData(liste, matcherResult);
+                } catch (AlignmentException e) {
+                        myLog.log(Level.INFO, "dans catch: " + e.getMessage());
+                        e.printStackTrace();
+                }
+
+                // add cell data list to response
+                request.setAttribute("data", liste);
+
+                YamFileHandler fileHandler = null;
+                try {
+                  fileHandler = new YamFileHandler();
+                } catch (ClassNotFoundException ex) {
+                  Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                String stringOnt1 = fileHandler.readFileFromRequest("ont1", request);
+                String stringOnt2 = fileHandler.readFileFromRequest("ont2", request);
+                
+                // add ontologies label<-->key translation to response
+                Onto1.clear();
+                Onto2.clear();
+                loadOnto(stringOnt1, Onto1);
+                loadOnto(stringOnt2, Onto2);
+                request.setAttribute("onto1", Onto1);
+                request.setAttribute("onto2", Onto2);
+                
+                // send response
+                this.getServletContext()
+                        .getRequestDispatcher("/WEB-INF/result.jsp")
+                        .forward(request, response);
+                
+                /*
 		if (asMatched > canMatch) {
 			// add number of match to response
 			request.setAttribute("asMatched", Integer.toString(asMatched));
@@ -144,7 +192,7 @@ public class Result extends HttpServlet {
 			this.getServletContext()
 					.getRequestDispatcher("/WEB-INF/result.jsp")
 					.forward(request, response);
-		}
+		}*/
 	}
 
 	// //////////////////////////SAVING FILES FUNCTIONS///////////////////////
@@ -235,17 +283,12 @@ public class Result extends HttpServlet {
 		}
 	}
 
-	public void getCellData(ArrayList<Map> liste, String key)
+	public void getCellData(ArrayList<Map> liste, String matcherResult)
 			throws AlignmentException, IOException {
-            
-                // Load properties file for work directory
-                Properties prop = new Properties();
-                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
                 
 		AlignmentParser aparser = new AlignmentParser(0);
 		// rdf file
-		Alignment file = aparser.parse(new File(prop.getProperty("workdir") + "/ontologies/result"
-				+ key + ".rdf").toURI());
+                Alignment file = aparser.parse(matcherResult);
 
 		// cell iterator
 		Iterator<Cell> align = file.iterator();
@@ -273,12 +316,17 @@ public class Result extends HttpServlet {
 		return (double) tmp / factor;
 	}
 
-	public static void loadOnto(InputStream in,
+        /**
+         * Load ontology in Jena to get class label
+         * @param in
+         * @param label
+         * @throws IOException 
+         */
+	public static void loadOnto(String in,
 			java.util.Map<String, String> label) throws IOException {
 
 		OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 		model.read(in, null);
-		in.close();
 		// OntResource
 
 		Iterator<OntProperty> it1 = model.listAllOntProperties();
