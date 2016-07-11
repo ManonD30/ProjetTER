@@ -14,10 +14,20 @@
 				enctype="multipart/form-data" name=form
 				onsubmit="display_div('btnMatch');">
 
-				<label for=firstFile>Source ontology</label> <input type="file"
-					id=firstFile name="firstFile" accept=".owl" required /> <br>
-				<label for=secondFile>Target ontology&nbsp;</label> <input
-					id=secondFile type="file" name="secondFile" accept=".owl" required />
+                          
+				<label for=firstFile>Source ontology</label> 
+                                <br/>
+                                <label class="btn btn-default btn-file">
+                                  Choose file
+                                  <input type="file" id=firstFile name="firstFile" accept=".owl" style="display: none;"required /> <br>
+                                </label>
+                                <br/>
+				<label for=secondFile>Target ontology&nbsp;</label> 
+                                <br/>
+                                <label class="btn btn-default btn-file">
+                                  Choose file
+                                  <input id=secondFile type="file" name="secondFile" accept=".owl" style="display: none;" required />
+                                </label>
 				<br> <br> <input class=btn type="submit" value="Upload" />
 			</form>
 		</div>
