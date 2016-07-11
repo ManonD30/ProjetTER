@@ -19,10 +19,11 @@
                                   <div class="col-md-6">
                                     <label for=firstFile>Source ontology</label> 
                                     <br/>
-                                    <label id="labelOnt1" class="btn btn-info btn-file">
+                                    <input id=ont1 type="file" name="ont1" accept=".owl" required />
+                                    <!--label id="labelOnt1" class="btn btn-info btn-file">
                                       Choose file
-                                      <input id=ont1 type="file" name="ont1" accept=".owl" style="display: none;" required />
-                                    </label>
+                                      <input id=ont1 type="file" name="ont1" accept=".owl" onchange="refreshOnt('ont1');" style="display: none;" required />
+                                    </label-->
                                   </div>
                                   <div class="col-md-6">
                                     <label for=secondFile>Target ontology&nbsp;</label> 
@@ -31,10 +32,7 @@
                                     <br/>
                                     <span style="text-align: center">or</span>
                                     <br/>
-                                    <label id="labelOnt2" class="btn btn-info btn-file">
-                                      Choose file
-                                      <input id=ont2 type="file" name="ont2" accept=".owl" style="display: none;" />
-                                    </label>
+                                    <input id=ont1 type="file" name="ont1" accept=".owl" required />
                                   </div>
                                 </div>
 				<br/><br/>
@@ -68,5 +66,18 @@
 
 	</div>
 	<div class="sideRight"></div>
+        
+        <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script>
+          function refreshOnt(ontName) {
+            var elem = document.getElementById(ontName);
+            console.log(ontName.toUpperCase());
+            var fileName = elem.value.match(/[^\/\\]+$/);
+            //$("#label" + ontName[0].toUpperCase() + ontName.slice(1)).text(fileName + '<input id='+ ontName +' type="file" name="'+ ontName +'" accept=".owl" onchange="refreshOnt(\''+ ontName +'\');" style="display: none;" required />');
+            //$("#label" + ontName[0].toUpperCase() + ontName.slice(1)).text(fileName);
+            var elemLabel = document.getElementById("label" + ontName[0].toUpperCase() + ontName.slice(1));
+            elemLabel.value = fileName;
+          }
+        </script-->
         
 <%@include file="footer.jsp" %>
