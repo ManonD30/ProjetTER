@@ -58,7 +58,7 @@
   //JSONObject jsonObject = new JSONObject(ontologiesString);
   //JSONArray jsonArray = new JSONArray(ontologiesString);
 
-  out.println(ontologiesString);
+  //out.println(ontologiesString);
   
    /*
    URL requestUrl = new URL("http://data.bioontology.org/?apikey=" + myApiKey);

@@ -3,14 +3,14 @@
 <head>
 <meta charset='utf-8' />
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="stylesheet" href="style.css" />
 <!-- Bootstrap core CSS and theme -->
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/bootstrap-theme.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+<script src="scripts/bootstrap.js"></script>
 <script type="text/javascript" src="javascript.js"></script>
 <script type="text/javascript" src="account.js"></script>
 <script type="text/javascript" src="cookies.js"></script>
-<script src="scripts/bootstrap.js"></script>
 <title>YAM++</title>
 </head>
 <body>
