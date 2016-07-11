@@ -17,22 +17,26 @@
                                 <div class="row">
 
                                   <div class="col-md-6">
-                                    <label for=firstFile>Source ontology</label> 
+                                    <label for=firstFile>Source ontology</label> <br/>
+                                    <input type="url" id="sourceUrl1" name="sourceUrl1" placeholder="Enter ontology URL"/>
                                     <br/>
-                                    <input id=ont1 type="file" name="ont1" accept=".owl" required />
-                                    <!--label id="labelOnt1" class="btn btn-info btn-file">
+                                    <span style="text-align: center">or</span> <br/>
+                                    <label class="btn btn-info btn-file">
                                       Choose file
                                       <input id=ont1 type="file" name="ont1" accept=".owl" onchange="refreshOnt('ont1');" style="display: none;" required />
-                                    </label-->
+                                    </label> <br/>
+                                    <label id="fileOnt1" style="font-weight: normal;"></label>
                                   </div>
                                   <div class="col-md-6">
-                                    <label for=secondFile>Target ontology&nbsp;</label> 
+                                    <label for=secondFile>Target ontology&nbsp;</label> <br/>
+                                    <input type="url" id="sourceUrl2" name="sourceUrl2" placeholder="Enter ontology URL"/>
                                     <br/>
-                                    <input type="url" id="ont3" name="ont3"/>
-                                    <br/>
-                                    <span style="text-align: center">or</span>
-                                    <br/>
-                                    <input id=ont1 type="file" name="ont1" accept=".owl" required />
+                                    <span style="text-align: center">or</span> <br/>
+                                    <label id="labelOnt2" class="btn btn-info btn-file">
+                                      Choose file
+                                      <input id=ont2 type="file" name="ont2" accept=".owl" onchange="refreshOnt('ont2');" style="display: none;" />
+                                    </label> <br/>
+                                    <label id="fileOnt2" style="font-weight: normal;"></label>
                                   </div>
                                 </div>
 				<br/><br/>
@@ -67,17 +71,18 @@
 	</div>
 	<div class="sideRight"></div>
         
-        <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script>
+          /**
+           * Function to update file label
+           * @param {type} ontName
+           * @returns {undefined}
+           */
           function refreshOnt(ontName) {
-            var elem = document.getElementById(ontName);
-            console.log(ontName.toUpperCase());
-            var fileName = elem.value.match(/[^\/\\]+$/);
-            //$("#label" + ontName[0].toUpperCase() + ontName.slice(1)).text(fileName + '<input id='+ ontName +' type="file" name="'+ ontName +'" accept=".owl" onchange="refreshOnt(\''+ ontName +'\');" style="display: none;" required />');
-            //$("#label" + ontName[0].toUpperCase() + ontName.slice(1)).text(fileName);
-            var elemLabel = document.getElementById("label" + ontName[0].toUpperCase() + ontName.slice(1));
-            elemLabel.value = fileName;
+            var path = document.getElementById(ontName).value;
+            var fileName = path.match(/[^\/\\]+$/);
+            $('#' + 'file' + ontName[0].toUpperCase() + ontName.slice(1)).html(fileName);
           }
-        </script-->
+        </script>
         
 <%@include file="footer.jsp" %>
