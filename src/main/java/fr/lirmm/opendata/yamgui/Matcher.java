@@ -52,7 +52,8 @@ public class Matcher extends HttpServlet {
     * Display infos about uploaded file (like its content)
     * Upload file using either a local file or an URL. 
     * Use ont1 and ont2 parameters to define the 2 ontologies to work with
-    * Upload a file using cURL: curl -X POST -H \"Content-Type: multipart/form-data\ -F ontFile1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?sourceUrl2=http://purl.obolibrary.org/obo/po.owl
+    * Upload a file using cURL: curl -X POST -H \"Content-Type: multipart/form-data\ -F ont1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?ont2=http://purl.obolibrary.org/obo/po.owl
+    * curl -X POST http://localhost:8083/rest/matcher?ont2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl&ont1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
     * curl -X POST -H "Content-Type: multipart/form-data" -F ont2=@/srv/yam2013/cmt.owl -F ont1=@/srv/yam2013/Conference.owl http://localhost:8083/rest/matcher
     * 
     * @param request
@@ -92,6 +93,14 @@ public class Matcher extends HttpServlet {
       }
     }
     
+    /**
+     * curl -X GET http://localhost:8083/rest/matcher?ont2=http://purl.obolibrary.org/obo/po.owl&ont1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {    
       response.setCharacterEncoding("UTF-8");
@@ -101,17 +110,33 @@ public class Matcher extends HttpServlet {
       String responseString = null;
       
       // Check if source URL are fill, if not display a help text
-      String sourceUrl1 = request.getParameter("sourceUrl1");
-      String sourceUrl2 = request.getParameter("sourceUrl2");
-      if (sourceUrl1 != null && sourceUrl2 != null) {
-        String ontologyString1 = getUrlContent(sourceUrl1);
-        String ontologyString2 = getUrlContent(sourceUrl2);
-        responseString = ontologyString1 + " LE 2 " + ontologyString2;
+      String ont1 = request.getParameter("ont1");
+      String ont2 = request.getParameter("ont2");
+      if (ont1 != null && ont2 != null) {
+        // Get file and upload it to the server
+        YamFileHandler fileHandler = null;
+        try {
+          fileHandler = new YamFileHandler();
+        } catch (ClassNotFoundException ex) {
+          Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
+        String storagePath1 = fileHandler.uploadFile("ont1", subDirName, request);
+        String storagePath2 = fileHandler.uploadFile("ont2", subDirName, request);
+        
+        String resultStoragePath = "/srv/yam-gui/data/tmp/" + subDirName + "/result.rdf";
+        
+        // Execute YAM to get the mappings in RDF/XML
+        MainProgram.match(storagePath1, storagePath2, resultStoragePath);
+        
+        responseString = FileUtils.readFileToString(new File(resultStoragePath));
       } else {
         responseString = "Example: <br/> curl -X POST -H \"Content-Type: multipart/form-data\" "
-                + "-F ontFile1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?sourceUrl2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl <br/>"
-                + "http://localhost:8083/rest/matcher?sourceUrl2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl&sourceUrl1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl";
+                + "-F ont1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?ont2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl <br/>"
+                + "http://localhost:8083/rest/matcher?ont1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl&ont2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl";
       }
+      
+      responseString = ont1 + " et " + ont2;
       
       out.print(responseString);
       out.flush();
