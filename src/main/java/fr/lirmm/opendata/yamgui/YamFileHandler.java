@@ -48,23 +48,24 @@ public class YamFileHandler {
     /**
      * Read the file or source URL from the request and returns a String.
      * 
-     * @param ontName
+     * @param ontNumber
      * @param request
      * @return
      * @throws IOException 
      */
-    public String readFileFromRequest(String ontName, HttpServletRequest request) throws IOException {
+    public String readFileFromRequest(String ontNumber, HttpServletRequest request) throws IOException {
       String ontologyString = null;
-      String sourceUrl = request.getParameter(ontName); // Retrieves <input type="text" name="description">
+      String sourceUrl = request.getParameter("sourceUrl" + ontNumber); // Retrieves <input type="text" name="description">
       Part filePart = null;
       String filename = null;
       
+      // Take sourceUrl in priority. If not, then get the uploaded file
       if (sourceUrl != null) {
         ontologyString = getUrlContent(sourceUrl);
       } else {
         
         try {
-          filePart = request.getPart(ontName); // Retrieves <input type="file" name="file">
+          filePart = request.getPart("ont" + ontNumber); // Retrieves <input type="file" name="file">
         } catch (Exception e) {
           ontologyString = "Could not load provided ontology file";
         }
@@ -78,22 +79,22 @@ public class YamFileHandler {
     }
     
     /**
-     * Upload a file taking its filename in the params (i.e.: ont1 or ont2) and the HTTP request
+     * Upload a file taking its ont number in the params (i.e.: 1 for ont1 or 2 for ont2) and the HTTP request
      * It download the file if it is an URL or get it from the POST request
      * 
-     * @param ontName
+     * @param ontNumber
      * @param subDir
      * @param request
      * @return
      * @throws IOException 
      */
-    public String uploadFile(String ontName, String subDir, HttpServletRequest request) throws IOException {
+    public String uploadFile(String ontNumber, String subDir, HttpServletRequest request) throws IOException {
       
       // Read the file or source URL in the request and returns a String
-      String ontologyString = readFileFromRequest(ontName, request);
+      String ontologyString = readFileFromRequest(ontNumber, request);
       
       // Store the ontology String in the generated subDir and return file path
-      String storagePath = storeFile(ontName + ".txt", subDir, ontologyString, false);
+      String storagePath = storeFile("ont" + ontNumber + ".owl", subDir, ontologyString, false);
       
       return storagePath;
     }

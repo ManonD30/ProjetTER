@@ -77,6 +77,7 @@ public class Matcher extends HttpServlet {
     /**
      * Get request. Use the processRequest method to upload file and run YAM
      * curl -X GET http://localhost:8083/rest/matcher?ont2=http://purl.obolibrary.org/obo/po.owl&ont1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
+     * http://localhost:8083/rest/matcher?ont2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl&ont1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
      * 
      * @param request
      * @param response
@@ -92,14 +93,14 @@ public class Matcher extends HttpServlet {
       String responseString = null;
       
       // Check if source URL are fill, if not display a help text
-      String ont1 = request.getParameter("ont1");
-      String ont2 = request.getParameter("ont2");
+      String ont1 = request.getParameter("sourceUrl1");
+      String ont2 = request.getParameter("sourceUrl2");
       if (ont1 != null && ont2 != null) {
         responseString = processRequest(request);
       } else {
         responseString = "Example: <br/> curl -X POST -H \"Content-Type: multipart/form-data\" "
-                + "-F ont1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?ont2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl <br/>"
-                + "http://localhost:8083/rest/matcher?ont1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl&ont2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl";
+                + "-F ont1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?sourceUrl2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl <br/>"
+                + "http://localhost:8083/rest/matcher?sourceUrl1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl&sourceUrl2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl";
       }
       
       out.print(responseString);
@@ -114,8 +115,8 @@ public class Matcher extends HttpServlet {
         // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
         String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
         
-        String storagePath1 = fileHandler.uploadFile("ont1", subDirName, request);
-        String storagePath2 = fileHandler.uploadFile("ont2", subDirName, request);
+        String storagePath1 = fileHandler.uploadFile("1", subDirName, request);
+        String storagePath2 = fileHandler.uploadFile("2", subDirName, request);
         
         String resultStoragePath = fileHandler.getWorkDir() + "/data/tmp/" + subDirName + "/result.rdf";
         
