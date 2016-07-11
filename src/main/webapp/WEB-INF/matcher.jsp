@@ -10,23 +10,23 @@
 
 		<h3 class=contentText>Select your ontologies.</h3>
 		<div class=form>
-			<form action="rest/matcher/uploadFiles" method="post"
+			<form action="rest/matcher" method="post"
 				enctype="multipart/form-data" name=form
-				onsubmit="display_div('btnMatch');">
+				onsubmit="document.location.href = '#overlay';">
 
                           
 				<label for=firstFile>Source ontology</label> 
                                 <br/>
                                 <label class="btn btn-info btn-file">
                                   Choose file
-                                  <input type="file" id=firstFile name="firstFile" accept=".owl" style="display: none;"required /> <br>
+                                  <input type="file" id=ont1 name="ont1" accept=".owl" style="display: none;"required /> <br>
                                 </label>
                                 <br/>
 				<label for=secondFile>Target ontology&nbsp;</label> 
                                 <br/>
                                 <label class="btn btn-info btn-file">
                                   Choose file
-                                  <input id=secondFile type="file" name="secondFile" accept=".owl" style="display: none;" required />
+                                  <input id=ont2 type="file" name="ont2" accept=".owl" style="display: none;" required />
                                 </label>
 				<br> <br> <input class=btn type="submit" value="Upload" />
 			</form>

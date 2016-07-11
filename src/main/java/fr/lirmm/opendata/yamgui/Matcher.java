@@ -44,8 +44,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import mainyam.MainProgram;
 import org.apache.commons.io.FileUtils;
 
-//@WebServlet("/rest/matcher")
-@Path("/matcher")
+@WebServlet("/rest/matcher")
 public class Matcher extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -137,7 +136,7 @@ public class Matcher extends HttpServlet {
                 + "http://localhost:8083/rest/matcher?ont1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl&ont2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl";
       }
       
-      responseString = ont1 + " et " + ont2;
+      //responseString = ont1 + " et " + ont2;
       
       out.print(responseString);
       out.flush();
