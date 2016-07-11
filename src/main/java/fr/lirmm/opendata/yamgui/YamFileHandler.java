@@ -46,16 +46,14 @@ public class YamFileHandler {
     }
     
     /**
-     * Upload a file taking its filename in the params (i.e.: ont1 or ont2) and the HTTP request
-     * It download the file if it is an URL or get it from the POST request
+     * Read the file or source URL from the request and returns a String.
      * 
-     * @param ontId
+     * @param ontName
      * @param request
      * @return
      * @throws IOException 
      */
-    public String uploadFile(String ontName, String subDir, HttpServletRequest request) throws IOException {
-      
+    public String readFileFromRequest(String ontName, HttpServletRequest request) throws IOException {
       String ontologyString = null;
       String sourceUrl = request.getParameter(ontName); // Retrieves <input type="text" name="description">
       Part filePart = null;
@@ -76,7 +74,25 @@ public class YamFileHandler {
           ontologyString = IOUtils.toString(fileContent, "UTF-8");
         }
       }
+      return ontologyString;
+    }
+    
+    /**
+     * Upload a file taking its filename in the params (i.e.: ont1 or ont2) and the HTTP request
+     * It download the file if it is an URL or get it from the POST request
+     * 
+     * @param ontName
+     * @param subDir
+     * @param request
+     * @return
+     * @throws IOException 
+     */
+    public String uploadFile(String ontName, String subDir, HttpServletRequest request) throws IOException {
       
+      // Read the file or source URL in the request and returns a String
+      String ontologyString = readFileFromRequest(ontName, request);
+      
+      // Store the ontology String in the generated subDir and return file path
       String storagePath = storeFile(ontName + ".txt", subDir, ontologyString, false);
       
       return storagePath;
