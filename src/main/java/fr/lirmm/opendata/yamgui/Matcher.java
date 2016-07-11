@@ -44,7 +44,8 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import mainyam.MainProgram;
 import org.apache.commons.io.FileUtils;
 
-@WebServlet("/rest/matcher")
+//@WebServlet("/rest/matcher")
+@Path("/matcher")
 public class Matcher extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

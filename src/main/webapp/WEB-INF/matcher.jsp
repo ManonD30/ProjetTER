@@ -17,14 +17,14 @@
                           
 				<label for=firstFile>Source ontology</label> 
                                 <br/>
-                                <label class="btn btn-default btn-file">
+                                <label class="btn btn-info btn-file">
                                   Choose file
                                   <input type="file" id=firstFile name="firstFile" accept=".owl" style="display: none;"required /> <br>
                                 </label>
                                 <br/>
 				<label for=secondFile>Target ontology&nbsp;</label> 
                                 <br/>
-                                <label class="btn btn-default btn-file">
+                                <label class="btn btn-info btn-file">
                                   Choose file
                                   <input id=secondFile type="file" name="secondFile" accept=".owl" style="display: none;" required />
                                 </label>

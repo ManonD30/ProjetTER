@@ -33,7 +33,7 @@ a:visited {
 	color: #719eb7;
 }
 
-.btn {
+/*.btn {
 	color: #ffffff;
 	font-size: 15px;
 	background: #8ab7d1;
@@ -42,7 +42,7 @@ a:visited {
 	border: none;
 	width: 200px;
 	cursor: pointer;
-}
+}*/
 
 .btn:hover,.btnBig:hover {
 	background: #f08b80;
