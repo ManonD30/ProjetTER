@@ -14,6 +14,9 @@
 				enctype="multipart/form-data" name=form
 				onsubmit="document.location.href = '#overlay';">
                           
+                                <button type="button" class="btn btn-sm btn-info" onclick="getExample()">Use example</button>
+                                <br/>
+                          
                                 <div class="row">
 
                                   <div class="col-md-6">
@@ -72,7 +75,7 @@
 	<div class="sideRight"></div>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script>
+        <script type="text/javascript">
           /**
            * Function to update file label
            * @param {type} ontName
@@ -82,6 +85,15 @@
             var path = document.getElementById(ontName).value;
             var fileName = path.match(/[^\/\\]+$/);
             $('#' + 'file' + ontName[0].toUpperCase() + ontName.slice(1)).html(fileName);
+          }
+          
+          /**
+           * Fill sourceUrl fields with default ontologies from BioPortal
+           */
+          function getExample()
+          {
+            document.getElementById('sourceUrl1').value = "http://data.bioportal.lirmm.fr/ontologies/CIF/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db";
+            document.getElementById('sourceUrl2').value = "http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db";
           }
         </script>
         
