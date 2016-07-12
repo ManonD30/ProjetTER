@@ -101,8 +101,8 @@ public class Result extends HttpServlet {
                 } catch (ClassNotFoundException ex) {
                   Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                String stringOnt1 = fileHandler.readFileFromRequest("ont1", request);
-                String stringOnt2 = fileHandler.readFileFromRequest("ont2", request);
+                String stringOnt1 = fileHandler.readFileFromRequest("1", request);
+                String stringOnt2 = fileHandler.readFileFromRequest("2", request);
                 
                 // add ontologies label<-->key translation to response
                 Onto1.clear();
