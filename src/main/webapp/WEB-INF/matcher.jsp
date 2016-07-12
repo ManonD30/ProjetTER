@@ -23,7 +23,7 @@
                                     <span style="text-align: center">or</span> <br/>
                                     <label class="btn btn-info btn-file">
                                       Choose file
-                                      <input id=ont1 type="file" name="ont1" accept=".owl" onchange="refreshOnt('ont1');" style="display: none;" required />
+                                      <input id=ont1 type="file" name="ont1" accept=".owl" onchange="refreshOnt('ont1');" style="display: none;"/>
                                     </label> <br/>
                                     <label id="fileOnt1" style="font-weight: normal;"></label>
                                   </div>

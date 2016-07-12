@@ -60,7 +60,7 @@ public class YamFileHandler {
       String filename = null;
       
       // Take sourceUrl in priority. If not, then get the uploaded file
-      if (sourceUrl != null) {
+      if (sourceUrl != null && !sourceUrl.isEmpty()) {
         ontologyString = getUrlContent(sourceUrl);
       } else {
         
