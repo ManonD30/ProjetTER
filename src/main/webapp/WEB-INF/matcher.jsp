@@ -13,9 +13,9 @@
 			<form action="result" method="post"
 				enctype="multipart/form-data" name=form
 				onsubmit="document.location.href = '#overlay';">
-                          
-                                <button type="button" class="btn btn-sm btn-info" onclick="getExample()">Use example</button>
-                                <br/>
+
+                                <button type="button" class="btn btn-sm btn-info" onclick="getExample()">Fill with example</button>
+                                <br/><br/>
                           
                                 <div class="row">
 
