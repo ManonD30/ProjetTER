@@ -151,7 +151,7 @@ public class YamFileHandler {
         String contentString = "";
         String line;
         while ((line = reader.readLine()) != null) {
-          contentString += line;
+          contentString += line + "\n";
         }
         reader.close();
         return contentString;
