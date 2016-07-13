@@ -16,8 +16,15 @@
 			<form action="validator" method="post"
 				enctype="multipart/form-data" name=form>
                           
+                                <label for=rdfAlignmentFile>Alignment RDF file</label> <br/>
+                                <label class="btn btn-info btn-file">
+                                  Choose file
+                                  <input id=rdfAlignmentFile type="file" name="rdfAlignmentFile" accept=".rdf" 
+                                         onchange="refreshFileUpload('rdfAlignmentFile', 'fileRdfAlignmentFile');" style="display: none;" />
+                                </label> <br/>
+                                <label id="fileRdfAlignmentFile" style="font-weight: normal;"></label>
+                          
                                 <div class="row">
-
                                   <div class="col-md-6">
                                     <label for=sourceUrl1>Ontology 1</label> <br/>
                                     <input type="url" id="sourceUrl1" name="sourceUrl1" placeholder="Enter ontology URL"/>
@@ -41,14 +48,6 @@
                                     <label id="fileOnt2" style="font-weight: normal;"></label>
                                   </div>
                                 </div>
-				<br/>
-                                <label for=rdfAlignmentFile>Alignment RDF file</label> <br/>
-                                <label class="btn btn-info btn-file">
-                                  Choose file
-                                  <input id=rdfAlignmentFile type="file" name="rdfAlignmentFile" accept=".rdf" 
-                                         onchange="refreshFileUpload('rdfAlignmentFile', 'fileRdfAlignmentFile');" style="display: none;" />
-                                </label> <br/>
-                                <label id="fileRdfAlignmentFile" style="font-weight: normal;"></label>
                                 <br/><br/>
                                 <input class=btn type="submit" value="Validate!" />
 			</form>
