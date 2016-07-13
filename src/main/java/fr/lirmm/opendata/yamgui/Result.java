@@ -99,17 +99,6 @@ public class Result extends HttpServlet {
                 String s = Float.toString(execTime);
                 // add matching time to response
                 request.setAttribute("time", s);
-                
-                // add cell data to the list
-                try {
-                        getCellData(liste, matcherResult);
-                } catch (AlignmentException e) {
-                        myLog.log(Level.INFO, e.getMessage());
-                        e.printStackTrace();
-                }
-
-                // add cell data list to response
-                request.setAttribute("data", liste);
 
                 // Retrieve ontologies String
                 YamFileHandler fileHandler = null;
@@ -120,6 +109,15 @@ public class Result extends HttpServlet {
                 }
                 String stringOnt1 = fileHandler.readFileFromRequest("1", request);
                 String stringOnt2 = fileHandler.readFileFromRequest("2", request);
+                
+                try {
+                  liste = fileHandler.parseOaeiAlignmentFormat(matcherResult);
+                } catch (AlignmentException ex) {
+                  request.setAttribute("errorMessage", "Error when loading OAEI alignment results: " + ex.getMessage());
+                  Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                // add cell data list to response
+                request.setAttribute("data", liste);
                 
                 // add ontologies label<-->key translation to response
                 try {

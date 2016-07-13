@@ -5,6 +5,8 @@
  */
 package fr.lirmm.opendata.yamgui;
 
+import fr.inrialpes.exmo.align.parser.AlignmentParser;
+import static fr.lirmm.opendata.yamgui.Result.round;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,6 +18,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +32,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.semanticweb.owl.align.Alignment;
+import org.semanticweb.owl.align.AlignmentException;
+import org.semanticweb.owl.align.Cell;
 
 /**
  *
@@ -155,6 +162,32 @@ public class YamFileHandler {
         }
         reader.close();
         return contentString;
+    }
+    
+    public ArrayList<fr.lirmm.opendata.yamgui.Map> parseOaeiAlignmentFormat(String oaeiResult) throws AlignmentException {
+      AlignmentParser aparser = new AlignmentParser(0);
+      // rdf file
+      Alignment file = aparser.parseString(oaeiResult);
+      
+      ArrayList<Map> liste = new ArrayList<>();
+
+      // cell iterator
+      Iterator<Cell> align = file.iterator();
+      // clear the list
+      liste.clear();
+      // add all iteration to the list
+      while (align.hasNext()) {
+              // new Map which will contain a cell
+              Map mapping = new Map();
+              Cell cell = align.next();
+
+              mapping.e1 = (cell.getObject1().toString());
+              mapping.e2 = (cell.getObject2().toString());
+              mapping.relation = (cell.getRelation().getRelation().toString());
+              mapping.score = round(cell.getStrength());
+              liste.add(mapping);
+      }
+      return liste;
     }
     
     public String getWorkDir() {
