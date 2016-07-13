@@ -45,9 +45,6 @@ for the ont1 and ont2 ontology alignment -->
 
 	<h3 class=contentText>Mappings</h3>
         
-        <div data-ng-controller="validationCtrl" data-ng-init="init()"></div>
-
-
 	<div id=toHideWhenDownload>
                 
                     <%
@@ -69,6 +66,8 @@ for the ont1 and ont2 ontology alignment -->
                                       + time + " seconds</p>");
                         }
                     %>
+        
+                <div data-ng-controller="validationCtrl" data-ng-init="init('<%=liste%>','<%=onto1%>','<%=onto2%>')"></div>
                     
                 <label for=seuilDynamic>Select your threshold:</label>
                 <span id="threshold_display">0</span>
