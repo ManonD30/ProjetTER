@@ -216,7 +216,8 @@ input[type="button"] {
 }
 
 .indexLogoDiv {
-	padding-top: 1%;
+        padding-top: 1%;
+        padding-bottom: 2%;
 	text-align: center;
 	background-color: #d8e7ef;
 	width: 100%;

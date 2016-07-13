@@ -19,12 +19,12 @@
 			<p>
                           <ul>
                             <li>
-                              <a href="http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl2=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&sourceUrl1=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl">
+                              <a href="rest/matcher?sourceUrl2=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&sourceUrl1=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl">
                                 http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl2=https://Conference.owl&sourceUrl1=https://cmt.owl
                               </a>
                             </li>
                             <li>
-                              <a href="http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl2=http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db&sourceUrl1=http://data.bioportal.lirmm.fr/ontologies/CIF/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db">
+                              <a href="rest/matcher?sourceUrl2=http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db&sourceUrl1=http://data.bioportal.lirmm.fr/ontologies/CIF/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db">
                                 http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl2=http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download&sourceUrl1=http://data.bioportal.lirmm.fr/ontologies/CIF/download
                               </a>
                             </li>
