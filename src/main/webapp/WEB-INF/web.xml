@@ -188,7 +188,7 @@
   
   <servlet>
 	<servlet-name>Validator</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.ValidatorPage</servlet-class>
+	<servlet-class>fr.lirmm.opendata.yamgui.Validator</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 

@@ -53,36 +53,50 @@ public class YamFileHandler {
     }
     
     /**
-     * Read the file or source URL from the request and returns a String.
-     * 
+     * Read the ontology file or source URL from the request and returns a String.
+     * We are using ontNumber to get ontology either from uploaded file "ont1" or URL "sourceUrl1"
      * @param ontNumber
      * @param request
      * @return
      * @throws IOException 
      */
-    public String readFileFromRequest(String ontNumber, HttpServletRequest request) throws IOException {
+    public String getOntFileFromRequest(String ontNumber, HttpServletRequest request) throws IOException {
       String ontologyString = null;
-      String sourceUrl = request.getParameter("sourceUrl" + ontNumber); // Retrieves <input type="text" name="description">
-      Part filePart = null;
-      String filename = null;
+      String sourceUrl = request.getParameter("sourceUrl" + ontNumber);
       
       // Take sourceUrl in priority. If not, then get the uploaded file
       if (sourceUrl != null && !sourceUrl.isEmpty()) {
         ontologyString = getUrlContent(sourceUrl);
       } else {
-        
-        try {
-          filePart = request.getPart("ont" + ontNumber); // Retrieves <input type="file" name="file">
-        } catch (Exception e) {
-          ontologyString = "Could not load provided ontology file";
-        }
-        if (filePart != null) {
-          filename = filePart.getSubmittedFileName();
-          InputStream fileContent = filePart.getInputStream();
-          ontologyString = IOUtils.toString(fileContent, "UTF-8");
-        }
+        // ontology name are "ont" + ontology number (ont1 or ont2)
+        ontologyString = readFileFromRequest("ont" + ontNumber, request);
       }
       return ontologyString;
+    }
+    
+    /**
+     * Read the file passed in params in the HTTP request
+     * @param fileParam
+     * @param request
+     * @return
+     * @throws IOException 
+     */
+    public String readFileFromRequest(String fileParam, HttpServletRequest request) throws IOException {
+      String fileString = null;
+      Part filePart = null;
+      String filename = null;
+      
+      try {
+        filePart = request.getPart(fileParam); // Retrieves <input type="file" name="file">
+      } catch (Exception e) {
+        fileString = "Could not load provided ontology file";
+      }
+      if (filePart != null) {
+        filename = filePart.getSubmittedFileName();
+        InputStream fileContent = filePart.getInputStream();
+        fileString = IOUtils.toString(fileContent, "UTF-8");
+      }
+      return fileString;
     }
     
     /**
@@ -98,7 +112,7 @@ public class YamFileHandler {
     public String uploadFile(String ontNumber, String subDir, HttpServletRequest request) throws IOException {
       
       // Read the file or source URL in the request and returns a String
-      String ontologyString = readFileFromRequest(ontNumber, request);
+      String ontologyString = getOntFileFromRequest(ontNumber, request);
       
       // Store the ontology String in the generated subDir and return file path
       String storagePath = storeFile("ont" + ontNumber + ".owl", subDir, ontologyString, false);

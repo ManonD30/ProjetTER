@@ -57,7 +57,13 @@ public class Result extends HttpServlet {
 	public static java.util.Map<String, String> Onto1 = new HashMap<>();
 	public static java.util.Map<String, String> Onto2 = new HashMap<>();
 
-	// servlet's doPost which run YAM++ and redirect to the .JSP
+	/**
+         * servlet's doPost which run YAM++ and redirect to the .JSP
+         * @param request
+         * @param response
+         * @throws ServletException
+         * @throws IOException 
+         */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -81,7 +87,6 @@ public class Result extends HttpServlet {
 		}
                 
                 response.setCharacterEncoding("UTF-8");
-                response.setContentType("text/plain");
 
                 // get time at the matching beginning
                 long begin = System.currentTimeMillis();
@@ -107,8 +112,8 @@ public class Result extends HttpServlet {
                 } catch (ClassNotFoundException ex) {
                   Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                String stringOnt1 = fileHandler.readFileFromRequest("1", request);
-                String stringOnt2 = fileHandler.readFileFromRequest("2", request);
+                String stringOnt1 = fileHandler.getOntFileFromRequest("1", request);
+                String stringOnt2 = fileHandler.getOntFileFromRequest("2", request);
                 
                 try {
                   liste = fileHandler.parseOaeiAlignmentFormat(matcherResult);

@@ -17,12 +17,11 @@
 		<h3 class=contentText>Select your ontologies and your alignment.</h3>
 		<div class=form>
 
-			<form action="rest/matcher/uploadValidationFiles" method="post"
-				enctype="multipart/form-data" name=form
-				onsubmit="display_div('btnValidate');">
+			<form action="validator" method="post"
+				enctype="multipart/form-data" name=form>
                           <div style="padding-bottom: 20px">
-				<label for=firstFile>Source ontology</label> <br/>
-                                <input type="file" id=firstFile name="firstFile" accept=".owl" required /> <br/>
+				<label for=ont1>Source ontology</label> <br/>
+                                <input type="file" id=ont1 name="ont1" accept=".owl" required /> <br/>
                                 <%@page import="java.io.*" %>
 <%@page import="java.net.*" %>
 <%@page import="org.apache.http.client.utils.URIBuilder" %>
@@ -91,12 +90,12 @@
 %>
                           </div>
                           <div style="padding-bottom: 20px">
-				<label for=secondFile>Target ontology&nbsp;</label> <br/>
-                                <input id=secondFile type="file" name="secondFile" accept=".owl" required />
+				<label for=ont2>Target ontology&nbsp;</label> <br/>
+                                <input id=ont2 type="file" name="ont2" accept=".owl" required />
                           </div>
                           <div style="padding-bottom: 20px">
-                                <label for=rdfFile>Alignment &nbsp;</label> <br/>
-                                <input id=rdfFile type="file" name="rdfFile" accept=".rdf" required />
+                                <label for=rdfAlignmentFile>Alignment &nbsp;</label> <br/>
+                                <input id=rdfAlignmentFile type="file" name="rdfAlignmentFile" accept=".rdf" required />
                           </div>
 				<br> <br> <input class=btn type="submit" value="Upload" />
 			</form>
