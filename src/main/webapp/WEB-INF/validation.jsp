@@ -28,8 +28,10 @@ for the ont1 and ont2 ontology alignment -->
                       if (request.getAttribute("errorMessage") == null && request.getAttribute("data") != null) {
                         //get the execution time from response
                         String time = (String) request.getAttribute("time");
-                        out.println("<p class=contentTime> Calculated with YAM++ in "
+                        if (time != null) {
+                          out.println("<p class=contentTime> Calculated with YAM++ in "
                                       + time + " seconds</p>");
+                        }
                     %>
                     
                 <label for=seuilDynamic>Select your threshold:</label>
