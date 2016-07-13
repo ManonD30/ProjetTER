@@ -115,13 +115,14 @@ public class Result extends HttpServlet {
                 String stringOnt1 = fileHandler.getOntFileFromRequest("1", request);
                 String stringOnt2 = fileHandler.getOntFileFromRequest("2", request);
                 
+                // Parse OAEI alignment format to get the matcher results
                 try {
                   liste = fileHandler.parseOaeiAlignmentFormat(matcherResult);
                 } catch (AlignmentException ex) {
                   request.setAttribute("errorMessage", "Error when loading OAEI alignment results: " + ex.getMessage());
                   Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                // add cell data list to response
+                // add cell data list of matcher results to response
                 request.setAttribute("data", liste);
                 
                 // add ontologies label<-->key translation to response
@@ -144,197 +145,6 @@ public class Result extends HttpServlet {
                 this.getServletContext()
                         .getRequestDispatcher("/WEB-INF/validation.jsp")
                         .forward(request, response);
-                
-                /*
-		if (asMatched > canMatch) {
-			// add number of match to response
-			request.setAttribute("asMatched", Integer.toString(asMatched));
-			request.setAttribute("canMatch", Integer.toString(canMatch));
-			this.getServletContext()
-					.getRequestDispatcher("/WEB-INF/tooManyMatch.jsp")
-					.forward(request, response);
-			;
-		} else {
-			// get the key in the cookie
-			String key = null;
-			Cookie[] cookies = request.getCookies();
-			for (int i = 0; i < cookies.length; i++) {
-				Cookie ck = cookies[i];
-				if (ck.getName().equals("key")) {
-					key = cookies[i].getValue();
-				}
-			}
-
-			// save the file if the user checked 'yes'
-			String save = request.getParameter("saveOption");
-			if (save.equals("yes")) {
-				saveFirstFile(key);// save first ontology
-				saveSecondFile(key);// save second ontology
-			}
-
-			// get time at the matching beginning
-			long begin = System.currentTimeMillis();
-                        
-                        myLog.log(Level.INFO, "Juste avant main: " + prop.getProperty("workdir") + "/ontologies/first" + key + ".owl");
-
-			// run YAM++ with two ontologies (.owl) to a new .rdf
-			MainProgram.match(prop.getProperty("workdir") + "/ontologies/first" + key + ".owl",
-					prop.getProperty("workdir") + "/ontologies/second" + key + ".owl",
-					prop.getProperty("workdir") + "/ontologies/result" + key + ".rdf");
-
-                        myLog.log(Level.INFO, "Juste apres main");
-			// get time at the matching end
-			long end = System.currentTimeMillis();
-
-			// matching time equals to
-			float execTime = ((float) (end - begin)) / 1000f;
-			// String conversion to allow data transfer to result.jsp
-			String s = Float.toString(execTime);
-			// add matching time to response
-			request.setAttribute("time", s);
-
-			// add cell data to the list
-			try {
-				getCellData(liste, key);
-			} catch (AlignmentException e) {
-                                myLog.log(Level.INFO, "dans catch: " + e.getMessage());
-				e.printStackTrace();
-			}
-
-			// add cell data list to response
-			request.setAttribute("data", liste);
-
-			// add ontologies label<-->key translation to response
-			InputStream in1 = new FileInputStream(prop.getProperty("workdir") + "/ontologies/first"
-					+ key + ".owl");
-			InputStream in2 = new FileInputStream(
-					prop.getProperty("workdir") + "/ontologies/second" + key + ".owl");
-                        myLog.log(Level.INFO, "apres in2");
-			Onto1.clear();
-			Onto2.clear();
-			loadOnto(in1, Onto1);
-			loadOnto(in2, Onto2);
-			request.setAttribute("onto1", Onto1);
-			request.setAttribute("onto2", Onto2);
-
-			// send response
-			this.getServletContext()
-					.getRequestDispatcher("/WEB-INF/result.jsp")
-					.forward(request, response);
-		}*/
-	}
-
-	// //////////////////////////SAVING FILES FUNCTIONS///////////////////////
-	// files name pattern is: YYYYMMDD_keyfile
-
-	// save the user's first ontology if he checked "yes"
-	public void saveFirstFile(String key) throws IOException {
-		// current date to create a unique name
-		// date+first.owl
-		DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-		Date date = new Date();
-		String dateName = dateFormat.format(date);
-
-		FileChannel in = null; // input
-		FileChannel out = null; // output
-                
-                // Load properties file for work directory
-                Properties prop = new Properties();
-                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
-
-		try {
-			// Init
-
-			in = new FileInputStream(prop.getProperty("workdir") + "/ontologies/first" + key
-					+ ".owl").getChannel();
-			out = new FileOutputStream(prop.getProperty("workdir") + "/save/" + dateName + "_"
-					+ key + "source.owl").getChannel();
-
-			// Copy from in to out
-			in.transferTo(0, in.size(), out);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (IOException e) {
-				}
-			}
-			if (out != null) {
-				try {
-					out.close();
-				} catch (IOException e) {
-				}
-			}
-		}
-	}
-
-	// save the user's second ontology if he checked "yes"
-	public void saveSecondFile(String key) throws IOException {
-		// current date to create a unique name
-		// date+second.owl
-		DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-		Date date = new Date();
-		String dateName = dateFormat.format(date);
-
-		FileChannel in = null; // input
-		FileChannel out = null; // output
-                
-                // Load properties file for work directory
-                Properties prop = new Properties();
-                prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
-
-		try {
-			// Init
-			in = new FileInputStream(prop.getProperty("workdir") + "/ontologies/second" + key
-					+ ".owl").getChannel();
-			out = new FileOutputStream(prop.getProperty("workdir") + "/save/" + dateName + "_"
-					+ key + "target.owl").getChannel();
-
-			// Copy from in to out
-			in.transferTo(0, in.size(), out);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (IOException e) {
-				}
-			}
-			if (out != null) {
-				try {
-					out.close();
-				} catch (IOException e) {
-				}
-			}
-		}
-	}
-
-	public void getCellData(ArrayList<Map> liste, String matcherResult)
-			throws AlignmentException, IOException {
-                
-		AlignmentParser aparser = new AlignmentParser(0);
-		// rdf file
-                Alignment file = aparser.parseString(matcherResult);
-
-		// cell iterator
-		Iterator<Cell> align = file.iterator();
-		// clear the list
-		liste.clear();
-		// add all iteration to the list
-		while (align.hasNext()) {
-			// new Map which will contain a cell
-			Map mapping = new Map();
-			Cell cell = align.next();
-
-			mapping.e1 = (cell.getObject1().toString());
-			mapping.e2 = (cell.getObject2().toString());
-			mapping.relation = (cell.getRelation().getRelation().toString());
-			mapping.score = round(cell.getStrength());
-			liste.add(mapping);
-		}
 	}
 
 	// round a double to 2 decimal places
