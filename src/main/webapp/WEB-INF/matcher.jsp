@@ -12,11 +12,16 @@
 
                                 <button type="button" class="btn btn-sm btn-info" onclick="getExample()">Fill with example</button>
                                 <br/><br/>
+                                
+                                <div class="alert alert-warning" role="alert">
+                                  The version of YAM++ used in this app is not optimized for big ontologies.<br/>
+                                  So it may crash :D
+                                </div>
                           
                                 <div class="row">
 
                                   <div class="col-md-6">
-                                    <label for=firstFile>Source ontology</label> <br/>
+                                    <label for=firstFile>Ontology 1</label> <br/>
                                     <input type="url" id="sourceUrl1" name="sourceUrl1" placeholder="Enter ontology URL"/>
                                     <br/>
                                     <span style="text-align: center">or</span> <br/>
@@ -27,7 +32,7 @@
                                     <label id="fileOnt1" style="font-weight: normal;"></label>
                                   </div>
                                   <div class="col-md-6">
-                                    <label for=secondFile>Target ontology&nbsp;</label> <br/>
+                                    <label for=secondFile>Ontology 2</label> <br/>
                                     <input type="url" id="sourceUrl2" name="sourceUrl2" placeholder="Enter ontology URL"/>
                                     <br/>
                                     <span style="text-align: center">or</span> <br/>

@@ -19,7 +19,7 @@
                                 <div class="row">
 
                                   <div class="col-md-6">
-                                    <label for=sourceUrl1>Source ontology</label> <br/>
+                                    <label for=sourceUrl1>Ontology 1</label> <br/>
                                     <input type="url" id="sourceUrl1" name="sourceUrl1" placeholder="Enter ontology URL"/>
                                     <br/>
                                     <span style="text-align: center">or</span> <br/>
@@ -30,7 +30,7 @@
                                     <label id="fileOnt1" style="font-weight: normal;"></label>
                                   </div>
                                   <div class="col-md-6">
-                                    <label for=sourceUrl2>Target ontology&nbsp;</label> <br/>
+                                    <label for=sourceUrl2>Ontology 2</label> <br/>
                                     <input type="url" id="sourceUrl2" name="sourceUrl2" placeholder="Enter ontology URL"/>
                                     <br/>
                                     <span style="text-align: center">or</span> <br/>
@@ -42,7 +42,7 @@
                                   </div>
                                 </div>
 				<br/>
-                                <label for=rdfAlignmentFile>Alignment RDF file&nbsp;</label> <br/>
+                                <label for=rdfAlignmentFile>Alignment RDF file</label> <br/>
                                 <label class="btn btn-info btn-file">
                                   Choose file
                                   <input id=rdfAlignmentFile type="file" name="rdfAlignmentFile" accept=".rdf" 
