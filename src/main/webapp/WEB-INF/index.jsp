@@ -3,11 +3,8 @@
 	<div class=indexPage>
 
 		<div class=indexLogoDiv>
-			<img class=logoIndex alt="Yam++" src="images/yam.png">
-
-			<h2>Online ontology and thesaurus matching, mapping validation
-				and alignment evaluation</h2>
-
+                    <h2>Online ontology and thesaurus matching, mapping validation 
+                      and alignment evaluation</h2>
 		</div>
 		<div class=indexContentDiv>
 			<div class=indexContent>
