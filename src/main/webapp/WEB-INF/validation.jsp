@@ -1,6 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="validationApp">
+  <!-- Here we don't use include header.jsp because we need to make it a angular js app -->
 <%@page import="java.util.ArrayList"%>
 <%@ page pageEncoding="UTF-8"%>
-<%@include file="header.jsp"%>
+  
+  <head>
+    <meta charset='utf-8' />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <!-- Bootstrap core CSS and theme -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="scripts/validation.js"></script>
+    <script src="scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="javascript.js"></script>
+    <script type="text/javascript" src="account.js"></script>
+    <script type="text/javascript" src="cookies.js"></script>
+    <title>YAM++</title>
+  </head>
+<body>
+	<div class=header>
+		<div class=nav>
+			<ul id=nav-box>
+				<li><a href=index><img class=navLogo alt="Home"
+						src="images/yam_top.png"></a></li>
+				<li><a href=matcher>Matcher</a></li>
+				<li><a href=validator>Validator</a></li>
+				<li><a href=documentation>REST API</a></li>
+				<li><a href=aboutus>About us</a></li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class=yellow></div>
 
 <!-- The page to display UI to validate an ontology alignment between 2 ontologies
 It is called by Result.java (matcher) and Validator.java to display validation UI
@@ -11,6 +44,9 @@ for the ont1 and ont2 ontology alignment -->
 <div class=sideMiddle>
 
 	<h3 class=contentText>Mappings</h3>
+        
+        <div data-ng-controller="validationCtrl" data-ng-init="init()"></div>
+
 
 	<div id=toHideWhenDownload>
                 
