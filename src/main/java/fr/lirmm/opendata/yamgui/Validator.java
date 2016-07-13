@@ -60,7 +60,7 @@ public class Validator extends HttpServlet {
 			throws ServletException, IOException {
           Logger myLog = Logger.getLogger (Result.class.getName());
           
-          // Retrieve ontologies String
+          // Retrieve ontologies String from file or URL
           YamFileHandler fileHandler = null;
           try {
             fileHandler = new YamFileHandler();
@@ -70,6 +70,7 @@ public class Validator extends HttpServlet {
           String stringOnt1 = fileHandler.getOntFileFromRequest("1", request);
           String stringOnt2 = fileHandler.getOntFileFromRequest("2", request);
           
+          // Get string of alignment from file
           String stringAlignmentFile = fileHandler.readFileFromRequest("rdfAlignmentFile", request);
 
           // Parse the alignment file to put its data in an Array of Map
@@ -98,8 +99,9 @@ public class Validator extends HttpServlet {
           request.setAttribute("onto1", Onto1);
           request.setAttribute("onto2", Onto2);
           
+          // Call result.jsp and send the request with ont1, ont2 and data results
           this.getServletContext()
-                        .getRequestDispatcher("/WEB-INF/result.jsp")
+                        .getRequestDispatcher("/WEB-INF/validation.jsp")
                         .forward(request, response);
         }
 

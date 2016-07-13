@@ -142,7 +142,7 @@ public class Result extends HttpServlet {
                 
                 // send response
                 this.getServletContext()
-                        .getRequestDispatcher("/WEB-INF/result.jsp")
+                        .getRequestDispatcher("/WEB-INF/validation.jsp")
                         .forward(request, response);
                 
                 /*
