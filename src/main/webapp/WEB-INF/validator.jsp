@@ -7,22 +7,57 @@
 <%@page import="java.nio.charset.Charset"%>
 <%@include file="header.jsp" %>
 
-	<script>
-		createCookie(0);
-	</script>
-	<div class="sideLeft"></div>
+        <div class="sideLeft"></div>
 
 	<div class=sideMiddle>
 
-		<h3 class=contentText>Select your ontologies and your alignment.</h3>
+            <h3 class=contentText>Select your ontologies and your alignment.</h3>
 		<div class=form>
-
 			<form action="validator" method="post"
 				enctype="multipart/form-data" name=form>
-                          <div style="padding-bottom: 20px">
-				<label for=ont1>Source ontology</label> <br/>
-                                <input type="file" id=ont1 name="ont1" accept=".owl" required /> <br/>
-                                <%@page import="java.io.*" %>
+                          
+                                <div class="row">
+
+                                  <div class="col-md-6">
+                                    <label for=sourceUrl1>Source ontology</label> <br/>
+                                    <input type="url" id="sourceUrl1" name="sourceUrl1" placeholder="Enter ontology URL"/>
+                                    <br/>
+                                    <span style="text-align: center">or</span> <br/>
+                                    <label class="btn btn-info btn-file">
+                                      Choose file
+                                      <input id=ont1 type="file" name="ont1" accept=".owl" onchange="refreshFileUpload('ont1','fileOnt1');" style="display: none;"/>
+                                    </label> <br/>
+                                    <label id="fileOnt1" style="font-weight: normal;"></label>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <label for=sourceUrl2>Target ontology&nbsp;</label> <br/>
+                                    <input type="url" id="sourceUrl2" name="sourceUrl2" placeholder="Enter ontology URL"/>
+                                    <br/>
+                                    <span style="text-align: center">or</span> <br/>
+                                    <label id="labelOnt2" class="btn btn-info btn-file">
+                                      Choose file
+                                      <input id=ont2 type="file" name="ont2" accept=".owl" onchange="refreshFileUpload('ont2','fileOnt2');" style="display: none;" />
+                                    </label> <br/>
+                                    <label id="fileOnt2" style="font-weight: normal;"></label>
+                                  </div>
+                                </div>
+				<br/>
+                                <label for=rdfAlignmentFile>Alignment RDF file&nbsp;</label> <br/>
+                                <label class="btn btn-info btn-file">
+                                  Choose file
+                                  <input id=rdfAlignmentFile type="file" name="rdfAlignmentFile" accept=".rdf" 
+                                         onchange="refreshFileUpload('rdfAlignmentFile', 'fileRdfAlignmentFile');" style="display: none;" />
+                                </label> <br/>
+                                <label id="fileRdfAlignmentFile" style="font-weight: normal;"></label>
+                                <br/>
+                                <label style="font-weight: normal;"><input type="checkbox" value="save" checked>I'm agreeing to let YAM++ save my ontologies</label>
+                                <br/><br/>
+                                <input class=btn type="submit" value="Validate!" />
+			</form>
+		</div>
+
+		
+<%@page import="java.io.*" %>
 <%@page import="java.net.*" %>
 <%@page import="org.apache.http.client.utils.URIBuilder" %>
 
@@ -88,31 +123,7 @@
    URLConnection urlcon = jsonpage.openConnection();
    BufferedReader buffread = new BufferedReader(new InputStreamReader(urlcon.getInputStream()));*/
 %>
-                          </div>
-                          <div style="padding-bottom: 20px">
-				<label for=ont2>Target ontology&nbsp;</label> <br/>
-                                <input id=ont2 type="file" name="ont2" accept=".owl" required />
-                          </div>
-                          <div style="padding-bottom: 20px">
-                                <label for=rdfAlignmentFile>Alignment &nbsp;</label> <br/>
-                                <input id=rdfAlignmentFile type="file" name="rdfAlignmentFile" accept=".rdf" required />
-                          </div>
-				<br> <br> <input class=btn type="submit" value="Upload" />
-			</form>
-
-		</div>
-
-		<div class=btnMatch id=btnValidate style="display: none;">
-			<form action="validation"
-				method="post" name=runMatch
-				onsubmit="document.location.href = '#overlay';">
-
-				I'm agreeing to let YAM++ save my files. <input type="radio"
-					name="saveOption" value="yes" checked>Yes <input
-					type="radio" name="saveOption" value="no">No <br> <br>
-				<input class=btn type="submit" value="Validate!" />
-			</form>
-		</div>
+                          
 
 		<div id="overlay">
 			<div class="popup_block">
@@ -126,4 +137,6 @@
 	</div>
 	<div class="sideRight"></div>
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        
 <%@include file="footer.jsp" %>

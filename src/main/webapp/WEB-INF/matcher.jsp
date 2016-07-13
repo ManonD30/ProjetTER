@@ -1,8 +1,4 @@
 <%@include file="header.jsp" %>
-	
-	<script>
-		createCookie(0);
-	</script>
 
 	<div class="sideLeft"></div>
 
@@ -26,7 +22,7 @@
                                     <span style="text-align: center">or</span> <br/>
                                     <label class="btn btn-info btn-file">
                                       Choose file
-                                      <input id=ont1 type="file" name="ont1" accept=".owl" onchange="refreshOnt('ont1');" style="display: none;"/>
+                                      <input id=ont1 type="file" name="ont1" accept=".owl" onchange="refreshFileUpload('ont1', 'fileOnt1');" style="display: none;"/>
                                     </label> <br/>
                                     <label id="fileOnt1" style="font-weight: normal;"></label>
                                   </div>
@@ -37,7 +33,7 @@
                                     <span style="text-align: center">or</span> <br/>
                                     <label id="labelOnt2" class="btn btn-info btn-file">
                                       Choose file
-                                      <input id=ont2 type="file" name="ont2" accept=".owl" onchange="refreshOnt('ont2');" style="display: none;" />
+                                      <input id=ont2 type="file" name="ont2" accept=".owl" onchange="refreshFileUpload('ont2', 'fileOnt2');" style="display: none;" />
                                     </label> <br/>
                                     <label id="fileOnt2" style="font-weight: normal;"></label>
                                   </div>
@@ -76,17 +72,6 @@
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script type="text/javascript">
-          /**
-           * Function to update file label
-           * @param {type} ontName
-           * @returns {undefined}
-           */
-          function refreshOnt(ontName) {
-            var path = document.getElementById(ontName).value;
-            var fileName = path.match(/[^\/\\]+$/);
-            $('#' + 'file' + ontName[0].toUpperCase() + ontName.slice(1)).html(fileName);
-          }
-          
           /**
            * Fill sourceUrl fields with default ontologies from BioPortal
            */
