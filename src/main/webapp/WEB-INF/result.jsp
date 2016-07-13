@@ -9,19 +9,32 @@
 	<h3 class=contentText>Mappings</h3>
 
 	<div id=toHideWhenDownload>
+                
+                    <%
+                      //get lists from response
+                      ArrayList<fr.lirmm.opendata.yamgui.Map> liste = (ArrayList) request
+                                      .getAttribute("data");
 
-		<label for=seuilDynamic>Select your threshold:</label>
+                      java.util.Map<String, String> onto1 = (java.util.Map) request
+                                      .getAttribute("onto1");
+
+                      java.util.Map<String, String> onto2 = (java.util.Map) request
+                                      .getAttribute("onto2");
+
+                      if (request.getAttribute("errorMessage") == null && request.getAttribute("data") != null) {
+                        //get the execution time from response
+                        String time = (String) request.getAttribute("time");
+                        out.println("<p class=contentTime> Calculated with YAM++ in "
+                                      + time + " seconds</p>");
+                    %>
+                    
+                <label for=seuilDynamic>Select your threshold:</label>
                 <span id="threshold_display">0</span>
                 <br> <input
 			id=seuilDynamic name=seuilDynamic type="range" min=0 max=1 step=0.05
 			size=3 value=0 oninput="refreshTab();" style="width: 25%;" onchange="refreshTab();">
                 
-                    <%
-                      //get the execution time from response
-                      String time = (String) request.getAttribute("time");
-                      out.println("<p class=contentTime> Calculated with YAM++ in "
-                                      + time + " seconds</p>");
-                    %>
+                
 		<table>
 			<thead>
 				<tr>
@@ -35,17 +48,6 @@
 			</thead>
 
 		</table>
-                    <%
-                        //get lists from response
-                        ArrayList<fr.lirmm.opendata.yamgui.Map> liste = (ArrayList) request
-                                        .getAttribute("data");
-
-                        java.util.Map<String, String> onto1 = (java.util.Map) request
-                                        .getAttribute("onto1");
-
-                        java.util.Map<String, String> onto2 = (java.util.Map) request
-                                        .getAttribute("onto2");
-                    %>
 
 		<form action='download'
 			method='post'>
@@ -93,7 +95,18 @@
 	</div>
 
 	<br>
+        
+        <%
+          // If errors
+          } else {    
+        %>
 
+        An error happened during matching <br/>
+        
+        <%
+          out.println(request.getAttribute("errorMessage"));
+          }
+        %>
 	<div id="overlay">
 		<div class="popup_block">
 			<p class=popup_text>

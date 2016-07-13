@@ -52,6 +52,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 public class Result extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+        
+        public static ArrayList<Map> liste = new ArrayList<>();
+	public static java.util.Map<String, String> Onto1 = new HashMap<>();
+	public static java.util.Map<String, String> Onto2 = new HashMap<>();
 
 	// servlet's doPost which run YAM++ and redirect to the .JSP
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -79,22 +83,35 @@ public class Result extends HttpServlet {
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("text/plain");
 
+                // get time at the matching beginning
+                long begin = System.currentTimeMillis();
+                
                 // Process request (upload files and run YAM)
                 String matcherResult = fr.lirmm.opendata.yamgui.Matcher.processRequest(request);
-                
                 request.setAttribute("matcherResult", matcherResult);
+                
+                // get time at the matching end
+                long end = System.currentTimeMillis();
+
+                // matching time equals to
+                float execTime = ((float) (end - begin)) / 1000f;
+                // String conversion to allow data transfer to result.jsp
+                String s = Float.toString(execTime);
+                // add matching time to response
+                request.setAttribute("time", s);
                 
                 // add cell data to the list
                 try {
                         getCellData(liste, matcherResult);
                 } catch (AlignmentException e) {
-                        myLog.log(Level.INFO, "dans catch: " + e.getMessage());
+                        myLog.log(Level.INFO, e.getMessage());
                         e.printStackTrace();
                 }
 
                 // add cell data list to response
                 request.setAttribute("data", liste);
 
+                // Retrieve ontologies String
                 YamFileHandler fileHandler = null;
                 try {
                   fileHandler = new YamFileHandler();
@@ -105,10 +122,18 @@ public class Result extends HttpServlet {
                 String stringOnt2 = fileHandler.readFileFromRequest("2", request);
                 
                 // add ontologies label<-->key translation to response
-                Onto1.clear();
-                Onto2.clear();
-                loadOnto(stringOnt1, Onto1);
-                loadOnto(stringOnt2, Onto2);
+                try {
+                  Onto1.clear();
+                  Onto2.clear();                
+                  myLog.log(Level.INFO, "string log ont1 : " + stringOnt1);
+                  myLog.log(Level.INFO, "string log ont2 : " + stringOnt2);
+                  loadOnto(stringOnt1, Onto1);
+                  loadOnto(stringOnt2, Onto2);
+                } catch (Exception ex) {
+                  myLog.log(Level.INFO, "Failed to load ontologies in Jena");
+                  request.setAttribute("errorMessage", "Error when loading ontologies in Jena: " + ex.getMessage());
+                  Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 request.setAttribute("onto1", Onto1);
                 request.setAttribute("onto2", Onto2);
                 
@@ -363,8 +388,4 @@ public class Result extends HttpServlet {
 		}
 		model.close();
 	}
-
-	public static ArrayList<Map> liste = new ArrayList<>();
-	public static java.util.Map<String, String> Onto1 = new HashMap<>();
-	public static java.util.Map<String, String> Onto2 = new HashMap<>();
 }
