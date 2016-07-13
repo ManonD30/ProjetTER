@@ -1,3 +1,5 @@
+<%@page import="org.json.simple.JSONArray"%>
+<%@page import="org.json.simple.JSONObject"%>
 <!DOCTYPE html>
 <html ng-app="validationApp">
   <!-- Here we don't use include header.jsp because we need to make it a angular js app -->
@@ -57,7 +59,14 @@ for the ont1 and ont2 ontology alignment -->
 
                       java.util.Map<String, String> onto2 = (java.util.Map) request
                                       .getAttribute("onto2");
+                      
+                      JSONObject jo = new JSONObject();
+jo.put("firstName", "John");
+jo.put("lastName", "Doe");
 
+JSONArray ja = new JSONArray();
+ja.add(jo);
+String alignmentString = ja.toJSONString();
                       if (request.getAttribute("errorMessage") == null && request.getAttribute("data") != null) {
                         //get the execution time from response
                         String time = (String) request.getAttribute("time");
@@ -67,6 +76,11 @@ for the ont1 and ont2 ontology alignment -->
                         }
                     %>
         
+                <script type="text/javascript">
+                  var alignmentJson = <%=alignmentString%>; 
+                    console.log(alignmentJson);
+                </script>
+                    
                 <div data-ng-controller="validationCtrl" data-ng-init="init('<%=liste%>','<%=onto1%>','<%=onto2%>')"></div>
                     
                 <label for=seuilDynamic>Select your threshold:</label>

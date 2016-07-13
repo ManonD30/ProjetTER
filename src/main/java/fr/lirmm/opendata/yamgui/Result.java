@@ -117,6 +117,7 @@ public class Result extends HttpServlet {
                 
                 // Parse OAEI alignment format to get the matcher results
                 try {
+                  // TODO: use JSON ici [{mapping1:label,etc},{}]
                   liste = fileHandler.parseOaeiAlignmentFormat(matcherResult);
                 } catch (AlignmentException ex) {
                   request.setAttribute("errorMessage", "Error when loading OAEI alignment results: " + ex.getMessage());
@@ -131,6 +132,7 @@ public class Result extends HttpServlet {
                   Onto2.clear();                
                   myLog.log(Level.INFO, "string log ont1 : " + stringOnt1);
                   myLog.log(Level.INFO, "string log ont2 : " + stringOnt2);
+                  // TODO: use JSON ici [{concept:label,etc},{}]
                   loadOnto(stringOnt1, Onto1);
                   loadOnto(stringOnt2, Onto2);
                 } catch (Exception ex) {
