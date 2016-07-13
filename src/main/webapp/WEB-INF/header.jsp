@@ -23,14 +23,14 @@
 				<li><a href=validator>Validator</a></li>
 				<li><a href=documentation>REST API</a></li>
 				<li><a href=aboutus>About us</a></li>
-				<%
+				<%--  To display Sign up (commented because we don't use user for the moment)
 					String name = (String) request.getSession().getAttribute("name");
 					if(name==null){
 						out.println("<li><a href=sign>Sign in/up</a></li>");
 					} else {
 						out.println("<li><a href=sign>"+name+"</a></li>");
 					}
-				%>
+				--%>
 			</ul>
 		</div>
 	</div>
