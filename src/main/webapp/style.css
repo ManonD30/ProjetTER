@@ -156,6 +156,10 @@ footer {
 	margin-top: 7%;
 }
 
+p {
+  margin: 1%;
+}
+
 h1 {
 	margin-left: 5%;
 	color: #719eb7;
@@ -172,6 +176,14 @@ h2 {
 h3 {
 	margin-left: 5%;
 	color: #719eb7;
+}
+
+h4 {
+	margin-left: 2%;
+}
+
+pre {
+	margin: 2%;
 }
 
 hr {
