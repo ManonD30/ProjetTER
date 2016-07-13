@@ -113,9 +113,13 @@ public class YamFileHandler {
       
       // Read the file or source URL in the request and returns a String
       String ontologyString = getOntFileFromRequest(ontNumber, request);
+      boolean saveFile = false;
+      if (request.getParameter("saveFile") != null) {
+        saveFile = true;
+      }
       
       // Store the ontology String in the generated subDir and return file path
-      String storagePath = storeFile("ont" + ontNumber + ".owl", subDir, ontologyString, false);
+      String storagePath = storeFile("ont" + ontNumber + ".owl", subDir, ontologyString, saveFile);
       
       return storagePath;
     }
@@ -138,6 +142,9 @@ public class YamFileHandler {
       // Generate file storage name: /$WORKING_DIR/ontologies/MYRANDOMID/ont1.txt for example
       String storagePath = this.workDir + "/data/tmp/" + subDir + "/" + filename;
       FileUtils.writeStringToFile(new File(storagePath), contentString);
+      if (saveFile == true) {
+        FileUtils.writeStringToFile(new File(this.workDir + "/data/save/" + subDir + "/" + filename), contentString);
+      }
       return storagePath;
     }
     

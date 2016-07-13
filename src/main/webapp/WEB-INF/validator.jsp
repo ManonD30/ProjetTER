@@ -49,8 +49,6 @@
                                          onchange="refreshFileUpload('rdfAlignmentFile', 'fileRdfAlignmentFile');" style="display: none;" />
                                 </label> <br/>
                                 <label id="fileRdfAlignmentFile" style="font-weight: normal;"></label>
-                                <br/>
-                                <label style="font-weight: normal;"><input type="checkbox" value="save" checked>I'm agreeing to let YAM++ save my ontologies</label>
                                 <br/><br/>
                                 <input class=btn type="submit" value="Validate!" />
 			</form>

@@ -39,7 +39,7 @@
                                   </div>
                                 </div>
 				<br/><br/>
-                                <label style="font-weight: normal;"><input type="checkbox" value="save" checked>I'm agreeing to let YAM++ save my ontologies</label>
+                                <label style="font-weight: normal;"><input type="checkbox" id=saveFile name="saveFile" checked>I agree to let YAM++ save my ontologies</label>
                                 <br/><br/>
                                 <input class=btn type="submit" value="Match!" />
 			</form>
