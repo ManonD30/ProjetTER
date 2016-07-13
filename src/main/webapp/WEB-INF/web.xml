@@ -195,6 +195,17 @@
   <servlet-mapping>
 	<servlet-name>Validator</servlet-name>
 	<url-pattern>/validator</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>Documentation</servlet-name>
+	<servlet-class>fr.lirmm.opendata.yamgui.Documentation</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Documentation</servlet-name>
+	<url-pattern>/documentation</url-pattern>
   </servlet-mapping>  
   
   <welcome-file-list>

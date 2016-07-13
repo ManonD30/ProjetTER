@@ -21,7 +21,7 @@
 						src="images/yam_top.png"></a></li>
 				<li><a href=matcher>Matcher</a></li>
 				<li><a href=validator>Validator</a></li>
-				<li><a href=evaluator>Evaluator</a></li>
+				<li><a href=documentation>REST API</a></li>
 				<li><a href=aboutus>About us</a></li>
 				<%
 					String name = (String) request.getSession().getAttribute("name");

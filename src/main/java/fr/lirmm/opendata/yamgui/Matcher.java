@@ -52,9 +52,9 @@ public class Matcher extends HttpServlet {
     * POST request. Use the processRequest method to upload file and run YAM
     * Upload file using either a local file or an URL. 
     * Use ont1 and ont2 parameters to define the 2 ontologies to work with
-    * Upload a file using cURL: curl -X POST -H \"Content-Type: multipart/form-data\ -F ont1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?ont2=http://purl.obolibrary.org/obo/po.owl
+    * Upload a file using cURL: curl -X POST -H \"Content-Type: multipart/form-data\ -F ont1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?sourceUrl2=http://purl.obolibrary.org/obo/po.owl
     * Only files: curl -X POST -H "Content-Type: multipart/form-data" -F ont2=@/srv/yam2013/cmt.owl -F ont1=@/srv/yam2013/Conference.owl http://localhost:8083/rest/matcher
-    * Only URL: curl -X POST http://localhost:8083/rest/matcher -d 'ont1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl' -d 'ont2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl'
+    * Only URL: curl -X POST http://localhost:8083/rest/matcher -d 'sourceUrl1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl' -d 'sourceUrl2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl'
     * 
     * @param request
     * @param response
@@ -76,7 +76,7 @@ public class Matcher extends HttpServlet {
     
     /**
      * Get request. Use the processRequest method to upload file and run YAM
-     * curl -X GET http://localhost:8083/rest/matcher?ont2=http://purl.obolibrary.org/obo/po.owl&ont1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
+     * curl -X GET http://localhost:8083/rest/matcher?sourceUrl2=http://purl.obolibrary.org/obo/po.owl&sourceUrl1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
      * http://localhost:8083/rest/matcher?ont2=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&ont1=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl
      * http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db
      * http://data.bioportal.lirmm.fr/ontologies/CIF/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db
@@ -109,6 +109,12 @@ public class Matcher extends HttpServlet {
       out.flush();
     }
     
+    /**
+     * Call the YAM match method to get alignment giving 2 ontology files
+     * @param request
+     * @return
+     * @throws IOException 
+     */
     static String processRequest(HttpServletRequest request) throws IOException {
       String responseString = null;
       try {        
