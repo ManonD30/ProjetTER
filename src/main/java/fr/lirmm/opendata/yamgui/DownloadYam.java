@@ -14,14 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 public class DownloadYam extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	// allow user to download result.rdf
+	// allow user to download Yam++.zip
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-            /*response.setCharacterEncoding("UTF-8");
-            response.setContentType("text/html");
-            PrintWriter out = response.getWriter();
-            out.println(System.getProperty("user.dir"));*/
             
                 Properties prop = new Properties();
                 prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
