@@ -2,7 +2,8 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@include file="header.jsp"%>
 
-<!-- Called by Result.java (matcher) and Validator.java to display validation UI
+<!-- The page to display UI to validate an ontology alignment between 2 ontologies
+It is called by Result.java (matcher) and Validator.java to display validation UI
 for the ont1 and ont2 ontology alignment -->
 
 <div id=sideLeft class="sideLeft"></div>
@@ -77,27 +78,14 @@ for the ont1 and ont2 ontology alignment -->
 				</table>
 			</div>
 
-			<div class=btnCenter>
-				<input class=btn type=button value='Validate'
-					onclick='seeDownloadButton();' />
-			</div>
-	</div>
-	<div class=btnCenter id='seeMappings' style='display: none'>
-		<input class=btn type="button" value="See mappings"
-			onclick='seeMappings();' />
-	</div>
+            </div>
 
-	<div class=btnCenter id='download' style='display: none'>
-		<input class=btn type="submit" value="Download mappings" />
-	</div>
+            <div class=btnCenter id='download'>
+                    <input class=btn type="submit" value="Download mappings" />
+            </div>
 	</form>
 
-	<div class=btnCenter>
-		<input class=btn type="button" value="Return to matcher"
-			onclick="document.location.href = '#overlay';">
-	</div>
-
-	<br>
+	<br/>
         
         <%
           // If errors

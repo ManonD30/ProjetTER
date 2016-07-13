@@ -32,23 +32,19 @@ public class Download extends HttpServlet {
 	// checked box list
 	public static ArrayList<Map> checked = new ArrayList<>();
 
-	// allow user to download result.rdf
+	/**
+         * Returns validated alignment file to user
+         * @param request
+         * @param response
+         * @throws ServletException
+         * @throws IOException 
+         */
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
                 // Load properties file for work directory
                 Properties prop = new Properties();
                 prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
-            
-		// get the key in the cookie
-		String key = null;
-		Cookie[] cookies = request.getCookies();
-		for (int i = 0; i < cookies.length; i++) {
-			Cookie ck = cookies[i];
-			if (ck.getName().equals("key")) {
-				key = cookies[i].getValue();
-			}
-		}
 
 		// request checked box
 		checked.clear();
@@ -59,22 +55,14 @@ public class Download extends HttpServlet {
 		}
 
 		// create final file
-		generateAlignement(checked, key);
-
-		saveRDFFile(key); // save the final .rdf file
-
-		InputStream is = new FileInputStream(
-				prop.getProperty("workdir") + "/ontologies/finalResult" + key + ".rdf");
-		OutputStream os = response.getOutputStream();
-		response.setHeader("Content-Disposition",
-				"attachment;filename=result.rdf");
-		int count;
-		byte buf[] = new byte[4096];
-		while ((count = is.read(buf)) > -1)
-			os.write(buf, 0, count);
-		is.close();
-		os.close();
-
+		String alignmentString = generateAlignement(checked);
+                
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("text/plain");
+                PrintWriter out = response.getWriter();
+                
+                out.print(alignmentString);
+                out.flush();
 	}
 
 	// save final rdf file
@@ -120,7 +108,7 @@ public class Download extends HttpServlet {
 		}
 	}
 
-	public static String generateAlignement(ArrayList<Map> MapFinal, String key) {
+	public static String generateAlignement(ArrayList<Map> MapFinal) {
 
 		Alignment alignments = new URIAlignment();
 		try {
@@ -161,20 +149,10 @@ public class Download extends HttpServlet {
 
 			alignments.render(renderer);
 			alignments.clone();
-                        
-                        // Load properties file for work directory
-                        Properties prop = new Properties();
-                        prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
-			// cmt-conference-confOf-iasted-sigkdd
-			PrintWriter out = new PrintWriter(
-					prop.getProperty("workdir") + "/ontologies/finalResult" + key + ".rdf");
-			out.println(swriter.toString());
-			out.close();
+                        String alignmentString = swriter.toString();
 			swriter.flush();
 			swriter.close();
-			writer.flush();
-			writer.close();
-			return swriter.toString();
+			return alignmentString;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
