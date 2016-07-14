@@ -67,11 +67,11 @@ for the ont1 and ont2 ontology alignment -->
                                   </thead>
                                   <tbody>
                                     <tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort">
-                                      <td>{{alignment.index}}</td>
-                                      <td>{{alignment.entity1}}</td>
-                                      <td>{{alignment.entity2}}</td>
-                                      <td>{{alignment.relation}}</td>
-                                      <td>{{alignment.measure}}</td>
+                                      <td name="index">{{alignment.index}}</td>
+                                      <td><input type="text" id="{{alignment.entity1}}" name="entity1" value="{{alignment.entity1}}" style="display: none;" readonly>{{alignment.entity1}}</input></td>
+                                      <td><input type="text" id="{{alignment.entity2}}" name="entity2" value="{{alignment.entity2}}" style="display: none;" readonly>{{alignment.entity2}}</input></td>
+                                      <td><input type="text" id="{{alignment.relation}}" name="relation" value="{{alignment.relation}}" style="display: none;" readonly>{{alignment.relation}}</input></td>
+                                      <td><input type="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" style="display: none;" readonly>{{alignment.measure}}</input></td>
                                       <td class=tdSmall>
                                         <input type='checkbox' name='checkbox' value='{{alignment.index}}' id='{{alignment.index}}' checked/>
                                       </td>

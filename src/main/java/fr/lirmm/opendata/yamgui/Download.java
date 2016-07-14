@@ -32,23 +32,41 @@ public class Download extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
           // Force to get it as a file to download
-          response.setContentType("application/force-download");
-          response.setHeader("content-disposition", "inline; filename=\"yam_alignment_result.rdf\"");
+          //response.setContentType("application/force-download");
+          //response.setHeader("content-disposition", "inline; filename=\"yam_alignment_result.rdf\"");
+          response.setContentType("text/plain");
 
+          //request.getParameterMap().toString();
+          // TODO: modifier ça pour utiliser le JSON
+          
           // request checked box
           checked.clear();
           String[] checkbox = request.getParameterValues("checkbox");
           for (String c : checkbox) {
                   int mapNumber = Integer.parseInt(c);
-                  checked.add(Result.liste.get(mapNumber));
+                  //checked.add(Result.liste.get(mapNumber));
           }
 
-          String alignmentString = generateAlignement(checked);
+          //String alignmentString = generateAlignement(checked);
 
           response.setCharacterEncoding("UTF-8");
           PrintWriter out = response.getWriter();
+          
+          String[] entity1 = request.getParameterValues("entity1");
+          String[] entity2 = request.getParameterValues("entity2");
+          String[] relation = request.getParameterValues("relation");
+          String[] measure = request.getParameterValues("measure");
+          String allEntities = "";
+          if (entity1 != null) {
+            for (String e : entity1) {
+              allEntities = allEntities + e + "\n";
+            } 
+          } else {
+            allEntities = "nuuuullll";
+          }
+         
 
-          out.print(alignmentString);
+          out.print(allEntities);
           out.flush();
 	}
 
