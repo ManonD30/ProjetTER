@@ -57,7 +57,7 @@ for the ont1 and ont2 ontology alignment -->
 				<table id=table>
                                   <thead>
                                     <tr>
-                                      <th href="#" ng-click="orderByField='entity1'; reverseSort = !reverseSort">Line</th>
+                                      <th href="#" ng-click="orderByField='index'; reverseSort = !reverseSort">Line</th>
                                       <th href="#" ng-click="orderByField='entity1'; reverseSort = !reverseSort">Source label</th>
                                       <th href="#" ng-click="orderByField='entity2'; reverseSort = !reverseSort">Target label</th>
                                       <th href="#" ng-click="orderByField='relation'; reverseSort = !reverseSort">Relation</th>
@@ -67,12 +67,14 @@ for the ont1 and ont2 ontology alignment -->
                                   </thead>
                                   <tbody>
                                     <tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort">
-                                      <td>{{ $index + 1 }}</td>
+                                      <td>{{alignment.index}}</td>
                                       <td>{{alignment.entity1}}</td>
                                       <td>{{alignment.entity2}}</td>
                                       <td>{{alignment.relation}}</td>
                                       <td>{{alignment.measure}}</td>
-                                      <td class=tdSmall><input type='checkbox' name='checkbox' value='{{ $index }}' id='{{ $index }}' checked/></td>
+                                      <td class=tdSmall>
+                                        <input type='checkbox' name='checkbox' value='{{alignment.index}}' id='{{alignment.index}}' checked/>
+                                      </td>
                                     </tr>
                                   </tbody>
 				</table>

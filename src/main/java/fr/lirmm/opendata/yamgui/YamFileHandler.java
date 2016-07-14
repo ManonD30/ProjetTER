@@ -201,6 +201,8 @@ public class YamFileHandler {
       Iterator<Cell> align = file.iterator();
       // clear the list
       liste.clear();
+      
+      int index = 1;
       // add all iteration to the list
       while (align.hasNext()) {
               // new Map which will contain a cell
@@ -208,11 +210,12 @@ public class YamFileHandler {
               Cell cell = align.next();
               
               jObject = new JSONObject();
+              jObject.put("index", index);
               jObject.put("entity1", cell.getObject1().toString());
               jObject.put("entity2", cell.getObject2().toString());
               jObject.put("relation", cell.getRelation().getRelation().toString());
               jObject.put("measure", round(cell.getStrength()));
-              
+              index += 1;
               jArray.add(jObject);
       }
       return jArray;
