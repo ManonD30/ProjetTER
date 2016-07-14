@@ -76,8 +76,6 @@ for the ont1 and ont2 ontology alignment -->
                   //console.log(alignmentJson);
                 </script>
                     
-                <div ng-controller="validationCtrl" ></div>
-                    
                 <label for=seuilDynamic>Select your threshold:</label>
                 <span id="threshold_display">0</span>
                 <br> <input
@@ -85,7 +83,7 @@ for the ont1 and ont2 ontology alignment -->
 			size=3 value=0 oninput="refreshTab();" style="width: 25%;" onchange="refreshTab();">
                 
                 
-		<table>
+		<!--table>
 			<thead>
 				<tr>
 					<th class=thSmall>Line</th>
@@ -97,12 +95,32 @@ for the ont1 and ont2 ontology alignment -->
 				</tr>
 			</thead>
 
-		</table>
+		</table-->
 
 		<form action='download'
 			method='post'>
-			<div class=tabDiv>
+			<div class=tabDiv ng-controller="validationCtrl">
 				<table id=table>
+                                  <thead>
+                                    <tr>
+                                      <th href="#" ng-click="orderByField='entity1'; reverseSort = !reverseSort">Line</th>
+                                      <th href="#" ng-click="orderByField='entity1'; reverseSort = !reverseSort">Source label</th>
+                                      <th href="#" ng-click="orderByField='entity2'; reverseSort = !reverseSort">Target label</th>
+                                      <th href="#" ng-click="orderByField='relation'; reverseSort = !reverseSort">Relation</th>
+                                      <th href="#" ng-click="orderByField='measure'; reverseSort = !reverseSort">Score</th>
+                                      <th href="#" ng-click="">Validity</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort">
+                                      <td>{{ $index + 1 }}</td>
+                                      <td>{{alignment.entity1}}</td>
+                                      <td>{{alignment.entity2}}</td>
+                                      <td>{{alignment.relation}}</td>
+                                      <td>{{alignment.measure}}</td>
+                                      <td>00</td>
+                                    </tr>
+                                  </tbody>
                                     <%--
                                         //for each cell in the list
                                         for (int line = 0; line < liste.size(); line++) {
