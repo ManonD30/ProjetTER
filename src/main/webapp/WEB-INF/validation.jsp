@@ -51,7 +51,9 @@ for the ont1 and ont2 ontology alignment -->
                 
                     <%
                       //get lists from response
-                      ArrayList<fr.lirmm.opendata.yamgui.Map> liste = (ArrayList) request
+                      //ArrayList<fr.lirmm.opendata.yamgui.Map> liste = (ArrayList) request.getAttribute("data");
+                      
+                      ArrayList<fr.lirmm.opendata.yamgui.Map> alignmentArray = (ArrayList) request
                                       .getAttribute("data");
 
                       java.util.Map<String, String> onto1 = (java.util.Map) request
@@ -60,13 +62,6 @@ for the ont1 and ont2 ontology alignment -->
                       java.util.Map<String, String> onto2 = (java.util.Map) request
                                       .getAttribute("onto2");
                       
-                      JSONObject jo = new JSONObject();
-jo.put("firstName", "John");
-jo.put("lastName", "Doe");
-
-JSONArray ja = new JSONArray();
-ja.add(jo);
-String alignmentString = ja.toJSONString();
                       if (request.getAttribute("errorMessage") == null && request.getAttribute("data") != null) {
                         //get the execution time from response
                         String time = (String) request.getAttribute("time");
@@ -77,11 +72,11 @@ String alignmentString = ja.toJSONString();
                     %>
         
                 <script type="text/javascript">
-                  var alignmentJson = <%=alignmentString%>; 
-                    console.log(alignmentJson);
+                  var alignmentJson = <%=alignmentArray%>; 
+                  //console.log(alignmentJson);
                 </script>
                     
-                <div data-ng-controller="validationCtrl" data-ng-init="init('<%=liste%>','<%=onto1%>','<%=onto2%>')"></div>
+                <div ng-controller="validationCtrl" ></div>
                     
                 <label for=seuilDynamic>Select your threshold:</label>
                 <span id="threshold_display">0</span>
@@ -108,7 +103,7 @@ String alignmentString = ja.toJSONString();
 			method='post'>
 			<div class=tabDiv>
 				<table id=table>
-                                    <%
+                                    <%--
                                         //for each cell in the list
                                         for (int line = 0; line < liste.size(); line++) {
                                                 int numLine = line + 1;
@@ -125,7 +120,7 @@ String alignmentString = ja.toJSONString();
                                                                 + line + "' id='" + line + "' checked></td>"); //display checkbox
                                                 out.println("</tr>"); //close table line
                                         }
-                                    %>
+                                    --%>
 				</table>
 			</div>
 

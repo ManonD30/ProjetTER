@@ -49,6 +49,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.simple.JSONArray;
 
 public class Result extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -115,16 +116,17 @@ public class Result extends HttpServlet {
                 String stringOnt1 = fileHandler.getOntFileFromRequest("1", request);
                 String stringOnt2 = fileHandler.getOntFileFromRequest("2", request);
                 
+                JSONArray alignmentJson = null;
                 // Parse OAEI alignment format to get the matcher results
                 try {
                   // TODO: use JSON ici [{mapping1:label,etc},{}]
-                  liste = fileHandler.parseOaeiAlignmentFormat(matcherResult);
+                  alignmentJson = fileHandler.parseOaeiAlignmentFormat(matcherResult);
                 } catch (AlignmentException ex) {
                   request.setAttribute("errorMessage", "Error when loading OAEI alignment results: " + ex.getMessage());
                   Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 // add cell data list of matcher results to response
-                request.setAttribute("data", liste);
+                request.setAttribute("data", alignmentJson);
                 
                 // add ontologies label<-->key translation to response
                 try {

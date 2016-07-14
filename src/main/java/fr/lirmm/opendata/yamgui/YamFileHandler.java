@@ -32,6 +32,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.semanticweb.owl.align.Alignment;
 import org.semanticweb.owl.align.AlignmentException;
 import org.semanticweb.owl.align.Cell;
@@ -185,10 +187,13 @@ public class YamFileHandler {
         return contentString;
     }
     
-    public ArrayList<fr.lirmm.opendata.yamgui.Map> parseOaeiAlignmentFormat(String oaeiResult) throws AlignmentException {
+    public JSONArray parseOaeiAlignmentFormat(String oaeiResult) throws AlignmentException {
       AlignmentParser aparser = new AlignmentParser(0);
       // rdf file
       Alignment file = aparser.parseString(oaeiResult);
+      
+      JSONObject jObject = null;
+      JSONArray jArray = new JSONArray();
       
       ArrayList<Map> liste = new ArrayList<>();
 
@@ -201,14 +206,16 @@ public class YamFileHandler {
               // new Map which will contain a cell
               Map mapping = new Map();
               Cell cell = align.next();
-
-              mapping.e1 = (cell.getObject1().toString());
-              mapping.e2 = (cell.getObject2().toString());
-              mapping.relation = (cell.getRelation().getRelation().toString());
-              mapping.score = round(cell.getStrength());
-              liste.add(mapping);
+              
+              jObject = new JSONObject();
+              jObject.put("entity1", cell.getObject1().toString());
+              jObject.put("entity2", cell.getObject2().toString());
+              jObject.put("relation", cell.getRelation().getRelation().toString());
+              jObject.put("measure", round(cell.getStrength()));
+              
+              jArray.add(jObject);
       }
-      return liste;
+      return jArray;
     }
     
     public String getWorkDir() {
