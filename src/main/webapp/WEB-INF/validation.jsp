@@ -72,7 +72,7 @@ for the ont1 and ont2 ontology alignment -->
                                       <td><input type="text" id="{{alignment.entity2}}" name="entity2" value="{{alignment.entity2}}" style="display: none;" readonly>{{alignment.entity2}}</input></td>
                                       <!--td><input type="text" id=relation name="relation" value="{{alignment.relation}}" style="display: none;" readonly>{{alignment.relation}}</input></td-->
                                       <td>
-                                        <select id=relation name="relation"">
+                                        <select id="{{alignment.relation}}" name="relation"">
                                           <option value="http://www.w3.org/2004/02/skos/core#exactMatch">skos:exactMatch</option>
                                           <option value="http://www.w3.org/2004/02/skos/core#closeMatch">skos:closeMatch</option>
                                           <option value="http://www.w3.org/2004/02/skos/core#broadMatch">skos:broadMatch</option>
