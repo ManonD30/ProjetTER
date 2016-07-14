@@ -118,7 +118,7 @@ for the ont1 and ont2 ontology alignment -->
                                       <td>{{alignment.entity2}}</td>
                                       <td>{{alignment.relation}}</td>
                                       <td>{{alignment.measure}}</td>
-                                      <td>00</td>
+                                      <td class=tdSmall><input type='checkbox' name='checkbox' value='{{ $index }}' id='{{ $index }}' checked/></td>");
                                     </tr>
                                   </tbody>
                                     <%--
