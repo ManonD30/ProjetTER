@@ -16,11 +16,10 @@ import org.semanticweb.owl.align.AlignmentVisitor;
 import fr.inrialpes.exmo.align.impl.BasicParameters;
 import fr.inrialpes.exmo.align.impl.URIAlignment;
 import fr.inrialpes.exmo.align.impl.renderer.RDFRendererVisitor;
+import java.util.HashMap;
 
 public class Download extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	// checked box list
-	public static ArrayList<Map> checked = new ArrayList<>();
 
 	/**
          * Returns validated alignment file to user
@@ -32,41 +31,36 @@ public class Download extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
           // Force to get it as a file to download
-          //response.setContentType("application/force-download");
-          //response.setHeader("content-disposition", "inline; filename=\"yam_alignment_result.rdf\"");
-          response.setContentType("text/plain");
-
-          //request.getParameterMap().toString();
-          // TODO: modifier ça pour utiliser le JSON
-          
-          // request checked box
-          checked.clear();
-          String[] checkbox = request.getParameterValues("checkbox");
-          for (String c : checkbox) {
-                  int mapNumber = Integer.parseInt(c);
-                  //checked.add(Result.liste.get(mapNumber));
-          }
-
-          //String alignmentString = generateAlignement(checked);
+          response.setContentType("application/force-download");
+          response.setHeader("content-disposition", "inline; filename=\"yam_alignment_result.rdf\"");
 
           response.setCharacterEncoding("UTF-8");
           PrintWriter out = response.getWriter();
           
+          HashMap<String, String> hashMapping = null;
+          ArrayList<HashMap> arrayMappings = new ArrayList<>();
           String[] entity1 = request.getParameterValues("entity1");
           String[] entity2 = request.getParameterValues("entity2");
           String[] relation = request.getParameterValues("relation");
           String[] measure = request.getParameterValues("measure");
-          String allEntities = "";
-          if (entity1 != null) {
-            for (String e : entity1) {
-              allEntities = allEntities + e + "\n";
-            } 
-          } else {
-            allEntities = "nuuuullll";
+          
+          // Put all checked mappings in an Array of Hashtable
+          String[] checkbox = request.getParameterValues("checkbox");
+          for (String c : checkbox) {
+                  // -1 because 
+                  int mapNumber = Integer.parseInt(c) - 1;
+                  hashMapping = new HashMap<>();
+                  hashMapping.put("entity1", entity1[mapNumber]);
+                  hashMapping.put("entity2", entity2[mapNumber]);
+                  hashMapping.put("relation", relation[mapNumber]);
+                  hashMapping.put("measure", measure[mapNumber]);
+                  arrayMappings.add(hashMapping);
           }
          
-
-          out.print(allEntities);
+          // Generate the alignment string
+          String alignmentString = generateAlignement(arrayMappings);
+         
+          out.print(alignmentString);
           out.flush();
 	}
 
@@ -76,7 +70,7 @@ public class Download extends HttpServlet {
          * @param MapFinal
          * @return 
          */
-	public static String generateAlignement(ArrayList<Map> MapFinal) {
+	public static String generateAlignement(ArrayList<HashMap> MapFinal) {
 
 		Alignment alignments = new URIAlignment();
 		try {
@@ -88,22 +82,24 @@ public class Download extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+                String errorMessage = "";
 		for (int i = 0; i < MapFinal.size(); i++) {
-			Map ee = new Map();
-			ee = MapFinal.get(i);
-
+                        HashMap<String, String> hashMapping = null;
+			hashMapping = MapFinal.get(i);
 			try {
-				URI entity1 = new URI(ee.e1);
-				URI entity2 = new URI(ee.e2);
+				URI entity1 = new URI(hashMapping.get("entity1"));
+				URI entity2 = new URI(hashMapping.get("entity2"));
 
-				double score = ee.score;
+				double score = Double.parseDouble(hashMapping.get("measure"));
 
-				String relation = ee.relation;
+				String relation = hashMapping.get("relation");
 
 				// add to alignment
 				alignments.addAlignCell(entity1, entity2, relation, score);
+                                //errorMessage = errorMessage + " SCORE " + score + " ENTITY1 " + entity1 + " ENTITY2 " + entity2 + " RELATION " + relation;
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
+                                errorMessage = errorMessage + " getMessage: " + e.getMessage() + " ERROR: " + e;
 				e.printStackTrace();
 			}
 		}
@@ -120,7 +116,8 @@ public class Download extends HttpServlet {
                         String alignmentString = swriter.toString();
 			swriter.flush();
 			swriter.close();
-			return alignmentString;
+			//return alignmentString;
+                        return alignmentString;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
