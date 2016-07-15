@@ -48,14 +48,12 @@ public class Download extends HttpServlet {
           // Put all checked mappings in an Array of Hashtable
           String[] checkbox = request.getParameterValues("checkbox");
           if (checkbox != null) {
-            for (String c : checkbox) {
-                    // -1 because mapping index start at 1 and not 0
-                    int mapNumber = Integer.parseInt(c) - 1;
+            for (int i = 0; i < checkbox.length; i++) {
                     hashMapping = new HashMap<>();
-                    hashMapping.put("entity1", entity1[mapNumber]);
-                    hashMapping.put("entity2", entity2[mapNumber]);
-                    hashMapping.put("relation", relation[mapNumber]);
-                    hashMapping.put("measure", measure[mapNumber]);
+                    hashMapping.put("entity1", entity1[i]);
+                    hashMapping.put("entity2", entity2[i]);
+                    hashMapping.put("relation", relation[i]);
+                    hashMapping.put("measure", measure[i]);
                     arrayMappings.add(hashMapping);
             }
             // Generate the alignment string
