@@ -67,23 +67,21 @@
   HttpResponse httpResponse = null;
   try{
     URI uri = new URI("http://data.stageportal.lirmm.fr/ontologies?apikey=" + myApiKey);
+    // Execute HTTP request
     httpResponse = client.execute(new HttpGet(uri));
   } catch (URISyntaxException e) {
-  }catch(IOException e){
-  }
+  } catch(IOException e){}
 
-  // process response
-  String recv;
-  String ontologiesString = null;
+  String responseLine;
+  String responseString = null;
   BufferedReader reader = null;
   try{
+    // Read HTTP GET response
     reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), Charset.forName("UTF-8")));
-  }catch (IOException e){
-    
-  }
+  } catch (IOException e){}
   
-  while ((recv = reader.readLine()) != null) {
-    ontologiesString += recv;
+  while ((responseLine = reader.readLine()) != null) {
+    responseString += responseLine;
   }
   reader.close();
   //JSONObject jsonObject = new JSONObject(ontologiesString);
