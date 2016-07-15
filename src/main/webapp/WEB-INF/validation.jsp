@@ -37,7 +37,7 @@ for the ont1 and ont2 ontology alignment -->
                         String time = (String) request.getAttribute("time");
                         if (time != null) {
                           out.println("<p class=contentTime> Calculated with YAM++ in "
-                                      + time + " seconds</p>");
+                                      + time + " seconds</p><br/>");
                         }
                     %>
         
