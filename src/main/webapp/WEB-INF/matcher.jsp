@@ -27,7 +27,7 @@
                                     <span style="text-align: center">or</span> <br/>
                                     <label class="btn btn-info btn-file">
                                       Choose file
-                                      <input id=ont1 type="file" name="ont1" accept=".owl" onchange="refreshFileUpload('ont1', 'fileOnt1');" style="display: none;"/>
+                                      <input id=ont1 type="file" name="ont1" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json" onchange="refreshFileUpload('ont1', 'fileOnt1');" style="display: none;"/>
                                     </label> <br/>
                                     <label id="fileOnt1" style="font-weight: normal;"></label>
                                   </div>
@@ -38,7 +38,7 @@
                                     <span style="text-align: center">or</span> <br/>
                                     <label id="labelOnt2" class="btn btn-info btn-file">
                                       Choose file
-                                      <input id=ont2 type="file" name="ont2" accept=".owl" onchange="refreshFileUpload('ont2', 'fileOnt2');" style="display: none;" />
+                                      <input id=ont2 type="file" name="ont2" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json" onchange="refreshFileUpload('ont2', 'fileOnt2');" style="display: none;" />
                                     </label> <br/>
                                     <label id="fileOnt2" style="font-weight: normal;"></label>
                                   </div>
