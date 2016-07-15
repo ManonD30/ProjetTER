@@ -43,7 +43,11 @@
                                     <label id="fileOnt2" style="font-weight: normal;"></label>
                                   </div>
                                 </div>
-				<br/><br/>
+				<br/>
+                                <div class="alert alert-info" role="alert">
+                                  Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json
+                                </div>
+                                <br/>
                                 <label style="font-weight: normal;"><input type="checkbox" id=saveFile name="saveFile" checked>I agree to let YAM++ save my ontologies</label>
                                 <br/><br/>
                                 <input class=btn type="submit" value="Match!" />

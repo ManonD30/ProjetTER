@@ -48,7 +48,11 @@
                                     <label id="fileOnt2" style="font-weight: normal;"></label>
                                   </div>
                                 </div>
-                                <br/><br/>
+                                <br/>
+                                <div class="alert alert-info" role="alert">
+                                  Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json
+                                </div>
+                                <br/>
                                 <input class=btn type="submit" value="Validate!" />
 			</form>
 		</div>
