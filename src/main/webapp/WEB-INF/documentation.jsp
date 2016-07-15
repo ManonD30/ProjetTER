@@ -43,7 +43,7 @@ curl -X GET http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl2=https://raw.gith
                         <pre class="prettyprint">CloseableHttpClient client = HttpClientBuilder.create().build();
   HttpResponse httpResponse = null;
   try{
-    URI uri = new URI("http://yamplusplus.lirmm.fr/aboutus);
+    URI uri = new URI("http://yamplusplus.lirmm.fr/aboutus");
     // Execute HTTP request
     httpResponse = client.execute(new HttpGet(uri));
   } catch (URISyntaxException e) {
