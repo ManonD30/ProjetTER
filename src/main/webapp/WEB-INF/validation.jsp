@@ -53,10 +53,8 @@ for the ont1 and ont2 ontology alignment -->
                          size=3 value=0 oninput="refreshTab();" style="width: 25%;" onchange="refreshTab();">
                 </div><br/>
                   
-                <button type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" onclick="checkAllBoxes()">Check/uncheck all mappings</button>
-                <br/><br/>
-                
                 <label>Search: <input ng-model="searchText"></label>
+                <button type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" onclick="checkAllBoxes()">Check/uncheck all mappings</button>
                 
                 <br/><br/>
                 
