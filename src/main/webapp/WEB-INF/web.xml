@@ -109,17 +109,6 @@
 	<url-pattern>/evaluation</url-pattern>
   </servlet-mapping>
   
-   <servlet>
-	<servlet-name>Evaluator</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.EvaluatorPage</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>Evaluator</servlet-name>
-	<url-pattern>/evaluator</url-pattern>
-  </servlet-mapping>
-  
   <servlet>
 	<servlet-name>Index</servlet-name>
 	<servlet-class>fr.lirmm.opendata.yamgui.Index</servlet-class>
@@ -153,7 +142,7 @@
 	<url-pattern>/result</url-pattern>
   </servlet-mapping>
   
-  <servlet>
+  <!--servlet>
 	<servlet-name>Signin</servlet-name>
 	<servlet-class>fr.lirmm.opendata.yamgui.Signin</servlet-class>
 	<load-on-startup>1</load-on-startup>
@@ -162,7 +151,7 @@
   <servlet-mapping>
 	<servlet-name>Signin</servlet-name>
 	<url-pattern>/sign</url-pattern>
-  </servlet-mapping> 
+  </servlet-mapping--> 
   
   <servlet>
 	<servlet-name>Validation</servlet-name>

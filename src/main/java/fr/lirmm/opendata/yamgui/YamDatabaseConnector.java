@@ -6,8 +6,6 @@
 package fr.lirmm.opendata.yamgui;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,9 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
-import javax.servlet.http.HttpSession;
-import javax.ws.rs.core.Response;
-import org.glassfish.jersey.media.multipart.FormDataParam;
 
 /**
  * A Class to connect to the MySQL Database used by Yam to manage users
