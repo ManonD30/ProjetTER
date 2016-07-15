@@ -13,7 +13,6 @@ for the ont1 and ont2 ontology alignment -->
 
 <div id=sideLeft class="sideLeft"></div>
 
-<!--div class=sideMiddle ng-app="validationApp" onLoad="initThreshold();"-->
 <div class=sideMiddle ng-app="validationApp">
 
 	<h3 class=contentText>Mappings</h3>
@@ -52,7 +51,7 @@ for the ont1 and ont2 ontology alignment -->
                   <span id="thresholdDisplay">0</span><br/> 
                   <!--input id=thresholdRange ng-model="threshold" name=thresholdRange type="range" min=0 max=1 step=0.05
                          size=3 value="0" style="width: 25%;" onInput="refreshThreshold();"-->
-                  <input id="thresholdRange" name="thresholdRange" ng-model="threshold" ng-init="0" ng-value="0" type="range" min=0 max=1 step=0.05
+                  <input id="thresholdRange" name="thresholdRange" ng-model="threshold" type="range" min=0 max=1 step=0.05
                          size=3 value=0 style="width: 25%;" onInput="refreshThreshold();">
                 </div><br/>
                   
@@ -77,7 +76,7 @@ for the ont1 and ont2 ontology alignment -->
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort|filter:searchText" ng-if="alignment.measure >= threshold">  
+                                    <tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort|filter:searchText" ng-if="alignment.measure >= threshold || threshold == null">  
                                       <td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
                                       <td><input type="text" id="{{alignment.entity1}}" name="entity1" value="{{alignment.entity1}}" style="display: none;" readonly>{{alignment.entity1}}</input></td>
                                       <td><input type="text" id="{{alignment.entity2}}" name="entity2" value="{{alignment.entity2}}" style="display: none;" readonly>{{alignment.entity2}}</input></td>
@@ -142,16 +141,4 @@ for the ont1 and ont2 ontology alignment -->
   function refreshThreshold() {
     document.getElementById("thresholdDisplay").innerHTML = document.getElementById("thresholdRange").value;
   }
-  
-  /**
-   * Update threshold display text
-   */
-  function initThreshold() {
-    jQuery('#thresholdRange').val("0");
-  }
-  
-  /*$( document ).ready(function() {
-    console.log( "ready!" );
-    jQuery('#thresholdRange').val("0");
-  });*/
 </script>
