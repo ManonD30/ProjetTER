@@ -16,6 +16,7 @@ import org.semanticweb.owl.align.AlignmentVisitor;
 import fr.inrialpes.exmo.align.impl.BasicParameters;
 import fr.inrialpes.exmo.align.impl.URIAlignment;
 import fr.inrialpes.exmo.align.impl.renderer.RDFRendererVisitor;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Download extends HttpServlet {
@@ -39,6 +40,7 @@ public class Download extends HttpServlet {
           
           HashMap<String, String> hashMapping = null;
           ArrayList<HashMap> arrayMappings = new ArrayList<>();
+          String[] indexArray = request.getParameterValues("index");
           String[] entity1 = request.getParameterValues("entity1");
           String[] entity2 = request.getParameterValues("entity2");
           String[] relation = request.getParameterValues("relation");
@@ -48,12 +50,14 @@ public class Download extends HttpServlet {
           // Put all checked mappings in an Array of Hashtable
           String[] checkbox = request.getParameterValues("checkbox");
           if (checkbox != null) {
-            for (int i = 0; i < checkbox.length; i++) {
+            for (String c : checkbox) {
+                    // Get the index in param arrays of the validate mappings
+                    int paramIndex = Arrays.asList(indexArray).indexOf(c);
                     hashMapping = new HashMap<>();
-                    hashMapping.put("entity1", entity1[i]);
-                    hashMapping.put("entity2", entity2[i]);
-                    hashMapping.put("relation", relation[i]);
-                    hashMapping.put("measure", measure[i]);
+                    hashMapping.put("entity1", entity1[paramIndex]);
+                    hashMapping.put("entity2", entity2[paramIndex]);
+                    hashMapping.put("relation", relation[paramIndex]);
+                    hashMapping.put("measure", measure[paramIndex]);
                     arrayMappings.add(hashMapping);
             }
             // Generate the alignment string

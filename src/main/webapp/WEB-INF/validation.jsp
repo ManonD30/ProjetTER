@@ -75,7 +75,7 @@ for the ont1 and ont2 ontology alignment -->
                                   </thead>
                                   <tbody>
                                     <tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort|filter:searchText">
-                                      <td name="index">{{alignment.index}}</td>
+                                      <td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
                                       <td><input type="text" id="{{alignment.entity1}}" name="entity1" value="{{alignment.entity1}}" style="display: none;" readonly>{{alignment.entity1}}</input></td>
                                       <td><input type="text" id="{{alignment.entity2}}" name="entity2" value="{{alignment.entity2}}" style="display: none;" readonly>{{alignment.entity2}}</input></td>
                                       <td>
