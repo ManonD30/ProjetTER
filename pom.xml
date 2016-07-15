@@ -52,7 +52,11 @@
             <version>2.6</version>
         </dependency>
 
-        
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-api</artifactId>
+            <version>5.0.2</version>
+        </dependency>
         <!-- http://mvnrepository.com/artifact/com.hp.hpl.jena/jena -->
         <dependency>
             <groupId>com.hp.hpl.jena</groupId>
