@@ -38,6 +38,30 @@
 curl -X GET http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl2=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&sourceUrl1=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl
 </pre>
 
+                        <h4>Using Java</h4>
+                        
+                        <pre class="prettyprint">CloseableHttpClient client = HttpClientBuilder.create().build();
+  HttpResponse httpResponse = null;
+  try{
+    URI uri = new URI("http://yamplusplus.lirmm.fr/aboutus);
+    // Execute HTTP request
+    httpResponse = client.execute(new HttpGet(uri));
+  } catch (URISyntaxException e) {
+  } catch(IOException e){}
+
+  String responseLine;
+  String responseString = null;
+  BufferedReader reader = null;
+  try{
+    // Read HTTP GET response
+    reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), Charset.forName("UTF-8")));
+  } catch (IOException e){}
+  
+  while ((responseLine = reader.readLine()) != null) {
+    responseString += responseLine;
+  }
+  reader.close();</pre>
+                        
 			<hr>
 			<h3>HTTP POST Request</h3>
 
