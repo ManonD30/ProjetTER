@@ -49,8 +49,6 @@ for the ont1 and ont2 ontology alignment -->
                 <div style="margin-left: 1%;">
                   <label for=thresholdRange>Select your threshold:</label>
                   <span id="thresholdDisplay">0</span><br/> 
-                  <!--input id=thresholdRange ng-model="threshold" name=thresholdRange type="range" min=0 max=1 step=0.05
-                         size=3 value="0" style="width: 25%;" onInput="refreshThreshold();"-->
                   <input id="thresholdRange" name="thresholdRange" ng-model="threshold" type="range" min=0 max=1 step=0.05
                          size=3 value=0 style="width: 25%;" onInput="refreshThreshold();">
                 </div><br/>
