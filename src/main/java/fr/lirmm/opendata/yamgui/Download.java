@@ -49,7 +49,7 @@ public class Download extends HttpServlet {
           String alignmentString = null;
           // Put all checked mappings in an Array of Hashtable
           String[] checkbox = request.getParameterValues("checkbox");
-          if (checkbox != null) {
+          if (checkbox != null && indexArray != null) {
             for (String c : checkbox) {
                     // Get the index in param arrays of the validate mappings
                     int paramIndex = Arrays.asList(indexArray).indexOf(c);
@@ -68,7 +68,6 @@ public class Download extends HttpServlet {
             response.setContentType("plain/text");
           }
             
-         
           out.print(alignmentString);
           out.flush();
 	}
