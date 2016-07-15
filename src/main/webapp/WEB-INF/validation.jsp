@@ -13,6 +13,7 @@ for the ont1 and ont2 ontology alignment -->
 
 <div id=sideLeft class="sideLeft"></div>
 
+<!--div class=sideMiddle ng-app="validationApp" onLoad="initThreshold();"-->
 <div class=sideMiddle ng-app="validationApp">
 
 	<h3 class=contentText>Mappings</h3>
@@ -48,8 +49,10 @@ for the ont1 and ont2 ontology alignment -->
                     
                 <div style="margin-left: 1%;">
                   <label for=thresholdRange>Select your threshold:</label>
-                  <span id="threshold_display">0</span><br/> 
-                  <input id=thresholdRange ng-model="threshold" ng-init="0" ng-value="0" name=thresholdRange type="range" min=0 max=1 step=0.05
+                  <span id="thresholdDisplay">0</span><br/> 
+                  <!--input id=thresholdRange ng-model="threshold" name=thresholdRange type="range" min=0 max=1 step=0.05
+                         size=3 value="0" style="width: 25%;" onInput="refreshThreshold();"-->
+                  <input id="thresholdRange" name="thresholdRange" ng-model="threshold" ng-init="0" ng-value="0" type="range" min=0 max=1 step=0.05
                          size=3 value=0 style="width: 25%;" onInput="refreshThreshold();">
                 </div><br/>
                   
@@ -60,7 +63,7 @@ for the ont1 and ont2 ontology alignment -->
                 
 		<form action='download'
 			method='post'>
-			<div class=tabDiv ng-controller="validationCtrl">
+			<div class=tabDiv ng-controller="ValidationCtrl">
                           
 				<table id=table>
                                   <thead>
@@ -137,6 +140,18 @@ for the ont1 and ont2 ontology alignment -->
    * Update threshold display text
    */
   function refreshThreshold() {
-    document.getElementById("threshold_display").innerHTML = document.getElementById("thresholdRange").value;
+    document.getElementById("thresholdDisplay").innerHTML = document.getElementById("thresholdRange").value;
   }
+  
+  /**
+   * Update threshold display text
+   */
+  function initThreshold() {
+    jQuery('#thresholdRange').val("0");
+  }
+  
+  /*$( document ).ready(function() {
+    console.log( "ready!" );
+    jQuery('#thresholdRange').val("0");
+  });*/
 </script>

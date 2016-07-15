@@ -17,20 +17,19 @@ function checkAllBoxes() {
 
 var validationApp = angular.module('validationApp', []);   
 
-validationApp.controller('validationCtrl', function ($scope, $window) {
+validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Init alignmentJson for angular js by getting the alignment from Java alignmentArray
   $scope.alignmentJson = $window.alignmentJson;
   //console.log($scope.alignmentJson);
-  
-  $scope.greaterThan = function(prop, val){
-    /*return function(item){
-      return item[prop] > val;
-    }*/
-    if (prop > val) {
-      return true;
-    } else {
-      return false;
-    }
-    
-}
+  //jQuery('#thresholdRange').val("0");
+  //console.log(jQuery('#thresholdRange').val())
+  //console.log($scope.threshold  );
+  if ($scope.threshold == null) {
+    //$scope.threshold = 0.5;
+    $('#thresholdRange').val(0);
+    console.log("juste avant threshold range");
+    console.log($('#thresholdRange').val());
+    console.log("now init");
+  }
+  console.log($scope.threshold);
 });
