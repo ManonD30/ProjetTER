@@ -1,10 +1,12 @@
 var valueAllBoxes = false;
+/**
+ * To check or uncheck all validity checkboxes
+ */
 function checkAllBoxes() {
     var checkboxes = document.getElementsByClassName("checkbox");
-    
     for (var i = checkboxes.length - 1; i >= 0; i--)
     {
-      checkboxes[i].checked = false;
+      checkboxes[i].checked = valueAllBoxes;
     }
     if (valueAllBoxes == true) {
       valueAllBoxes = false;
