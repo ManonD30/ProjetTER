@@ -49,11 +49,15 @@ for the ont1 and ont2 ontology alignment -->
                 <div style="margin-left: 1%;">
                   <label for=seuilDynamic>Select your threshold:</label>
                   <span id="threshold_display">0</span><br/> 
-                  <input id=seuilDynamic name=seuilDynamic type="range" min=0 max=1 step=0.05
+                  <input id=seuilDynamic ng-model="threshold" name=seuilDynamic type="range" min=0 max=1 step=0.05
                          size=3 value=0 oninput="refreshTab();" style="width: 25%;" onchange="refreshTab();">
                 </div><br/>
                   
                 <button type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" onclick="checkAllBoxes()">Check/uncheck all mappings</button>
+                <br/><br/>
+                
+                <label>Search: <input ng-model="searchText"></label>
+                
                 <br/><br/>
                 
 		<form action='download'
@@ -72,7 +76,8 @@ for the ont1 and ont2 ontology alignment -->
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort">
+                                    <!--tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort|filter:search"-->
+                                    <tr ng-repeat="alignment in alignmentJson|filter:searchText">
                                       <td name="index">{{alignment.index}}</td>
                                       <td><input type="text" id="{{alignment.entity1}}" name="entity1" value="{{alignment.entity1}}" style="display: none;" readonly>{{alignment.entity1}}</input></td>
                                       <td><input type="text" id="{{alignment.entity2}}" name="entity2" value="{{alignment.entity2}}" style="display: none;" readonly>{{alignment.entity2}}</input></td>

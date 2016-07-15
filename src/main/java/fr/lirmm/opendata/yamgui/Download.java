@@ -44,21 +44,28 @@ public class Download extends HttpServlet {
           String[] relation = request.getParameterValues("relation");
           String[] measure = request.getParameterValues("measure");
           
+          String alignmentString = null;
           // Put all checked mappings in an Array of Hashtable
           String[] checkbox = request.getParameterValues("checkbox");
-          for (String c : checkbox) {
-                  // -1 because 
-                  int mapNumber = Integer.parseInt(c) - 1;
-                  hashMapping = new HashMap<>();
-                  hashMapping.put("entity1", entity1[mapNumber]);
-                  hashMapping.put("entity2", entity2[mapNumber]);
-                  hashMapping.put("relation", relation[mapNumber]);
-                  hashMapping.put("measure", measure[mapNumber]);
-                  arrayMappings.add(hashMapping);
+          if (checkbox != null) {
+            for (String c : checkbox) {
+                    // -1 because mapping index start at 1 and not 0
+                    int mapNumber = Integer.parseInt(c) - 1;
+                    hashMapping = new HashMap<>();
+                    hashMapping.put("entity1", entity1[mapNumber]);
+                    hashMapping.put("entity2", entity2[mapNumber]);
+                    hashMapping.put("relation", relation[mapNumber]);
+                    hashMapping.put("measure", measure[mapNumber]);
+                    arrayMappings.add(hashMapping);
+            }
+            // Generate the alignment string
+            alignmentString = generateAlignement(arrayMappings);
+          } else {
+            // in case no checkbox have been checked
+            alignmentString = "No mappings have been selectioned";
+            response.setContentType("plain/text");
           }
-         
-          // Generate the alignment string
-          String alignmentString = generateAlignement(arrayMappings);
+            
          
           out.print(alignmentString);
           out.flush();
