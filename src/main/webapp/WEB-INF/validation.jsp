@@ -51,9 +51,13 @@ for the ont1 and ont2 ontology alignment -->
                 <input id=seuilDynamic name=seuilDynamic type="range" min=0 max=1 step=0.05
                        size=3 value=0 oninput="refreshTab();" style="width: 25%;" onchange="refreshTab();">
                 <br/>
+                
+                <button type="button" class="btn btn-sm btn-info" onclick="checkAllBoxes()">Check/uncheck all mappings</button>
+                
 		<form action='download'
 			method='post'>
 			<div class=tabDiv ng-controller="validationCtrl">
+                          
 				<table id=table>
                                   <thead>
                                     <tr>
@@ -81,7 +85,7 @@ for the ont1 and ont2 ontology alignment -->
                                       </td>
                                       <td><input type="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" style="display: none;" readonly>{{alignment.measure}}</input></td>
                                       <td class=tdSmall>
-                                        <input type='checkbox' name='checkbox' value='{{alignment.index}}' id='{{alignment.index}}' checked/>
+                                        <input type='checkbox' name='checkbox' class="checkbox" value='{{alignment.index}}' id='{{alignment.index}}' checked/>
                                       </td>
                                     </tr>
                                   </tbody>
