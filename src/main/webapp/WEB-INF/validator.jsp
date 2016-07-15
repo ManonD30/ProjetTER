@@ -16,7 +16,7 @@
 			<form action="validator" method="post"
 				enctype="multipart/form-data" name=form>
                           
-                                <label for=rdfAlignmentFile>Alignment RDF file</label> <br/>
+                          <label for=rdfAlignmentFile><a href="http://alignapi.gforge.inria.fr/format.html" target="_blank">AlignmentAPI</a> RDF file</label> <br/>
                                 <label class="btn btn-info btn-file">
                                   Choose file
                                   <input id=rdfAlignmentFile type="file" name="rdfAlignmentFile" accept=".rdf" 
