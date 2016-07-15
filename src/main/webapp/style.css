@@ -361,7 +361,7 @@ ul#nav-box li a:hover {
 .sideLeft {
 	float: left;
 	width: 25%;
-	height: 84%;
+	height: 100%;
 	display: inline-block;
 	vertical-align: top;
 	background: #d8e7ef;
@@ -371,7 +371,7 @@ ul#nav-box li a:hover {
 	display: inline-block;
 	vertical-align: top;
 	width: 50%;
-	height: 84%;
+	height: 100%;
 	background: #f2f7f9;
 }
 
@@ -379,7 +379,7 @@ ul#nav-box li a:hover {
 	float: right;
 	display: inline-block;
 	width: 25%;
-	height: 84%;
+	height: 100%;
 	vertical-align: top;
 	background: #d8e7ef;
 }
