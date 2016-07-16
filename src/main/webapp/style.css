@@ -44,6 +44,19 @@ a:visited {
 	cursor: pointer;
 }*/
 
+/* To display when radio btn is checked when choosing a format */
+.inputFormatAlignmentAPI:checked + .inputFormatAlignmentAPILabel {
+  font-weight: bold;
+  background: #f08b80;
+  font-size: 16px;
+}
+
+.inputFormatSimpleRDF:checked + .inputFormatSimpleRDFLabel {
+  font-weight: bold;
+  background: #f08b80;
+  font-size: 16px;
+}
+
 .btn:hover,.btnBig:hover {
 	background: #f08b80;
 	text-decoration: none;

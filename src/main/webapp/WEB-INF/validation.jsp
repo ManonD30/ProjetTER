@@ -93,16 +93,15 @@ for the ont1 and ont2 ontology alignment -->
                                     </tr>
                                   </tbody>
 				</table>
-                        </div><br/>
+                        </div><br/><br/>
                   
                         <div style="text-align:center; vertical-align:middle; display:table-cell;">
-                          <label class="btn btn-sm btn-info">
-                            <input type="radio" name="format" value="alignmentAPI" style="display: none;" checked>AlignmentAPI RDF format (OAEI)
-                          </label>
+                        <!-- Need to change .inputFormatAlignmentAPI:checked in style.css to add a new css reaction for a new button-->
+                          <input type="radio" name="format" id="alignmentAPI" value="alignmentAPI" style="display: none;" class="inputFormatAlignmentAPI" checked>
+                          <label for="alignmentAPI" class="btn btn-sm btn-info inputFormatAlignmentAPILabel">AlignmentAPI RDF format (OAEI)</label>
                           &nbsp;&nbsp;
-                          <label class="btn btn-sm btn-info">
-                            <input type="radio" name="format" value="simpleRDF" style="display: none;">Simple RDF format (entity1 relation entity2 triples)
-                          </label>
+                          <input type="radio" name="format" id="simpleRDF" value="simpleRDF" class="inputFormatSimpleRDF" style="display: none;">
+                          <label for="simpleRDF" class="btn btn-sm btn-info inputFormatSimpleRDFLabel">Simple RDF format (entity1-relation-entity2 triples)</label>
                         </div>
 
                   <div class=btnCenter id='download'>
