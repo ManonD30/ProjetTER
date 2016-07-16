@@ -61,7 +61,8 @@ public class Download extends HttpServlet {
                     arrayMappings.add(hashMapping);
             }
             // Generate the alignment string
-            alignmentString = generateAlignement(arrayMappings);
+            //alignmentString = generateAlignement(arrayMappings);
+            alignmentString = generateSimpleRdfAlignment(arrayMappings);
           } else {
             // in case no checkbox have been checked
             alignmentString = "No mappings have been selectioned";
@@ -78,8 +79,24 @@ public class Download extends HttpServlet {
          * @param MapFinal
          * @return 
          */
-	public static String generateAlignement(ArrayList<HashMap> MapFinal) {
-
+	public static String generateSimpleRdfAlignment(ArrayList<HashMap> MapFinal) {
+                String rdfAlignmentString = "";
+		for (int i = 0; i < MapFinal.size(); i++) {
+                        HashMap<String, String> hashMapping = null;
+			hashMapping = MapFinal.get(i);
+                        rdfAlignmentString = rdfAlignmentString + "<" + hashMapping.get("entity1") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity2") + "> .\n";
+		}
+                return rdfAlignmentString;
+	}
+        
+        
+        /**
+         * Generate alignment String retrieved from validation UI to generate the 
+         * alignment in RDF/XML format
+         * @param MapFinal
+         * @return 
+         */
+	public static String generateAlignment(ArrayList<HashMap> MapFinal) {
 		Alignment alignments = new URIAlignment();
 		try {
 			alignments.init(new URI("c"), new URI("c"));
