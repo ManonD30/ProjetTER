@@ -66,7 +66,7 @@ public class Download extends HttpServlet {
             String format = request.getParameter("format");
             if (format.equals("simpleRDF")) {
               alignmentString = generateSimpleRdfAlignment(arrayMappings);
-              response.setContentType("plain/text");
+              response.setHeader("content-disposition", "inline; filename=\"yam_alignment_result.nt\"");
             } else {
               alignmentString = generateAlignment(arrayMappings);
             }
