@@ -62,7 +62,15 @@ public class Download extends HttpServlet {
             }
             // Generate the alignment string
             //alignmentString = generateAlignement(arrayMappings);
-            alignmentString = generateSimpleRdfAlignment(arrayMappings);
+            
+            String format = request.getParameter("format");
+            if (format.equals("simpleRDF")) {
+              alignmentString = generateSimpleRdfAlignment(arrayMappings);
+              response.setContentType("plain/text");
+            } else {
+              alignmentString = generateAlignment(arrayMappings);
+            }
+            
           } else {
             // in case no checkbox have been checked
             alignmentString = "No mappings have been selectioned";

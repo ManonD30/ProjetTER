@@ -94,13 +94,20 @@ for the ont1 and ont2 ontology alignment -->
                                   </tbody>
 				</table>
 			</div>
+                  
+                        <label class="radio-inline">
+                          <input type="radio" name="format" value="alignmentAPI">AlignmentAPI RDF format (OAEI)
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="format" value="simpleRDF">Simple RDF format (entity1 relation entity2 triples)
+                        </label>
 
+                  <div class=btnCenter id='download'>
+                          <input class=btn type="submit" value="Download mappings" />
+                  </div>
+              </form>
+                  
             </div>
-
-            <div class=btnCenter id='download'>
-                    <input class=btn type="submit" value="Download mappings" />
-            </div>
-	</form>
 
 	<br/>
         
