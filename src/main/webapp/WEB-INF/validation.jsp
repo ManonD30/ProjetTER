@@ -59,9 +59,10 @@ for the ont1 and ont2 ontology alignment -->
                 
                 <p>
                   <label for="thresholdRange">Score threshold:</label>
-                  <input type="text" ng-model="threshold" id="thresholdRange" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                  <input type="text" ng-model="threshold" id="thresholdRange" readonly 
+                         style="border:0; color:#f6931f; font-weight:bold; background-color: transparent;">
                 </p>
-                <div id="slider-range"></div>
+                <div id="slider-range" style="margin-left: 1%; width: 50%"></div>
                 <br/><br/>
                   
                 <label style="margin-left: 1%;">Search: <input type="search" ng-model="searchText"></label>
