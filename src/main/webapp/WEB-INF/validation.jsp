@@ -8,11 +8,9 @@
 It is called by Result.java (matcher) and Validator.java to display validation UI
 for the ont1 and ont2 ontology alignment -->
 
-<link rel="stylesheet" type="text/css" href="css/rzslider.css"/>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 <script src="scripts/validation.js"></script>
-<script src="scripts/rzslider.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
 <div id=sideLeft class="sideLeft"></div>
@@ -21,7 +19,7 @@ for the ont1 and ont2 ontology alignment -->
 
 	<h3 class=contentText>Mappings</h3>
         
-	<div id=toHideWhenDownload>
+	<div ng-controller="ValidationCtrl" id=toHideWhenDownload>
                 
                     <%
                       //get lists from response
@@ -59,21 +57,20 @@ for the ont1 and ont2 ontology alignment -->
                 
                 <p>
                   <label for="thresholdRange">Score threshold:</label>
-                  <input type="text" ng-model="threshold" id="thresholdRange" readonly 
+                  <input type="text" ng-model="threshold" id="thresholdRange" readonly
                          style="border:0; color:#f6931f; font-weight:bold; background-color: transparent;">
                 </p>
                 <div id="slider-range" style="margin-left: 1%; width: 50%"></div>
                 <br/><br/>
-                  
+                
+                
                 <label style="margin-left: 1%;">Search: <input type="search" ng-model="searchText"></label>
                 <button type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" onclick="checkAllBoxes()">Check/uncheck all mappings</button>
-                
-                <br/><br/>
+                               
                 
 		<form action='download'
 			method='post'>
-			<div class=tabDiv ng-controller="ValidationCtrl">
-                          
+			<div class=tabDiv>
 				<table id=table>
                                   <thead>
                                     <tr>
@@ -86,7 +83,8 @@ for the ont1 and ont2 ontology alignment -->
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort|filter:searchText" ng-if="alignment.measure >= threshold || threshold == null">  
+                                    <tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort|filter:searchText" 
+                                        ng-if="alignment.measure >= threshold[0] || threshold == null">  
                                       <td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
                                       <td><input type="text" id="{{alignment.entity1}}" name="entity1" value="{{alignment.entity1}}" style="display: none;" readonly>{{alignment.entity1}}</input></td>
                                       <td><input type="text" id="{{alignment.entity2}}" name="entity2" value="{{alignment.entity2}}" style="display: none;" readonly>{{alignment.entity2}}</input></td>
@@ -159,5 +157,12 @@ for the ont1 and ont2 ontology alignment -->
    */
   function refreshThreshold() {
     document.getElementById("thresholdDisplay").innerHTML = document.getElementById("thresholdRange").value;
+  }
+
+  function refreshThresholdRange() {
+    //var lowThreshold =  $( "#slider-range" ).slider( "values", 0 )/100;
+    var lowThreshold =  $("thresholdRange").val();
+    console.log(lowThreshold);
+    console.log("in threshold refresh range");
   }
 </script>
