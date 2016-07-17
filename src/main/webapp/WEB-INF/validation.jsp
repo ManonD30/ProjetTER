@@ -112,6 +112,9 @@ for the ont1 and ont2 ontology alignment -->
                           &nbsp;&nbsp;
                           <input type="radio" name="format" id="simpleRDF" value="simpleRDF" class="inputFormatSimpleRDF" style="display: none;">
                           <label for="simpleRDF" class="btn btn-sm btn-info inputFormatSimpleRDFLabel">Simple RDF format (entity1-relation-entity2 triples)</label>
+                          &nbsp;&nbsp;
+                          <input type="radio" name="format" id="RDF" value="RDF" class="inputFormatRDF" style="display: none;">
+                          <label for="RDF" class="btn btn-sm btn-info inputFormatRDFLabel">RDF format</label>
                         </div>
 
                   <div class=btnCenter id='download'>

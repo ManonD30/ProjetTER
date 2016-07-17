@@ -50,8 +50,12 @@ a:visited {
   background: #f08b80;
   font-size: 16px;
 }
-
 .inputFormatSimpleRDF:checked + .inputFormatSimpleRDFLabel {
+  font-weight: bold;
+  background: #f08b80;
+  font-size: 16px;
+}
+.inputFormatRDF:checked + .inputFormatRDFLabel {
   font-weight: bold;
   background: #f08b80;
   font-size: 16px;

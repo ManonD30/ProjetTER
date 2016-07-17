@@ -1,5 +1,9 @@
 package fr.lirmm.opendata.yamgui;
 
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.vocabulary.VCARD;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -67,6 +71,9 @@ public class Download extends HttpServlet {
             if (format.equals("simpleRDF")) {
               alignmentString = generateSimpleRdfAlignment(arrayMappings);
               response.setHeader("content-disposition", "inline; filename=\"yam_alignment_result.nt\"");
+            } else if (format.equals("RDF")) {
+              alignmentString = generateRdfAlignment(arrayMappings);
+              response.setHeader("content-disposition", "inline; filename=\"yam_alignment_result.rdf\"");
             } else {
               alignmentString = generateAlignment(arrayMappings);
             }
@@ -83,7 +90,7 @@ public class Download extends HttpServlet {
 
 	/**
          * Generate alignment String retrieved from validation UI to generate the 
-         * alignment in RDF/XML format
+         * alignment in a simple RDF format (entity1-relation-entity2 triples)
          * @param MapFinal
          * @return 
          */
@@ -95,6 +102,36 @@ public class Download extends HttpServlet {
                         rdfAlignmentString = rdfAlignmentString + "<" + hashMapping.get("entity1") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity2") + "> .\n";
 		}
                 return rdfAlignmentString;
+	}
+        
+        
+        /**
+         * Generate alignment String retrieved from validation UI to generate the 
+         * alignment in RDF format
+         * @param MapFinal
+         * @return 
+         */
+	public static String generateRdfAlignment(ArrayList<HashMap> MapFinal) {
+          // create an empty Model
+          Model model = ModelFactory.createDefaultModel();      
+          String rdfAlignmentString = "";                
+          for (int i = 0; i < MapFinal.size(); i++) {
+                  HashMap<String, String> hashMapping = null;
+                  hashMapping = MapFinal.get(i);
+                  rdfAlignmentString = rdfAlignmentString + "<" + hashMapping.get("entity1") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity2") + "> .\n";
+
+                  model.createResource()
+                    .addProperty(model.createProperty("http://yamplusplus.lirmm.fr/ontology#entity"), hashMapping.get("entity1"))
+                    .addProperty(model.createProperty("http://yamplusplus.lirmm.fr/ontology#entity"), hashMapping.get("entity2"))
+                    .addProperty(model.createProperty("http://yamplusplus.lirmm.fr/ontology#relation"), hashMapping.get("relation"))
+                    .addProperty(model.createProperty("http://yamplusplus.lirmm.fr/ontology#score"), hashMapping.get("measure"));
+          }
+
+          StringWriter out = new StringWriter();
+          model.write(out);
+          rdfAlignmentString = out.toString();
+
+          return rdfAlignmentString;
 	}
         
         
