@@ -23,9 +23,15 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   //console.log($scope.alignmentJson);
   
   // Pour recup les objets depuis le javascript
-  $scope.lowThreshold = $window.lowThreshold;
+  //$scope.lowThreshold = $window.lowThreshold;
   $scope.minValue = $window.minValue;
-  //$scope.minValue = 25;
+  //$scope.minValue = 50;
+  
+  $scope.change = function() {
+    $scope.minValue = $scope.minValue = 50;
+    console.log("yyyy");
+    console.log($scope.minValue);
+  };
 });
 
 /**
@@ -39,10 +45,16 @@ $( function() {
       values: [ 25, 100 ],
       slide: function( event, ui ) {
         $( "#thresholdRange" ).val(ui.values[ 0 ]/100 + " - " + ui.values[ 1 ]/100);
-        console.log("tee");
-        console.log($('[ng-controller="ValidationCtrl"]').scope().minValue);
+        console.log("Update minValue");
         $('[ng-controller="ValidationCtrl"]').scope().minValue = ui.values[ 0 ];
+        var minValue = ui.values[ 0 ];
         console.log($('[ng-controller="ValidationCtrl"]').scope().minValue);
+        
+        var appElement = document.querySelector('[ng-app=validationApp]');
+        var $scope = angular.element(appElement).scope();
+        $scope.$apply(function() {
+            $scope.minValue = ui.values[ 0 ];
+        });
       }
     });
     $( "#thresholdRange" ).val( $( "#slider-range" ).slider( "values", 0 )/100 +

@@ -57,7 +57,7 @@ for the ont1 and ont2 ontology alignment -->
                 
                 <p>
                   <label for="thresholdRange">Score threshold:</label>
-                  <input type="text" ng-model="threshold" id="thresholdRange" readonly
+                  <input type="text" ng-model="threshold" ng-change="change()" id="thresholdRange" readonly
                          style="border:0; color:#f6931f; font-weight:bold; background-color: transparent;">
                 </p>
                 <div id="slider-range" style="margin-left: 1%; width: 50%"></div>
@@ -84,7 +84,7 @@ for the ont1 and ont2 ontology alignment -->
                                   </thead>
                                   <tbody>
                                     <tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort|filter:searchText" 
-                                        ng-if="alignment.measure >= threshold[0] || threshold == null">  
+                                        ng-if="alignment.measure >= minValue || threshold == null">  
                                       <td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
                                       <td><input type="text" id="{{alignment.entity1}}" name="entity1" value="{{alignment.entity1}}" style="display: none;" readonly>{{alignment.entity1}}</input></td>
                                       <td><input type="text" id="{{alignment.entity2}}" name="entity2" value="{{alignment.entity2}}" style="display: none;" readonly>{{alignment.entity2}}</input></td>
