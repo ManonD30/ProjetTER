@@ -8,8 +8,12 @@
 It is called by Result.java (matcher) and Validator.java to display validation UI
 for the ont1 and ont2 ontology alignment -->
 
+<link rel="stylesheet" type="text/css" href="css/rzslider.css"/>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 <script src="scripts/validation.js"></script>
+<script src="scripts/rzslider.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
 <div id=sideLeft class="sideLeft"></div>
 
@@ -46,12 +50,20 @@ for the ont1 and ont2 ontology alignment -->
                   //console.log(alignmentJson);
                 </script>
                     
-                <div style="margin-left: 1%;">
+                <!--div style="margin-left: 1%;">
                   <label for=thresholdRange>Select your threshold:</label>
                   <span id="thresholdDisplay">0</span><br/> 
                   <input id="thresholdRange" name="thresholdRange" ng-model="threshold" type="range" min=0 max=1 step=0.05
                          size=3 value=0 style="width: 25%;" onInput="refreshThreshold();">
-                </div><br/>
+                </div><br/-->
+                
+                <p>
+                  <label for="amount">Price range:</label>
+                  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                </p>
+
+                <div id="slider-range"></div>
+                <br/><br/>
                   
                 <label style="margin-left: 1%;">Search: <input type="search" ng-model="searchText"></label>
                 <button type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" onclick="checkAllBoxes()">Check/uncheck all mappings</button>
