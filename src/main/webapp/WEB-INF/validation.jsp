@@ -58,10 +58,9 @@ for the ont1 and ont2 ontology alignment -->
                 </div><br/-->
                 
                 <p>
-                  <label for="amount">Price range:</label>
-                  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                  <label for="thresholdRange">Score threshold:</label>
+                  <input type="text" ng-model="threshold" id="thresholdRange" readonly style="border:0; color:#f6931f; font-weight:bold;">
                 </p>
-
                 <div id="slider-range"></div>
                 <br/><br/>
                   

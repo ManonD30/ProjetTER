@@ -27,12 +27,12 @@ $( function() {
     $( "#slider-range" ).slider({
       range: true,
       min: 0,
-      max: 500,
-      values: [ 75, 300 ],
+      max: 100,
+      values: [ 25, 100 ],
       slide: function( event, ui ) {
-        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        $( "#thresholdRange" ).val(ui.values[ 0 ]/100 + " - " + ui.values[ 1 ]/100);
       }
     });
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+    $( "#thresholdRange" ).val( $( "#slider-range" ).slider( "values", 0 )/100 +
+      " - " + $( "#slider-range" ).slider( "values", 1 )/100 );
   } );
