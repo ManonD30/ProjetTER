@@ -21,6 +21,8 @@ var validationApp = angular.module('validationApp', ['rzModule', 'ui.bootstrap']
 validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Init alignmentJson for angular js by getting the alignment from Java alignmentArray
   $scope.alignmentJson = $window.alignmentJson;
+  $scope.ont1 = $window.ont1;
+  $scope.ont2 = $window.ont2;
   //console.log($scope.alignmentJson);
   
   //Range slider config

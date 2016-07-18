@@ -277,16 +277,27 @@ public class YamFileHandler {
     
     /**
      * To get the label of a class (using the uri if nothing found with owlapi)
+     * @param uri
+     * @param cls
+     * @return String
      */
     public static String getClassLabel(String uri, OWLClass cls) {
-      //return uri.replaceFirst(".*/([^/?]+).*", "$1");
+      return getLabelFromUri(uri);
+    }
+    
+    /**
+     * Get the label of a class from its URI (taking everything after the last #
+     * Or after the last / if # not found
+     * @param uri
+     * @return String
+     */
+    public static String getLabelFromUri(String uri) {
       String label = null;
       if (uri.lastIndexOf("#") != -1) {
         label = uri.substring(uri.lastIndexOf("#") + 1);
       } else {
         label = uri.substring(uri.lastIndexOf("/") + 1);
       }
-      
       return label;
     }
     

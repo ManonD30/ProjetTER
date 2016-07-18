@@ -50,6 +50,8 @@ for the ont1 and ont2 ontology alignment -->
         
                 <script type="text/javascript">
                   var alignmentJson = <%=alignmentArray%>; 
+                  var ont1 = <%=ont1%>; 
+                  var ont2 = <%=ont2%>; 
                   //console.log(alignmentJson);
                 </script>
                 
@@ -81,8 +83,8 @@ for the ont1 and ont2 ontology alignment -->
                                     <tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort|filter:searchText" 
                                         ng-if="alignment.measure >= minRangeSlider.minValue/100 && alignment.measure <= minRangeSlider.maxValue/100">  
                                       <td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
-                                      <td><input type="text" id="{{alignment.entity1}}" name="entity1" value="{{alignment.entity1}}" style="display: none;" readonly>{{alignment.entity1}}</input></td>
-                                      <td><input type="text" id="{{alignment.entity2}}" name="entity2" value="{{alignment.entity2}}" style="display: none;" readonly>{{alignment.entity2}}</input></td>
+                                      <td><input type="text" id="{{alignment.entity1}}" name="entity1" value="{{alignment.entity1}}" style="display: none;" readonly>{{ont1[alignment.entity1].label || alignment.entity1}}</input></td>
+                                      <td><input type="text" id="{{alignment.entity2}}" name="entity2" value="{{alignment.entity2}}" style="display: none;" readonly>{{ont2[alignment.entity2].label || alignment.entity2}}</input></td>
                                       <td>
                                         <select id="{{alignment.relation}}" name="relation" class="form-control">
                                           <option value="http://www.w3.org/2004/02/skos/core#exactMatch">skos:exactMatch</option>
