@@ -28,40 +28,56 @@
   <servlet-mapping>
     <servlet-name>Jersey REST Service</servlet-name>
     <url-pattern>/rest/*</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping>  
   
-  
- <servlet>
-	<servlet-name>Aboutus</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Aboutus</servlet-class>
+  <servlet>
+	<servlet-name>Index</servlet-name>
+	<servlet-class>fr.lirmm.opendata.yamgui.Index</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
   <servlet-mapping>
-	<servlet-name>Aboutus</servlet-name>
-	<url-pattern>/aboutus</url-pattern>
+	<servlet-name>Index</servlet-name>
+	<url-pattern>/index</url-pattern>
+  </servlet-mapping>   
+  
+  <welcome-file-list>
+        <welcome-file>index</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  
+  <servlet>
+	<servlet-name>Matcher</servlet-name>
+        <jsp-file>/WEB-INF/matcher.jsp</jsp-file>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Matcher</servlet-name>
+	<url-pattern>/matcher</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+	<servlet-name>Result</servlet-name>
+	<servlet-class>fr.lirmm.opendata.yamgui.Result</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Result</servlet-name>
+	<url-pattern>/result</url-pattern>
   </servlet-mapping>
   
   <servlet>
-	<servlet-name>ChangePassword</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.ChangePassword</servlet-class>
+	<servlet-name>Validator</servlet-name>
+        <servlet-class>fr.lirmm.opendata.yamgui.Validator</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
   <servlet-mapping>
-	<servlet-name>ChangePassword</servlet-name>
-	<url-pattern>/changePassword</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-	<servlet-name>Disconnect</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Disconnect</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>Disconnect</servlet-name>
-	<url-pattern>/disconnect</url-pattern>
+	<servlet-name>Validator</servlet-name>
+        <url-pattern>/validator</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -74,6 +90,39 @@
 	<servlet-name>Download</servlet-name>
 	<url-pattern>/download</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+	<servlet-name>Validation</servlet-name>
+	<servlet-class>fr.lirmm.opendata.yamgui.Validation</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Validation</servlet-name>
+	<url-pattern>/validation</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet>
+	<servlet-name>Aboutus</servlet-name>
+	<servlet-class>fr.lirmm.opendata.yamgui.Aboutus</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Aboutus</servlet-name>
+	<url-pattern>/aboutus</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+	<servlet-name>Documentation</servlet-name>
+	<servlet-class>fr.lirmm.opendata.yamgui.Documentation</servlet-class>
+	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+	<servlet-name>Documentation</servlet-name>
+	<url-pattern>/documentation</url-pattern>
+  </servlet-mapping>  
   
   <servlet>
 	<servlet-name>DownloadYam</servlet-name>
@@ -98,51 +147,9 @@
 	<url-pattern>/downloadYamDemo</url-pattern>
   </servlet-mapping>
   
-  <servlet>
-	<servlet-name>Evaluation</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Evaluation</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>Evaluation</servlet-name>
-	<url-pattern>/evaluation</url-pattern>
-  </servlet-mapping>
   
-  <servlet>
-	<servlet-name>Index</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Index</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>Index</servlet-name>
-	<url-pattern>/index</url-pattern>
-  </servlet-mapping>   
-  
-  <servlet>
-	<servlet-name>Matcher</servlet-name>
-        <jsp-file>/WEB-INF/matcher.jsp</jsp-file>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>Matcher</servlet-name>
-	<url-pattern>/matcher</url-pattern>
-  </servlet-mapping>  
-  
-  <servlet>
-	<servlet-name>Result</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Result</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>Result</servlet-name>
-	<url-pattern>/result</url-pattern>
-  </servlet-mapping>
-  
-  <!--servlet>
+  <!-- Servlet mappings for user management -->
+    <!--servlet>
 	<servlet-name>Signin</servlet-name>
 	<servlet-class>fr.lirmm.opendata.yamgui.Signin</servlet-class>
 	<load-on-startup>1</load-on-startup>
@@ -151,55 +158,40 @@
   <servlet-mapping>
 	<servlet-name>Signin</servlet-name>
 	<url-pattern>/sign</url-pattern>
-  </servlet-mapping--> 
+  </servlet-mapping> 
   
   <servlet>
-	<servlet-name>Validation</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Validation</servlet-class>
+	<servlet-name>ChangePassword</servlet-name>
+	<servlet-class>fr.lirmm.opendata.yamgui.ChangePassword</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
   <servlet-mapping>
-	<servlet-name>Validation</servlet-name>
-	<url-pattern>/validation</url-pattern>
-  </servlet-mapping>  
-  
-  <servlet>
-	<servlet-name>ValidationDownload</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.ValidationDownload</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>ValidationDownload</servlet-name>
-	<url-pattern>/validationDownload</url-pattern>
+	<servlet-name>ChangePassword</servlet-name>
+	<url-pattern>/changePassword</url-pattern>
   </servlet-mapping>
   
   <servlet>
-	<servlet-name>Validator</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Validator</servlet-class>
+	<servlet-name>Disconnect</servlet-name>
+	<servlet-class>fr.lirmm.opendata.yamgui.Disconnect</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
   <servlet-mapping>
-	<servlet-name>Validator</servlet-name>
-	<url-pattern>/validator</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-	<servlet-name>Documentation</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Documentation</servlet-class>
+	<servlet-name>Disconnect</servlet-name>
+	<url-pattern>/disconnect</url-pattern>
+  </servlet-mapping-->
+
+
+  <!--servlet>
+	<servlet-name>Evaluation</servlet-name>
+	<servlet-class>fr.lirmm.opendata.yamgui.Evaluation</servlet-class>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 
   <servlet-mapping>
-	<servlet-name>Documentation</servlet-name>
-	<url-pattern>/documentation</url-pattern>
-  </servlet-mapping>  
-  
-  <welcome-file-list>
-        <welcome-file>index</welcome-file>
-        <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
+	<servlet-name>Evaluation</servlet-name>
+	<url-pattern>/evaluation</url-pattern>
+  </servlet-mapping-->
 
 </web-app>
