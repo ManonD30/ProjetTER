@@ -21,7 +21,7 @@ for the ont1 and ont2 ontology alignment -->
 
 <div class=sideMiddle ng-app="validationApp">
 
-	<h3 class=contentText>Mappings</h3>
+	<h3 class=contentText>Mappings validation</h3>
         
 	<div ng-controller="ValidationCtrl" id=toHideWhenDownload>
                 
@@ -103,16 +103,24 @@ for the ont1 and ont2 ontology alignment -->
 				</table>
                         </div><br/><br/>
                   
-                        <div style="text-align:center; vertical-align:middle; display:table-cell;">
-                        <!-- Need to change .inputFormatAlignmentAPI:checked in style.css to add a new css reaction for a new button-->
-                          <input type="radio" name="format" id="alignmentAPI" value="alignmentAPI" style="display: none;" class="inputFormatAlignmentAPI" checked>
-                          <label for="alignmentAPI" class="btn btn-sm btn-info inputFormatAlignmentAPILabel">AlignmentAPI RDF format (OAEI)</label>
-                          &nbsp;&nbsp;
-                          <input type="radio" name="format" id="simpleRDF" value="simpleRDF" class="inputFormatSimpleRDF" style="display: none;">
-                          <label for="simpleRDF" class="btn btn-sm btn-info inputFormatSimpleRDFLabel">Simple RDF format (entity1-relation-entity2 triples)</label>
-                          &nbsp;&nbsp;
-                          <input type="radio" name="format" id="RDF" value="RDF" class="inputFormatRDF" style="display: none;">
-                          <label for="RDF" class="btn btn-sm btn-info inputFormatRDFLabel">RDF format</label>
+                        <!--div class="row" style="width: 75%; text-align: center;"-->
+                        <div class="row" style="text-align: center;">
+                          <!-- Need to change .inputFormatAlignmentAPI:checked in style.css to add a new css reaction for a new button-->
+                          <div class="col-sm-4" style="text-align:center;">
+                            <input type="radio" name="format" id="simpleRDF" value="simpleRDF" class="inputFormatSimpleRDF" style="display: none;">
+                            <label for="simpleRDF" class="btn btn-sm btn-info inputFormatSimpleRDFLabel">Simple RDF format</label>
+                            <br/><span>entity1-relation-entity2 triples</span>
+                          </div>
+                          <div class="col-sm-4" style="text-align:center;">
+                            <input type="radio" name="format" id="alignmentAPI" value="alignmentAPI" style="display: none;" class="inputFormatAlignmentAPI" checked>
+                            <label for="alignmentAPI" class="btn btn-sm btn-info inputFormatAlignmentAPILabel">AlignmentAPI RDF format</label>
+                            <br/><span>OAEI format</span>
+                          </div>
+                          <div class="col-sm-4" style="text-align:center;">
+                            <input type="radio" name="format" id="RDF" value="RDF" class="inputFormatRDF" style="display: none;">
+                            <label for="RDF" class="btn btn-sm btn-info inputFormatRDFLabel">RDF format</label>
+                            <br/><span>RDF format with score</span>
+                          </div>
                         </div>
 
                   <div class=btnCenter id='download'>
