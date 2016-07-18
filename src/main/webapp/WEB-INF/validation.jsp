@@ -63,6 +63,10 @@ for the ont1 and ont2 ontology alignment -->
                 <div id="slider-range" style="margin-left: 1%; width: 50%"></div>
                 <br/><br/>
                 
+                <%
+                  out.println(request.getAttribute("ont1"));
+                %>
+                
                 
                 <label style="margin-left: 1%;">Search: <input type="search" ng-model="searchText"></label>
                 <button type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" onclick="checkAllBoxes()">Check/uncheck all mappings</button>

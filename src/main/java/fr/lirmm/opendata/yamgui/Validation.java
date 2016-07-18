@@ -30,6 +30,15 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 
 import fr.inrialpes.exmo.align.parser.AlignmentParser;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.http.Part;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 public class Validation extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -75,6 +84,13 @@ public class Validation extends HttpServlet {
 		validationOnto2.clear();
 		loadOnto(in1, validationOnto1);
 		loadOnto(in2, validationOnto2);
+                String loadedOnto1 = null;
+                try {
+                  loadedOnto1 = loadOntoFromRequest(request);
+                } catch (OWLOntologyCreationException ex) {
+                  Logger.getLogger(Validation.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                request.setAttribute("ont1", loadedOnto1);
 		request.setAttribute("onto1", validationOnto1);
 		request.setAttribute("onto2", validationOnto2);
 
@@ -82,6 +98,70 @@ public class Validation extends HttpServlet {
 		this.getServletContext()
 				.getRequestDispatcher("/WEB-INF/validation.jsp")
 				.forward(request, response);
+	}
+        
+        
+        
+        public static String loadOntoFromRequest(HttpServletRequest request) throws IOException, OWLOntologyCreationException, ServletException {
+          
+                OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+                
+                OWLOntology ont1 = null;
+                
+                if (request.getParameter("sourceUrl1") != null && !request.getParameter("sourceUrl1").isEmpty()) {
+                  ont1 = manager.loadOntologyFromOntologyDocument(IRI.create(request.getParameter("sourceUrl1")));
+                } else {
+                      Part filePart = request.getPart("ont1"); // Retrieves <input type="file" name="file">
+                      //String fileName = filePart.getSubmittedFileName();
+                      InputStream fileContent = filePart.getInputStream();
+                      ont1 = manager.loadOntologyFromOntologyDocument(fileContent);
+                }
+                
+                String ontologyString = "";
+                for(OWLClass cls : ont1.getClassesInSignature()) {
+                  ontologyString = ontologyString + " ||| " + cls.getIRI().toString();
+                }
+                
+                return ontologyString;
+
+/*
+		OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+		model.read(in, null);
+		in.close();
+		// OntResource
+
+		Iterator<OntProperty> it1 = model.listAllOntProperties();
+		Iterator<OntClass> it = model.listClasses();
+		while (it.hasNext()) {
+			OntClass ontclass = it.next();
+
+			if (ontclass.getLabel(null) != null) {
+				String items2 = ontclass.getLabel(null);
+
+				label.put(ontclass.getURI(), items2);
+			} else {
+				String s = ontclass.getURI();
+				if (s != null) {
+
+					int i = ontclass.getURI().length() - 1;
+					while (s.charAt(i) != '#') {
+						i--;
+					}
+					String l = s.substring(i + 1, s.length());
+					String items2 = l;
+					label.put(ontclass.getURI(), items2);
+				}
+			}
+		}
+		while (it1.hasNext()) {
+			OntProperty ontProp = it1.next();
+			String s = ontProp.getLabel(null);
+			if (s == null) {
+				s = ontProp.getLocalName();
+			}
+			label.put(ontProp.getURI(), s);
+		}
+		model.close();*/
 	}
 
 	// //////////////////////////SAVING FILES FUNCTIONS///////////////////////
