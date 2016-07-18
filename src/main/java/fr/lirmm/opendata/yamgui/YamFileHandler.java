@@ -5,6 +5,7 @@
  */
 package fr.lirmm.opendata.yamgui;
 
+import com.clarkparsia.owlapi.OWL;
 import fr.inrialpes.exmo.align.parser.AlignmentParser;
 import static fr.lirmm.opendata.yamgui.Result.round;
 import java.io.BufferedReader;
@@ -39,6 +40,7 @@ import org.semanticweb.owl.align.Cell;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -240,16 +242,16 @@ public class YamFileHandler {
      */
     public static JSONArray loadOwlapiOntoFromRequest(HttpServletRequest request, String ontNumber) throws IOException, OWLOntologyCreationException, ServletException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntology ont1 = null;
+        OWLOntology ont = null;
 
         // Load ontology in OWLAPI from the URL or the file
         if (request.getParameter("sourceUrl" + ontNumber) != null && !request.getParameter("sourceUrl"  + ontNumber).isEmpty()) {
-          ont1 = manager.loadOntologyFromOntologyDocument(IRI.create(request.getParameter("sourceUrl" + ontNumber)));
+          ont = manager.loadOntologyFromOntologyDocument(IRI.create(request.getParameter("sourceUrl" + ontNumber)));
         } else {
               Part filePart = request.getPart("ont" + ontNumber); // Retrieves <input type="file" name="file">
               //String fileName = filePart.getSubmittedFileName();
               InputStream fileContent = filePart.getInputStream();
-              ont1 = manager.loadOntologyFromOntologyDocument(fileContent);
+              ont = manager.loadOntologyFromOntologyDocument(fileContent);
         }
 
         JSONObject jObject = null;
@@ -258,12 +260,14 @@ public class YamFileHandler {
         // Iterate over classes
         String ontologyString = "";
         // Iterate over all classes of the ontology
-        for(OWLClass cls : ont1.getClassesInSignature()) {
+        for(OWLClass cls : ont.getClassesInSignature()) {
           jObject = new JSONObject();
           jObject.put("id", cls.getIRI().toString());
 
-          // Iterate over annotations of the class
-          for (OWLAnnotation annotation : cls.getAnnotations(ont1)) {
+         // Iterate over annotations of the class
+          for (Iterator<OWLAnnotationAssertionAxiom> it = cls.getAnnotationAssertionAxioms(ont).iterator(); it.hasNext();) {
+            OWLAnnotationAssertionAxiom annotation = it.next();
+            // Careful : it bugs. With bioportal examples
             jObject.put(annotation.getProperty().toString(), annotation.getValue().toString());
           }
           jArray.add(jObject);
