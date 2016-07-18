@@ -21,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 public class Result extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -98,23 +99,17 @@ public class Result extends HttpServlet {
                 }
                 // add cell data list of matcher results to response
                 request.setAttribute("data", alignmentJson);
-                
-                // add ontologies label<-->key translation to response
+               
+                JSONArray loadedOnto1 = null;
+                JSONArray loadedOnto2 = null;
                 try {
-                  Onto1.clear();
-                  Onto2.clear();                
-                  //myLog.log(Level.INFO, "string log ont1 : " + stringOnt1);
-                  //myLog.log(Level.INFO, "string log ont2 : " + stringOnt2);
-                  // TODO: use JSON ici [{concept:label,etc},{}]
-                  loadOnto(stringOnt1, Onto1);
-                  loadOnto(stringOnt2, Onto2);
-                } catch (Exception ex) {
-                  myLog.log(Level.INFO, "Failed to load ontologies in Jena");
-                  request.setAttribute("errorMessage", "Error when loading ontologies in Jena: " + ex.getMessage());
+                  loadedOnto1 = fileHandler.loadOwlapiOntoFromRequest(request, "1");
+                  loadedOnto2 = fileHandler.loadOwlapiOntoFromRequest(request, "2");
+                } catch (OWLOntologyCreationException ex) {
                   Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                request.setAttribute("onto1", Onto1);
-                request.setAttribute("onto2", Onto2);
+                request.setAttribute("ont1", loadedOnto1);
+                request.setAttribute("ont2", loadedOnto2);
                 
                 // send response
                 this.getServletContext()

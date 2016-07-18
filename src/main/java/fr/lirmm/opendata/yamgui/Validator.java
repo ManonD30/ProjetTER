@@ -76,72 +76,25 @@ public class Validator extends HttpServlet {
             liste = fileHandler.parseOaeiAlignmentFormat(stringAlignmentFile);
           } catch (AlignmentException ex) {
             request.setAttribute("errorMessage", "Error when loading OAEI alignment results: " + ex.getMessage());
-            Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Validator.class.getName()).log(Level.SEVERE, null, ex);
           }
           // add cell data list to response
           request.setAttribute("data", liste);
 
-          // add ontologies label<-->key translation to response
-          try {
-            Onto1.clear();
-            Onto2.clear();                
-            //myLog.log(Level.INFO, "string log ont1 : " + stringOnt1);
-            //myLog.log(Level.INFO, "string log ont2 : " + stringOnt2);
-            loadOnto(stringOnt1, Onto1);
-            loadOnto(stringOnt2, Onto2);
-          } catch (Exception ex) {
-            myLog.log(Level.INFO, "Failed to load ontologies in Jena");
-            request.setAttribute("errorMessage", "Error when loading ontologies in Jena: " + ex.getMessage());
-            Logger.getLogger(Validator.class.getName()).log(Level.SEVERE, null, ex);
-          }
           JSONArray loadedOnto1 = null;
+          JSONArray loadedOnto2 = null;
           try {
-            loadedOnto1 = loadOntoFromRequest(request);
+            loadedOnto1 = fileHandler.loadOwlapiOntoFromRequest(request, "1");
+            loadedOnto2 = fileHandler.loadOwlapiOntoFromRequest(request, "2");
           } catch (OWLOntologyCreationException ex) {
             Logger.getLogger(Validator.class.getName()).log(Level.SEVERE, null, ex);
           }
           request.setAttribute("ont1", loadedOnto1);
-          request.setAttribute("onto1", Onto1);
-          request.setAttribute("onto2", Onto2);
+          request.setAttribute("ont2", loadedOnto2);
           
           // Call result.jsp and send the request with ont1, ont2 and data results
           this.getServletContext()
                         .getRequestDispatcher("/WEB-INF/validation.jsp")
                         .forward(request, response);
         }
-        
-        public static JSONArray loadOntoFromRequest(HttpServletRequest request) throws IOException, OWLOntologyCreationException, ServletException {
-                OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-                OWLOntology ont1 = null;
-                
-                // Load ontology in OWLAPI from the URL or the file
-                if (request.getParameter("sourceUrl1") != null && !request.getParameter("sourceUrl1").isEmpty()) {
-                  ont1 = manager.loadOntologyFromOntologyDocument(IRI.create(request.getParameter("sourceUrl1")));
-                } else {
-                      Part filePart = request.getPart("ont1"); // Retrieves <input type="file" name="file">
-                      //String fileName = filePart.getSubmittedFileName();
-                      InputStream fileContent = filePart.getInputStream();
-                      ont1 = manager.loadOntologyFromOntologyDocument(fileContent);
-                }
-                
-                JSONObject jObject = null;
-                JSONArray jArray = new JSONArray();
-
-                // Iterate over classes
-                String ontologyString = "";
-                // Iterate over all classes of the ontology
-                for(OWLClass cls : ont1.getClassesInSignature()) {
-                  jObject = new JSONObject();
-                  jObject.put("id", cls.getIRI().toString());
-                  
-                  // Iterate over annotations of the class
-                  for (OWLAnnotation annotation : cls.getAnnotations(ont1)) {
-                    jObject.put(annotation.getProperty().toString(), annotation.getValue().toString());
-                  }
-                  jArray.add(jObject);
-                }
-                
-                //return ontologyString;
-                return jArray;
-	}
 }

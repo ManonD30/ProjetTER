@@ -31,16 +31,13 @@ for the ont1 and ont2 ontology alignment -->
                       //ArrayList<fr.lirmm.opendata.yamgui.Map> liste = (ArrayList) request.getAttribute("data");
                       
                       ArrayList<Hashtable<String, String>> alignmentArray = (ArrayList) request.getAttribute("data");
-
-                      java.util.Map<String, String> onto1 = (java.util.Map) request
-                                      .getAttribute("onto1");
                       
                       // Trying to get ontology loaded using owlapi
                       ArrayList<Hashtable<String, String>> ont1 = (ArrayList) request.getAttribute("ont1");
+                      ArrayList<Hashtable<String, String>> ont2 = (ArrayList) request.getAttribute("ont2");
                       out.println(ont1);
-
-                      java.util.Map<String, String> onto2 = (java.util.Map) request
-                                      .getAttribute("onto2");
+                      out.println("\n NOOO \n");
+                      out.println(ont2);
                       
                       if (request.getAttribute("errorMessage") == null && request.getAttribute("data") != null) {
                         //get the execution time from response

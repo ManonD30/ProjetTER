@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import org.apache.commons.io.FileUtils;
@@ -35,6 +36,13 @@ import org.json.simple.JSONObject;
 import org.semanticweb.owl.align.Alignment;
 import org.semanticweb.owl.align.AlignmentException;
 import org.semanticweb.owl.align.Cell;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
  *
@@ -217,6 +225,52 @@ public class YamFileHandler {
               jArray.add(jObject);
       }
       return jArray;
+    }
+    
+    /**
+     * Load the ontology number from the request with OWLAPI
+     * Returns a JSONArray with class URI in "id" and all other properties
+     * i.e.: [{"id": "http://example.org/1", "rdfs:label": "test"}]
+     * @param request
+     * @param ontNumber
+     * @return JSONArray
+     * @throws IOException
+     * @throws OWLOntologyCreationException
+     * @throws ServletException 
+     */
+    public static JSONArray loadOwlapiOntoFromRequest(HttpServletRequest request, String ontNumber) throws IOException, OWLOntologyCreationException, ServletException {
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntology ont1 = null;
+
+        // Load ontology in OWLAPI from the URL or the file
+        if (request.getParameter("sourceUrl" + ontNumber) != null && !request.getParameter("sourceUrl"  + ontNumber).isEmpty()) {
+          ont1 = manager.loadOntologyFromOntologyDocument(IRI.create(request.getParameter("sourceUrl" + ontNumber)));
+        } else {
+              Part filePart = request.getPart("ont" + ontNumber); // Retrieves <input type="file" name="file">
+              //String fileName = filePart.getSubmittedFileName();
+              InputStream fileContent = filePart.getInputStream();
+              ont1 = manager.loadOntologyFromOntologyDocument(fileContent);
+        }
+
+        JSONObject jObject = null;
+        JSONArray jArray = new JSONArray();
+
+        // Iterate over classes
+        String ontologyString = "";
+        // Iterate over all classes of the ontology
+        for(OWLClass cls : ont1.getClassesInSignature()) {
+          jObject = new JSONObject();
+          jObject.put("id", cls.getIRI().toString());
+
+          // Iterate over annotations of the class
+          for (OWLAnnotation annotation : cls.getAnnotations(ont1)) {
+            jObject.put(annotation.getProperty().toString(), annotation.getValue().toString());
+          }
+          jArray.add(jObject);
+        }
+
+        //return ontologyString;
+        return jArray;
     }
     
     public String getWorkDir() {
