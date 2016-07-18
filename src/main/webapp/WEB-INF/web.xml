@@ -122,7 +122,7 @@
   
   <servlet>
 	<servlet-name>Matcher</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.MatcherPage</servlet-class>
+        <jsp-file>/WEB-INF/matcher.jsp</jsp-file>
 	<load-on-startup>1</load-on-startup>
   </servlet>
 

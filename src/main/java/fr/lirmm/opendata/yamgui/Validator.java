@@ -4,7 +4,6 @@ import static fr.lirmm.opendata.yamgui.Result.Onto1;
 import static fr.lirmm.opendata.yamgui.Result.Onto2;
 import static fr.lirmm.opendata.yamgui.Result.liste;
 import static fr.lirmm.opendata.yamgui.Result.loadOnto;
-import static fr.lirmm.opendata.yamgui.Validation.loadOntoFromRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
@@ -95,7 +94,7 @@ public class Validator extends HttpServlet {
           try {
             loadedOnto1 = loadOntoFromRequest(request);
           } catch (OWLOntologyCreationException ex) {
-            Logger.getLogger(Validation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Validator.class.getName()).log(Level.SEVERE, null, ex);
           }
           request.setAttribute("ont1", loadedOnto1);
           request.setAttribute("onto1", Onto1);
