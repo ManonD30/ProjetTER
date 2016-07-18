@@ -99,7 +99,8 @@ public class Download extends HttpServlet {
 		for (int i = 0; i < MapFinal.size(); i++) {
                         HashMap<String, String> hashMapping = null;
 			hashMapping = MapFinal.get(i);
-                        rdfAlignmentString = rdfAlignmentString + "<" + hashMapping.get("entity1") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity2") + "> .\n";
+                        rdfAlignmentString = rdfAlignmentString + "<" + hashMapping.get("entity1") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity2") + "> .\n" +
+                                "<" + hashMapping.get("entity2") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity1") + "> .\n";
 		}
                 return rdfAlignmentString;
 	}
@@ -113,25 +114,26 @@ public class Download extends HttpServlet {
          */
 	public static String generateRdfAlignment(ArrayList<HashMap> MapFinal) {
           // create an empty Model
-          Model model = ModelFactory.createDefaultModel();      
-          String rdfAlignmentString = "";                
+          Model model = ModelFactory.createDefaultModel();
+          String alignmentUri = null;
           for (int i = 0; i < MapFinal.size(); i++) {
                   HashMap<String, String> hashMapping = null;
                   hashMapping = MapFinal.get(i);
-                  rdfAlignmentString = rdfAlignmentString + "<" + hashMapping.get("entity1") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity2") + "> .\n";
+                  
+                  alignmentUri = "http://yamplusplus.lirmm.fr/ontology";
 
-                  model.createResource()
-                    .addProperty(model.createProperty("http://yamplusplus.lirmm.fr/ontology#entity"), hashMapping.get("entity1"))
-                    .addProperty(model.createProperty("http://yamplusplus.lirmm.fr/ontology#entity"), hashMapping.get("entity2"))
-                    .addProperty(model.createProperty("http://yamplusplus.lirmm.fr/ontology#relation"), hashMapping.get("relation"))
-                    .addProperty(model.createProperty("http://yamplusplus.lirmm.fr/ontology#score"), hashMapping.get("measure"));
+                  model.setNsPrefix("align", alignmentUri);
+
+                  model.createResource(alignmentUri + "/mapping/" + Integer.toString(i))
+                    .addProperty(model.createProperty(alignmentUri + "#entity"), hashMapping.get("entity1"))
+                    .addProperty(model.createProperty(alignmentUri + "#entity"), hashMapping.get("entity2"))
+                    .addProperty(model.createProperty(alignmentUri + "#relation"), hashMapping.get("relation"))
+                    .addProperty(model.createProperty(alignmentUri + "#score"), hashMapping.get("measure"));
           }
 
           StringWriter out = new StringWriter();
           model.write(out);
-          rdfAlignmentString = out.toString();
-
-          return rdfAlignmentString;
+          return out.toString();
 	}
         
         
