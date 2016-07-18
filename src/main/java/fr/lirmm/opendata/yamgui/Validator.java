@@ -81,8 +81,8 @@ public class Validator extends HttpServlet {
           // add cell data list to response
           request.setAttribute("data", liste);
 
-          JSONArray loadedOnto1 = null;
-          JSONArray loadedOnto2 = null;
+          JSONObject loadedOnto1 = null;
+          JSONObject loadedOnto2 = null;
           try {
             loadedOnto1 = fileHandler.loadOwlapiOntoFromRequest(request, "1");
             loadedOnto2 = fileHandler.loadOwlapiOntoFromRequest(request, "2");

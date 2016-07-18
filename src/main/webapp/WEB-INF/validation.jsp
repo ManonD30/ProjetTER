@@ -33,8 +33,8 @@ for the ont1 and ont2 ontology alignment -->
                       ArrayList<Hashtable<String, String>> alignmentArray = (ArrayList) request.getAttribute("data");
                       
                       // Trying to get ontology loaded using owlapi
-                      ArrayList<Hashtable<String, String>> ont1 = (ArrayList) request.getAttribute("ont1");
-                      ArrayList<Hashtable<String, String>> ont2 = (ArrayList) request.getAttribute("ont2");
+                      JSONObject ont1 = (JSONObject) request.getAttribute("ont1");
+                      JSONObject ont2 = (JSONObject) request.getAttribute("ont2");
                       out.println(ont1);
                       out.println("\n NOOO \n");
                       out.println(ont2);

@@ -5,7 +5,6 @@
  */
 package fr.lirmm.opendata.yamgui;
 
-import com.clarkparsia.owlapi.OWL;
 import fr.inrialpes.exmo.align.parser.AlignmentParser;
 import static fr.lirmm.opendata.yamgui.Result.round;
 import java.io.BufferedReader;
@@ -39,7 +38,6 @@ import org.semanticweb.owl.align.AlignmentException;
 import org.semanticweb.owl.align.Cell;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -240,7 +238,7 @@ public class YamFileHandler {
      * @throws OWLOntologyCreationException
      * @throws ServletException 
      */
-    public static JSONArray loadOwlapiOntoFromRequest(HttpServletRequest request, String ontNumber) throws IOException, OWLOntologyCreationException, ServletException {
+    public static JSONObject loadOwlapiOntoFromRequest(HttpServletRequest request, String ontNumber) throws IOException, OWLOntologyCreationException, ServletException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology ont = null;
 
@@ -254,15 +252,15 @@ public class YamFileHandler {
               ont = manager.loadOntologyFromOntologyDocument(fileContent);
         }
 
-        JSONObject jObject = null;
-        JSONArray jArray = new JSONArray();
+        JSONObject jObject = new JSONObject();
+        JSONObject clsJObject = null;
 
         // Iterate over classes
         String ontologyString = "";
         // Iterate over all classes of the ontology
         for(OWLClass cls : ont.getClassesInSignature()) {
-          jObject = new JSONObject();
-          jObject.put("id", cls.getIRI().toString());
+          clsJObject = new JSONObject();
+          clsJObject.put("label", getClassLabel(cls.getIRI().toString(), cls));
 
          // Iterate over annotations of the class
           for (Iterator<OWLAnnotationAssertionAxiom> it = cls.getAnnotationAssertionAxioms(ont).iterator(); it.hasNext();) {
@@ -270,11 +268,26 @@ public class YamFileHandler {
             // Careful : it bugs. With bioportal examples
             jObject.put(annotation.getProperty().toString(), annotation.getValue().toString());
           }
-          jArray.add(jObject);
+          jObject.put(cls.getIRI().toString(), clsJObject);
         }
 
         //return ontologyString;
-        return jArray;
+        return jObject;
+    }
+    
+    /**
+     * To get the label of a class (using the uri if nothing found with owlapi)
+     */
+    public static String getClassLabel(String uri, OWLClass cls) {
+      //return uri.replaceFirst(".*/([^/?]+).*", "$1");
+      String label = null;
+      if (uri.lastIndexOf("#") != -1) {
+        label = uri.substring(uri.lastIndexOf("#") + 1);
+      } else {
+        label = uri.substring(uri.lastIndexOf("/") + 1);
+      }
+      
+      return label;
     }
     
     public String getWorkDir() {

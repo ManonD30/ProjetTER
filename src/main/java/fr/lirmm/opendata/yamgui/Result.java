@@ -21,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 public class Result extends HttpServlet {
@@ -100,8 +101,8 @@ public class Result extends HttpServlet {
                 // add cell data list of matcher results to response
                 request.setAttribute("data", alignmentJson);
                
-                JSONArray loadedOnto1 = null;
-                JSONArray loadedOnto2 = null;
+                JSONObject loadedOnto1 = null;
+                JSONObject loadedOnto2 = null;
                 try {
                   loadedOnto1 = fileHandler.loadOwlapiOntoFromRequest(request, "1");
                   loadedOnto2 = fileHandler.loadOwlapiOntoFromRequest(request, "2");
