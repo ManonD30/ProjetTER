@@ -37,7 +37,7 @@ for the ont1 and ont2 ontology alignment -->
                       
                       // Trying to get ontology loaded using owlapi
                       String ont1 = (String) request.getAttribute("ont1");
-                      //out.println(ont1);
+                      out.println(ont1);
 
                       java.util.Map<String, String> onto2 = (java.util.Map) request
                                       .getAttribute("onto2");
