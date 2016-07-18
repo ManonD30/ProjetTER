@@ -4,8 +4,11 @@ import static fr.lirmm.opendata.yamgui.Result.Onto1;
 import static fr.lirmm.opendata.yamgui.Result.Onto2;
 import static fr.lirmm.opendata.yamgui.Result.liste;
 import static fr.lirmm.opendata.yamgui.Result.loadOnto;
+import static fr.lirmm.opendata.yamgui.Result.round;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -14,7 +17,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.semanticweb.owl.align.AlignmentException;
+import org.semanticweb.owl.align.Cell;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -79,16 +85,16 @@ public class Validator extends HttpServlet {
           try {
             Onto1.clear();
             Onto2.clear();                
-            myLog.log(Level.INFO, "string log ont1 : " + stringOnt1);
-            myLog.log(Level.INFO, "string log ont2 : " + stringOnt2);
+            //myLog.log(Level.INFO, "string log ont1 : " + stringOnt1);
+            //myLog.log(Level.INFO, "string log ont2 : " + stringOnt2);
             loadOnto(stringOnt1, Onto1);
             loadOnto(stringOnt2, Onto2);
           } catch (Exception ex) {
             myLog.log(Level.INFO, "Failed to load ontologies in Jena");
             request.setAttribute("errorMessage", "Error when loading ontologies in Jena: " + ex.getMessage());
-            Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Validator.class.getName()).log(Level.SEVERE, null, ex);
           }
-          String loadedOnto1 = null;
+          JSONArray loadedOnto1 = null;
           try {
             loadedOnto1 = loadOntoFromRequest(request);
           } catch (OWLOntologyCreationException ex) {
@@ -104,7 +110,7 @@ public class Validator extends HttpServlet {
                         .forward(request, response);
         }
         
-        public static String loadOntoFromRequest(HttpServletRequest request) throws IOException, OWLOntologyCreationException, ServletException {
+        public static JSONArray loadOntoFromRequest(HttpServletRequest request) throws IOException, OWLOntologyCreationException, ServletException {
                 OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
                 OWLOntology ont1 = null;
                 
@@ -118,19 +124,24 @@ public class Validator extends HttpServlet {
                       ont1 = manager.loadOntologyFromOntologyDocument(fileContent);
                 }
                 
+                JSONObject jObject = null;
+                JSONArray jArray = new JSONArray();
+
                 // Iterate over classes
                 String ontologyString = "";
+                // Iterate over all classes of the ontology
                 for(OWLClass cls : ont1.getClassesInSignature()) {
-                  ontologyString = ontologyString + " ||| " + cls.getIRI().toString();
+                  jObject = new JSONObject();
+                  jObject.put("id", cls.getIRI().toString());
                   
                   // Iterate over annotations of the class
                   for (OWLAnnotation annotation : cls.getAnnotations(ont1)) {
-                    ontologyString = ontologyString + " ::: "
-                    + annotation.getProperty().toString()+ " : "
-                    + annotation.getValue().toString();
+                    jObject.put(annotation.getProperty().toString(), annotation.getValue().toString());
                   }
+                  jArray.add(jObject);
                 }
                 
-                return ontologyString;
+                //return ontologyString;
+                return jArray;
 	}
 }

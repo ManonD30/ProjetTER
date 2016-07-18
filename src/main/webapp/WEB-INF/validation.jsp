@@ -1,3 +1,4 @@
+<%@page import="java.util.Hashtable"%>
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="java.util.ArrayList"%>
@@ -29,15 +30,14 @@ for the ont1 and ont2 ontology alignment -->
                       //get lists from response
                       //ArrayList<fr.lirmm.opendata.yamgui.Map> liste = (ArrayList) request.getAttribute("data");
                       
-                      ArrayList<fr.lirmm.opendata.yamgui.Map> alignmentArray = (ArrayList) request
-                                      .getAttribute("data");
+                      ArrayList<Hashtable<String, String>> alignmentArray = (ArrayList) request.getAttribute("data");
 
                       java.util.Map<String, String> onto1 = (java.util.Map) request
                                       .getAttribute("onto1");
                       
                       // Trying to get ontology loaded using owlapi
-                      String ont1 = (String) request.getAttribute("ont1");
-                      //out.println(ont1);
+                      ArrayList<Hashtable<String, String>> ont1 = (ArrayList) request.getAttribute("ont1");
+                      out.println(ont1);
 
                       java.util.Map<String, String> onto2 = (java.util.Map) request
                                       .getAttribute("onto2");

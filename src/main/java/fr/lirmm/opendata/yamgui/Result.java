@@ -25,7 +25,7 @@ import org.json.simple.JSONArray;
 public class Result extends HttpServlet {
 	private static final long serialVersionUID = 1L;
         
-        public static ArrayList<Map> liste = new ArrayList<>();
+        public static JSONArray liste = null;
 	public static java.util.Map<String, String> Onto1 = new HashMap<>();
 	public static java.util.Map<String, String> Onto2 = new HashMap<>();
 
@@ -103,8 +103,8 @@ public class Result extends HttpServlet {
                 try {
                   Onto1.clear();
                   Onto2.clear();                
-                  myLog.log(Level.INFO, "string log ont1 : " + stringOnt1);
-                  myLog.log(Level.INFO, "string log ont2 : " + stringOnt2);
+                  //myLog.log(Level.INFO, "string log ont1 : " + stringOnt1);
+                  //myLog.log(Level.INFO, "string log ont2 : " + stringOnt2);
                   // TODO: use JSON ici [{concept:label,etc},{}]
                   loadOnto(stringOnt1, Onto1);
                   loadOnto(stringOnt2, Onto2);
