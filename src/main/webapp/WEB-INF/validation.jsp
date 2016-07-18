@@ -30,7 +30,7 @@ for the ont1 and ont2 ontology alignment -->
                       //get lists from response
                       //ArrayList<fr.lirmm.opendata.yamgui.Map> liste = (ArrayList) request.getAttribute("data");
                       
-                      ArrayList<Hashtable<String, String>> alignmentArray = (ArrayList) request.getAttribute("data");
+                      JSONArray alignmentArray = (JSONArray) request.getAttribute("data");
                       
                       // Trying to get ontology loaded using owlapi
                       JSONObject ont1 = (JSONObject) request.getAttribute("ont1");
@@ -100,7 +100,9 @@ for the ont1 and ont2 ontology alignment -->
                                     </tr>
                                   </tbody>
 				</table>
-                        </div><br/><br/>
+                        </div><br/>
+                        
+                        <h3 class=contentText>Formats</h3><br/>
                   
                         <!--div class="row" style="width: 75%; text-align: center;"-->
                         <div class="row" style="text-align: center;">
