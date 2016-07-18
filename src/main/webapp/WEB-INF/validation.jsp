@@ -9,9 +9,13 @@ It is called by Result.java (matcher) and Validator.java to display validation U
 for the ont1 and ont2 ontology alignment -->
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.css">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 <script src="scripts/validation.js"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
+<script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
 
 <div id=sideLeft class="sideLeft"></div>
 
@@ -63,6 +67,18 @@ for the ont1 and ont2 ontology alignment -->
                 <div id="slider-range" style="margin-left: 1%; width: 50%"></div>
                 <br/><br/>
                 
+                
+                
+                <h2>Range slider</h2>
+                Min Value:
+                <input type="number" ng-model="minRangeSlider.minValue" /><br/>
+                Max Value:
+                <input type="number" ng-model="minRangeSlider.maxValue" />
+                <br/>
+                <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" rz-slider-options="minRangeSlider.options"></rzslider>
+                
+                
+                
                 <%
                   out.println(request.getAttribute("ont1"));
                 %>
@@ -88,7 +104,7 @@ for the ont1 and ont2 ontology alignment -->
                                   </thead>
                                   <tbody>
                                     <tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort|filter:searchText" 
-                                        ng-if="alignment.measure >= minValue || threshold == null">  
+                                        ng-if="alignment.measure >= minRangeSlider.minValue/100">  
                                       <td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
                                       <td><input type="text" id="{{alignment.entity1}}" name="entity1" value="{{alignment.entity1}}" style="display: none;" readonly>{{alignment.entity1}}</input></td>
                                       <td><input type="text" id="{{alignment.entity2}}" name="entity2" value="{{alignment.entity2}}" style="display: none;" readonly>{{alignment.entity2}}</input></td>

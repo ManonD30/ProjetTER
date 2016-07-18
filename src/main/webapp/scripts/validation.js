@@ -15,12 +15,25 @@ function checkAllBoxes() {
     }
 }
 
-var validationApp = angular.module('validationApp', []);   
+var validationApp = angular.module('validationApp', ['rzModule', 'ui.bootstrap']);   
 
 validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Init alignmentJson for angular js by getting the alignment from Java alignmentArray
   $scope.alignmentJson = $window.alignmentJson;
   //console.log($scope.alignmentJson);
+  
+  
+  //Range slider config
+    $scope.minRangeSlider = {
+        minValue: 10,
+        maxValue: 90,
+        options: {
+            floor: 0,
+            ceil: 100,
+            step: 1
+        }
+    };
+    
   
   // Pour recup les objets depuis le javascript
   //$scope.lowThreshold = $window.lowThreshold;
@@ -48,6 +61,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
           //$('[ng-controller="ValidationCtrl"]').scope().minValue = ui.values[ 0 ];
           $scope.minValue = ui.values[ 0 ];
           console.log($scope.minValue);
+          console.log($scope.minRangeSlider.minValue);
         }
       });
       $( "#thresholdRange" ).val( $( "#slider-range" ).slider( "values", 0 )/100 +
