@@ -17,8 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.semanticweb.owl.align.AlignmentException;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -105,11 +108,10 @@ public class Validator extends HttpServlet {
         }
         
         public static String loadOntoFromRequest(HttpServletRequest request) throws IOException, OWLOntologyCreationException, ServletException {
-          
                 OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-                
                 OWLOntology ont1 = null;
                 
+                // Load ontology in OWLAPI from the URL or the file
                 if (request.getParameter("sourceUrl1") != null && !request.getParameter("sourceUrl1").isEmpty()) {
                   ont1 = manager.loadOntologyFromOntologyDocument(IRI.create(request.getParameter("sourceUrl1")));
                 } else {
@@ -119,9 +121,17 @@ public class Validator extends HttpServlet {
                       ont1 = manager.loadOntologyFromOntologyDocument(fileContent);
                 }
                 
+                // Iterate over classes
                 String ontologyString = "";
                 for(OWLClass cls : ont1.getClassesInSignature()) {
                   ontologyString = ontologyString + " ||| " + cls.getIRI().toString();
+                  
+                  // Iterate over annotations of the class
+                  for (OWLAnnotation annotation : cls.getAnnotations(ont1)) {
+                    ontologyString = ontologyString + " ::: "
+                    + annotation.getProperty().toString()+ " : "
+                    + annotation.getValue().toString();
+                  }
                 }
                 
                 return ontologyString;
