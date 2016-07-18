@@ -99,8 +99,8 @@ public class Download extends HttpServlet {
 		for (int i = 0; i < MapFinal.size(); i++) {
                         HashMap<String, String> hashMapping = null;
 			hashMapping = MapFinal.get(i);
-                        rdfAlignmentString = rdfAlignmentString + "<" + hashMapping.get("entity1") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity2") + "> .\n" +
-                                "<" + hashMapping.get("entity2") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity1") + "> .\n";
+                        rdfAlignmentString = rdfAlignmentString + "<" + hashMapping.get("entity1") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity2") + "> .\n"
+                                + "<" + hashMapping.get("entity2") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity1") + "> .\n";
 		}
                 return rdfAlignmentString;
 	}

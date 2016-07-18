@@ -24,42 +24,37 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   
   // Pour recup les objets depuis le javascript
   //$scope.lowThreshold = $window.lowThreshold;
-  $scope.minValue = $window.minValue;
+  //$scope.minValue = $window.minValue;
   //$scope.minValue = 50;
   
   $scope.change = function() {
-    $scope.minValue = $scope.minValue = 50;
     console.log("yyyy");
+    $scope.minValue = $scope.minValue = 50;
     console.log($scope.minValue);
   };
+  
+    /**
+   * Function to get 2 sliders range content
+   */
+  $( function() {
+      $( "#slider-range" ).slider({
+        range: true,
+        min: 0,
+        max: 100,
+        values: [ 25, 100 ],
+        slide: function( event, ui ) {
+          $( "#thresholdRange" ).val(ui.values[ 0 ]/100 + " - " + ui.values[ 1 ]/100);
+          console.log("Update minValues");
+          //$('[ng-controller="ValidationCtrl"]').scope().minValue = ui.values[ 0 ];
+          $scope.minValue = ui.values[ 0 ];
+          console.log($scope.minValue);
+        }
+      });
+      $( "#thresholdRange" ).val( $( "#slider-range" ).slider( "values", 0 )/100 +
+        " - " + $( "#slider-range" ).slider( "values", 1 )/100 );
+    } );
 });
 
-/**
- * Function to get 2 sliders range content
- */
-$( function() {
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 0,
-      max: 100,
-      values: [ 25, 100 ],
-      slide: function( event, ui ) {
-        $( "#thresholdRange" ).val(ui.values[ 0 ]/100 + " - " + ui.values[ 1 ]/100);
-        console.log("Update minValue");
-        $('[ng-controller="ValidationCtrl"]').scope().minValue = ui.values[ 0 ];
-        var minValue = ui.values[ 0 ];
-        console.log($('[ng-controller="ValidationCtrl"]').scope().minValue);
-        
-        var appElement = document.querySelector('[ng-app=validationApp]');
-        var $scope = angular.element(appElement).scope();
-        $scope.$apply(function() {
-            $scope.minValue = ui.values[ 0 ];
-        });
-      }
-    });
-    $( "#thresholdRange" ).val( $( "#slider-range" ).slider( "values", 0 )/100 +
-      " - " + $( "#slider-range" ).slider( "values", 1 )/100 );
-  } );
   
   
   
