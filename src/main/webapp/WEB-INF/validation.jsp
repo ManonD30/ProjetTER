@@ -34,6 +34,10 @@ for the ont1 and ont2 ontology alignment -->
 
                       java.util.Map<String, String> onto1 = (java.util.Map) request
                                       .getAttribute("onto1");
+                      
+                      // Trying to get ontology loaded using owlapi
+                      String ont1 = (String) request.getAttribute("ont1");
+                      //out.println(ont1);
 
                       java.util.Map<String, String> onto2 = (java.util.Map) request
                                       .getAttribute("onto2");
@@ -51,38 +55,12 @@ for the ont1 and ont2 ontology alignment -->
                   var alignmentJson = <%=alignmentArray%>; 
                   //console.log(alignmentJson);
                 </script>
-                    
-                <!--div style="margin-left: 1%;">
-                  <label for=thresholdRange>Select your threshold:</label>
-                  <span id="thresholdDisplay">0</span><br/> 
-                  <input id="thresholdRange" name="thresholdRange" ng-model="threshold" type="range" min=0 max=1 step=0.05
-                         size=3 value=0 style="width: 25%;" onInput="refreshThreshold();">
-                </div><br/-->
                 
-                <p>
-                  <label for="thresholdRange">Score threshold:</label>
-                  <input type="text" ng-model="threshold" ng-change="change()" id="thresholdRange" readonly
-                         style="border:0; color:#f6931f; font-weight:bold; background-color: transparent;">
-                </p>
-                <div id="slider-range" style="margin-left: 1%; width: 50%"></div>
+                <label style="margin-left: 1%;">Score range:</label>&nbsp;&nbsp;
+                <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" 
+                          rz-slider-options="minRangeSlider.options" style="margin-left: 1%; width: 50%"></rzslider>
+                
                 <br/><br/>
-                
-                
-                
-                <h2>Range slider</h2>
-                Min Value:
-                <input type="number" ng-model="minRangeSlider.minValue" /><br/>
-                Max Value:
-                <input type="number" ng-model="minRangeSlider.maxValue" />
-                <br/>
-                <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" rz-slider-options="minRangeSlider.options"></rzslider>
-                
-                
-                
-                <%
-                  out.println(request.getAttribute("ont1"));
-                %>
-                
                 
                 <label style="margin-left: 1%;">Search: <input type="search" ng-model="searchText"></label>
                 <button type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" onclick="checkAllBoxes()">Check/uncheck all mappings</button>
@@ -104,7 +82,7 @@ for the ont1 and ont2 ontology alignment -->
                                   </thead>
                                   <tbody>
                                     <tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort|filter:searchText" 
-                                        ng-if="alignment.measure >= minRangeSlider.minValue/100">  
+                                        ng-if="alignment.measure >= minRangeSlider.minValue/100 && alignment.measure <= minRangeSlider.maxValue/100">  
                                       <td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
                                       <td><input type="text" id="{{alignment.entity1}}" name="entity1" value="{{alignment.entity1}}" style="display: none;" readonly>{{alignment.entity1}}</input></td>
                                       <td><input type="text" id="{{alignment.entity2}}" name="entity2" value="{{alignment.entity2}}" style="display: none;" readonly>{{alignment.entity2}}</input></td>
