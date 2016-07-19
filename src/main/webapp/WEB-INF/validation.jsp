@@ -132,7 +132,7 @@ for the ont1 and ont2 ontology alignment -->
         <div class="col-sm-4" style="text-align:center;">
           <input type="radio" name="format" id="alignmentAPI" value="alignmentAPI" style="display: none;" class="inputFormatAlignmentAPI" checked>
           <label for="alignmentAPI" class="btn btn-sm btn-info inputFormatAlignmentAPILabel" title="OAEI format"
-                 data-toggle="tooltip">AlignmentAPI RDF format</label>
+                 data-toggle="tooltip">AlignmentAPI format</label>
         </div>
         <div class="col-sm-4" style="text-align:center;">
           <input type="radio" name="format" id="RDF" value="RDF" class="inputFormatRDF" style="display: none;">
