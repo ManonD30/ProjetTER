@@ -84,16 +84,18 @@ for the ont1 and ont2 ontology alignment -->
                                         ng-if="alignment.measure >= minRangeSlider.minValue/100 && alignment.measure <= minRangeSlider.maxValue/100">  
                                       <td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
                                   
+                                      <!-- Add a popover on entities to display more details -->
                                       <td>
-                                        <div title="Entity 1 details" data-toggle="popover" data-html="true" data-placement="left" data-content="Id: {{alignment.entity1}} <br> Label: {{ont1[alignment.entity1].label}}" data-trigger="hover">
+                                        <div title="Entity 1 details" data-toggle="popover" data-html="true" data-placement="left" 
+                                             data-content="Id: {{alignment.entity1}} <br> Label: {{ont1[alignment.entity1].label}}" data-trigger="hover">
                                           <input type="text" id="{{alignment.entity1}}" name="entity1" value="{{alignment.entity1}}" 
                                                  style="display: none;" readonly>{{ont1[alignment.entity1].label || alignment.entity1}}</input>
                                         </div>
                                       </td>
 
                                       <td>
-                                        <div title="Entity 2 details" data-toggle="popover" data-html="true" data-placement="right"
-                                         data-content="Id: {{alignment.entity2}} <br> Label: {{ont2[alignment.entity2].label}}" data-trigger="hover">
+                                        <div title="Entity 2 details" data-toggle="popover" data-html="true" data-placement="right" 
+                                             data-content="Id: {{alignment.entity2}} <br> Label: {{ont2[alignment.entity2].label}}" data-trigger="hover">
                                           <input type="text" id="{{alignment.entity2}}" name="entity2" value="{{alignment.entity2}}" 
                                                  style="display: none;" readonly>{{ont2[alignment.entity2].label || alignment.entity2}}</input>
                                         </div>
@@ -123,15 +125,18 @@ for the ont1 and ont2 ontology alignment -->
                           <!-- Need to change .inputFormatAlignmentAPI:checked in style.css to add a new css reaction for a new button-->
                           <div class="col-sm-4" style="text-align:center;">
                             <input type="radio" name="format" id="simpleRDF" value="simpleRDF" class="inputFormatSimpleRDF" style="display: none;">
-                            <label for="simpleRDF" class="btn btn-sm btn-info inputFormatSimpleRDFLabel" title="entity1-relation-entity2 triples" data-toggle="tooltip">Simple RDF format</label>
+                            <label for="simpleRDF" class="btn btn-sm btn-info inputFormatSimpleRDFLabel" 
+                                   title="entity1-relation-entity2 triples" data-toggle="tooltip">Simple RDF format</label>
                           </div>
                           <div class="col-sm-4" style="text-align:center;">
                             <input type="radio" name="format" id="alignmentAPI" value="alignmentAPI" style="display: none;" class="inputFormatAlignmentAPI" checked>
-                            <label for="alignmentAPI" class="btn btn-sm btn-info inputFormatAlignmentAPILabel" title="OAEI format" data-toggle="tooltip">AlignmentAPI RDF format</label>
+                            <label for="alignmentAPI" class="btn btn-sm btn-info inputFormatAlignmentAPILabel" title="OAEI format"
+                                   data-toggle="tooltip">AlignmentAPI RDF format</label>
                           </div>
                           <div class="col-sm-4" style="text-align:center;">
                             <input type="radio" name="format" id="RDF" value="RDF" class="inputFormatRDF" style="display: none;">
-                            <label for="RDF" class="btn btn-sm btn-info inputFormatRDFLabel" title="RDF format with score (BETA: generated properties not valid)" data-toggle="tooltip">RDF format</label>
+                            <label for="RDF" class="btn btn-sm btn-info inputFormatRDFLabel" data-toggle="tooltip"
+                                   title="RDF format with score (BETA: generated properties not valid)">RDF format</label>
                           </div>
                         </div>
 
