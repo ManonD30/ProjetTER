@@ -15,7 +15,7 @@
 
       <div class="alert alert-warning" role="alert">
         The version of YAM++ used in this app is not optimized for big ontologies.<br/>
-        So it may crash :D
+        So it may crash or take a really long time for more than 3000 classes ontologies :D
       </div>
 
       <div class="row">
