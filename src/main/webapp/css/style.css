@@ -61,9 +61,10 @@ a:visited {
   font-size: 16px;
 }
 
-/* Max Width of the popover (depending on the container!) */
+/* Max Width of the popover (depending on the container!). Set to 25% of the middle div
+Can't be more to not go outside of window (since it is on the right of the mid div)'*/
 .popover{
-    max-width: 100%;
+    max-width: 25%;
 }
 
 .btn:hover,.btnBig:hover {
