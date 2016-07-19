@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <rdf:RDF
-    xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
-    xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
-    xmlns:swrl="http://www.w3.org/2003/11/swrl#"
-    xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-    xmlns:owl="http://www.w3.org/2002/07/owl#"
-    xmlns="http://cmt#"
+  xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#"
+  xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+  xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+  xmlns:protege="http://protege.stanford.edu/plugins/owl/protege#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns="http://cmt#"
   xml:base="http://cmt">
   <owl:Ontology rdf:about=""/>
   <owl:Class rdf:ID="Meta-Reviewer">
@@ -453,8 +453,8 @@
     <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
     >In CMT terms, a ‘Conflict of Interest’ is an association between a specific Reviewer and a specific Paper that states there is a conflict of interest between that Reviewer and that paper. Conflicts can be marked by Authors (during paper submission) or by Reviewers (in Phase 2) or by Chairmen (in Phase 3).
 
-Based on that conflict, the reviewer will not be able to bid on the paper, be assigned to that paper (either automatically by the system or manually by a Chairman) or view review submissions for that paper.
-</rdfs:comment>
+      Based on that conflict, the reviewer will not be able to bid on the paper, be assigned to that paper (either automatically by the system or manually by a Chairman) or view review submissions for that paper.
+    </rdfs:comment>
     <rdfs:domain>
       <owl:Class>
         <owl:unionOf rdf:parseType="Collection">

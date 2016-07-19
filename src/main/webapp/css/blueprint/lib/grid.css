@@ -33,7 +33,7 @@
 
 /* Use this class together with the .span-x classes
    to create any composition of columns in a layout. */
-   
+
 .column {
   float: left;
   margin-right: 10px;

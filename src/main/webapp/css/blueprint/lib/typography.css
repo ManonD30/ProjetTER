@@ -18,7 +18,7 @@
 /* This is where you set your desired font size. The line-heights 
    and vertical margins are automatically calculated from this. 
    The percentage is of 16px (0.75 * 16px = 12px). */
-   
+
 body { font-size: 75%; }
 
 
@@ -26,7 +26,7 @@ body { font-size: 75%; }
    If you prefer serif fonts, remove the font-family 
    on the headings, and apply this one to the body:
    font: 1em Georgia, "lucida bright", "times new roman", serif; */
-   
+
 body { 
   color: #222; 
   font-family: "Helvetica Neue", "Lucida Grande", Helvetica, Arial, Verdana, sans-serif; 

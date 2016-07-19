@@ -10,11 +10,11 @@
   xmlns     = "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#"
   xmlns:vin = "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#"
   
-xml:base  = "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#"
+  xml:base  = "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#"
   xmlns:food= "http://www.w3.org/TR/2003/PR-owl-guide-20031209/food#"
   xmlns:owl = "http://www.w3.org/2002/07/owl#"
   
-xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:rdfs= "http://www.w3.org/2000/01/rdf-schema#"
   xmlns:xsd = "http://www.w3.org/2001/XMLSchema#">
 
@@ -36,19 +36,19 @@ xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty rdf:resource="#hasMaker"/>
-	<owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
+        <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:cardinality>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty rdf:resource="#hasMaker"/>
-	<owl:allValuesFrom rdf:resource="#Winery"/>
+        <owl:allValuesFrom rdf:resource="#Winery"/>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty rdf:resource="#madeFromGrape"/>
- 	<owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+        <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
       </owl:Restriction>
     </rdfs:subClassOf>
     <rdfs:subClassOf>

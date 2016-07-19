@@ -3,60 +3,60 @@
          xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
          xmlns:xsd='http://www.w3.org/2001/XMLSchema#'
          xmlns:align='http://knowledgeweb.semanticweb.org/heterogeneity/alignment#'>
-<Alignment>
-  <xml>yes</xml>
-  <level>0</level>
-  <type>11</type>
-  <onto1>
-    <Ontology rdf:about="c">
-      <location>c</location>
-    </Ontology>
-  </onto1>
-  <onto2>
-    <Ontology rdf:about="c">
-      <location>c</location>
-    </Ontology>
-  </onto2>
-  <map>
-    <Cell>
-      <entity1 rdf:resource='http://cmt_en#c-3355504-9442806'/>
-      <entity2 rdf:resource='http://cmt_fr#c-5413559-6236750'/>
-      <relation>=</relation>
-      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.66</measure>
-    </Cell>
-  </map>
-  <map>
-    <Cell>
-      <entity1 rdf:resource='http://cmt_en#c-5409377-9286012'/>
-      <entity2 rdf:resource='http://cmt_fr#c-6624877-8973875'/>
-      <relation>=</relation>
-      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.58</measure>
-    </Cell>
-  </map>
-  <map>
-    <Cell>
-      <entity1 rdf:resource='http://cmt_en#c-3027646-3365825'/>
-      <entity2 rdf:resource='http://cmt_fr#c-7635033-5406957'/>
-      <relation>=</relation>
-      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
-    </Cell>
-  </map>
-  <map>
-    <Cell>
-      <entity1 rdf:resource='http://cmt_en#c-9519178-7885109'/>
-      <entity2 rdf:resource='http://cmt_fr#c-4497134-7374494'/>
-      <relation>=</relation>
-      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.7</measure>
-    </Cell>
-  </map>
-  <map>
-    <Cell>
-      <entity1 rdf:resource='http://cmt_en#c-8707801-9291338'/>
-      <entity2 rdf:resource='http://cmt_fr#c-0752747-4444619'/>
-      <relation>=</relation>
-      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.66</measure>
-    </Cell>
-  </map>
-</Alignment>
+  <Alignment>
+    <xml>yes</xml>
+    <level>0</level>
+    <type>11</type>
+    <onto1>
+      <Ontology rdf:about="c">
+        <location>c</location>
+      </Ontology>
+    </onto1>
+    <onto2>
+      <Ontology rdf:about="c">
+        <location>c</location>
+      </Ontology>
+    </onto2>
+    <map>
+      <Cell>
+        <entity1 rdf:resource='http://cmt_en#c-3355504-9442806'/>
+        <entity2 rdf:resource='http://cmt_fr#c-5413559-6236750'/>
+        <relation>=</relation>
+        <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.66</measure>
+      </Cell>
+    </map>
+    <map>
+      <Cell>
+        <entity1 rdf:resource='http://cmt_en#c-5409377-9286012'/>
+        <entity2 rdf:resource='http://cmt_fr#c-6624877-8973875'/>
+        <relation>=</relation>
+        <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.58</measure>
+      </Cell>
+    </map>
+    <map>
+      <Cell>
+        <entity1 rdf:resource='http://cmt_en#c-3027646-3365825'/>
+        <entity2 rdf:resource='http://cmt_fr#c-7635033-5406957'/>
+        <relation>=</relation>
+        <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+      </Cell>
+    </map>
+    <map>
+      <Cell>
+        <entity1 rdf:resource='http://cmt_en#c-9519178-7885109'/>
+        <entity2 rdf:resource='http://cmt_fr#c-4497134-7374494'/>
+        <relation>=</relation>
+        <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.7</measure>
+      </Cell>
+    </map>
+    <map>
+      <Cell>
+        <entity1 rdf:resource='http://cmt_en#c-8707801-9291338'/>
+        <entity2 rdf:resource='http://cmt_fr#c-0752747-4444619'/>
+        <relation>=</relation>
+        <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.66</measure>
+      </Cell>
+    </map>
+  </Alignment>
 </rdf:RDF>
 
