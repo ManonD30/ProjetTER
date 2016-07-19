@@ -20,6 +20,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -42,7 +43,9 @@ import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /**
  *
@@ -255,6 +258,15 @@ public class YamFileHandler {
         JSONObject jObject = new JSONObject();
         JSONObject clsJObject = null;
 
+        OWLOntologyFormat format = manager.getOntologyFormat(ont);
+        PrefixOWLOntologyFormat prefixFormat = format.asPrefixOWLOntologyFormat();
+        java.util.Map<String, String> prefixMap = prefixFormat.getPrefixName2PrefixMap();
+        
+        Set<String> keys = prefixMap.keySet();
+        for(String key: keys){
+            System.out.println("Value of "+key+" is: "+prefixMap.get(key));
+        }
+        
         // Iterate over classes
         String ontologyString = "";
         // Iterate over all classes of the ontology
