@@ -61,6 +61,11 @@ a:visited {
   font-size: 16px;
 }
 
+/* Max Width of the popover (depending on the container!) */
+.popover{
+    max-width: 100%;
+}
+
 .btn:hover,.btnBig:hover {
   background: #f08b80;
   text-decoration: none;

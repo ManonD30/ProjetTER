@@ -52,7 +52,7 @@ for the ont1 and ont2 ontology alignment -->
           var alignmentJson = <%=alignmentArray%>;
           var ont1 = <%=ont1%>;
           var ont2 = <%=ont2%>;
-          //console.log(alignmentJson);
+          console.log(ont1);
     </script>
 
     <label style="margin-left: 1%;">Score range:</label>&nbsp;&nbsp;
@@ -87,8 +87,10 @@ for the ont1 and ont2 ontology alignment -->
 
               <!-- Add a popover on entities to display more details -->
               <td>
-                <div title="Entity 1 details" data-toggle="popover" data-html="true" data-placement="left" 
-                     data-content="Id: {{alignment.entity1}} <br> Label: {{ont1[alignment.entity1].label}}" data-trigger="hover">
+                <div title="Entity 1 details" data-toggle="popover" data-html="true" data-placement="left" data-trigger="hover"
+                     data-content='<ul><li>Id: {{alignment.entity1}}</li>
+                     <li>Label: {{ont1[alignment.entity1].label}}</li>
+                     <li ng-repeat="prop in ont1[alignment.entity1]" ng-bind-html-unsafe="prop">\{{prop}}</li></ul>'>
                   <input type="text" id="{{alignment.entity1}}" name="entity1" value="{{alignment.entity1}}" 
                          style="display: none;" readonly>{{ont1[alignment.entity1].label|| alignment.entity1}}</input>
                 </div>

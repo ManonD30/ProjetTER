@@ -266,7 +266,7 @@ public class YamFileHandler {
           for (Iterator<OWLAnnotationAssertionAxiom> it = cls.getAnnotationAssertionAxioms(ont).iterator(); it.hasNext();) {
             OWLAnnotationAssertionAxiom annotation = it.next();
             // Careful : it bugs. With bioportal examples
-            jObject.put(annotation.getProperty().toString(), annotation.getValue().toString());
+            clsJObject.put(annotation.getProperty().getIRI().toString(), annotation.getValue().toString());
           }
           jObject.put(cls.getIRI().toString(), clsJObject);
         }
