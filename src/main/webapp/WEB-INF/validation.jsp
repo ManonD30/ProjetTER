@@ -131,7 +131,7 @@ for the ont1 and ont2 ontology alignment -->
                           </div>
                           <div class="col-sm-4" style="text-align:center;">
                             <input type="radio" name="format" id="RDF" value="RDF" class="inputFormatRDF" style="display: none;">
-                            <label for="RDF" class="btn btn-sm btn-info inputFormatRDFLabel" title="RDF format with score" data-toggle="tooltip">RDF format</label>
+                            <label for="RDF" class="btn btn-sm btn-info inputFormatRDFLabel" title="RDF format with score (BETA: generated properties not valid)" data-toggle="tooltip">RDF format</label>
                           </div>
                         </div>
 
