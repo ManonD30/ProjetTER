@@ -45,14 +45,22 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
               }
               if (attrs.toggle == "popover") {
                 // Allows the popover to stay when mouseovered
-                // And allws us to setup the popover
+                // And allows us to setup the popover
+
+                // Build String to be put in popover
+                var popoverString = "<ul>";
+                if (scope[attrs.ontology][attrs.entity] != null) {
+                  for (var attr in scope[attrs.ontology][attrs.entity]) {
+                    popoverString = popoverString + "<li>" + attr + " : " + scope[attrs.ontology][attrs.entity][attr] + "</li>"
+                  }
+                }
+                popoverString + "</ul>";
+
                 $(element).popover({
                   html: true,
                   trigger: 'manual',
                   container: $(this).attr('id'),
-                  content: function () {
-                    $return = '<div class="hover-hovercard"></div>';
-                  }
+                  content: popoverString
                 }).on("mouseenter", function () {
                   var _this = this;
                   $(this).popover("show");
