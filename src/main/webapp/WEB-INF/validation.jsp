@@ -88,11 +88,8 @@ for the ont1 and ont2 ontology alignment -->
               <td>
                 <div title="Entity 1 details" data-toggle="popover" data-html="true" data-placement="left"
                      data-trigger="hover" data-entity="{{alignment.entity1}}" data-ontology="ont1">
-                     <!--data-content='<ul><li>Id: {{alignment.entity1}}</li>
-                     <li>Label: {{ont1[alignment.entity1].label}}</li>
-                     <li ng-repeat="prop in ont1[alignment.entity1]" ng-bind-html-unsafe="prop">{{prop}}</li></ul>'-->
                   <input type="text" id="{{alignment.entity1}}" name="entity1" value="{{alignment.entity1}}" 
-                         style="display: none;" readonly>{{ont1[alignment.entity1].label|| alignment.entity1}}</input>
+                         style="display: none;" readonly>{{ont1["entities"][alignment.entity1].label|| alignment.entity1}}</input>
                 </div>
               </td>
 
@@ -100,7 +97,7 @@ for the ont1 and ont2 ontology alignment -->
                 <div title="Entity 2 details" data-toggle="popover" data-html="true" data-placement="right" 
                      data-trigger="hover" data-entity="{{alignment.entity2}}" data-ontology="ont2">
                   <input type="text" id="{{alignment.entity2}}" name="entity2" value="{{alignment.entity2}}" 
-                         style="display: none;" readonly>{{ont2[alignment.entity2].label|| alignment.entity2}}</input>
+                         style="display: none;" readonly>{{ont2["entities"][alignment.entity2].label|| alignment.entity2}}</input>
                 </div>
               </td>
 

@@ -46,15 +46,23 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
               if (attrs.toggle == "popover") {
                 // Allows the popover to stay when mouseovered
                 // And allows us to setup the popover
-
-                // Build String to be put in popover
-                var popoverString = "<ul>";
-                if (scope[attrs.ontology][attrs.entity] != null) {
-                  for (var attr in scope[attrs.ontology][attrs.entity]) {
-                    popoverString = popoverString + "<li>" + attr + " : " + scope[attrs.ontology][attrs.entity][attr] + "</li>"
-                  }
+                var popoverString = "";
+                for (var prefix in scope[attrs.ontology]['namespaces']) {
+                  popoverString = popoverString + "<b>" + prefix + "</b> " + scope[attrs.ontology]['namespaces'][prefix] + " \n";
                 }
-                popoverString + "</ul>";
+                
+                // Build String to be put in popover
+                popoverString = popoverString + "<ul>";
+                console.log("lalal");
+                console.log(scope[attrs.ontology]['entities'][attrs.entity]);
+                //if (scope[attrs.ontology]['entities'][attrs.entity] != null) {
+                  console.log("lalal in null");
+                  for (var attr in scope[attrs.ontology]['entities'][attrs.entity]) {
+                    console.log("lalal in for " + attr);
+                    popoverString = popoverString + "<li><b>" + attr + "</b> = " + scope[attrs.ontology]['entities'][attrs.entity][attr] + "</li>"
+                  }
+                //}
+                popoverString = popoverString + "</ul>";
 
                 $(element).popover({
                   html: true,

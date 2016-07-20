@@ -298,16 +298,19 @@ public class YamFileHandler {
               jPrefix.put(key, prefixMap.get(key));
             }
           }
-          System.out.println("Value of " + key + " is: " + prefixMap.get(key));
         }
         // Careful : it bugs. With bioportal examples
         clsJObject.put(propertyString, valueString);
       }
       jObject.put(cls.getIRI().toString(), clsJObject);
     }
+    
+    JSONObject fullJObject = new JSONObject();
+    fullJObject.put("namespaces", jPrefix);
+    fullJObject.put("entities", jObject);
 
     //return ontologyString;
-    return jObject;
+    return fullJObject;
   }
 
   /**
