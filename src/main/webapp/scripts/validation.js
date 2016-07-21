@@ -204,11 +204,4 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
   console.log("alignmentss");
   console.log(alignments);
   return alignments;
-}
-
-function getOntologyForAlignment(alignment, ont) {
-
-}
-
-
-  
+} 
