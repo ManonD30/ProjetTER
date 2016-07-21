@@ -75,6 +75,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
                 for (var attr in orderedEntities) {
                   if (printHr) {
                     popoverString = popoverString + "<hr style='margin: 1% 10%;'>"; 
+                    printHr = false;
                   }
                   popoverString = popoverString + "<li><b>" + attr + "</b> = " + entity[attr] + "</li>"
                   if (attr == "label") {
