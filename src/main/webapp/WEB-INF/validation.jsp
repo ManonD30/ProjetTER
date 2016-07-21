@@ -164,17 +164,3 @@ for the ont1 and ont2 ontology alignment -->
 <div class="sideRight"></div>
 
 <%@include file="footer.jsp"%>
-
-<script>
-  /**
-   * Update threshold display text
-   */
-  function refreshThreshold() {
-    document.getElementById("thresholdDisplay").innerHTML = document.getElementById("thresholdRange").value;
-  }
-
-  function refreshThresholdRange() {
-    //var lowThreshold =  $( "#slider-range" ).slider( "values", 0 )/100;
-    var lowThreshold = $("thresholdRange").val();
-  }
-</script>
