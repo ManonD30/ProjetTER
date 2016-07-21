@@ -62,7 +62,7 @@
       I'm agreeing to let YAM++ save my ontologies.<input type="radio"
                                                           name="saveOption" value="yes" checked>Yes <input
                                                           type="radio" name="saveOption" value="no">No <br> <br>
-      <input class=btn type="submit" value="Match!" />
+      <input class=btn type="submit" value="Match!" style='font-size: 20px; background: #5cb85c; color: white; margin-bottom: 10%;'/>
     </form>
   </div>
   <div id="overlay">
@@ -81,14 +81,14 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript">
-                          /**
-                           * Fill sourceUrl fields with default ontologies from BioPortal
-                           */
-                          function getExample()
-                          {
-                            document.getElementById('sourceUrl1').value = "http://data.bioportal.lirmm.fr/ontologies/CIF/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db";
-                            document.getElementById('sourceUrl2').value = "http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db";
-                          }
+            /**
+             * Fill sourceUrl fields with default ontologies from BioPortal
+             */
+            function getExample()
+            {
+              document.getElementById('sourceUrl1').value = "http://data.bioportal.lirmm.fr/ontologies/CIF/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db";
+              document.getElementById('sourceUrl2').value = "http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db";
+            }
 </script>
 
 <%@include file="footer.jsp" %>
