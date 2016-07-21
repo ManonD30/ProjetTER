@@ -49,7 +49,7 @@ public class YamTest {
   // @Test
   // public void hello() {}
   @Test
-  public void testYamMatch() throws IOException, ClassNotFoundException {
+  public void testFileHandler() throws IOException, ClassNotFoundException {
     // Fail a cause de net.didion.jwnl.jwnl exception : WordNet. Passer direct à 2013
     /*MainProgram.match("/home/emonet/java_workspace/yam-gui/WebContent/data/cmt.owl",
                             "/home/emonet/java_workspace/yam-gui/WebContent/data/Conference.owl",
