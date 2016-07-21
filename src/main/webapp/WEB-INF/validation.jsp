@@ -117,13 +117,15 @@ for the ont1 and ont2 ontology alignment -->
           </tbody>
         </table>
       </div><br/>
-      
+
       <h3 class=contentText>Namespaces</h3><br/>
 
       <div class="row" style="text-align: center;">
         <ul class="list-group" style="margin: 0 auto; max-width: 65%">
           <li class="list-group-item" ng-repeat="(prefix, namespace) in namespaces">
-            <b>{{prefix}}</b> {{namespace}}</li>
+            <b>{{prefix}}</b> {{namespace}}
+            <hr ng-show="prefix == 'label'"/>
+          </li>
         </ul>
       </div><br/>
 

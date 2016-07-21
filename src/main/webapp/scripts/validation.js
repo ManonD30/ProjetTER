@@ -26,7 +26,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.ontologies = {"ont1": $window.ont1, "ont2": $window.ont2};
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.ont1.namespaces, $window.ont2.namespaces);
-  
+  // trier namespaces pour avoir id et label en 1er
+
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
   $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson, $scope.ontologies);
@@ -57,14 +58,22 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
                 // Allows the popover to stay when mouseovered
                 // And allows us to setup the popover
                 var popoverString = "";
-                /*for (var prefix in scope[attrs.ontology]['namespaces']) {
-                  popoverString = popoverString + "<b>" + prefix + "</b> " + scope[attrs.ontology]['namespaces'][prefix] + " \n";
-                }*/
 
                 // Build String to be put in popover
                 popoverString = popoverString + "<ul>";
                 var entity = JSON.parse(attrs.entity);
-                for (var attr in entity) {
+
+                // Order the JSON string to have id and label at the beginning
+                var orderedEntities = {};
+                orderedEntities["id"] = entity["id"];
+                orderedEntities["label"] = entity["label"];
+                Object.keys(entity).sort().forEach(function (key) {
+                  if (key != "id" && key != "label") {
+                    orderedEntities[key] = entity[key];
+                  }
+                });
+
+                for (var attr in orderedEntities) {
                   //console.log("lalal in for " + attr);
                   popoverString = popoverString + "<li><b>" + attr + "</b> = " + entity[attr] + "</li>"
                 }
