@@ -183,6 +183,13 @@ footer {
   margin-right: 20%;
 }
 
+.btnSubmit {
+  font-size: 20px;
+  background: rgba(92, 183, 92, 0.65);
+  color: white;
+  margin-bottom: 10%;
+}
+
 p {
   margin: 1%;
 }

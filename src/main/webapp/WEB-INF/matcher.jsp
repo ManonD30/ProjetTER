@@ -50,21 +50,10 @@
       <br/>
       <label style="font-weight: normal;"><input type="checkbox" id=saveFile name="saveFile" checked>I agree to let YAM++ save my ontologies</label>
       <br/><br/>
-      <input class=btn type="submit" value="Match!" />
+      <input class="btn btnSubmit" type="submit" value="Match!"/>
     </form>
   </div>
 
-  <div class=btnMatch id=btnMatch style="display: none;">
-    <form action="result"
-          method="post" name=runMatch
-          onsubmit="document.location.href = '#overlay';">
-
-      I'm agreeing to let YAM++ save my ontologies.<input type="radio"
-                                                          name="saveOption" value="yes" checked>Yes <input
-                                                          type="radio" name="saveOption" value="no">No <br> <br>
-      <input class=btn type="submit" value="Match!" style='font-size: 20px; background: #5cb85c; color: white; margin-bottom: 10%;'/>
-    </form>
-  </div>
   <div id="overlay">
     <div class="popup_block">
       <img width=300 alt="" src="images/loading-blue.gif">
