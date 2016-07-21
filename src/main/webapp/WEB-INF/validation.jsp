@@ -151,7 +151,7 @@ for the ont1 and ont2 ontology alignment -->
       </div>
 
       <div class=btnCenter id='download'>
-        <input class=btn type="submit" value="Download mappings" />
+        <input class=btn type="submit" value="Download mappings" style='font-size: 20px; background: #5cb85c; color: white; margin-bottom: 10%;'/>
       </div>
     </form>
 
