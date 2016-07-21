@@ -151,37 +151,4 @@ public class Matcher extends HttpServlet {
       e.printStackTrace();
     }
   }
-
-  // delete old files which doesn't have to be saved or already saved
-  public void deleteOldFiles() throws IOException {
-    long numDays = 1; // files will be kept 'numDays' days
-    // if you change this, think about change it in Validator.java too
-
-    // Load properties file for work directory
-    Properties prop = new Properties();
-    prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
-
-    // /!\ WARNING! /!\ OLD FILES IN THIS DIRECTORY WILL BE DELETED. /!\
-    String dir = prop.getProperty("workdir") + "/ontologies";
-    // /!\ DON'T POINT THIS ON ANY SENSITIVE FILE /!\
-
-    File directory = new File(dir);
-    File[] fList = directory.listFiles();
-
-    if (fList != null) {
-      for (File file : fList) {
-        if (file.isFile() && file.getName().contains("")) { // you can
-          // add a
-          // name
-          // pattern
-          long diff = new Date().getTime() - file.lastModified();
-          long cutoff = (numDays * (24 * 60 * 60 * 1000));
-
-          if (diff > cutoff) {
-            file.delete();
-          }
-        }
-      }
-    }
-  }
 }
