@@ -1,14 +1,7 @@
 package fr.lirmm.opendata.yamgui;
 
-import static fr.lirmm.opendata.yamgui.Result.Onto1;
-import static fr.lirmm.opendata.yamgui.Result.Onto2;
 import static fr.lirmm.opendata.yamgui.Result.liste;
-import static fr.lirmm.opendata.yamgui.Result.loadOnto;
-import static fr.lirmm.opendata.yamgui.Result.round;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -16,18 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.semanticweb.owl.align.AlignmentException;
-import org.semanticweb.owl.align.Cell;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 //@Path("/matcher")
 public class Validator extends HttpServlet {
@@ -87,6 +71,7 @@ public class Validator extends HttpServlet {
             loadedOnto1 = fileHandler.loadOwlapiOntoFromRequest(request, "1");
             loadedOnto2 = fileHandler.loadOwlapiOntoFromRequest(request, "2");
           } catch (OWLOntologyCreationException ex) {
+            request.setAttribute("errorMessage", "Error when loading ontologies in OwlApi: " + ex.getMessage());
             Logger.getLogger(Validator.class.getName()).log(Level.SEVERE, null, ex);
           }
           request.setAttribute("ont1", loadedOnto1);

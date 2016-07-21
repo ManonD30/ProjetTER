@@ -252,60 +252,66 @@ public class YamFileHandler {
     // Load ontology in OWLAPI from the URL or the file
     if (request.getParameter("sourceUrl" + ontNumber) != null && !request.getParameter("sourceUrl" + ontNumber).isEmpty()) {
       ont = manager.loadOntologyFromOntologyDocument(IRI.create(request.getParameter("sourceUrl" + ontNumber)));
-    } else {
+    } else if (request.getPart("ont" + ontNumber) != null) {
       Part filePart = request.getPart("ont" + ontNumber); // Retrieves <input type="file" name="file">
       //String fileName = filePart.getSubmittedFileName();
       InputStream fileContent = filePart.getInputStream();
       ont = manager.loadOntologyFromOntologyDocument(fileContent);
+    } else {
+      return null;
     }
 
     JSONObject jObject = new JSONObject();
     JSONObject clsJObject = null;
     JSONObject jPrefix = new JSONObject();
 
-    // Get prefix from ontology using OwlApi
-    OWLOntologyFormat format = manager.getOntologyFormat(ont);
-    PrefixOWLOntologyFormat prefixFormat = format.asPrefixOWLOntologyFormat();
-    java.util.Map<String, String> prefixMap = prefixFormat.getPrefixName2PrefixMap();
+    try {
+      // Get prefix from ontology using OwlApi
+      OWLOntologyFormat format = manager.getOntologyFormat(ont);
+      PrefixOWLOntologyFormat prefixFormat = format.asPrefixOWLOntologyFormat();
+      java.util.Map<String, String> prefixMap = prefixFormat.getPrefixName2PrefixMap();
 
-    // The prefix used in this ontology
-    Set<String> keys = prefixMap.keySet();
+      // The prefix used in this ontology
+      Set<String> keys = prefixMap.keySet();
 
-    // Iterate over classes
-    String ontologyString = "";
-    // Iterate over all classes of the ontology
-    for (OWLClass cls : ont.getClassesInSignature()) {
-      clsJObject = new JSONObject();
-      clsJObject.put("id", cls.getIRI().toString());
-      clsJObject.put("label", getClassLabel(cls.getIRI().toString(), cls));
+      // Iterate over classes
+      String ontologyString = "";
+      // Iterate over all classes of the ontology
+      for (OWLClass cls : ont.getClassesInSignature()) {
+        clsJObject = new JSONObject();
+        clsJObject.put("id", cls.getIRI().toString());
+        clsJObject.put("label", getClassLabel(cls.getIRI().toString(), cls));
 
-      // Iterate over annotations of the class
-      for (Iterator<OWLAnnotationAssertionAxiom> it = cls.getAnnotationAssertionAxioms(ont).iterator(); it.hasNext();) {
-        OWLAnnotationAssertionAxiom annotation = it.next();
-        String propertyString = annotation.getProperty().getIRI().toString();
-        String valueString = annotation.getValue().toString();
+        // Iterate over annotations of the class
+        for (Iterator<OWLAnnotationAssertionAxiom> it = cls.getAnnotationAssertionAxioms(ont).iterator(); it.hasNext();) {
+          OWLAnnotationAssertionAxiom annotation = it.next();
+          String propertyString = annotation.getProperty().getIRI().toString();
+          String valueString = annotation.getValue().toString();
 
-        for (String key : keys) {
-          if (propertyString.contains(prefixMap.get(key))) {
-            propertyString = propertyString.replaceAll(prefixMap.get(key), key);
-            if (!jPrefix.containsKey(key)){
-              // Add prefix to json objet
-              jPrefix.put(key, prefixMap.get(key));
+          for (String key : keys) {
+            if (propertyString.contains(prefixMap.get(key))) {
+              propertyString = propertyString.replaceAll(prefixMap.get(key), key);
+              if (!jPrefix.containsKey(key)) {
+                // Add prefix to json objet
+                jPrefix.put(key, prefixMap.get(key));
+              }
+            }
+            if (valueString.contains(prefixMap.get(key))) {
+              valueString = valueString.replaceAll(prefixMap.get(key), key);
+              if (!jPrefix.containsKey(key)) {
+                jPrefix.put(key, prefixMap.get(key));
+              }
             }
           }
-          if (valueString.contains(prefixMap.get(key))) {
-            valueString = valueString.replaceAll(prefixMap.get(key), key);
-            if (!jPrefix.containsKey(key)){
-              jPrefix.put(key, prefixMap.get(key));
-            }
-          }
+          // Careful : it bugs. With bioportal examples
+          clsJObject.put(propertyString, valueString);
         }
-        // Careful : it bugs. With bioportal examples
-        clsJObject.put(propertyString, valueString);
+        jObject.put(cls.getIRI().toString(), clsJObject);
       }
-      jObject.put(cls.getIRI().toString(), clsJObject);
+    } catch (Exception e) {
+      Logger.getLogger(YamFileHandler.class.getName()).log(Level.SEVERE, null, e);
     }
-    
+
     JSONObject fullJObject = new JSONObject();
     fullJObject.put("namespaces", jPrefix);
     fullJObject.put("entities", jObject);
