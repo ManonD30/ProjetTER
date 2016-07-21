@@ -23,10 +23,14 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.alignmentJson = $window.alignmentJson;
   $scope.ont1 = $window.ont1;
   $scope.ont2 = $window.ont2;
+  $scope.ontologies = {"ont1": $window.ont1, "ont2": $window.ont2};
   //console.log($scope.alignmentJson);
   console.log($scope.alignmentJson);
-  $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson, $window.ont1, $window.ont2);
   
+  // Get an object with the entities of the alignment as key and their properties
+  // (extracted from the ontologies) as object
+  $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson, $scope.ontologies);
+
   // TODO: ici on récupère le match ontology hash + alignment
   // Dans un hash alignments = {"align1": {"attr":"value}, "align2":{}}
   // Et on utilise que celui là dans le jsp
@@ -60,10 +64,10 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
                 // Build String to be put in popover
                 popoverString = popoverString + "<ul>";
                 /*console.log("lalal");
-                console.log(scope[attrs.ontology]['entities']);
-                console.log(attrs.entity.toString());
-                //if (scope[attrs.ontology]['entities'][attrs.entity.toString()] != null) {
-                console.log("lalal in null");*/
+                 console.log(scope[attrs.ontology]['entities']);
+                 console.log(attrs.entity.toString());
+                 //if (scope[attrs.ontology]['entities'][attrs.entity.toString()] != null) {
+                 console.log("lalal in null");*/
                 for (var attr in scope[attrs.ontology]['entities'][attrs.entity.toString()]) {
                   //console.log("lalal in for " + attr);
                   popoverString = popoverString + "<li><b>" + attr + "</b> = " + scope[attrs.ontology]['entities'][attrs.entity.toString()][attr] + "</li>"
@@ -110,64 +114,82 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
  * de différences on considère que c'est bon
  * @returns {undefined}
  */
-function getAlignmentsWithOntologiesData(alignment, ont1, ont2) {
-  console.log("alignment");
-  console.log(alignment);
-  for (var key in alignment) {
-    //console.log("key!");
-    //console.log(key);
-    var alignments;
-    var matchScore = {"entity1": {"ont1": 0, "ont2": 0}, "entity2": {"ont1": 0, "ont2": 0}};
-    
-    var ontEntity1 = null;
-    var ontEntity2 = null;
-    
-    // Check if entity1 in ont1 or 2 and increment the compter
-    if (alignment[key]['entity1'] in ont1["entities"]) {
-      matchScore["entity1"]["ont1"] += 1;
-    }
-    if (alignment[key]['entity1'] in ont2["entities"]) {
-      matchScore["entity1"]["ont2"] += 1;
-    }
-    // Check if entity2 in ont1 or 2 and increment the compter
-    if (alignment[key]['entity2'] in ont1["entities"]) {
-      matchScore["entity2"]["ont1"] += 1;
-    }
-    if (alignment[key]['entity2'] in ont2["entities"]) {
-      matchScore["entity2"]["ont2"] += 1;
-    }
-    
-    
-    // If more than 3 
-    if (Math.abs(matchScore["entity1"]["ont1"] - matchScore["entity1"]["ont2"]) >= 3) {
-      if (matchScore["entity1"]["ont1"] > matchScore["entity1"]["ont2"]) {
-        ontEntity1 = "ont1";
-      } else {
-        ontEntity1 = "ont2";
+function getAlignmentsWithOntologiesData(alignment, ontologies) {
+  var alignments = {"ont1": {}, "ont2": {}};
+  var matchScore = {"entity1": {"ont1": 0, "ont2": 0}, "entity2": {"ont1": 0, "ont2": 0}};
+  var ontEntity1 = null;
+  var ontEntity2 = null;
+
+  if (ontologies["ont1"]["entities"] == null) {
+    console.log("Loading of ont1 in OwlApi failed")
+  } else if (ontologies["ont2"]["entities"] == null) {
+    console.log("Loading of ont2 in OwlApi failed")
+  } else {
+    // Iterate alignment and check if entity in the ont 1 or 2 to define an ontology for
+    // each entity of the alignment
+    for (var key in alignment) {
+      // Check if entity1 in ont1 or 2 and increment the compter
+      if (alignment[key]['entity1'] in ontologies["ont1"]["entities"]) {
+        matchScore["entity1"]["ont1"] = matchScore["entity1"]["ont1"] + 1;
       }
-      if (ontEntity2 != null) {
-        break;
+      if (alignment[key]['entity1'] in ontologies["ont2"]["entities"]) {
+        matchScore["entity1"]["ont2"] = matchScore["entity1"]["ont2"] + 1;
       }
-    }
-    
-    if (Math.abs(matchScore["entity2"]["ont1"] - matchScore["entity2"]["ont2"]) >= 3) {
-      if (matchScore["entity2"]["ont1"] > matchScore["entity2"]["ont2"]) {
-        ontEntity2 = "ont1";
-      } else {
-        ontEntity2 = "ont2";
+      // Check if entity2 in ont1 or 2 and increment the compter
+      if (alignment[key]['entity2'] in ontologies["ont1"]["entities"]) {
+        matchScore["entity2"]["ont1"] = matchScore["entity2"]["ont1"] + 1;
       }
-      if (ontEntity1 != null) {
-        break;
+      if (alignment[key]['entity2'] in ontologies["ont2"]["entities"]) {
+        matchScore["entity2"]["ont2"] = matchScore["entity2"]["ont2"] + 1;
+      }
+
+      // If more than 3 
+      if (Math.abs(matchScore["entity1"]["ont1"] - matchScore["entity1"]["ont2"]) >= 3) {
+        if (matchScore["entity1"]["ont1"] > matchScore["entity1"]["ont2"]) {
+          ontEntity1 = "ont1";
+        } else {
+          ontEntity1 = "ont2";
+        }
+        if (ontEntity2 != null) {
+          break;
+        }
+      }
+
+      if (Math.abs(matchScore["entity2"]["ont1"] - matchScore["entity2"]["ont2"]) >= 3) {
+        if (matchScore["entity2"]["ont1"] > matchScore["entity2"]["ont2"]) {
+          ontEntity2 = "ont1";
+        } else {
+          ontEntity2 = "ont2";
+        }
+        if (ontEntity1 != null) {
+          break;
+        }
       }
     }
   }
-  console.log("ontEntity1:: " + ontEntity1);
-  console.log("ontEntity2:: " + ontEntity2);
-  console.log(matchScore);
+
+  if (ontEntity1 != ontEntity2) {
+    for (var key in alignment) {
+      // Check if entity1 in ont1 or 2 and increment the compter
+      if (alignment[key]['entity1'] in ontologies[ontEntity1]["entities"]) {
+        alignments["ont1"][alignment[key]['entity1']] = ontologies[ontEntity1]['entities'][alignment[key]['entity1']];
+      }
+
+      if (alignment[key]['entity2'] in ontologies[ontEntity2]["entities"]) {
+        alignments["ont2"][alignment[key]['entity2']] = ontologies[ontEntity2]['entities'][alignment[key]['entity2']];
+      }
+    }
+  } else {
+    console.log("Error when figuring out which ontology match which alignment");
+  }
+
+  console.log("alignmentss");
+  console.log(alignments);
+  return alignments;
 }
 
 function getOntologyForAlignment(alignment, ont) {
-  
+
 }
 
 
