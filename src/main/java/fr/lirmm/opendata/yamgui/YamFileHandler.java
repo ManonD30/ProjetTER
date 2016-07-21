@@ -55,6 +55,11 @@ public class YamFileHandler {
 
   String workDir;
 
+  /**
+   * YamFileHandler constructor. It gets the workdir from the conf.properties file
+   * @throws IOException
+   * @throws ClassNotFoundException 
+   */
   public YamFileHandler() throws IOException, ClassNotFoundException {
     // Load properties file for work directory
     Properties prop = new Properties();
@@ -199,6 +204,14 @@ public class YamFileHandler {
     return contentString;
   }
 
+  /**
+   * Take a OAEI AlignmentAPI string and return a JSONArray containing the data of the alignment
+   * Format of the array: [{"index": 1, "entity1": "http://entity1.fr", "entity2": "http://entity2.fr",
+   * "relation": "skos:exactMatch", "measure": 0.34, }]
+   * @param oaeiResult
+   * @return
+   * @throws AlignmentException 
+   */
   public JSONArray parseOaeiAlignmentFormat(String oaeiResult) throws AlignmentException {
     AlignmentParser aparser = new AlignmentParser(0);
     // rdf file
