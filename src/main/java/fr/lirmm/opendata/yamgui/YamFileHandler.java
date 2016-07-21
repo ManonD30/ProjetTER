@@ -276,6 +276,7 @@ public class YamFileHandler {
     // Iterate over all classes of the ontology
     for (OWLClass cls : ont.getClassesInSignature()) {
       clsJObject = new JSONObject();
+      clsJObject.put("id", cls.getIRI().toString());
       clsJObject.put("label", getClassLabel(cls.getIRI().toString(), cls));
 
       // Iterate over annotations of the class

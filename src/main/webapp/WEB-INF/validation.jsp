@@ -80,24 +80,24 @@ for the ont1 and ont2 ontology alignment -->
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="alignment in alignmentJson|orderBy:orderByField:reverseSort|filter:searchText" 
+            <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText" 
                 ng-if="alignment.measure >= minRangeSlider.minValue / 100 && alignment.measure <= minRangeSlider.maxValue / 100">  
               <td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
 
               <!-- Add a popover on entities to display more details -->
               <td>
                 <div title="Entity 1 details" data-toggle="popover" data-html="true" data-placement="left"
-                     data-trigger="hover" data-entity="{{alignment.entity1}}" data-ontology="ont1">
-                  <input type="text" id="{{alignment.entity1}}" name="entity1" value="{{alignment.entity1}}" 
-                         style="display: none;" readonly>{{ont1["entities"][alignment.entity1].label|| alignment.entity1}}</input>
+                     data-trigger="hover" data-entity="{{alignment.entity1}}">
+                  <input type="text" id="{{alignment.entity1.id}}" name="entity1" value="{{alignment.entity1.id}}" 
+                         style="display: none;" readonly>{{alignment.entity1.label|| alignment.entity1.id}}</input>
                 </div>
               </td>
 
               <td>
                 <div title="Entity 2 details" data-toggle="popover" data-html="true" data-placement="right" 
-                     data-trigger="hover" data-entity="{{alignment.entity2}}" data-ontology="ont2">
-                  <input type="text" id="{{alignment.entity2}}" name="entity2" value="{{alignment.entity2}}" 
-                         style="display: none;" readonly>{{ont2["entities"][alignment.entity2].label|| alignment.entity2}}</input>
+                     data-trigger="hover" data-entity="{{alignment.entity2}}">
+                  <input type="text" id="{{alignment.entity2.id}}" name="entity2" value="{{alignment.entity2.id}}" 
+                         style="display: none;" readonly>{{alignment.entity2.label|| alignment.entity2.id}}</input>
                 </div>
               </td>
 

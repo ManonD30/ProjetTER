@@ -57,20 +57,23 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
                 // Allows the popover to stay when mouseovered
                 // And allows us to setup the popover
                 var popoverString = "";
-                for (var prefix in scope[attrs.ontology]['namespaces']) {
+                /*for (var prefix in scope[attrs.ontology]['namespaces']) {
                   popoverString = popoverString + "<b>" + prefix + "</b> " + scope[attrs.ontology]['namespaces'][prefix] + " \n";
-                }
+                }*/
 
                 // Build String to be put in popover
                 popoverString = popoverString + "<ul>";
+                console.log("GET ENTITY");
+                var entity = JSON.parse(attrs.entity);
+                console.log(entity);
                 /*console.log("lalal");
                  console.log(scope[attrs.ontology]['entities']);
                  console.log(attrs.entity.toString());
                  //if (scope[attrs.ontology]['entities'][attrs.entity.toString()] != null) {
                  console.log("lalal in null");*/
-                for (var attr in scope[attrs.ontology]['entities'][attrs.entity.toString()]) {
+                for (var attr in entity) {
                   //console.log("lalal in for " + attr);
-                  popoverString = popoverString + "<li><b>" + attr + "</b> = " + scope[attrs.ontology]['entities'][attrs.entity.toString()][attr] + "</li>"
+                  popoverString = popoverString + "<li><b>" + attr + "</b> = " + entity[attr] + "</li>"
                 }
                 //}
                 popoverString = popoverString + "</ul>";
@@ -115,7 +118,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
  * @returns {undefined}
  */
 function getAlignmentsWithOntologiesData(alignment, ontologies) {
-  var alignments = {"ont1": {}, "ont2": {}};
+  var alignments = [];
   var matchScore = {"entity1": {"ont1": 0, "ont2": 0}, "entity2": {"ont1": 0, "ont2": 0}};
   var ontEntity1 = null;
   var ontEntity2 = null;
@@ -170,14 +173,23 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
 
   if (ontEntity1 != ontEntity2) {
     for (var key in alignment) {
+      var alignToAdd = {"entity1": {}, "entity2": {}}
       // Check if entity1 in ont1 or 2 and increment the compter
       if (alignment[key]['entity1'] in ontologies[ontEntity1]["entities"]) {
-        alignments["ont1"][alignment[key]['entity1']] = ontologies[ontEntity1]['entities'][alignment[key]['entity1']];
+        alignToAdd["entity1"] = ontologies[ontEntity1]['entities'][alignment[key]['entity1']];
+      } else {
+        alignToAdd["entity1"] = {"id": alignment[key]['entity1'].toString()};
       }
 
       if (alignment[key]['entity2'] in ontologies[ontEntity2]["entities"]) {
-        alignments["ont2"][alignment[key]['entity2']] = ontologies[ontEntity2]['entities'][alignment[key]['entity2']];
+        alignToAdd["entity2"] = ontologies[ontEntity2]['entities'][alignment[key]['entity2']];
+      } else {
+        alignToAdd["entity2"] = {"id": alignment[key]['entity2'].toString()}
       }
+      alignToAdd["measure"] = alignment[key]['measure'];
+      alignToAdd["relation"] = alignment[key]['relation'];
+      alignToAdd["index"] = key;
+      alignments.push(alignToAdd);
     }
   } else {
     console.log("Error when figuring out which ontology match which alignment");
