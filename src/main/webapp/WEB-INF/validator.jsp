@@ -53,7 +53,7 @@
         Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json
       </div>
       <br/>
-      <input class="btn btnSubmit" type="submit" value="Validate!" style='font-size: 20px; background: #5cb85c; color: white; margin-bottom: 10%;'/>
+      <input class="btn btnSubmit " type="submit" value="Validate!"/>
     </form>
   </div>
 
