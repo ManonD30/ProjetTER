@@ -32,10 +32,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // (extracted from the ontologies) as object
   $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson, $scope.ontologies);
 
-  // TODO: ici on récupère le match ontology hash + alignment
-  // Dans un hash alignments = {"align1": {"attr":"value}, "align2":{}}
-  // Et on utilise que celui là dans le jsp
-
   //Range slider config
   $scope.minRangeSlider = {
     minValue: 0,
@@ -66,7 +62,9 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
                 // Order the JSON string to have id and label at the beginning
                 var orderedEntities = {};
                 orderedEntities["id"] = entity["id"];
-                orderedEntities["label"] = entity["label"];
+                if (entity["label"] != null) {
+                  orderedEntities["label"] = entity["label"];
+                }
                 Object.keys(entity).sort().forEach(function (key) {
                   if (key != "id" && key != "label") {
                     orderedEntities[key] = entity[key];
