@@ -95,6 +95,11 @@ Can't be more to not go outside of window (since it is on the right of the mid d
   margin-top: 10%;
 }
 
+/* Change input url for ontologies to make it bigger*/
+.ontologyUrl {
+  width: 80%;
+}
+
 .changePassword {
   margin-left: 10%;
   display: inline-block;
