@@ -59,5 +59,7 @@ public class YamTest {
     
     //assertEquals("/srv/yam-gui", fileHandler.getWorkDir());
     assertTrue(fileHandler.getWorkDir() instanceof String);
+    
+    //assertEquals("lalala", fileHandler.getUrlContent("http://advanse.lirmm.fr:8082/advanse_api/preprocessing/argot?text=lalala"));
   }
 }
