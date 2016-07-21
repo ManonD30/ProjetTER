@@ -35,9 +35,6 @@ for the ont1 and ont2 ontology alignment -->
       // Trying to get ontology loaded using owlapi
       JSONObject ont1 = (JSONObject) request.getAttribute("ont1");
       JSONObject ont2 = (JSONObject) request.getAttribute("ont2");
-      //out.println(ont1);
-      //out.println("\n NOOO \n");
-      //out.println(ont2);
 
       if (request.getAttribute("errorMessage") == null && request.getAttribute("data") != null) {
         //get the execution time from response

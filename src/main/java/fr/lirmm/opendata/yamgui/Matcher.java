@@ -66,7 +66,14 @@ public class Matcher extends HttpServlet {
     response.setContentType("text/plain");
     PrintWriter out = response.getWriter();
 
-    String responseString = processRequest(request);
+    String responseString = null;
+
+    try {
+      responseString = processRequest(request);
+    } catch (Exception e) {
+      request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
+      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
+    }
 
     // TODO: output result.rdf content
     out.print(responseString);
@@ -98,7 +105,12 @@ public class Matcher extends HttpServlet {
     String ont1 = request.getParameter("sourceUrl1");
     String ont2 = request.getParameter("sourceUrl2");
     if (ont1 != null && ont2 != null) {
-      responseString = processRequest(request);
+      try {
+        responseString = processRequest(request);
+      } catch (Exception e) {
+        request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
+        Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
+      }
     } else {
       responseString = "Example: <br/> curl -X POST -H \"Content-Type: multipart/form-data\" "
               + "-F ont1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?sourceUrl2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl <br/>"
@@ -116,65 +128,25 @@ public class Matcher extends HttpServlet {
    * @return
    * @throws IOException
    */
-  static String processRequest(HttpServletRequest request) throws IOException {
+  static String processRequest(HttpServletRequest request) throws Exception {
     String responseString = null;
-    try {
-      YamFileHandler fileHandler = new YamFileHandler();
 
-      // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
-      String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
+    YamFileHandler fileHandler = new YamFileHandler();
 
-      String storagePath1 = fileHandler.uploadFile("1", subDirName, request);
-      String storagePath2 = fileHandler.uploadFile("2", subDirName, request);
+    // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
+    String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
 
-      String resultStoragePath = fileHandler.getWorkDir() + "/data/tmp/" + subDirName + "/result.rdf";
+    String storagePath1 = fileHandler.uploadFile("1", subDirName, request);
+    String storagePath2 = fileHandler.uploadFile("2", subDirName, request);
 
-      // Execute YAM to get the mappings in RDF/XML
-      MainProgram.match(storagePath1, storagePath2, resultStoragePath);
+    String resultStoragePath = fileHandler.getWorkDir() + "/data/tmp/" + subDirName + "/result.rdf";
 
-      responseString = FileUtils.readFileToString(new File(resultStoragePath));
-    } catch (ClassNotFoundException ex) {
-      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    // Execute YAM to get the mappings in RDF/XML
+    MainProgram.match(storagePath1, storagePath2, resultStoragePath);
+
+    responseString = FileUtils.readFileToString(new File(resultStoragePath));
 
     return responseString;
-  }
-
-  // allow user to upload the ontologies (.owl)
-  @POST
-  @Path("/uploadFiles")
-  @Consumes(MediaType.MULTIPART_FORM_DATA)
-  public Response uploadFiles(
-          @FormDataParam("firstFile") InputStream uploadedFirstInputStream,
-          @FormDataParam("firstFile") FormDataContentDisposition firstFileDetail,
-          @FormDataParam("secondFile") InputStream uploadedSecondInputStream,
-          @FormDataParam("secondFile") FormDataContentDisposition secondFileDetail,
-          @Context HttpServletRequest request,
-          @CookieParam("key") String key) throws MalformedURLException, URISyntaxException, IOException {
-
-    // Load properties file for work directory
-    Properties prop = new Properties();
-    prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
-
-    HttpSession session = request.getSession();
-    if (session.getAttribute("mail") == null) {
-      URI uri = new URL(prop.getProperty("appurl") + "/sign").toURI();
-      return Response.seeOther(uri).build();
-    } else {
-      // delete old files in temp folder
-      // in uploadFiles() because this is the most used function
-      deleteOldFiles();
-
-      // upload first file
-      String firstFileLocation = prop.getProperty("workdir") + "/ontologies/first" + key + ".owl";
-      uploadFile(uploadedFirstInputStream, firstFileLocation);
-
-      // upload second file
-      String secondFileLocation = prop.getProperty("workdir") + "/ontologies/second" + key
-              + ".owl";
-      uploadFile(uploadedSecondInputStream, secondFileLocation);
-    }
-    return null;
   }
 
   // upload "fileToUpload" into "fileLocation"
