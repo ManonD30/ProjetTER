@@ -24,8 +24,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.ont1 = $window.ont1;
   $scope.ont2 = $window.ont2;
   $scope.ontologies = {"ont1": $window.ont1, "ont2": $window.ont2};
-  //console.log($scope.alignmentJson);
-  console.log($scope.alignmentJson);
+  // Merge namespaces from the 2 ont:
+  $scope.namespaces = $.extend($window.ont1.namespaces, $window.ont2.namespaces);
   
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
@@ -63,19 +63,11 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
 
                 // Build String to be put in popover
                 popoverString = popoverString + "<ul>";
-                console.log("GET ENTITY");
                 var entity = JSON.parse(attrs.entity);
-                console.log(entity);
-                /*console.log("lalal");
-                 console.log(scope[attrs.ontology]['entities']);
-                 console.log(attrs.entity.toString());
-                 //if (scope[attrs.ontology]['entities'][attrs.entity.toString()] != null) {
-                 console.log("lalal in null");*/
                 for (var attr in entity) {
                   //console.log("lalal in for " + attr);
                   popoverString = popoverString + "<li><b>" + attr + "</b> = " + entity[attr] + "</li>"
                 }
-                //}
                 popoverString = popoverString + "</ul>";
 
                 $(element).popover({

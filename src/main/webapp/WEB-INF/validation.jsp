@@ -81,7 +81,7 @@ for the ont1 and ont2 ontology alignment -->
           </thead>
           <tbody>
             <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText" 
-                ng-if="alignment.measure >= minRangeSlider.minValue / 100 && alignment.measure <= minRangeSlider.maxValue / 100">  
+                ng-if="alignment.measure >= minRangeSlider.minValue / 100 && alignment.measure <= minRangeSlider.maxValue / 100">
               <td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
 
               <!-- Add a popover on entities to display more details -->
@@ -117,6 +117,15 @@ for the ont1 and ont2 ontology alignment -->
           </tbody>
         </table>
       </div><br/>
+      
+      <h3 class=contentText>Namespaces</h3><br/>
+
+      <div class="row" style="width: 75%; text-align: center;">
+        <ul class="list-group" style="margin: 0 auto;">
+          <li class="list-group-item" ng-repeat="(prefix, namespace) in namespaces">
+            <b>{{prefix}}</b> {{namespace}}</li>
+        </ul>
+      </div>
 
       <h3 class=contentText>Formats</h3><br/>
 
