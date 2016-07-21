@@ -19,14 +19,10 @@ function checkAllBoxes() {
 var validationApp = angular.module('validationApp', ['rzModule', 'ui.bootstrap']);
 
 validationApp.controller('ValidationCtrl', function ($scope, $window) {
-  // Init alignmentJson for angular js by getting the alignment from Java alignmentArray
-  $scope.alignmentJson = $window.alignmentJson;
-  $scope.ont1 = $window.ont1;
-  $scope.ont2 = $window.ont2;
+  // Get the 2 ont in an object
   $scope.ontologies = {"ont1": $window.ont1, "ont2": $window.ont2};
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.ont1.namespaces, $window.ont2.namespaces);
-  // trier namespaces pour avoir id et label en 1er
 
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
@@ -111,17 +107,11 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
 
 /**
  * a function to get the ontology that is linked to an alignment
+ * Example of the alignments object:
+ * {"entity1": {"attr1": "http://attr1.fr"}, "entity2": {"attr1": "http://attr1.fr"}, 
+ * "measure": 0.84, "relation": "skos:exactMatch", "index": 1}
  * 
- * DES LE DEBUT faire un objet super facile à manipuler avec toutes les infos dont on a besoin dedans
- * Pas avoir besoin de checker l'ontologie ensuite.
- * Style {"entity1": {"attrs": {"attr1": "value1"}}
- * En gros on a une ontologie sous forme de hash (dont certaines entites useless) et une list d'entities mappées
- * Il faut faire un hash avec seulement les entities mappées
- * 
- * Et faire un fct pour recup quel alignment = quel onto
- * Pour ça on itere les concepts et on check dans quel hash ils sont, dès qu'il y a assez 
- * de différences on considère que c'est bon
- * @returns {undefined}
+ * @returns alignments
  */
 function getAlignmentsWithOntologiesData(alignment, ontologies) {
   var alignments = [];

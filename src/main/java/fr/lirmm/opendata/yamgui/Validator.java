@@ -63,7 +63,7 @@ public class Validator extends HttpServlet {
             Logger.getLogger(Validator.class.getName()).log(Level.SEVERE, null, ex);
           }
           // add cell data list to response
-          request.setAttribute("data", liste);
+          request.setAttribute("alignment", liste);
 
           JSONObject loadedOnto1 = null;
           JSONObject loadedOnto2 = null;

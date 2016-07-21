@@ -27,16 +27,14 @@ for the ont1 and ont2 ontology alignment -->
   <div ng-controller="ValidationCtrl" id=toHideWhenDownload>
 
     <%
-      //get lists from response
-      //ArrayList<fr.lirmm.opendata.yamgui.Map> liste = (ArrayList) request.getAttribute("data");
-
-      JSONArray alignmentArray = (JSONArray) request.getAttribute("data");
+      // Get alignment Array with all aligned entities
+      JSONArray alignmentArray = (JSONArray) request.getAttribute("alignment");
 
       // Trying to get ontology loaded using owlapi
       JSONObject ont1 = (JSONObject) request.getAttribute("ont1");
       JSONObject ont2 = (JSONObject) request.getAttribute("ont2");
 
-      if (request.getAttribute("errorMessage") == null && request.getAttribute("data") != null) {
+      if (request.getAttribute("errorMessage") == null && request.getAttribute("alignment") != null) {
         //get the execution time from response
         String time = (String) request.getAttribute("time");
         if (time != null) {
@@ -46,10 +44,10 @@ for the ont1 and ont2 ontology alignment -->
     %>
 
     <script type="text/javascript">
+          // Put params to javascript to use it with angularjs
           var alignmentJson = <%=alignmentArray%>;
           var ont1 = <%=ont1%>;
           var ont2 = <%=ont2%>;
-          console.log(ont1);
     </script>
 
     <label style="margin-left: 1%;">Score range:</label>&nbsp;&nbsp;
@@ -116,7 +114,6 @@ for the ont1 and ont2 ontology alignment -->
       </div><br/>
 
       <h3 class=contentText>Namespaces</h3><br/>
-
       <div class="row" style="text-align: center;">
         <ul class="list-group" style="margin: 0 auto; max-width: 65%">
           <li class="list-group-item" ng-repeat="(prefix, namespace) in namespaces">
@@ -126,8 +123,6 @@ for the ont1 and ont2 ontology alignment -->
       </div><br/>
 
       <h3 class=contentText>Formats</h3><br/>
-
-      <!--div class="row" style="width: 75%; text-align: center;"-->
       <div class="row" style="text-align: center;">
         <!-- Need to change .inputFormatAlignmentAPI:checked in style.css to add a new css reaction for a new button-->
         <div class="col-sm-4" style="text-align:center;">
@@ -153,33 +148,17 @@ for the ont1 and ont2 ontology alignment -->
     </form>
 
   </div>
-
   <br/>
 
   <%
     // If errors
   } else {
   %>
-
   An error happened during matching <br/>
-
   <%
       out.println(request.getAttribute("errorMessage"));
     }
   %>
-  <div id="overlay">
-    <div class="popup_block">
-      <p class=popup_text>
-        If you continue, all your results will be lost.<br> <br> 
-        <a href=#noWhere style="text-decoration: none">
-          <input class=btn type="button" value="Stay on this page">
-        </a>
-        <a href=matcher style="text-decoration: none">
-          <input class=btn type="button" value="Return to matcher">
-        </a>
-      </p>
-    </div>
-  </div>
 
 </div>
 <div class="sideRight"></div>
@@ -197,7 +176,5 @@ for the ont1 and ont2 ontology alignment -->
   function refreshThresholdRange() {
     //var lowThreshold =  $( "#slider-range" ).slider( "values", 0 )/100;
     var lowThreshold = $("thresholdRange").val();
-    console.log(lowThreshold);
-    console.log("in threshold refresh range");
   }
 </script>

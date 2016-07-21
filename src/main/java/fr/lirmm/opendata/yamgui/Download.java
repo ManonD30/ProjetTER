@@ -2,8 +2,6 @@ package fr.lirmm.opendata.yamgui;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.vocabulary.VCARD;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;

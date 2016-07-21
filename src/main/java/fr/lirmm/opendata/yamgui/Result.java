@@ -16,6 +16,7 @@ import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import static fr.lirmm.opendata.yamgui.Matcher.processRequest;
 
 import java.io.ByteArrayInputStream;
 import java.util.logging.Level;
@@ -66,7 +67,14 @@ public class Result extends HttpServlet {
                 long begin = System.currentTimeMillis();
                 
                 // Process request (upload files and run YAM)
-                String matcherResult = fr.lirmm.opendata.yamgui.Matcher.processRequest(request);
+                String matcherResult = null; //= fr.lirmm.opendata.yamgui.Matcher.processRequest(request);
+                try {
+                  matcherResult = processRequest(request);
+                } catch (Exception e) {
+                  request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
+                  Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
+                }
+
                 request.setAttribute("matcherResult", matcherResult);
                 
                 // get time at the matching end
@@ -99,7 +107,7 @@ public class Result extends HttpServlet {
                   Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 // add cell data list of matcher results to response
-                request.setAttribute("data", alignmentJson);
+                request.setAttribute("alignment", alignmentJson);
                
                 JSONObject loadedOnto1 = null;
                 JSONObject loadedOnto2 = null;
