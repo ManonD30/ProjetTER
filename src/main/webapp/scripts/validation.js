@@ -71,9 +71,15 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
                   }
                 });
 
+                var printHr = false;
                 for (var attr in orderedEntities) {
-                  //console.log("lalal in for " + attr);
+                  if (printHr) {
+                    popoverString = popoverString + "<hr style='margin: 1% 10%;'>"; 
+                  }
                   popoverString = popoverString + "<li><b>" + attr + "</b> = " + entity[attr] + "</li>"
+                  if (attr == "label") {
+                    printHr = popoverString + "<hr>";
+                  }
                 }
                 popoverString = popoverString + "</ul>";
 

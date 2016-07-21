@@ -124,8 +124,6 @@ for the ont1 and ont2 ontology alignment -->
         <ul class="list-group" style="margin: 0 auto; max-width: 65%">
           <li class="list-group-item" ng-repeat="(prefix, namespace) in namespaces">
             <b>{{prefix}}</b> {{namespace}}
-            <hr>
-            <hr ng-show="'{{prefix}}' == 'label'">
           </li>
         </ul>
       </div><br/>
