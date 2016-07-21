@@ -120,12 +120,12 @@ for the ont1 and ont2 ontology alignment -->
       
       <h3 class=contentText>Namespaces</h3><br/>
 
-      <div class="row" style="width: 75%; text-align: center;">
-        <ul class="list-group" style="margin: 0 auto;">
+      <div class="row" style="text-align: center;">
+        <ul class="list-group" style="margin: 0 auto; max-width: 65%">
           <li class="list-group-item" ng-repeat="(prefix, namespace) in namespaces">
             <b>{{prefix}}</b> {{namespace}}</li>
         </ul>
-      </div>
+      </div><br/>
 
       <h3 class=contentText>Formats</h3><br/>
 
