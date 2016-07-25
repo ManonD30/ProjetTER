@@ -360,6 +360,22 @@ public class YamFileHandler {
     }
     return label;
   }
+  
+  /**
+   * Return the file size in MB
+   * @param filepath
+   * @return long of file size in MB
+   */
+  public int getFileSize(String filepath) {
+    File file = new File(filepath);
+    //long size = file.length();
+    Integer size = (int) (long) file.length();
+    // Convert the bytes to Kilobytes (1 KB = 1024 Bytes)
+    size = size / 1024;
+    // Convert the KB to MegaBytes (1 MB = 1024 KBytes)
+    size = size / 1024;
+    return size;
+  }
 
   public String getWorkDir() {
     return workDir;

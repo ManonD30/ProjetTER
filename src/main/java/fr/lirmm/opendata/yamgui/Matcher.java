@@ -1,6 +1,7 @@
 package fr.lirmm.opendata.yamgui;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.RandomStringUtils;
-
 
 import mainyam.MainProgram;
 import org.apache.commons.io.FileUtils;
@@ -124,6 +124,13 @@ public class Matcher extends HttpServlet {
 
     String storagePath1 = fileHandler.uploadFile("1", subDirName, request);
     String storagePath2 = fileHandler.uploadFile("2", subDirName, request);
+    
+    // Check if file is bigger than 3MB
+    int maxFileSize = 3;
+    if (fileHandler.getFileSize(storagePath1) >= maxFileSize || fileHandler.getFileSize(storagePath2) >= maxFileSize) {
+      System.out.println("File too big");
+      throw new FileNotFoundException("File too big");
+    }
 
     String resultStoragePath = fileHandler.getWorkDir() + "/data/tmp/" + subDirName + "/result.rdf";
 
@@ -136,7 +143,7 @@ public class Matcher extends HttpServlet {
   }
 
   // upload "fileToUpload" into "fileLocation"
-  public void uploadFile(InputStream fileToUpload, String fileLocation) {
+  /*public void uploadFile(InputStream fileToUpload, String fileLocation) {
     try {
       FileOutputStream out = new FileOutputStream(new File(fileLocation));
       int read = 0;
@@ -150,5 +157,5 @@ public class Matcher extends HttpServlet {
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
+  }*/
 }
