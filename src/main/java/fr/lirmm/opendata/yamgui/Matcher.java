@@ -129,7 +129,7 @@ public class Matcher extends HttpServlet {
     int maxFileSize = 3;
     if (fileHandler.getFileSize(storagePath1) >= maxFileSize || fileHandler.getFileSize(storagePath2) >= maxFileSize) {
       System.out.println("File too big");
-      throw new FileNotFoundException("File too big");
+      throw new FileNotFoundException("File too big: its size should be less than " + maxFileSize + "MB");
     }
 
     String resultStoragePath = fileHandler.getWorkDir() + "/data/tmp/" + subDirName + "/result.rdf";
