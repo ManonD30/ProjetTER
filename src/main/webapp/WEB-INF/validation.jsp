@@ -18,9 +18,7 @@ for the ont1 and ont2 ontology alignment -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
 <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
 
-<div id=sideLeft class="sideLeft"></div>
-
-<div class=sideMiddle ng-app="validationApp">
+<div ng-app="validationApp">
 
   <h3 class=contentText>Mappings validation</h3>
 
@@ -161,6 +159,5 @@ for the ont1 and ont2 ontology alignment -->
   %>
 
 </div>
-<div class="sideRight"></div>
 
 <%@include file="footer.jsp"%>

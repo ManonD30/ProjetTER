@@ -2,10 +2,6 @@
 <%@include file="header.jsp" %>
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
-<div class="sideLeft"></div>
-
-<div class=sideMiddle>
-
   <div class=publicationPage>
     <h1>Using the REST API</h1>
 
@@ -85,8 +81,5 @@ curl -X POST http://localhost:8083/rest/matcher
     </pre>
 
   </div>
-</div>
-
-<div class="sideRight"></div>
 
 <%@include file="footer.jsp" %>
