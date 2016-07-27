@@ -14,7 +14,7 @@
     <script type="text/javascript" src="scripts/cookies.js"></script>
     <title>YAM++</title>
   </head>
-  <body>
+  <body role="document" style="background-color:#f2f7f9">
     <div class=header>
       <div class=nav>
         <ul id=nav-box>
@@ -37,3 +37,5 @@
     </div>
 
     <div class=yellow></div>
+    
+    <div class="container theme-showcase" role="main"> <!-- open container closed in footer.jsp-->
