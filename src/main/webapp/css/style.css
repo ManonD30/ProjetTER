@@ -64,12 +64,17 @@ a:visited {
 /* bootstrap container that is used to build the main div */
 .container {
   background-color: white;
+  padding-right: 0px;
+  padding-left: 0px;
+  /* Here to change the size of the 2 columns around main div: */
+  margin-right: auto;
+  margin-left: auto;
 }
 
 /* Max Width of the popover (depending on the container!). Set to 25% of the middle div
 Can't be more to not go outside of window (since it is on the right of the mid div)'*/
 .popover{
-    max-width: 25%;
+  max-width: 25%;
 }
 
 .btn:hover,.btnBig:hover {
@@ -135,6 +140,7 @@ Can't be more to not go outside of window (since it is on the right of the mid d
 
 .contactUs {
   width: 100%;
+  padding-bottom: 1%;
   display: inline-block;
   background-color: #d8e7ef;
   text-align: center;
@@ -369,19 +375,14 @@ ul#nav-box li a:hover {
   border-radius: 20px 5px 20px;
 }
 
-.publication {
+.textMainBody {
   text-align: justify;
   padding-left: 5%;
   padding-right: 5%;
   padding-bottom: 1%;
   padding-top: 2%;
-  background-color: #f2f7f9;
 }
 
-.publicationPage {
-  width: 100%;
-  overflow: auto;
-}
 
 .signup,.signin {
   margin-top: 5%;

@@ -2,7 +2,7 @@
 <%@include file="header.jsp" %>
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
-  <div class=publicationPage>
+  <div class=textMainBody>
     <h1>Using the REST API</h1>
 
     <h3>HTTP GET Request</h3>
