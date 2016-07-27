@@ -12,13 +12,15 @@
 <div class=textMainBody>
   <div class=contentCenter>
     <div class=publicationButton>
-      <a href=downloadYam style="text-decoration: none"><input
-          class=publicationButton type="button" value="Download Yam++"></a>
+      <a href=downloadYam style="text-decoration: none">
+        <input class="btn btnDdl" type="button" value="Download Yam++"/>
+      </a>
     </div>
 
     <div class=publicationButton>
-      <a href=downloadYamDemo style="text-decoration: none"><input
-          class=publicationButton type="button" value="See a demo"></a>
+      <a href=downloadYamDemo style="text-decoration: none">
+        <input class="btn btnDdl" type="button" value="See a demo"/>
+      </a>
     </div>
   </div>
 
