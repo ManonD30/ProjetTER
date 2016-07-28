@@ -117,20 +117,9 @@ for the ont1 and ont2 ontology alignment -->
                 </table>
               </div>
               <div style="width: 20%; display: table-cell;"> 
-                <div class="entityDetailsDiv panel panel-info">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Entity 1</h3>
-                  </div>
-                  <div id="entityDetail1" class="entityDetailsDiv panel-body">
-                  </div>
+                <div id="entityDetail1" class="entityDetailsDiv">
                 </div>
-
-                <div class="entityDetailsDiv panel panel-info">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Entity 2</h3>
-                  </div>
-                  <div id="entityDetail2" class="entityDetailsDiv panel-body">
-                  </div>
+                <div id="entityDetail2" class="entityDetailsDiv">
                 </div>
               </div>
             </div>
