@@ -116,10 +116,10 @@ for the ont1 and ont2 ontology alignment -->
                 </table>
               </div>
               <div style="width: 20%; display: table-cell;"> 
-                <div style="display: inline-block; width: 100%;"> 
+                <div style="display: inline-block; width: 100%; height: 50%;"> 
                   <span>tototottototo111</span>
                 </div>
-                <div style="display: inline-block; width: 100%;"> 
+                <div style="display: inline-block; width: 100%; height: 50%;">  
                   <span>tototottototo2222</span>
                 </div>
               </div>
