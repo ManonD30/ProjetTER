@@ -15,6 +15,42 @@ function checkAllBoxes() {
   }
 }
 
+/**
+ * Build the HTML to display entity details (list ul li)
+ * @param {type} entity
+ * @returns {undefined}
+ */
+function buildEntityDetailsHtml(entity) {
+  var htmlString = "";
+
+  // Build String to be put in popover
+  htmlString = htmlString + "<ul>";
+  // Order the JSON string to have id and label at the beginning
+  var orderedEntities = {};
+  orderedEntities["id"] = entity["id"];
+  if (entity["label"] != null) {
+    orderedEntities["label"] = entity["label"];
+  }
+  Object.keys(entity).sort().forEach(function (key) {
+    if (key != "id" && key != "label") {
+      orderedEntities[key] = entity[key];
+    }
+  });
+
+  var printHr = false;
+  for (var attr in orderedEntities) {
+    if (printHr) {
+      htmlString = htmlString + "<hr style='margin: 1% 10%;'>";
+      printHr = false;
+    }
+    htmlString = htmlString + "<li><b>" + attr + "</b> = " + entity[attr] + "</li>"
+    if (attr == "label") {
+      printHr = htmlString + "<hr>";
+    }
+  }
+  return htmlString + "</ul>";
+}
+
 // Using rzSlider for 2 sliders range input
 var validationApp = angular.module('validationApp', ['rzModule', 'ui.bootstrap']);
 
@@ -39,9 +75,16 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     }
   };
 
-  $scope.selectEntity = function () {
-    console.log("maaaoo");
-    //...
+  $scope.selectEntity = function (element, attrs) {
+    
+    $scope.selected = this.alignment;
+    console.log($scope.selected);
+    
+    var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1);
+    var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2);
+
+    document.getElementById("entityDetail1").innerHTML = stringDetail1;
+    document.getElementById("entityDetail2").innerHTML = stringDetail2;
   };
 })
         .directive('toggle', function () {
@@ -54,36 +97,9 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
               if (attrs.toggle == "popover") {
                 // Allows the popover to stay when mouseovered
                 // And allows us to setup the popover
-                var popoverString = "";
 
-                // Build String to be put in popover
-                popoverString = popoverString + "<ul>";
                 var entity = JSON.parse(attrs.entity);
-
-                // Order the JSON string to have id and label at the beginning
-                var orderedEntities = {};
-                orderedEntities["id"] = entity["id"];
-                if (entity["label"] != null) {
-                  orderedEntities["label"] = entity["label"];
-                }
-                Object.keys(entity).sort().forEach(function (key) {
-                  if (key != "id" && key != "label") {
-                    orderedEntities[key] = entity[key];
-                  }
-                });
-
-                var printHr = false;
-                for (var attr in orderedEntities) {
-                  if (printHr) {
-                    popoverString = popoverString + "<hr style='margin: 1% 10%;'>";
-                    printHr = false;
-                  }
-                  popoverString = popoverString + "<li><b>" + attr + "</b> = " + entity[attr] + "</li>"
-                  if (attr == "label") {
-                    printHr = popoverString + "<hr>";
-                  }
-                }
-                popoverString = popoverString + "</ul>";
+                var popoverString = buildEntityDetailsHtml(entity);
 
                 $(element).popover({
                   html: true,

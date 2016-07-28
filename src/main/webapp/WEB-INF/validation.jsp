@@ -118,10 +118,10 @@ for the ont1 and ont2 ontology alignment -->
               </div>
               <div style="width: 20%; display: table-cell;"> 
                 <div style="display: inline-block; width: 100%; height: 50%;"> 
-                  <span>tototottototo111</span>
+                  <span id="entityDetail1">tototottototo111</span>
                 </div>
                 <div style="display: inline-block; width: 100%; height: 50%;">  
-                  <span>tototottototo2222</span>
+                  <span id="entityDetail2">tototottototo2222</span>
                 </div>
               </div>
             </div>
