@@ -152,11 +152,13 @@ for the ont1 and ont2 ontology alignment -->
     // If errors
   } else {
   %>
-  An error happened during matching <br/>
-  <%
-      out.println(request.getAttribute("errorMessage"));
-    }
-  %>
+  <div class="errorMsg alert alert-danger" role="alert">
+    An error happened during matching <br/>
+    <%
+        out.println(request.getAttribute("errorMessage"));
+      }
+    %>
+  </div>
 
 </div>
 

@@ -72,6 +72,12 @@ a:visited {
   padding-bottom: 2%;
 }
 
+.errorMsg {
+  text-align: center;
+  color: black;
+  margin: 4% 10% 4% 10%;
+}
+
 /* Max Width of the popover (depending on the container!). Set to 25% of the middle div
 Can't be more to not go outside of window (since it is on the right of the mid div)'*/
 .popover{
