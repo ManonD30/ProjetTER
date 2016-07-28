@@ -423,7 +423,8 @@ table {
 
 .entityDetailsDiv {
   display: inline-table;
-  width: 100%;
+  width: 96%;
+  margin-left: 4%;
   height: 50%;
   overflow-y: auto;
   background-color: white;
