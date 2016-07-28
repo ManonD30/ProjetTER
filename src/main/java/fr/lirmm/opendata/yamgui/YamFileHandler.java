@@ -293,14 +293,22 @@ public class YamFileHandler {
       for (OWLClass cls : ont.getClassesInSignature()) {
         clsJObject = new JSONObject();
         clsJObject.put("id", cls.getIRI().toString());
-        clsJObject.put("label", getClassLabel(cls.getIRI().toString(), cls));
+        String clsLabel = null;
 
         // Iterate over annotations of the class
         for (Iterator<OWLAnnotationAssertionAxiom> it = cls.getAnnotationAssertionAxioms(ont).iterator(); it.hasNext();) {
           OWLAnnotationAssertionAxiom annotation = it.next();
           String propertyString = annotation.getProperty().getIRI().toString();
           String valueString = annotation.getValue().toString();
+          
+          // Get label for skos:prefLabel or rdfs:label
+          if (clsLabel == null && propertyString.equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
+            clsLabel = valueString;
+          } else if (clsLabel == null && propertyString.equals("http://www.w3.org/2000/01/rdf-schema#label")) {
+            clsLabel = valueString;
+          }
 
+          // Get the used prefix in the ontology
           for (String key : keys) {
             if (propertyString.contains(prefixMap.get(key))) {
               propertyString = propertyString.replaceAll(prefixMap.get(key), key);
@@ -319,6 +327,11 @@ public class YamFileHandler {
           // Careful : it bugs. With bioportal examples
           clsJObject.put(propertyString, valueString);
         }
+        // If no skos:prefLabel or rdfs:label, we get the label from the URI
+        if (clsLabel == null) {
+          clsLabel = getLabelFromUri(cls.getIRI().toString());
+        }
+        clsJObject.put("label", clsLabel);
         jObject.put(cls.getIRI().toString(), clsJObject);
       }
     } catch (Exception e) {
@@ -331,17 +344,6 @@ public class YamFileHandler {
 
     //return ontologyString;
     return fullJObject;
-  }
-
-  /**
-   * To get the label of a class (using the uri if nothing found with owlapi)
-   *
-   * @param uri
-   * @param cls
-   * @return String
-   */
-  public static String getClassLabel(String uri, OWLClass cls) {
-    return getLabelFromUri(uri);
   }
 
   /**

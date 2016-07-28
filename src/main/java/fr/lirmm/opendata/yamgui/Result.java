@@ -18,7 +18,6 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import static fr.lirmm.opendata.yamgui.Matcher.processRequest;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
