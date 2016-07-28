@@ -44,7 +44,7 @@
       Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json
     </div>
     <br/>
-    <label style="font-weight: normal;"><input type="checkbox" id=saveFile name="saveFile" checked>I agree to let YAM++ save my ontologies</label>
+    <label style="font-weight: normal;"><input type="checkbox" id=saveFile name="saveFile">I agree to let YAM++ save my ontologies</label>
     <br/><br/>
     <input class="btn btnSubmit" type="submit" value="Match!"/>
   </form>
