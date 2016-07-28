@@ -38,6 +38,11 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       step: 1
     }
   };
+
+  $scope.selectEntity = function () {
+    console.log("maaaoo");
+    //...
+  };
 })
         .directive('toggle', function () {
           return {
@@ -70,7 +75,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
                 var printHr = false;
                 for (var attr in orderedEntities) {
                   if (printHr) {
-                    popoverString = popoverString + "<hr style='margin: 1% 10%;'>"; 
+                    popoverString = popoverString + "<hr style='margin: 1% 10%;'>";
                     printHr = false;
                   }
                   popoverString = popoverString + "<li><b>" + attr + "</b> = " + entity[attr] + "</li>"
