@@ -1,12 +1,6 @@
 <%@include file="header.jsp" %>
 
-<script>
-  createCookie(0);
-</script>
-
-<div class="sideLeft"></div>
-
-<div class=sideMiddle>
+<div class="container theme-showcase" role="main">
 
   <h3 class=contentText>Select your alignment and your reference.</h3>
   <div class=form>
@@ -37,9 +31,6 @@
     </div>
   </div>
 
-  <hr>
-
-</div>
-<div class="sideRight"></div>
+</div> <!-- /close container opened in header.jsp-->
 
 <%@include file="footer.jsp" %>

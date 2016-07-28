@@ -1,4 +1,3 @@
-</div> <!-- /close ontainer opened in header.jsp-->
 <footer>
   <a href=http://www.lirmm.fr class=footerImg target="_blank">
     <img class=footerImg alt="LIRMM" src="images/favicon.ico">

@@ -10,39 +10,43 @@
 <link href="https://www.amcharts.com/lib/3/plugins/export/export.css"
       media="all" rel="stylesheet" type="text/css" />
 
-<%
-  //get values and tabs from response
+<div class="container theme-showcase" role="main">
 
-  //f measure, precision, recall
-  String Fm = String.valueOf(request.getAttribute("FM"));
-  String Pr = String.valueOf(request.getAttribute("Pr"));
-  String Rec = String.valueOf(request.getAttribute("Rec"));
-  //f measure tab
-  double[] FMTab = (double[]) request.getAttribute("FMTab");
-  //precision tab
-  double[] PrTab = (double[]) request.getAttribute("PrTab");
-  //recall tab
-  double[] RecTab = (double[]) request.getAttribute("RecTab");
-%>
-
-<div class=valueDiv>
   <%
-    out.print("<p class=value>F Measure = " + Fm + "</p>");
-    out.print("<p class=value> Precision = " + Pr + "</p>");
-    out.print("<p class=value> Recall = " + Rec + "</p>");
-  %>
-</div>
+    //get values and tabs from response
 
-<div class=chartdiv>
-  <h2>F Measure</h2>
-  <div id="chartFM" class=chart></div>
-  <hr>
-  <h2>Precision</h2>
-  <div id="chartPr" class=chart></div>
-  <hr>
-  <h2>Recall</h2>
-  <div id="chartRec" class=chart></div>
-</div>
+    //f measure, precision, recall
+    String Fm = String.valueOf(request.getAttribute("FM"));
+    String Pr = String.valueOf(request.getAttribute("Pr"));
+    String Rec = String.valueOf(request.getAttribute("Rec"));
+    //f measure tab
+    double[] FMTab = (double[]) request.getAttribute("FMTab");
+    //precision tab
+    double[] PrTab = (double[]) request.getAttribute("PrTab");
+    //recall tab
+    double[] RecTab = (double[]) request.getAttribute("RecTab");
+  %>
+
+  <div class=valueDiv>
+    <%
+      out.print("<p class=value>F Measure = " + Fm + "</p>");
+      out.print("<p class=value> Precision = " + Pr + "</p>");
+      out.print("<p class=value> Recall = " + Rec + "</p>");
+    %>
+  </div>
+
+  <div class=chartdiv>
+    <h2>F Measure</h2>
+    <div id="chartFM" class=chart></div>
+    <hr>
+    <h2>Precision</h2>
+    <div id="chartPr" class=chart></div>
+    <hr>
+    <h2>Recall</h2>
+    <div id="chartRec" class=chart></div>
+  </div>
+
+</div> <!-- /close container opened in header.jsp-->
 
 <script>
   var chartDataFM = [];
@@ -88,7 +92,7 @@
       out.println("chartDataRec.push(point" + i + ");");
       if (RecTab[i] > maxRec) {
         maxRec = RecTab[i];
-          out.println("maxRec=" + maxRec); //JS max = java max
+        out.println("maxRec=" + maxRec); //JS max = java max
       }
     }%>
 

@@ -38,5 +38,3 @@
     </div>
 
     <div class=yellow></div>
-
-    <div class="container theme-showcase" role="main"> <!-- open container closed in footer.jsp-->
