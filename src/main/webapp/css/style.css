@@ -409,32 +409,6 @@ ul#nav-box li a:hover {
   border-right: 2px solid #719eb7;
 }
 
-.sideLeft {
-  float: left;
-  width: 20%;
-  height: 100vh;
-  display: inline-block;
-  vertical-align: top;
-  background: #d8e7ef;
-}
-
-.sideMiddle {
-  display: inline-block;
-  vertical-align: top;
-  width: 60%;
-  height: 100%;
-  background: #f2f7f9;
-}
-
-.sideRight {
-  float: right;
-  display: inline-block;
-  width: 20%;
-  height: 100vh;
-  vertical-align: top;
-  background: #d8e7ef;
-}
-
 table {
   border-collapse: collapse;
   margin-left: auto;
