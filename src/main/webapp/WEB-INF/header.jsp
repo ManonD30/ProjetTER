@@ -18,8 +18,9 @@
     <div class=header>
       <div class=nav>
         <ul id=nav-box>
-          <li><a href=index><img class=navLogo alt="Home"
-                                 src="images/yam_top.png"></a></li>
+          <li><a href=index>
+              <img class=navLogo alt="Home" src="images/yam_top.png">
+            </a></li>
           <li><a href=matcher>Matcher</a></li>
           <li><a href=validator>Validator</a></li>
           <li><a href=documentation>REST API</a></li>
@@ -37,5 +38,5 @@
     </div>
 
     <div class=yellow></div>
-    
+
     <div class="container theme-showcase" role="main"> <!-- open container closed in footer.jsp-->
