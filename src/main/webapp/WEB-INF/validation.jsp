@@ -63,59 +63,66 @@ for the ont1 and ont2 ontology alignment -->
       <br/>
       <div>
         <form action='download' method='post'>
-          <div>
-            <div class=tabDiv style="width: 79%; display: inline-block;">
-              <table id=table>
-                <thead>
-                  <tr>
-                    <th href="#" ng-click="orderByField = 'index'; reverseSort = !reverseSort">Line</th>
-                    <th href="#" ng-click="orderByField = 'entity1'; reverseSort = !reverseSort">Source label</th>
-                    <th href="#" ng-click="orderByField = 'entity2'; reverseSort = !reverseSort">Target label</th>
-                    <th href="#" ng-click="orderByField = 'relation'; reverseSort = !reverseSort">Relation</th>
-                    <th href="#" ng-click="orderByField = 'measure'; reverseSort = !reverseSort">Score</th>
-                    <th href="#" ng-click="" style="word-wrap: break-word;">Validity</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText" 
-                      ng-if="alignment.measure >= minRangeSlider.minValue / 100 && alignment.measure <= minRangeSlider.maxValue / 100">
-                    <td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
+          <div style="display: table; width: 100%;">
+            <div style="display: table-row;">
+              <div class=tabDiv style="width: 79%; display: table-cell;">
+                <table id=table>
+                  <thead>
+                    <tr>
+                      <th href="#" ng-click="orderByField = 'index'; reverseSort = !reverseSort">Line</th>
+                      <th href="#" ng-click="orderByField = 'entity1'; reverseSort = !reverseSort">Source label</th>
+                      <th href="#" ng-click="orderByField = 'entity2'; reverseSort = !reverseSort">Target label</th>
+                      <th href="#" ng-click="orderByField = 'relation'; reverseSort = !reverseSort">Relation</th>
+                      <th href="#" ng-click="orderByField = 'measure'; reverseSort = !reverseSort">Score</th>
+                      <th href="#" ng-click="" style="word-wrap: break-word;">Validity</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText" 
+                        ng-if="alignment.measure >= minRangeSlider.minValue / 100 && alignment.measure <= minRangeSlider.maxValue / 100">
+                      <td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
 
-                    <!-- Add a popover on entities to display more details -->
-                    <td>
-                      <div title="Entity 1 details" data-toggle="popover" data-html="true" data-placement="left"
-                           data-trigger="hover" data-entity="{{alignment.entity1}}">
-                        <input type="text" id="{{alignment.entity1.id}}" name="entity1" value="{{alignment.entity1.id}}" 
-                               style="display: none;" readonly>{{alignment.entity1.label|| alignment.entity1.id}}</input>
-                      </div>
-                    </td>
+                      <!-- Add a popover on entities to display more details -->
+                      <td>
+                        <div title="Entity 1 details" data-toggle="popover" data-html="true" data-placement="left"
+                             data-trigger="hover" data-entity="{{alignment.entity1}}">
+                          <input type="text" id="{{alignment.entity1.id}}" name="entity1" value="{{alignment.entity1.id}}" 
+                                 style="display: none;" readonly>{{alignment.entity1.label|| alignment.entity1.id}}</input>
+                        </div>
+                      </td>
 
-                    <td>
-                      <div title="Entity 2 details" data-toggle="popover" data-html="true" data-placement="right" 
-                           data-trigger="hover" data-entity="{{alignment.entity2}}">
-                        <input type="text" id="{{alignment.entity2.id}}" name="entity2" value="{{alignment.entity2.id}}" 
-                               style="display: none;" readonly>{{alignment.entity2.label|| alignment.entity2.id}}</input>
-                      </div>
-                    </td>
+                      <td>
+                        <div title="Entity 2 details" data-toggle="popover" data-html="true" data-placement="right" 
+                             data-trigger="hover" data-entity="{{alignment.entity2}}">
+                          <input type="text" id="{{alignment.entity2.id}}" name="entity2" value="{{alignment.entity2.id}}" 
+                                 style="display: none;" readonly>{{alignment.entity2.label|| alignment.entity2.id}}</input>
+                        </div>
+                      </td>
 
-                    <td>
-                      <select id="{{alignment.relation}}" name="relation" class="form-control">
-                        <option value="http://www.w3.org/2004/02/skos/core#exactMatch">skos:exactMatch</option>
-                        <option value="http://www.w3.org/2004/02/skos/core#closeMatch">skos:closeMatch</option>
-                        <option value="http://www.w3.org/2004/02/skos/core#broadMatch">skos:broadMatch</option>
-                        <option value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
-                      </select>
-                    </td>
-                    <td><input type="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" style="display: none;" readonly>{{alignment.measure}}</input></td>
-                    <td class=tdSmall style="word-wrap: break-word; text-align: center;">
-                      <input type='checkbox' name='checkbox' class="checkbox" value='{{alignment.index}}' id='{{alignment.index}}' checked/>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div style="width: 20%; display: inline-block;"> 
-              <span>tototottototo</span>
+                      <td>
+                        <select id="{{alignment.relation}}" name="relation" class="form-control">
+                          <option value="http://www.w3.org/2004/02/skos/core#exactMatch">skos:exactMatch</option>
+                          <option value="http://www.w3.org/2004/02/skos/core#closeMatch">skos:closeMatch</option>
+                          <option value="http://www.w3.org/2004/02/skos/core#broadMatch">skos:broadMatch</option>
+                          <option value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
+                        </select>
+                      </td>
+                      <td><input type="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" style="display: none;" readonly>{{alignment.measure}}</input></td>
+                      <td class=tdSmall style="word-wrap: break-word; text-align: center;">
+                        <input type='checkbox' name='checkbox' class="checkbox" value='{{alignment.index}}' id='{{alignment.index}}' checked/>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="width: 20%; display: table-cell;"> 
+                <div style="display: inline-block; width: 100%;"> 
+                  <span>tototottototo111</span>
+                </div>
+                <div style="display: inline-block; width: 100%;"> 
+                  <span>tototottototo2222</span>
+                </div>
+              </div>
             </div>
           </div>
           <br/>
