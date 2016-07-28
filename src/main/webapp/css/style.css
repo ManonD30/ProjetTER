@@ -450,7 +450,7 @@ table {
 td,th {
   border-bottom: 1px solid #ddd;
   text-align: center;
-  width: 15%;
+  /*width: 15%; we want the width to be set dynamically with the content*/
   height: 50%;
 }
 
