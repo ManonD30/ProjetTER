@@ -116,6 +116,8 @@ public class Result extends HttpServlet {
     // add cell data list of matcher results to response
     request.setAttribute("alignment", alignmentJson);
 
+    // Load the 2 given onto using OWLAPI into a JSONObject, and send the object
+    // in the reponse as attributes
     JSONObject loadedOnto1 = null;
     JSONObject loadedOnto2 = null;
     try {
@@ -142,7 +144,7 @@ public class Result extends HttpServlet {
   }
 
   /**
-   * Load ontology in Jena to get class label
+   * Load ontology in Jena to get class label. NOT USED ANYMORE because we use OWLAPI now
    *
    * @param in
    * @param label
