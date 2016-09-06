@@ -20,7 +20,7 @@
       <div class="row">
 
         <div class="col-md-6">
-          <label for=firstFile>Ontology 1</label> <br/>
+          <label for=firstFile>Source Ontology</label> <br/>
           <input type="url" class='ontologyUrl' id="sourceUrl1" name="sourceUrl1" placeholder="Enter ontology URL"/>
           <br/>
           <span style="text-align: center">or</span> <br/>
@@ -31,7 +31,7 @@
           <label id="fileOnt1" style="font-weight: normal;"></label>
         </div>
         <div class="col-md-6">
-          <label for=secondFile>Ontology 2</label> <br/>
+          <label for=secondFile>Target Ontology</label> <br/>
           <input type="url" class='ontologyUrl' id="sourceUrl2" name="sourceUrl2" placeholder="Enter ontology URL"/>
           <br/>
           <span style="text-align: center">or</span> <br/>
