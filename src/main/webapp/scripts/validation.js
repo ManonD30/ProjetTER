@@ -76,10 +76,10 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   };
 
   $scope.selectEntity = function (element, attrs) {
-    
+
     $scope.selected = this.alignment;
     console.log($scope.selected);
-    
+
     var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1);
     var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2);
 
@@ -136,83 +136,27 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
  */
 function getAlignmentsWithOntologiesData(alignment, ontologies) {
   var alignments = [];
-  var matchScore = {"entity1": {"ont1": 0, "ont2": 0}, "entity2": {"ont1": 0, "ont2": 0}};
-  var ontEntity1 = null;
-  var ontEntity2 = null;
 
-  if (ontologies["ont1"]["entities"] == null) {
-    console.log("Loading of ont1 in OwlApi failed")
-  } else if (ontologies["ont2"]["entities"] == null) {
-    console.log("Loading of ont2 in OwlApi failed")
-  } else {
-    // Iterate alignment and check if entity in the ont 1 or 2 to define an ontology for
-    // each entity of the alignment
-    for (var key in alignment) {
-      // Check if entity1 in ont1 or 2 and increment the compter
-      if (alignment[key]['entity1'] in ontologies["ont1"]["entities"]) {
-        matchScore["entity1"]["ont1"] = matchScore["entity1"]["ont1"] + 1;
-      }
-      if (alignment[key]['entity1'] in ontologies["ont2"]["entities"]) {
-        matchScore["entity1"]["ont2"] = matchScore["entity1"]["ont2"] + 1;
-      }
-      // Check if entity2 in ont1 or 2 and increment the compter
-      if (alignment[key]['entity2'] in ontologies["ont1"]["entities"]) {
-        matchScore["entity2"]["ont1"] = matchScore["entity2"]["ont1"] + 1;
-      }
-      if (alignment[key]['entity2'] in ontologies["ont2"]["entities"]) {
-        matchScore["entity2"]["ont2"] = matchScore["entity2"]["ont2"] + 1;
-      }
-
-      // If more than 3 
-      if (Math.abs(matchScore["entity1"]["ont1"] - matchScore["entity1"]["ont2"]) >= 3) {
-        if (matchScore["entity1"]["ont1"] > matchScore["entity1"]["ont2"]) {
-          ontEntity1 = "ont1";
-        } else {
-          ontEntity1 = "ont2";
-        }
-        if (ontEntity2 != null) {
-          break;
-        }
-      }
-
-      if (Math.abs(matchScore["entity2"]["ont1"] - matchScore["entity2"]["ont2"]) >= 3) {
-        if (matchScore["entity2"]["ont1"] > matchScore["entity2"]["ont2"]) {
-          ontEntity2 = "ont1";
-        } else {
-          ontEntity2 = "ont2";
-        }
-        if (ontEntity1 != null) {
-          break;
-        }
-      }
+  for (var key in alignment) {
+    var alignToAdd = {"entity1": {}, "entity2": {}}
+    if (alignment[key]['entity1'] in ontologies["ont1"]["entities"]) {
+      alignToAdd["entity1"] = ontologies["ont1"]['entities'][alignment[key]['entity1']];
+    } else {
+      alignToAdd["entity1"] = {"id": alignment[key]['entity1'].toString()};
     }
+
+    if (alignment[key]['entity2'] in ontologies["ont2"]["entities"]) {
+      alignToAdd["entity2"] = ontologies["ont2"]['entities'][alignment[key]['entity2']];
+    } else {
+      alignToAdd["entity2"] = {"id": alignment[key]['entity2'].toString()}
+    }
+    alignToAdd["measure"] = alignment[key]['measure'];
+    alignToAdd["relation"] = alignment[key]['relation'];
+    alignToAdd["index"] = key;
+    alignments.push(alignToAdd);
   }
 
-  if (ontEntity1 != ontEntity2) {
-    for (var key in alignment) {
-      var alignToAdd = {"entity1": {}, "entity2": {}}
-      // Check if entity1 in ont1 or 2 and increment the compter
-      if (alignment[key]['entity1'] in ontologies[ontEntity1]["entities"]) {
-        alignToAdd["entity1"] = ontologies[ontEntity1]['entities'][alignment[key]['entity1']];
-      } else {
-        alignToAdd["entity1"] = {"id": alignment[key]['entity1'].toString()};
-      }
-
-      if (alignment[key]['entity2'] in ontologies[ontEntity2]["entities"]) {
-        alignToAdd["entity2"] = ontologies[ontEntity2]['entities'][alignment[key]['entity2']];
-      } else {
-        alignToAdd["entity2"] = {"id": alignment[key]['entity2'].toString()}
-      }
-      alignToAdd["measure"] = alignment[key]['measure'];
-      alignToAdd["relation"] = alignment[key]['relation'];
-      alignToAdd["index"] = key;
-      alignments.push(alignToAdd);
-    }
-  } else {
-    console.log("Error when figuring out which ontology match which alignment");
-  }
-
-  console.log("alignmentss");
+  console.log("alignments");
   console.log(alignments);
   return alignments;
 } 

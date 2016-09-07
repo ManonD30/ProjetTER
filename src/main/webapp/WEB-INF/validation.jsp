@@ -85,7 +85,7 @@ for the ont1 and ont2 ontology alignment -->
 
                       <!-- Add a popover on entities to display more details -->
                       <td>
-                        <div title="Entity 1 details" data-toggle="popover" data-html="true" data-placement="right"
+                        <div title="Source Entity details" data-toggle="popover" data-html="true" data-placement="right"
                              data-trigger="hover" data-entity="{{alignment.entity1}}">
                           <input type="text" id="{{alignment.entity1.id}}" name="entity1" value="{{alignment.entity1.id}}" 
                                  style="display: none;" readonly>{{alignment.entity1.label|| alignment.entity1.id}}</input>
@@ -93,7 +93,7 @@ for the ont1 and ont2 ontology alignment -->
                       </td>
 
                       <td>
-                        <div title="Entity 2 details" data-toggle="popover" data-html="true" data-placement="right" 
+                        <div title="Target Entity details" data-toggle="popover" data-html="true" data-placement="right" 
                              data-trigger="hover" data-entity="{{alignment.entity2}}">
                           <input type="text" id="{{alignment.entity2.id}}" name="entity2" value="{{alignment.entity2.id}}" 
                                  style="display: none;" readonly>{{alignment.entity2.label|| alignment.entity2.id}}</input>
