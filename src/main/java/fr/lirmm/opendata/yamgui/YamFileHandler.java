@@ -9,7 +9,12 @@ import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
 import com.hp.hpl.jena.ontology.OntProperty;
+import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.ResIterator;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.vocabulary.RDF;
 import fr.inrialpes.exmo.align.parser.AlignmentParser;
 import static fr.lirmm.opendata.yamgui.Result.round;
 import java.io.BufferedReader;
@@ -354,6 +359,31 @@ public class YamFileHandler {
 
     //return ontologyString;
     return fullJObject;
+  }
+
+  /**
+   * Load ontology in Jena to get class label. NOT USED ANYMORE because we use
+   * OWLAPI now
+   *
+   * @param in
+   * @param label
+   * @throws IOException
+   */
+  public static void jenaLoadOnto(String in,
+          java.util.Map<String, String> label) throws IOException {
+    final String dcat = "http://www.w3.org/ns/dcat#";
+    Model model = ModelFactory.createDefaultModel();
+    model.read("data.rdf");
+    Resource datasetType = model.getResource(dcat + "Dataset");
+    ResIterator datasets = model.listSubjectsWithProperty(RDF.type, datasetType);
+    while (datasets.hasNext()) {
+      Resource dataset = datasets.next();
+      StmtIterator stmts = dataset.listProperties();
+      System.out.println("* " + dataset);
+      while (stmts.hasNext()) {
+        System.out.println("** " + stmts.next());
+      }
+    }
   }
 
   /**
