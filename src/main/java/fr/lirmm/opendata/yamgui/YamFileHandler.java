@@ -5,9 +5,15 @@
  */
 package fr.lirmm.opendata.yamgui;
 
+import com.hp.hpl.jena.ontology.OntClass;
+import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntModelSpec;
+import com.hp.hpl.jena.ontology.OntProperty;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
 import fr.inrialpes.exmo.align.parser.AlignmentParser;
 import static fr.lirmm.opendata.yamgui.Result.round;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -56,9 +62,11 @@ public class YamFileHandler {
   String workDir;
 
   /**
-   * YamFileHandler constructor. It gets the workdir from the conf.properties file
+   * YamFileHandler constructor. It gets the workdir from the conf.properties
+   * file
+   *
    * @throws IOException
-   * @throws ClassNotFoundException 
+   * @throws ClassNotFoundException
    */
   public YamFileHandler() throws IOException, ClassNotFoundException {
     // Load properties file for work directory
@@ -205,12 +213,14 @@ public class YamFileHandler {
   }
 
   /**
-   * Take a OAEI AlignmentAPI string and return a JSONArray containing the data of the alignment
-   * Format of the array: [{"index": 1, "entity1": "http://entity1.fr", "entity2": "http://entity2.fr",
-   * "relation": "skos:exactMatch", "measure": 0.34, }]
+   * Take a OAEI AlignmentAPI string and return a JSONArray containing the data
+   * of the alignment Format of the array: [{"index": 1, "entity1":
+   * "http://entity1.fr", "entity2": "http://entity2.fr", "relation":
+   * "skos:exactMatch", "measure": 0.34, }]
+   *
    * @param oaeiResult
    * @return
-   * @throws AlignmentException 
+   * @throws AlignmentException
    */
   public JSONArray parseOaeiAlignmentFormat(String oaeiResult) throws AlignmentException {
     AlignmentParser aparser = new AlignmentParser(0);
@@ -300,7 +310,7 @@ public class YamFileHandler {
           OWLAnnotationAssertionAxiom annotation = it.next();
           String propertyString = annotation.getProperty().getIRI().toString();
           String valueString = annotation.getValue().toString();
-          
+
           // Get label for skos:prefLabel or rdfs:label
           if (clsLabel == null && propertyString.equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
             clsLabel = valueString;
@@ -347,6 +357,55 @@ public class YamFileHandler {
   }
 
   /**
+   * Load ontology in Jena to get class label. NOT USED ANYMORE because we use
+   * OWLAPI now
+   *
+   * @param in
+   * @param label
+   * @throws IOException
+   */
+  public static void loadOnto(String in,
+          java.util.Map<String, String> label) throws IOException {
+
+    OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+    model.read(new ByteArrayInputStream(in.getBytes()), null);
+    // OntResource
+
+    Iterator<OntProperty> it1 = model.listAllOntProperties();
+    Iterator<OntClass> it = model.listClasses();
+    while (it.hasNext()) {
+      OntClass ontclass = it.next();
+
+      if (ontclass.getLabel(null) != null) {
+        String items2 = ontclass.getLabel(null);
+
+        label.put(ontclass.getURI(), items2);
+      } else {
+        String s = ontclass.getURI();
+        if (s != null) {
+
+          int i = ontclass.getURI().length() - 1;
+          while (s.charAt(i) != '#') {
+            i--;
+          }
+          String l = s.substring(i + 1, s.length());
+          String items2 = l;
+          label.put(ontclass.getURI(), items2);
+        }
+      }
+    }
+    while (it1.hasNext()) {
+      OntProperty ontProp = it1.next();
+      String s = ontProp.getLabel(null);
+      if (s == null) {
+        s = ontProp.getLocalName();
+      }
+      label.put(ontProp.getURI(), s);
+    }
+    model.close();
+  }
+
+  /**
    * Get the label of a class from its URI (taking everything after the last #
    * Or after the last / if # not found
    *
@@ -362,9 +421,10 @@ public class YamFileHandler {
     }
     return label;
   }
-  
+
   /**
    * Return the file size in MB
+   *
    * @param filepath
    * @return long of file size in MB
    */
