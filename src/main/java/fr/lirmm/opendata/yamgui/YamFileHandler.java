@@ -379,13 +379,6 @@ public class YamFileHandler {
     } else if (request.getPart("ont" + ontNumber) != null) {
       Part filePart = request.getPart("ont" + ontNumber); // Retrieves <input type="file" name="file">
       //String fileName = filePart.getSubmittedFileName();
-      /*BufferedReader reader = new BufferedReader(new InputStreamReader(filePart.getInputStream()));
-      StringBuilder result = new StringBuilder();
-      String line;
-      while ((line = reader.readLine()) != null) {
-        result.append(line);
-      }
-      model.read(new ByteArrayInputStream(result.toString().getBytes()), null);*/
       try {
         model.read(filePart.getInputStream(), null);
       } catch (Exception e) {
@@ -429,12 +422,12 @@ public class YamFileHandler {
             java.util.Map<String, String> prefixMap = model.getNsPrefixMap();
 
             // The prefix used in this ontology
-            Set<String> keys = prefixMap.keySet();
+            Set<String> prefixKeys = prefixMap.keySet();
             String predicateString = tripleArray.getPredicate().toString();
             String objectString = tripleArray.getObject().toString();
 
             // Get the used prefix in the ontology
-            for (String key : keys) {
+            for (String key : prefixKeys) {
               if (predicateString.contains(prefixMap.get(key))) {
                 predicateString = predicateString.replaceAll(prefixMap.get(key), key + ":");
               }
