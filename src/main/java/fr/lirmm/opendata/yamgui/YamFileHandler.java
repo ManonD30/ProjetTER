@@ -33,6 +33,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
@@ -401,6 +402,14 @@ public class YamFileHandler {
       return null;
     }
 
+    // Get prefix namespaces used in the ontology
+    JSONObject jPrefix = new JSONObject();
+    Iterator prefixes = model.getNsPrefixMap().entrySet().iterator();
+    while (prefixes.hasNext()) {
+      Entry thisEntry = (Entry) prefixes.next();
+      jPrefix.put(thisEntry.getKey(), thisEntry.getValue());
+    }
+
     JSONObject jObject = new JSONObject();
     ArrayList<Resource> classTypes = new ArrayList<Resource>();
     classTypes.add(model.getResource("http://www.w3.org/2002/07/owl#Class"));
@@ -414,10 +423,9 @@ public class YamFileHandler {
         if (cls != null) {
           StmtIterator stmts = cls.listProperties();
           clsJObject.put("id", cls.getURI());
-          // Get label for skos:prefLabel or rdfs:label        
-          //clsJObject.put("* ", cls);
+          // Get label for skos:prefLabel or rdfs:label
           while (stmts.hasNext()) {
-            // the iterator returns array: [subject, predicate, object]
+            // the iterator returns statements: [subject, predicate, object]
             StatementImpl tripleArray = (StatementImpl) stmts.next();
             if (clsLabel == null && tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
               clsLabel = tripleArray.getLiteral().toString();
@@ -433,7 +441,7 @@ public class YamFileHandler {
     }
 
     JSONObject fullJObject = new JSONObject();
-    fullJObject.put("namespaces", "");
+    fullJObject.put("namespaces", jPrefix);
     fullJObject.put("entities", jObject);
 
     return fullJObject;
