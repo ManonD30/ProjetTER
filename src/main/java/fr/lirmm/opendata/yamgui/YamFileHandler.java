@@ -60,6 +60,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
+import org.xml.sax.SAXParseException;
 
 /**
  *
@@ -391,7 +392,11 @@ public class YamFileHandler {
         result.append(line);
       }
       model.read(new ByteArrayInputStream(result.toString().getBytes()), null);*/
-      model.read(filePart.getInputStream(), null);
+      try {
+        model.read(filePart.getInputStream(), null);
+      } catch (Exception e) {
+        model.read(filePart.getInputStream(), null, "TTL");
+      }
     } else {
       return null;
     }
