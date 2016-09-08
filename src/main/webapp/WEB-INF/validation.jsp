@@ -115,6 +115,40 @@ for the ont1 and ont2 ontology alignment -->
                     </tr>
                   </tbody>
                 </table>
+                <br/>
+
+                <h3 class=contentText>Namespaces</h3><br/>
+                <div class="row" style="text-align: center; margin-right: 0px; margin-left: 0px;">
+                  <ul class="list-group" style="margin: 0 auto; max-width: 65%">
+                    <li class="list-group-item" ng-repeat="(prefix, namespace) in namespaces">
+                      <b>{{prefix}}</b> {{namespace}}
+                    </li>
+                  </ul>
+                </div><br/>
+
+                <h3 class=contentText>Formats</h3><br/>
+                <div class="row" style="text-align: center;">
+                  <!-- Need to change .inputFormatAlignmentAPI:checked in style.css to add a new css reaction for a new button-->
+                  <div class="col-sm-4" style="text-align:center;">
+                    <input type="radio" name="format" id="simpleRDF" value="simpleRDF" class="inputFormatSimpleRDF" style="display: none;">
+                    <label for="simpleRDF" class="btn btn-sm btn-info inputFormatSimpleRDFLabel" 
+                           title="entity1-relation-entity2 triples" data-toggle="tooltip">Simple RDF format</label>
+                  </div>
+                  <div class="col-sm-4" style="text-align:center;">
+                    <input type="radio" name="format" id="alignmentAPI" value="alignmentAPI" style="display: none;" class="inputFormatAlignmentAPI" checked>
+                    <label for="alignmentAPI" class="btn btn-sm btn-info inputFormatAlignmentAPILabel" title="OAEI EDOAL format"
+                           data-toggle="tooltip">AlignmentAPI format</label>
+                  </div>
+                  <div class="col-sm-4" style="text-align:center;">
+                    <input type="radio" name="format" id="RDF" value="RDF" class="inputFormatRDF" style="display: none;">
+                    <label for="RDF" class="btn btn-sm btn-info inputFormatRDFLabel" data-toggle="tooltip"
+                           title="RDF format with score (BETA: generated properties not valid)">RDF format</label>
+                  </div>
+                </div>
+
+                <div class=btnCenter id='download'>
+                  <input class="btn btnSubmit" type="submit" value="Download mappings"/>
+                </div>
               </div>
               <div style="position: relative;">
                 <div style="width: 20%; max-width: 20%; display: inline-table; position: fixed;
@@ -127,40 +161,6 @@ for the ont1 and ont2 ontology alignment -->
                 </div>
               </div>
             </div>
-          </div>
-          <br/>
-
-          <h3 class=contentText>Namespaces</h3><br/>
-          <div class="row" style="text-align: center;">
-            <ul class="list-group" style="margin: 0 auto; max-width: 65%">
-              <li class="list-group-item" ng-repeat="(prefix, namespace) in namespaces">
-                <b>{{prefix}}</b> {{namespace}}
-              </li>
-            </ul>
-          </div><br/>
-
-          <h3 class=contentText>Formats</h3><br/>
-          <div class="row" style="text-align: center;">
-            <!-- Need to change .inputFormatAlignmentAPI:checked in style.css to add a new css reaction for a new button-->
-            <div class="col-sm-4" style="text-align:center;">
-              <input type="radio" name="format" id="simpleRDF" value="simpleRDF" class="inputFormatSimpleRDF" style="display: none;">
-              <label for="simpleRDF" class="btn btn-sm btn-info inputFormatSimpleRDFLabel" 
-                     title="entity1-relation-entity2 triples" data-toggle="tooltip">Simple RDF format</label>
-            </div>
-            <div class="col-sm-4" style="text-align:center;">
-              <input type="radio" name="format" id="alignmentAPI" value="alignmentAPI" style="display: none;" class="inputFormatAlignmentAPI" checked>
-              <label for="alignmentAPI" class="btn btn-sm btn-info inputFormatAlignmentAPILabel" title="OAEI EDOAL format"
-                     data-toggle="tooltip">AlignmentAPI format</label>
-            </div>
-            <div class="col-sm-4" style="text-align:center;">
-              <input type="radio" name="format" id="RDF" value="RDF" class="inputFormatRDF" style="display: none;">
-              <label for="RDF" class="btn btn-sm btn-info inputFormatRDFLabel" data-toggle="tooltip"
-                     title="RDF format with score (BETA: generated properties not valid)">RDF format</label>
-            </div>
-          </div>
-
-          <div class=btnCenter id='download'>
-            <input class="btn btnSubmit" type="submit" value="Download mappings"/>
           </div>
         </form>
       </div>
