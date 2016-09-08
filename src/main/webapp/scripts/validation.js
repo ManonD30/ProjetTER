@@ -20,8 +20,12 @@ function checkAllBoxes() {
  * @param {type} entity
  * @returns {undefined}
  */
-function buildEntityDetailsHtml(entity) {
-  var htmlString = "";
+function buildEntityDetailsHtml(entity, entityNumber) {
+  if (entityNumber === undefined) {
+    var htmlString = "";
+  } else {
+    var htmlString = "<h3 class='contentText'>Entity " + entityNumber + " details</h3>";
+  }
 
   // Build String to be put in popover
   htmlString = htmlString + "<ul>";
@@ -80,8 +84,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     $scope.selected = this.alignment;
     console.log($scope.selected);
 
-    var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1);
-    var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2);
+    var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1, "1");
+    var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2, "2");
 
     document.getElementById("entityDetail1").innerHTML = stringDetail1;
     document.getElementById("entityDetail2").innerHTML = stringDetail2;

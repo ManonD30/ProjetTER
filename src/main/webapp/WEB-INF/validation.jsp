@@ -117,11 +117,12 @@ for the ont1 and ont2 ontology alignment -->
                 </table>
               </div>
               <div style="position: relative;">
-                <div style="width: 20%; display: table-cell;
+                <div style="width: 20%; max-width: 20%; display: inline-block;
                      top: 15%; bottom: 15%; position: fixed"> 
-                  <div id="entityDetail1" class="entityDetailsDiv">
+                  <div id="entityDetail1" class="entityDetailsDiv" style="max-height: 30%; max-width: 20%;  overflow-y: scroll; height: auto;"> 
                   </div>
-                  <div id="entityDetail2" class="entityDetailsDiv">
+                  <hr/>
+                  <div id="entityDetail2" class="entityDetailsDiv" style="max-height: 30%; max-width: 20%;  overflow-y: scroll; height: auto;">
                   </div>
                 </div>
               </div>
