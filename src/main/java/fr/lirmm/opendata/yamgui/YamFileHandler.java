@@ -415,18 +415,19 @@ public class YamFileHandler {
           while (stmts.hasNext()) {
             // the iterator returns statements: [subject, predicate, object]
             StatementImpl tripleArray = (StatementImpl) stmts.next();
-            
+
             // Get label for skos:prefLabel or rdfs:label
             if (clsLabel == null && tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
-              clsLabel = tripleArray.getLiteral().toString();
+              // clsLabel = tripleArray.getLiteral().toString(); To get the lang
+              clsLabel = tripleArray.getLiteral().getLexicalForm();
             } else if (clsLabel == null && tripleArray.getPredicate().toString().equals("http://www.w3.org/2000/01/rdf-schema#label")) {
-              clsLabel = tripleArray.getLiteral().toString();
+              clsLabel = tripleArray.getLiteral().getLexicalForm();
             }
 
             // Generate a set with prefixes used in this ontology
             java.util.Map<String, String> prefixMap = model.getNsPrefixMap();
             Set<String> prefixKeys = prefixMap.keySet();
-            
+
             String predicateString = tripleArray.getPredicate().toString();
             String objectString = tripleArray.getObject().toString();
 
@@ -435,8 +436,12 @@ public class YamFileHandler {
               if (predicateString.contains(prefixMap.get(key))) {
                 predicateString = predicateString.replaceAll(prefixMap.get(key), key + ":");
               }
-              if (objectString.contains(prefixMap.get(key))) {
-                objectString = objectString.replaceAll(prefixMap.get(key), key + ":");
+              if (tripleArray.getObject().isURIResource()) {
+                if (objectString.contains(prefixMap.get(key))) {
+                  objectString = objectString.replaceAll(prefixMap.get(key), key + ":");
+                }
+              } else if (tripleArray.getObject().isLiteral()) {
+                objectString = tripleArray.getLiteral().getLexicalForm();
               }
             }
             // Add predicate and object to class JSON object
@@ -450,7 +455,7 @@ public class YamFileHandler {
         }
       }
     }
-    
+
     JSONObject fullJObject = new JSONObject();
     fullJObject.put("namespaces", jPrefix);
     fullJObject.put("entities", jObject);
