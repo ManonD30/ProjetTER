@@ -5,10 +5,6 @@
  */
 package fr.lirmm.opendata.yamgui;
 
-import com.hp.hpl.jena.ontology.OntClass;
-import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.ontology.OntModelSpec;
-import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.ResIterator;
@@ -19,14 +15,12 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import fr.inrialpes.exmo.align.parser.AlignmentParser;
 import static fr.lirmm.opendata.yamgui.Result.round;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -61,7 +55,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
-import org.xml.sax.SAXParseException;
 
 /**
  *
@@ -432,7 +425,25 @@ public class YamFileHandler {
             } else if (clsLabel == null && tripleArray.getPredicate().toString().equals("http://www.w3.org/2000/01/rdf-schema#label")) {
               clsLabel = tripleArray.getLiteral().toString();
             }
-            clsJObject.put(tripleArray.getPredicate().toString(), tripleArray.getObject().toString());
+
+            java.util.Map<String, String> prefixMap = model.getNsPrefixMap();
+
+            // The prefix used in this ontology
+            Set<String> keys = prefixMap.keySet();
+            String predicateString = tripleArray.getPredicate().toString();
+            String objectString = tripleArray.getObject().toString();
+
+            // Get the used prefix in the ontology
+            for (String key : keys) {
+              if (predicateString.contains(prefixMap.get(key))) {
+                predicateString = predicateString.replaceAll(prefixMap.get(key), key + ":");
+              }
+              if (objectString.contains(prefixMap.get(key))) {
+                objectString = objectString.replaceAll(prefixMap.get(key), key + ":");
+              }
+            }
+
+            clsJObject.put(predicateString, objectString);
           }
           if (clsLabel == null) {
             getLabelFromUri(cls.getURI());
