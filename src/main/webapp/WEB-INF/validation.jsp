@@ -116,10 +116,13 @@ for the ont1 and ont2 ontology alignment -->
                   </tbody>
                 </table>
               </div>
-              <div style="width: 20%; display: table-cell;"> 
-                <div id="entityDetail1" class="entityDetailsDiv">
-                </div>
-                <div id="entityDetail2" class="entityDetailsDiv">
+              <div style="position: relative;">
+                <div style="width: 20%; display: table-cell;
+                     top: 15%; bottom: 15%; position: fixed"> 
+                  <div id="entityDetail1" class="entityDetailsDiv">
+                  </div>
+                  <div id="entityDetail2" class="entityDetailsDiv">
+                  </div>
                 </div>
               </div>
             </div>
