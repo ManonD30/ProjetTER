@@ -473,10 +473,12 @@ public class YamFileHandler {
    */
   public static String getLabelFromUri(String uri) {
     String label = null;
-    if (uri.lastIndexOf("#") != -1) {
-      label = uri.substring(uri.lastIndexOf("#") + 1);
-    } else {
-      label = uri.substring(uri.lastIndexOf("/") + 1);
+    if (uri != null) {
+      if (uri.lastIndexOf("#") != -1) {
+        label = uri.substring(uri.lastIndexOf("#") + 1);
+      } else {
+        label = uri.substring(uri.lastIndexOf("/") + 1);
+      }
     }
     return label;
   }
