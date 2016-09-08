@@ -355,7 +355,6 @@ public class YamFileHandler {
     fullJObject.put("namespaces", jPrefix);
     fullJObject.put("entities", jObject);
 
-    //return ontologyString;
     return fullJObject;
   }
 
@@ -377,11 +376,13 @@ public class YamFileHandler {
       URL url = new URL(request.getParameter("sourceUrl" + ontNumber));
       model.read(url.toString());
     } else if (request.getPart("ont" + ontNumber) != null) {
+      // Load ontology from file
       Part filePart = request.getPart("ont" + ontNumber); // Retrieves <input type="file" name="file">
       //String fileName = filePart.getSubmittedFileName();
       try {
         model.read(filePart.getInputStream(), null);
       } catch (Exception e) {
+        // Read in TTL if first parsing failed (it waits for RDF/XML
         model.read(filePart.getInputStream(), null, "TTL");
       }
     } else {
@@ -421,12 +422,13 @@ public class YamFileHandler {
 
             java.util.Map<String, String> prefixMap = model.getNsPrefixMap();
 
-            // The prefix used in this ontology
+            // Generate a set with prefixes used in this ontology
             Set<String> prefixKeys = prefixMap.keySet();
+            
             String predicateString = tripleArray.getPredicate().toString();
             String objectString = tripleArray.getObject().toString();
 
-            // Get the used prefix in the ontology
+            // Replace URI with namespace prefix
             for (String key : prefixKeys) {
               if (predicateString.contains(prefixMap.get(key))) {
                 predicateString = predicateString.replaceAll(prefixMap.get(key), key + ":");
@@ -435,7 +437,7 @@ public class YamFileHandler {
                 objectString = objectString.replaceAll(prefixMap.get(key), key + ":");
               }
             }
-
+            // Add predicate and object to class JSON object
             clsJObject.put(predicateString, objectString);
           }
           if (clsLabel == null) {
