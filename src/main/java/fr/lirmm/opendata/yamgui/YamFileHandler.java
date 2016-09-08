@@ -14,6 +14,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.ResIterator;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.rdf.model.impl.StatementImpl;
 import com.hp.hpl.jena.vocabulary.RDF;
 import fr.inrialpes.exmo.align.parser.AlignmentParser;
 import static fr.lirmm.opendata.yamgui.Result.round;
@@ -402,21 +403,24 @@ public class YamFileHandler {
     while (owlClasses.hasNext()) {
       JSONObject clsJObject = new JSONObject();;
       Resource cls = owlClasses.next();
+      String clsLabel = null;
       if (cls != null) {
         StmtIterator stmts = cls.listProperties();
         clsJObject.put("id", cls.getURI());
-        // Get label for skos:prefLabel or rdfs:label
-        /*  if (clsLabel == null && propertyString.equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
-            clsLabel = valueString;
-          } else if (clsLabel == null && propertyString.equals("http://www.w3.org/2000/01/rdf-schema#label")) {
-            clsLabel = valueString;
-          }*/
+        // Get label for skos:prefLabel or rdfs:label        
         //clsJObject.put("* ", cls);
         while (stmts.hasNext()) {
-          clsJObject.put(stmts.next(), "tytyty");
+          // the iterator returns array: [subject, predicate, object]
+          StatementImpl tripleArray = (StatementImpl) stmts.next();
+          if (clsLabel == null && tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
+            clsLabel = tripleArray.getLiteral().toString();
+          } else if (clsLabel == null && tripleArray.getPredicate().toString().equals("http://www.w3.org/2000/01/rdf-schema#label")) {
+            clsLabel = tripleArray.getLiteral().toString();
+          }
+          clsJObject.put(tripleArray.getPredicate().toString(), tripleArray.getObject().toString());
         }
+        clsJObject.put("label", clsLabel);
         jObject.put(cls.getURI(), clsJObject);
-        //jObject.put("tee", clsJObject);
       }
     }
 
