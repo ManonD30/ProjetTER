@@ -401,8 +401,10 @@ public class YamFileHandler {
     ArrayList<Resource> classTypes = new ArrayList<Resource>();
     classTypes.add(model.getResource("http://www.w3.org/2002/07/owl#Class"));
     classTypes.add(model.getResource("http://www.w3.org/2004/02/skos/core#Concept"));
+    // Iterate over resources to get all owl:Class and skos:Concept
     for (Resource classType : classTypes) {
       ResIterator owlClasses = model.listSubjectsWithProperty(RDF.type, classType);
+      // get all owl:Class and skos:Concept and add it to the class JSON object
       while (owlClasses.hasNext()) {
         JSONObject clsJObject = new JSONObject();;
         Resource cls = owlClasses.next();
@@ -410,19 +412,19 @@ public class YamFileHandler {
         if (cls != null) {
           StmtIterator stmts = cls.listProperties();
           clsJObject.put("id", cls.getURI());
-          // Get label for skos:prefLabel or rdfs:label
           while (stmts.hasNext()) {
             // the iterator returns statements: [subject, predicate, object]
             StatementImpl tripleArray = (StatementImpl) stmts.next();
+            
+            // Get label for skos:prefLabel or rdfs:label
             if (clsLabel == null && tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
               clsLabel = tripleArray.getLiteral().toString();
             } else if (clsLabel == null && tripleArray.getPredicate().toString().equals("http://www.w3.org/2000/01/rdf-schema#label")) {
               clsLabel = tripleArray.getLiteral().toString();
             }
 
-            java.util.Map<String, String> prefixMap = model.getNsPrefixMap();
-
             // Generate a set with prefixes used in this ontology
+            java.util.Map<String, String> prefixMap = model.getNsPrefixMap();
             Set<String> prefixKeys = prefixMap.keySet();
             
             String predicateString = tripleArray.getPredicate().toString();
@@ -448,7 +450,7 @@ public class YamFileHandler {
         }
       }
     }
-
+    
     JSONObject fullJObject = new JSONObject();
     fullJObject.put("namespaces", jPrefix);
     fullJObject.put("entities", jObject);
