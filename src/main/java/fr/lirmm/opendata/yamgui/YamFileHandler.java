@@ -400,37 +400,42 @@ public class YamFileHandler {
     } else {
       return null;
     }
-    
+
     JSONObject jObject = new JSONObject();
     final String owl = "http://www.w3.org/2002/07/owl#";
-    Resource datasetType = model.getResource(owl + "Class");
-    ResIterator owlClasses = model.listSubjectsWithProperty(RDF.type, datasetType);
-    while (owlClasses.hasNext()) {
-      JSONObject clsJObject = new JSONObject();;
-      Resource cls = owlClasses.next();
-      String clsLabel = null;
-      if (cls != null) {
-        StmtIterator stmts = cls.listProperties();
-        clsJObject.put("id", cls.getURI());
-        // Get label for skos:prefLabel or rdfs:label        
-        //clsJObject.put("* ", cls);
-        while (stmts.hasNext()) {
-          // the iterator returns array: [subject, predicate, object]
-          StatementImpl tripleArray = (StatementImpl) stmts.next();
-          if (clsLabel == null && tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
-            clsLabel = tripleArray.getLiteral().toString();
-          } else if (clsLabel == null && tripleArray.getPredicate().toString().equals("http://www.w3.org/2000/01/rdf-schema#label")) {
-            clsLabel = tripleArray.getLiteral().toString();
+    //Resource classTypes = model.getResource(owl + "Class");
+    ArrayList<Resource> classTypes = new ArrayList<Resource>();
+    classTypes.add(model.getResource(owl + "Class"));
+    classTypes.add(model.getResource("http://www.w3.org/2004/02/skos/core#Concept"));
+    for (Resource classType : classTypes) {
+      ResIterator owlClasses = model.listSubjectsWithProperty(RDF.type, classType);
+      while (owlClasses.hasNext()) {
+        JSONObject clsJObject = new JSONObject();;
+        Resource cls = owlClasses.next();
+        String clsLabel = null;
+        if (cls != null) {
+          StmtIterator stmts = cls.listProperties();
+          clsJObject.put("id", cls.getURI());
+          // Get label for skos:prefLabel or rdfs:label        
+          //clsJObject.put("* ", cls);
+          while (stmts.hasNext()) {
+            // the iterator returns array: [subject, predicate, object]
+            StatementImpl tripleArray = (StatementImpl) stmts.next();
+            if (clsLabel == null && tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
+              clsLabel = tripleArray.getLiteral().toString();
+            } else if (clsLabel == null && tripleArray.getPredicate().toString().equals("http://www.w3.org/2000/01/rdf-schema#label")) {
+              clsLabel = tripleArray.getLiteral().toString();
+            }
+            clsJObject.put(tripleArray.getPredicate().toString(), tripleArray.getObject().toString());
           }
-          clsJObject.put(tripleArray.getPredicate().toString(), tripleArray.getObject().toString());
+          clsJObject.put("label", clsLabel);
+          jObject.put(cls.getURI(), clsJObject);
         }
-        clsJObject.put("label", clsLabel);
-        jObject.put(cls.getURI(), clsJObject);
       }
     }
 
     JSONObject fullJObject = new JSONObject();
-    fullJObject.put("namespaces", "noop");
+    fullJObject.put("namespaces", "");
     fullJObject.put("entities", jObject);
 
     return fullJObject;
