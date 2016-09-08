@@ -402,10 +402,8 @@ public class YamFileHandler {
     }
 
     JSONObject jObject = new JSONObject();
-    final String owl = "http://www.w3.org/2002/07/owl#";
-    //Resource classTypes = model.getResource(owl + "Class");
     ArrayList<Resource> classTypes = new ArrayList<Resource>();
-    classTypes.add(model.getResource(owl + "Class"));
+    classTypes.add(model.getResource("http://www.w3.org/2002/07/owl#Class"));
     classTypes.add(model.getResource("http://www.w3.org/2004/02/skos/core#Concept"));
     for (Resource classType : classTypes) {
       ResIterator owlClasses = model.listSubjectsWithProperty(RDF.type, classType);
