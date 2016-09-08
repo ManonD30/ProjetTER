@@ -25,8 +25,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -365,25 +367,64 @@ public class YamFileHandler {
    * Load ontology in Jena to get class label. NOT USED ANYMORE because we use
    * OWLAPI now
    *
-   * @param in
-   * @param label
+   * @param request
+   * @param ontNumber
+   * @return
    * @throws IOException
+   * @throws javax.servlet.ServletException
    */
-  public static void jenaLoadOnto(String in,
-          java.util.Map<String, String> label) throws IOException {
-    final String dcat = "http://www.w3.org/ns/dcat#";
+  public static JSONObject jenaLoadOnto(HttpServletRequest request, String ontNumber) throws IOException, ServletException {
     Model model = ModelFactory.createDefaultModel();
-    model.read("data.rdf");
-    Resource datasetType = model.getResource(dcat + "Dataset");
-    ResIterator datasets = model.listSubjectsWithProperty(RDF.type, datasetType);
-    while (datasets.hasNext()) {
-      Resource dataset = datasets.next();
-      StmtIterator stmts = dataset.listProperties();
-      System.out.println("* " + dataset);
-      while (stmts.hasNext()) {
-        System.out.println("** " + stmts.next());
+
+    // Load ontology in JENA from the URL or the file
+    if (request.getParameter("sourceUrl" + ontNumber) != null && !request.getParameter("sourceUrl" + ontNumber).isEmpty()) {
+      URL url = new URL(request.getParameter("sourceUrl" + ontNumber));
+      model.read(url.toString());
+    } else if (request.getPart("ont" + ontNumber) != null) {
+      Part filePart = request.getPart("ont" + ontNumber); // Retrieves <input type="file" name="file">
+      //String fileName = filePart.getSubmittedFileName();
+      /*BufferedReader reader = new BufferedReader(new InputStreamReader(filePart.getInputStream()));
+      StringBuilder result = new StringBuilder();
+      String line;
+      while ((line = reader.readLine()) != null) {
+        result.append(line);
+      }
+      model.read(new ByteArrayInputStream(result.toString().getBytes()), null);*/
+      model.read(filePart.getInputStream(), null);
+    } else {
+      return null;
+    }
+    
+    JSONObject jObject = new JSONObject();
+    final String owl = "http://www.w3.org/2002/07/owl#";
+    Resource datasetType = model.getResource(owl + "Class");
+    ResIterator owlClasses = model.listSubjectsWithProperty(RDF.type, datasetType);
+    while (owlClasses.hasNext()) {
+      JSONObject clsJObject = new JSONObject();;
+      Resource cls = owlClasses.next();
+      if (cls != null) {
+        StmtIterator stmts = cls.listProperties();
+        clsJObject.put("id", cls.getURI());
+        // Get label for skos:prefLabel or rdfs:label
+        /*  if (clsLabel == null && propertyString.equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
+            clsLabel = valueString;
+          } else if (clsLabel == null && propertyString.equals("http://www.w3.org/2000/01/rdf-schema#label")) {
+            clsLabel = valueString;
+          }*/
+        //clsJObject.put("* ", cls);
+        while (stmts.hasNext()) {
+          clsJObject.put(stmts.next(), "tytyty");
+        }
+        jObject.put(cls.getURI(), clsJObject);
+        //jObject.put("tee", clsJObject);
       }
     }
+
+    JSONObject fullJObject = new JSONObject();
+    fullJObject.put("namespaces", "noop");
+    fullJObject.put("entities", jObject);
+
+    return fullJObject;
   }
 
   /**

@@ -68,10 +68,10 @@ public class Validator extends HttpServlet {
           JSONObject loadedOnto1 = null;
           JSONObject loadedOnto2 = null;
           try {
-            loadedOnto1 = fileHandler.loadOwlapiOntoFromRequest(request, "1");
-            loadedOnto2 = fileHandler.loadOwlapiOntoFromRequest(request, "2");
-          } catch (OWLOntologyCreationException ex) {
-            request.setAttribute("errorMessage", "Error when loading ontologies in OwlApi: " + ex.getMessage());
+            loadedOnto1 = fileHandler.jenaLoadOnto(request, "1");
+            loadedOnto2 = fileHandler.jenaLoadOnto(request, "2");
+          } catch (Exception ex) {
+            request.setAttribute("errorMessage", "Error when loading ontologies in Jena: " + ex.getMessage());
             Logger.getLogger(Validator.class.getName()).log(Level.SEVERE, null, ex);
           }
           request.setAttribute("ont1", loadedOnto1);
