@@ -421,6 +421,11 @@ table {
   overflow: auto;
 }
 
+.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
 .entityDetailsDiv {
   width: 100%;
   max-width: 100%;
