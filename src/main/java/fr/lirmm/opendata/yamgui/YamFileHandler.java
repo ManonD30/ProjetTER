@@ -399,6 +399,8 @@ public class YamFileHandler {
 
     JSONObject jObject = new JSONObject();
     ArrayList<Resource> classTypes = new ArrayList<Resource>();
+    // Only check for owl:Class and skos:Concept. Is it interesting to add instances ?
+    // Or better to use OWLAPI and SKOS API ?
     classTypes.add(model.getResource("http://www.w3.org/2002/07/owl#Class"));
     classTypes.add(model.getResource("http://www.w3.org/2004/02/skos/core#Concept"));
     // Iterate over resources to get all owl:Class and skos:Concept
