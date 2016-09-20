@@ -49,8 +49,6 @@ public class Validator extends HttpServlet {
           } catch (ClassNotFoundException ex) {
             Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
           }
-          String stringOnt1 = fileHandler.getOntFileFromRequest("1", request);
-          String stringOnt2 = fileHandler.getOntFileFromRequest("2", request);
           
           // Get string of alignment from file
           String stringAlignmentFile = fileHandler.readFileFromRequest("rdfAlignmentFile", request);
@@ -68,6 +66,9 @@ public class Validator extends HttpServlet {
           JSONObject loadedOnto1 = null;
           JSONObject loadedOnto2 = null;
           try {
+            // Old way to get ontology files:
+            //String stringOnt1 = fileHandler.getOntFileFromRequest("1", request);
+            //String stringOnt2 = fileHandler.getOntFileFromRequest("2", request);
             loadedOnto1 = fileHandler.jenaLoadOnto(request, "1");
             loadedOnto2 = fileHandler.jenaLoadOnto(request, "2");
           } catch (Exception ex) {

@@ -82,7 +82,7 @@ public class YamFileHandler {
   /**
    * Read the ontology file or source URL from the request and returns a String.
    * We are using ontNumber to get ontology either from uploaded file "ont1" or
-   * URL "sourceUrl1"
+   * URL "sourceUrl1". NOT USED anymore (now we are using the jenaLoadOnto method)
    *
    * @param ontNumber
    * @param request
@@ -382,7 +382,7 @@ public class YamFileHandler {
       try {
         model.read(filePart.getInputStream(), null);
       } catch (Exception e) {
-        // Read in TTL if first parsing failed (it waits for RDF/XML
+        // Read in TTL if first parsing failed (it waits for RDF/XML)
         model.read(filePart.getInputStream(), null, "TTL");
       }
     } else {
