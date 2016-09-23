@@ -113,6 +113,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
   $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson, $scope.ontologies);
+  
+  $scope.langSelect = {"en": "en", "fr": "fr"};
 
   //Range slider config
   $scope.minRangeSlider = {
