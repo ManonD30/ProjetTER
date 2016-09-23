@@ -20,11 +20,12 @@ function checkAllBoxes() {
  * It takes the following objetc as entity:
  * {"http://entity1.org/": {"id": "http://entity1.org/", "label": {"fr":
  * "bonjour", "en": "hello"}, "http://rdfs.org/label": [{"type": "literal",
- * "fr": "bonjour", "en": "hello"}]}}
+ * "value": "bonjour", "lang": "fr"}, {"type": "literal", "value": "hello",
+ * "lang": "en"}]}}
  * @param {type} entity
  * @returns {undefined}
  */
-function buildEntityDetailsHtml(entity, entityName) {
+function buildEntityDetailsHtml(entity, entityName, selectedLang) {
   if (entityName === undefined) {
     var htmlString = "";
   } else {
@@ -40,31 +41,26 @@ function buildEntityDetailsHtml(entity, entityName) {
   // Get the label
   if (entity["label"] != null) {
     // For the moment we are taking english, then french but it will change depending on user selection
-    if (entity["label"].hasOwnProperty("en")) {
+    if (entity["label"].hasOwnProperty(selectedLang)) {
+      orderedEntities["label"] = entity["label"][selectedLang];
+    } else if (entity["label"].hasOwnProperty("en")) {
+      // Take the label in english by default if selectedLang not found
       orderedEntities["label"] = entity["label"]["en"];
-    } else if (entity["label"].hasOwnProperty("fr")) {
-      orderedEntities["label"] = entity["label"]["fr"];
     } else {
       for (var key in entity["label"]) {
         if (key != "type") {
           orderedEntities["label"] = entity["label"][key];
-          console.log("labeeel");
-          console.log(entity["label"][key]);
           break;
         }
       }
     }
   }
-  console.log("hhh");
-  console.log(entity);
-  
+
   // add each property object linked to each subject
   // Iterate over the different properties (predicates) of an entity
   Object.keys(entity).sort().forEach(function (key) {
     if (key != "id" && key != "label") {
-      console.log("entity key");
-      console.log(entity[key]);
-      
+      orderedEntities[key] = null;
       // Iterate over the different values of the object of a predicate (the same property can point to different objects)
       for (var valuesObject in entity[key]) {
         // to get the value of the object depending if it's an URI or a literal
@@ -72,12 +68,11 @@ function buildEntityDetailsHtml(entity, entityName) {
           orderedEntities[key] = entity[key][valuesObject]["value"];
           break;
         } else if (entity[key][valuesObject]["type"] == "literal") {
-          for (var entityLabel in entity[key][valuesObject]) {
-            if (entityLabel != "type") {
-              orderedEntities[key] = entity[key][valuesObject][entityLabel]
-              break;
-            }
-          }
+          if (orderedEntities[key] === null) {
+            orderedEntities[key] = entity[key][valuesObject]["value"];
+          } else {
+            orderedEntities[key] = orderedEntities[key] + ", " + entity[key][valuesObject]["value"];
+          }         
         }
       }
     }
@@ -113,7 +108,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
   $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson, $scope.ontologies);
-  
+
   $scope.langSelect = {"en": "en", "fr": "fr"};
 
   //Range slider config
@@ -132,8 +127,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     $scope.selected = this.alignment;
     //console.log($scope.selected);
 
-    var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1, "Source");
-    var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2, "Target");
+    var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1, "Source", $scope.selectedLang);
+    var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2, "Target", $scope.selectedLang);
 
     document.getElementById("entityDetail1").innerHTML = stringDetail1;
     document.getElementById("entityDetail2").innerHTML = stringDetail2;
