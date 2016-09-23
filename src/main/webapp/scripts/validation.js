@@ -36,7 +36,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
   htmlString = htmlString + "<ul>";
   // Order the JSON string to have id and label at the beginning
   var orderedEntities = {};
-  orderedEntities["id"] = entity["id"];
+  orderedEntities["id"] = entity["id"].link(entity["id"]);
 
   // Get the label
   if (entity["label"] != null) {
@@ -64,21 +64,22 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
       // Iterate over the different values of the object of a predicate (the same property can point to different objects)
       for (var valuesObject in entity[key]) {
         // to get the value of the object depending if it's an URI or a literal
-        if (entity[key][valuesObject]["type"] == "uri") {
+        if (entity[key][valuesObject]["value"].startsWith("http://")) {
           // Concatenate URI too ? With <a href>
           if (orderedEntities[key] === null) {
-            orderedEntities[key] = '<a href="' + entity[key][valuesObject]["value"] + '">' + entity[key][valuesObject]["value"] + "</a>";
+            orderedEntities[key] = entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
           } else {
-            orderedEntities[key] = orderedEntities[key] + '<br/><a href="' + entity[key][valuesObject]["value"] + '">' + entity[key][valuesObject]["value"] + "</a>";
-          }         
+            orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
+          }
           break;
-        } else if (entity[key][valuesObject]["type"] == "literal") {
+          //} else if (entity[key][valuesObject]["type"] == "literal") {
+        } else {
           // If it is a literal then we concatenate them
           if (orderedEntities[key] === null) {
             orderedEntities[key] = entity[key][valuesObject]["value"];
           } else {
             orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"];
-          }         
+          }
         }
       }
     }
@@ -92,7 +93,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
       htmlString = htmlString + "<hr style='margin: 1% 10%;'>";
       printHr = false;
     }
-    htmlString = htmlString + "<li><b>" + attr + '</b> = <a href="' + orderedEntities[attr] + '">' + orderedEntities[attr] + '</a></li>'
+    htmlString = htmlString + "<li><b>" + attr + "</b> = " + orderedEntities[attr] + "</li>"
     if (attr == "label") {
       printHr = htmlString + "<hr>";
     }
