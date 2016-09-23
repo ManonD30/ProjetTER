@@ -5,6 +5,7 @@
  */
 package fr.lirmm.opendata.yamgui;
 
+import com.hp.hpl.jena.rdf.model.LiteralRequiredException;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.ResIterator;
@@ -82,7 +83,8 @@ public class YamFileHandler {
   /**
    * Read the ontology file or source URL from the request and returns a String.
    * We are using ontNumber to get ontology either from uploaded file "ont1" or
-   * URL "sourceUrl1". NOT USED anymore (now we are using the jenaLoadOnto method)
+   * URL "sourceUrl1". NOT USED anymore (now we are using the jenaLoadOnto
+   * method)
    *
    * @param ontNumber
    * @param request
@@ -260,9 +262,10 @@ public class YamFileHandler {
   }
 
   /**
-   * Load the ontology number from the request with OWLAPI Returns a JSONArray
-   * with class URI in "id" and all other properties i.e.: [{"id":
-   * "http://example.org/1", "rdfs:label": "test"}]
+   * Load the ontology number from the request with OWLAPI. Returns a JSONArray
+   * with class URI in "id" and all other properties i.e.: { namespaces:
+   * {"rdfs": "http://rdfs.org/"}, entities: {"http://entity1.org/": {"id":
+   * "http://entity1.org/", "rdfs:label": "test"}}}
    *
    * @param request
    * @param ontNumber
@@ -359,8 +362,14 @@ public class YamFileHandler {
   }
 
   /**
-   * Load ontology in Jena to get class label. NOT USED ANYMORE because we use
-   * OWLAPI now
+   * Load ontology in Jena to get class label and other triples. Returns the
+   * following JSON: Returns a JSONArray with class URI in "id" and all other
+   * properties i.e.: { namespaces: {"rdfs": "http://rdfs.org/"}, entities:
+   * {"http://entity1.org/": {"id": "http://entity1.org/", "rdfs:label":
+   * "test"}}} New: { namespaces: {"rdfs": "http://rdfs.org/"}, entities:
+   * {"http://entity1.org/": {"id": [{"type": "uri", "value":
+   * "http://entity1.org/"}], "http://rdfs.org/label": [{"type": "literal",
+   * "fr": "bonjour", "en": "hello"}]}}
    *
    * @param request
    * @param ontNumber
@@ -397,8 +406,8 @@ public class YamFileHandler {
       jPrefix.put(thisEntry.getKey(), thisEntry.getValue());
     }
 
-    JSONObject jObject = new JSONObject();
-    ArrayList<Resource> classTypes = new ArrayList<Resource>();
+    JSONObject entitiesJObject = new JSONObject();
+    ArrayList<Resource> classTypes = new ArrayList<>();
     // Only check for owl:Class and skos:Concept. Is it interesting to add instances ?
     // Or better to use OWLAPI and SKOS API ?
     classTypes.add(model.getResource("http://www.w3.org/2002/07/owl#Class"));
@@ -408,7 +417,7 @@ public class YamFileHandler {
       ResIterator owlClasses = model.listSubjectsWithProperty(RDF.type, classType);
       // get all owl:Class and skos:Concept and add it to the class JSON object
       while (owlClasses.hasNext()) {
-        JSONObject clsJObject = new JSONObject();;
+        JSONObject clsJObject = new JSONObject();
         Resource cls = owlClasses.next();
         String clsLabel = null;
         if (cls != null) {
@@ -431,10 +440,45 @@ public class YamFileHandler {
             Set<String> prefixKeys = prefixMap.keySet();
 
             String predicateString = tripleArray.getPredicate().toString();
-            String objectString = tripleArray.getObject().toString();
+            //String objectString = tripleArray.getObject().toString();
+            String objectString = "nooop";
+            String objectType = "No object";
+            JSONObject resourceJObject = new JSONObject();
+            try {
+              objectString = tripleArray.getLiteral().toString();
+              objectType = "literal";
+              resourceJObject.put("type", objectType);
+              resourceJObject.put("value", objectString);
+            } catch (LiteralRequiredException e) {
+              objectString = tripleArray.getObject().toString();
+              objectType = "uri";
+              resourceJObject.put("type", objectType);
+              resourceJObject.put("value", objectString);
+            }
 
+            //Object: predicate: [{"type": "literal", "fr": "bonjour", "en": "hello"}]
+            // Add type ? {"type": "literal", "fr": "bonjour", "en": "hello"}
+            // Add type ? {"type": "uri", "value": "http://myuri.org/"}
+            // Add type ? {"type": "integer", "value": "13"}
+            // Add type ? {"type": "float", "value": "13.2"}
+            // Add type ? {"type": "date", "value": "13-11-1991"}
             // Replace URI with namespace prefix
+            /*
+            { namespaces: {"rdfs": "http://rdfs.org/"},
+              entities: {"http://entity1.org/": 
+                            {"id": [{"type": "uri", "value": "http://entity1.org/"}],
+                             "http://rdfs.org/label": [{"type": "literal", "fr": "bonjour", "en": "hello"}]
+                             }
+                        }
+            }
+            
+             */
+            JSONArray objectsJArray = new JSONArray();
+            if (clsJObject.containsKey(predicateString)) {
+              objectsJArray = (JSONArray) clsJObject.get(predicateString);
+            }
             for (String key : prefixKeys) {
+              // To replace namespaces by prefix in URI
               if (predicateString.contains(prefixMap.get(key))) {
                 predicateString = predicateString.replaceAll(prefixMap.get(key), key + ":");
               }
@@ -448,20 +492,24 @@ public class YamFileHandler {
               }
             }
             // Add predicate and object to class JSON object
-            clsJObject.put(predicateString, objectString);
+            //clsJObject.put(predicateString, objectString);
+            //clsJObject.put(predicateString, resourceJObject);
+            objectsJArray.add(resourceJObject);
+            clsJObject.put(predicateString, objectsJArray);
           }
           if (clsLabel == null) {
             getLabelFromUri(cls.getURI());
           }
           clsJObject.put("label", clsLabel);
-          jObject.put(cls.getURI(), clsJObject);
+          entitiesJObject.put(cls.getURI(), clsJObject);
+
         }
       }
     }
 
     JSONObject fullJObject = new JSONObject();
     fullJObject.put("namespaces", jPrefix);
-    fullJObject.put("entities", jObject);
+    fullJObject.put("entities", entitiesJObject);
 
     return fullJObject;
   }
