@@ -365,8 +365,6 @@ public class YamFileHandler {
    * Load ontology in Jena to get class label and other triples. Returns the
    * following JSON: Returns a JSONArray with class URI in "id" and all other
    * properties i.e.: { namespaces: {"rdfs": "http://rdfs.org/"}, entities:
-   * {"http://entity1.org/": {"id": "http://entity1.org/", "rdfs:label":
-   * "test"}}} New: { namespaces: {"rdfs": "http://rdfs.org/"}, entities:
    * {"http://entity1.org/": {"id": "http://entity1.org/", "label": {"fr":
    * "bonjour", "en": "hello"}, "http://rdfs.org/label": [{"type": "literal",
    * "fr": "bonjour", "en": "hello"}]}}

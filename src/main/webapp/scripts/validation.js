@@ -16,7 +16,11 @@ function checkAllBoxes() {
 }
 
 /**
- * Build the HTML to display entity details (list ul li)
+ * Build the HTML to display entity details (list ul li). 
+ * It takes the following objetc as entity:
+ * {"http://entity1.org/": {"id": "http://entity1.org/", "label": {"fr":
+ * "bonjour", "en": "hello"}, "http://rdfs.org/label": [{"type": "literal",
+ * "fr": "bonjour", "en": "hello"}]}}
  * @param {type} entity
  * @returns {undefined}
  */
