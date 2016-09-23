@@ -146,7 +146,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
                 // And allows us to setup the popover
 
                 var entity = JSON.parse(attrs.entity);
-                var popoverString = buildEntityDetailsHtml(entity);
+                // Not working properly: it doesn't change with selectedLang
+                var popoverString = buildEntityDetailsHtml(entity, null, scope.selectedLang);
 
                 $(element).popover({
                   html: true,
