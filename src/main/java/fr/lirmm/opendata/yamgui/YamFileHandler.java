@@ -431,7 +431,6 @@ public class YamFileHandler {
 
             // Get label for skos:prefLabel or rdfs:label
             if (predicateString.equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
-
               clsLabel.put(tripleArray.getLiteral().getLanguage(), tripleArray.getLiteral().getLexicalForm());
               //clsLabel = tripleArray.getLiteral().getLexicalForm(); To get without the lang
             } else if (predicateString.equals("http://www.w3.org/2000/01/rdf-schema#label") && clsLabel.containsKey(tripleArray.getLiteral().getLanguage())) {

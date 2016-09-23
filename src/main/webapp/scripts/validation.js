@@ -32,26 +32,68 @@ function buildEntityDetailsHtml(entity, entityName) {
   // Order the JSON string to have id and label at the beginning
   var orderedEntities = {};
   orderedEntities["id"] = entity["id"];
+
+  // Get the label
   if (entity["label"] != null) {
-    orderedEntities["label"] = entity["label"];
+    // For the moment we are taking english, then french but it will change depending on user selection
+    if (entity["label"].hasOwnProperty("en")) {
+      orderedEntities["label"] = entity["label"]["en"];
+    } else if (entity["label"].hasOwnProperty("fr")) {
+      orderedEntities["label"] = entity["label"]["fr"];
+    } else {
+      for (var key in entity["label"]) {
+        if (key != "type") {
+          orderedEntities["label"] = entity["label"][key];
+          console.log("labeeel");
+          console.log(entity["label"][key]);
+          break;
+        }
+      }
+    }
   }
+  console.log("hhh");
+  console.log(entity);
+  
+  // add each property object linked to each subject
+  // Iterate over the different properties (predicates) of an entity
   Object.keys(entity).sort().forEach(function (key) {
     if (key != "id" && key != "label") {
-      orderedEntities[key] = entity[key];
+      console.log("entity key");
+      console.log(entity[key]);
+      
+      // Iterate over the different values of the object of a predicate (the same property can point to different objects)
+      for (var valuesObject in entity[key]) {
+        // to get the value of the object depending if it's an URI or a literal
+        if (entity[key][valuesObject]["type"] == "uri") {
+          orderedEntities[key] = entity[key][valuesObject]["value"];
+          break;
+        } else if (entity[key][valuesObject]["type"] == "literal") {
+          for (var entityLabel in entity[key][valuesObject]) {
+            if (entityLabel != "type") {
+              orderedEntities[key] = entity[key][valuesObject][entityLabel]
+              break;
+            }
+          }
+        }
+      }
     }
   });
 
   var printHr = false;
+  console.log("voooooila");
+  console.log(orderedEntities);
   for (var attr in orderedEntities) {
     if (printHr) {
       htmlString = htmlString + "<hr style='margin: 1% 10%;'>";
       printHr = false;
     }
-    htmlString = htmlString + "<li><b>" + attr + "</b> = " + entity[attr] + "</li>"
+    htmlString = htmlString + "<li><b>" + attr + "</b> = " + orderedEntities[attr] + "</li>"
     if (attr == "label") {
       printHr = htmlString + "<hr>";
     }
   }
+  //console.log("ordered entities");
+  //console.log(orderedEntities);
   return htmlString + "</ul>";
 }
 
@@ -82,7 +124,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.selectEntity = function (element, attrs) {
 
     $scope.selected = this.alignment;
-    console.log($scope.selected);
+    //console.log($scope.selected);
 
     var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1, "Source");
     var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2, "Target");
