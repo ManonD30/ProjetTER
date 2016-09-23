@@ -496,3 +496,7 @@ tr.grey {
   width: 100%;
   background-color: #ffde65;
 }
+
+.selected {
+  color: #8ab7d1;
+}

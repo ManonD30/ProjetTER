@@ -128,74 +128,80 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     }
   };
 
-  $scope.changeDetails = function (fromClick) {
-    if ($scope.detailsLocked == false || fromClick == true) {
-      $scope.selected = this.alignment;
-      //console.log($scope.selected);
+  $scope.changeDetails = function (index) {
+    if ($scope.detailsLocked == false || index !== undefined) {
+      //$scope.selected = this.alignment;
+      $scope.selected = '';
 
       var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1, "Source", $scope.selectedLang);
       var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2, "Target", $scope.selectedLang);
 
       document.getElementById("entityDetail1").innerHTML = stringDetail1;
       document.getElementById("entityDetail2").innerHTML = stringDetail2;
-      if (fromClick == true) {
+      if (index !== undefined) {
         $scope.detailsLocked = true;
+        console.log("index: " + index);
+        // console.log("show", arguments, this);
+        if ($scope.lastSelected) {
+          console.log("lalala");
+          $scope.lastSelected.selected = '';
+        }
+        /* This should remove selected if click again on it
+        console.log("nppppp");
+        console.log(this.selected);
+        if (this.selected == 'selected') {
+          this.selected = '';
+          $scope.detailsLocked = false;
+          console.log("seeee");
+        } else {
+          this.selected = 'selected';
+        }*/
+        this.selected = 'selected';
+        $scope.lastSelected = this;
       }
     }
   };
-
-  $scope.selectEntity = function (element, attrs) {
-
-    $scope.selected = this.alignment;
-    //console.log($scope.selected);
-
-    var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1, "Source", $scope.selectedLang);
-    var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2, "Target", $scope.selectedLang);
-
-    document.getElementById("entityDetail1").innerHTML = stringDetail1;
-    document.getElementById("entityDetail2").innerHTML = stringDetail2;
-  };
 })
-       /* Remember on how to make a little window that show when mouseover
-        .directive('toggle', function () {
-          return {
-            restrict: 'A',
-            link: function (scope, element, attrs) {
-              if (attrs.toggle == "tooltip") {
-                $(element).tooltip();
-              }
-              if (attrs.toggle == "popover") {
-                // Allows the popover to stay when mouseovered
-                // And allows us to setup the popover
-
-                var entity = JSON.parse(attrs.entity);
-                // Not working properly: it doesn't change with selectedLang
-                var popoverString = buildEntityDetailsHtml(entity);
-
-                $(element).popover({
-                  html: true,
-                  trigger: 'manual',
-                  container: $(this).attr('id'),
-                  content: popoverString
-                }).on("mouseenter", function () {
-                  var _this = this;
-                  $(this).popover("show");
-                  $(this).siblings(".popover").on("mouseleave", function () {
-                    $(_this).popover('hide');
-                  });
-                }).on("mouseleave", function () {
-                  var _this = this;
-                  setTimeout(function () {
-                    if (!$(".popover:hover").length) {
-                      $(_this).popover("hide")
-                    }
-                  }, 100);
-                });
-              }
-            }
-          };
-        })
-        ;*/
+/* Remember on how to make a little window that show when mouseover
+ .directive('toggle', function () {
+ return {
+ restrict: 'A',
+ link: function (scope, element, attrs) {
+ if (attrs.toggle == "tooltip") {
+ $(element).tooltip();
+ }
+ if (attrs.toggle == "popover") {
+ // Allows the popover to stay when mouseovered
+ // And allows us to setup the popover
+ 
+ var entity = JSON.parse(attrs.entity);
+ // Not working properly: it doesn't change with selectedLang
+ var popoverString = buildEntityDetailsHtml(entity);
+ 
+ $(element).popover({
+ html: true,
+ trigger: 'manual',
+ container: $(this).attr('id'),
+ content: popoverString
+ }).on("mouseenter", function () {
+ var _this = this;
+ $(this).popover("show");
+ $(this).siblings(".popover").on("mouseleave", function () {
+ $(_this).popover('hide');
+ });
+ }).on("mouseleave", function () {
+ var _this = this;
+ setTimeout(function () {
+ if (!$(".popover:hover").length) {
+ $(_this).popover("hide")
+ }
+ }, 100);
+ });
+ }
+ }
+ };
+ })
+ ;*/
 
 /**
  * a function to get the ontology that is linked to an alignment
