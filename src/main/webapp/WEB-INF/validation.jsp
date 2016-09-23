@@ -90,7 +90,8 @@ for the ont1 and ont2 ontology alignment -->
                         <div title="Source Entity details" data-toggle="popover" data-html="true" data-placement="right"
                              data-trigger="hover" data-entity="{{alignment.entity1}}">
                           <input type="text" id="{{alignment.entity1.id}}" name="entity1" value="{{alignment.entity1.id}}" 
-                                 style="display: none;" readonly>{{alignment.entity1.label[selectedLang] || alignment.entity1.id}}</input>
+                                 style="display: none;" readonly>{{alignment.entity1.label[selectedLang] || Object.keys(alignment.entity1.label)[0] || alignment.entity1.id}}</input>
+                          <!-- Display selectedLang, if not available take the first label in the list, then the id -->
                         </div>
                       </td>
 
@@ -98,7 +99,7 @@ for the ont1 and ont2 ontology alignment -->
                         <div title="Target Entity details" data-toggle="popover" data-html="true" data-placement="right" 
                              data-trigger="hover" data-entity="{{alignment.entity2}}">
                           <input type="text" id="{{alignment.entity2.id}}" name="entity2" value="{{alignment.entity2.id}}" 
-                                 style="display: none;" readonly>{{alignment.entity2.label[selectedLang] || alignment.entity2.id}}</input>
+                                 style="display: none;" readonly>{{alignment.entity2.label[selectedLang] || Object.keys(alignment.entity2.label)[0] || alignment.entity2.id}}</input>
                         </div>
                       </td>
 
