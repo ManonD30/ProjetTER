@@ -65,13 +65,19 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
       for (var valuesObject in entity[key]) {
         // to get the value of the object depending if it's an URI or a literal
         if (entity[key][valuesObject]["type"] == "uri") {
-          orderedEntities[key] = entity[key][valuesObject]["value"];
+          // Concatenate URI too ? With <a href>
+          if (orderedEntities[key] === null) {
+            orderedEntities[key] = '<a href="' + entity[key][valuesObject]["value"] + '">' + entity[key][valuesObject]["value"] + "</a>";
+          } else {
+            orderedEntities[key] = orderedEntities[key] + '<br/><a href="' + entity[key][valuesObject]["value"] + '">' + entity[key][valuesObject]["value"] + "</a>";
+          }         
           break;
         } else if (entity[key][valuesObject]["type"] == "literal") {
+          // If it is a literal then we concatenate them
           if (orderedEntities[key] === null) {
             orderedEntities[key] = entity[key][valuesObject]["value"];
           } else {
-            orderedEntities[key] = orderedEntities[key] + ", " + entity[key][valuesObject]["value"];
+            orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"];
           }         
         }
       }
@@ -86,7 +92,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
       htmlString = htmlString + "<hr style='margin: 1% 10%;'>";
       printHr = false;
     }
-    htmlString = htmlString + "<li><b>" + attr + "</b> = " + orderedEntities[attr] + "</li>"
+    htmlString = htmlString + "<li><b>" + attr + '</b> = <a href="' + orderedEntities[attr] + '">' + orderedEntities[attr] + '</a></li>'
     if (attr == "label") {
       printHr = htmlString + "<hr>";
     }
