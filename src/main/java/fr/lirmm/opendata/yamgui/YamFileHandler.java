@@ -367,8 +367,8 @@ public class YamFileHandler {
    * properties i.e.: { namespaces: {"rdfs": "http://rdfs.org/"}, entities:
    * {"http://entity1.org/": {"id": "http://entity1.org/", "rdfs:label":
    * "test"}}} New: { namespaces: {"rdfs": "http://rdfs.org/"}, entities:
-   * {"http://entity1.org/": {"id": [{"type": "uri", "value":
-   * "http://entity1.org/"}], "http://rdfs.org/label": [{"type": "literal",
+   * {"http://entity1.org/": {"id": "http://entity1.org/", "label": {"fr":
+   * "bonjour", "en": "hello"}, "http://rdfs.org/label": [{"type": "literal",
    * "fr": "bonjour", "en": "hello"}]}}
    *
    * @param request
@@ -419,7 +419,7 @@ public class YamFileHandler {
       while (owlClasses.hasNext()) {
         JSONObject clsJObject = new JSONObject();
         Resource cls = owlClasses.next();
-        String clsLabel = null;
+        JSONObject clsLabel = new JSONObject();
         if (cls != null) {
           StmtIterator stmts = cls.listProperties();
           clsJObject.put("id", cls.getURI());
@@ -427,19 +427,21 @@ public class YamFileHandler {
             // the iterator returns statements: [subject, predicate, object]
             StatementImpl tripleArray = (StatementImpl) stmts.next();
 
+            String predicateString = tripleArray.getPredicate().toString();
+
             // Get label for skos:prefLabel or rdfs:label
-            if (clsLabel == null && tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
-              clsLabel = tripleArray.getLiteral().toString();
+            if (predicateString.equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
+
+              clsLabel.put(tripleArray.getLiteral().getLanguage(), tripleArray.getLiteral().getLexicalForm());
               //clsLabel = tripleArray.getLiteral().getLexicalForm(); To get without the lang
-            } else if (clsLabel == null && tripleArray.getPredicate().toString().equals("http://www.w3.org/2000/01/rdf-schema#label")) {
-              clsLabel = tripleArray.getLiteral().toString();
+            } else if (predicateString.equals("http://www.w3.org/2000/01/rdf-schema#label") && clsLabel.containsKey(tripleArray.getLiteral().getLanguage())) {
+              clsLabel.put(tripleArray.getLiteral().getLanguage(), tripleArray.getLiteral().getLexicalForm());
             }
 
             // Generate a set with prefixes used in this ontology
             java.util.Map<String, String> prefixMap = model.getNsPrefixMap();
             Set<String> prefixKeys = prefixMap.keySet();
 
-            String predicateString = tripleArray.getPredicate().toString();
             //String objectString = tripleArray.getObject().toString();
             String objectString = "nooop";
             String objectType = "No object";
@@ -497,8 +499,8 @@ public class YamFileHandler {
             objectsJArray.add(resourceJObject);
             clsJObject.put(predicateString, objectsJArray);
           }
-          if (clsLabel == null) {
-            getLabelFromUri(cls.getURI());
+          if (clsLabel.size() == 0) {
+            clsLabel.put("n/a", getLabelFromUri(cls.getURI()));
           }
           clsJObject.put("label", clsLabel);
           entitiesJObject.put(cls.getURI(), clsJObject);
