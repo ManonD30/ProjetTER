@@ -128,35 +128,31 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     }
   };
 
-  $scope.changeDetails = function (index) {
-    if ($scope.detailsLocked == false || index !== undefined) {
+  $scope.changeDetails = function (clickedOn) {
+    if ($scope.detailsLocked == false || clickedOn == true) {
       //$scope.selected = this.alignment;
-      $scope.selected = '';
+      //$scope.selected = '';
 
       var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1, "Source", $scope.selectedLang);
       var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2, "Target", $scope.selectedLang);
 
       document.getElementById("entityDetail1").innerHTML = stringDetail1;
       document.getElementById("entityDetail2").innerHTML = stringDetail2;
-      if (index !== undefined) {
+      if (clickedOn == true) {
         $scope.detailsLocked = true;
-        console.log("index: " + index);
-        // console.log("show", arguments, this);
         if ($scope.lastSelected) {
+          var selected = this.selected;
           console.log("lalala");
-          $scope.lastSelected.selected = '';
+          $scope.lastSelected.selected = "";
         }
-        /* This should remove selected if click again on it
-        console.log("nppppp");
-        console.log(this.selected);
-        if (this.selected == 'selected') {
-          this.selected = '';
+        
+        // Remove selected if click again on selected row
+        if (selected === "selected") {
+          this.selected = "";
           $scope.detailsLocked = false;
-          console.log("seeee");
         } else {
-          this.selected = 'selected';
-        }*/
-        this.selected = 'selected';
+          this.selected = "selected";
+        }
         $scope.lastSelected = this;
       }
     }
