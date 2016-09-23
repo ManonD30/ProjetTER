@@ -40,19 +40,12 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
 
   // Get the label
   if (entity["label"] != null) {
-    // For the moment we are taking english, then french but it will change depending on user selection
+    // Select label according to user selection
     if (entity["label"].hasOwnProperty(selectedLang)) {
-      orderedEntities["label"] = entity["label"][selectedLang];
-    } else if (entity["label"].hasOwnProperty("en")) {
-      // Take the label in english by default if selectedLang not found
-      orderedEntities["label"] = entity["label"]["en"];
+      orderedEntities["label"] = entity["label"][selectedLang] + " (" + selectedLang + ")";
     } else {
-      for (var key in entity["label"]) {
-        if (key != "type") {
-          orderedEntities["label"] = entity["label"][key];
-          break;
-        }
-      }
+      // Take first label in object if selected lang not available
+      orderedEntities["label"] = entity["label"][Object.keys(entity["label"])[0]] + " (" + Object.keys(entity["label"])[0] + ")";
     }
   }
 
@@ -118,6 +111,11 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
 
   $scope.langSelect = {"en": "en", "fr": "fr"};
 
+  // Little function to get the first element of an object (used to get first label if selectedLang not available
+  $scope.getFirstElement = function (obj) {
+    return obj[Object.keys(obj)[0]];
+  };
+
   //Range slider config
   $scope.minRangeSlider = {
     minValue: 0,
@@ -154,7 +152,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
 
                 var entity = JSON.parse(attrs.entity);
                 // Not working properly: it doesn't change with selectedLang
-                var popoverString = buildEntityDetailsHtml(entity, null, scope.selectedLang);
+                var popoverString = buildEntityDetailsHtml(entity);
 
                 $(element).popover({
                   html: true,
