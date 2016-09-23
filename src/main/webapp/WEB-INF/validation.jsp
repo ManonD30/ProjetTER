@@ -82,11 +82,13 @@ for the ont1 and ont2 ontology alignment -->
                   <tbody>
                     <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText" 
                         ng-if="alignment.measure >= minRangeSlider.minValue / 100 && alignment.measure <= minRangeSlider.maxValue / 100"
-                        ng-click="selectEntity()">
+                        ng-click="changeDetails(true)">
                       <td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
 
+                      <!-- ATTENTION IDEE : affichage details au mouse over des rows. Si on clique sur un row, on le 
+                      vérouille (change couleur) et seulement lui s'affiche. Reclique dessus pour dévérouiller -->
                       <!-- Add a popover on entities to display more details -->
-                      <td>
+                      <td ng-mouseenter="changeDetails()">
                         <div title="Source Entity details" data-toggle="popover" data-html="true" data-placement="right"
                              data-trigger="hover" data-entity="{{alignment.entity1}}">
                           <input type="text" id="{{alignment.entity1.id}}" name="entity1" value="{{alignment.entity1.id}}" 

@@ -104,6 +104,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.ontologies = {"ont1": $window.ont1, "ont2": $window.ont2};
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.ont1.namespaces, $window.ont2.namespaces);
+  $scope.detailsLocked = false;
 
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
@@ -124,6 +125,22 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       floor: 0,
       ceil: 100,
       step: 1
+    }
+  };
+
+  $scope.changeDetails = function (fromClick) {
+    if ($scope.detailsLocked == false || fromClick == true) {
+      $scope.selected = this.alignment;
+      //console.log($scope.selected);
+
+      var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1, "Source", $scope.selectedLang);
+      var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2, "Target", $scope.selectedLang);
+
+      document.getElementById("entityDetail1").innerHTML = stringDetail1;
+      document.getElementById("entityDetail2").innerHTML = stringDetail2;
+      if (fromClick == true) {
+        $scope.detailsLocked = true;
+      }
     }
   };
 
