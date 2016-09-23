@@ -156,6 +156,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     document.getElementById("entityDetail2").innerHTML = stringDetail2;
   };
 })
+       /* Remember on how to make a little window that show when mouseover
         .directive('toggle', function () {
           return {
             restrict: 'A',
@@ -194,7 +195,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
             }
           };
         })
-        ;
+        ;*/
 
 /**
  * a function to get the ontology that is linked to an alignment

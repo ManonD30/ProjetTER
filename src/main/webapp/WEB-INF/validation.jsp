@@ -59,7 +59,7 @@ for the ont1 and ont2 ontology alignment -->
 
       <label style="margin-left: 1%;">Search: <input type="search" ng-model="searchText"></label>
       <button type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" onclick="checkAllBoxes()">Check/uncheck all mappings</button>
-      
+
       <select class="form-control" style="width: 7%;" ng-model="selectedLang" ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
 
       <br/>
@@ -89,20 +89,18 @@ for the ont1 and ont2 ontology alignment -->
                       vérouille (change couleur) et seulement lui s'affiche. Reclique dessus pour dévérouiller -->
                       <!-- Add a popover on entities to display more details -->
                       <td ng-mouseenter="changeDetails()">
+                        <!-- Remember on how to make a little window that show when mouseover
                         <div title="Source Entity details" data-toggle="popover" data-html="true" data-placement="right"
-                             data-trigger="hover" data-entity="{{alignment.entity1}}">
-                          <input type="text" id="{{alignment.entity1.id}}" name="entity1" value="{{alignment.entity1.id}}" 
-                                 style="display: none;" readonly>{{alignment.entity1.label[selectedLang] || getFirstElement(alignment.entity1.label) || alignment.entity1.id}}</input>
-                          <!-- Display selectedLang, if not available take the first label in the list, then the id -->
-                        </div>
+                             data-trigger="hover" data-entity="{{alignment.entity1}}"-->
+                        <input type="text" id="{{alignment.entity1.id}}" name="entity1" value="{{alignment.entity1.id}}" 
+                               style="display: none;" readonly>{{alignment.entity1.label[selectedLang]|| getFirstElement(alignment.entity1.label) || alignment.entity1.id}}</input>
+                        <!-- Display selectedLang, if not available take the first label in the list, then the id -->
+                        <!--/div-->
                       </td>
 
                       <td>
-                        <div title="Target Entity details" data-toggle="popover" data-html="true" data-placement="right" 
-                             data-trigger="hover" data-entity="{{alignment.entity2}}">
-                          <input type="text" id="{{alignment.entity2.id}}" name="entity2" value="{{alignment.entity2.id}}" 
-                                 style="display: none;" readonly>{{alignment.entity2.label[selectedLang] || getFirstElement(alignment.entity2.label) || alignment.entity2.id}}</input>
-                        </div>
+                        <input type="text" id="{{alignment.entity2.id}}" name="entity2" value="{{alignment.entity2.id}}" 
+                               style="display: none;" readonly>{{alignment.entity2.label[selectedLang]|| getFirstElement(alignment.entity2.label) || alignment.entity2.id}}</input>
                       </td>
 
                       <td>
