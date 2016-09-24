@@ -79,8 +79,6 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
   });
 
   var printHr = false;
-  console.log("voooooila");
-  console.log(orderedEntities);
   for (var attr in orderedEntities) {
     if (printHr) {
       htmlString = htmlString + "<hr style='margin: 1% 10%;'>";
@@ -142,7 +140,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
         $scope.detailsLocked = true;
         if ($scope.lastSelected) {
           var selected = this.selected;
-          console.log("lalala");
           $scope.lastSelected.selected = "";
         }
         
@@ -229,7 +226,7 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
     alignments.push(alignToAdd);
   }
 
-  console.log("alignments");
-  console.log(alignments);
+  //console.log("alignments");
+  //console.log(alignments);
   return alignments;
 } 
