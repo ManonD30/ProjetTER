@@ -2,7 +2,6 @@ package fr.lirmm.opendata.yamgui;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,14 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.semanticweb.owl.align.AlignmentException;
 
-import com.hp.hpl.jena.ontology.OntClass;
-import com.hp.hpl.jena.ontology.OntModel;
-import com.hp.hpl.jena.ontology.OntModelSpec;
-import com.hp.hpl.jena.ontology.OntProperty;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
 import static fr.lirmm.opendata.yamgui.Matcher.processRequest;
 
-import java.io.ByteArrayInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -82,7 +75,7 @@ public class Result extends HttpServlet {
     } catch (Exception e) {
       request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
       System.out.println("bug matcher: " + e.getMessage());
-      this.getServletContext()    // send response
+      this.getServletContext() // send response
               .getRequestDispatcher("/WEB-INF/validation.jsp")
               .forward(request, response);
     }
@@ -109,7 +102,7 @@ public class Result extends HttpServlet {
       alignmentJson = fileHandler.parseOaeiAlignmentFormat(matcherResult);
     } catch (AlignmentException ex) {
       request.setAttribute("errorMessage", "Error when loading OAEI alignment results: " + ex.getMessage());
-      this.getServletContext()    // send response
+      this.getServletContext() // send response
               .getRequestDispatcher("/WEB-INF/validation.jsp")
               .forward(request, response);
     }
@@ -121,9 +114,12 @@ public class Result extends HttpServlet {
     JSONObject loadedOnto1 = null;
     JSONObject loadedOnto2 = null;
     try {
-      loadedOnto1 = fileHandler.loadOwlapiOntoFromRequest(request, "1");
-      loadedOnto2 = fileHandler.loadOwlapiOntoFromRequest(request, "2");
-    } catch (OWLOntologyCreationException ex) {
+      // Old way, using OWLAPI:
+      //loadedOnto1 = fileHandler.loadOwlapiOntoFromRequest(request, "1");
+      //loadedOnto2 = fileHandler.loadOwlapiOntoFromRequest(request, "2");
+      loadedOnto1 = fileHandler.jenaLoadOnto(request, "1");
+      loadedOnto2 = fileHandler.jenaLoadOnto(request, "2");
+    } catch (Exception ex) {
       Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
     }
     request.setAttribute("ont1", loadedOnto1);
