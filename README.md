@@ -2,6 +2,12 @@
 
 Using Apache Tomcat 7 and Java 8
 
+## Copy new war to tomcat docker
+
+```
+docker cp yam.war yam_tomcat:/usr/local/tomcat/webapps/ROOT.war
+```
+
 ## Install Tomcat
 
 * On Ubuntu
