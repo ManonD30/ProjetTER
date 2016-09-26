@@ -70,6 +70,12 @@
       <artifactId>jersey-media-multipart</artifactId>
       <version>2.22.1</version>
     </dependency>
+    
+    <dependency>
+      <groupId>org.semanticweb.skos</groupId>
+      <artifactId>skos-api</artifactId>
+      <version>3.1</version>
+    </dependency>
 
     <!-- http://mvnrepository.com/artifact/edu.stanford.protege/org.semanticweb.owl.owlapi -->
     <!--mvn install:install-file 
@@ -82,8 +88,8 @@
       <groupId>org.semanticweb.owl</groupId>
       <artifactId>org.semanticweb.owl.owlapi</artifactId>
       <version>3.4.4</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/align.jar</systemPath>
+      <!--scope>system</scope>
+      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/align.jar</systemPath-->
       <!--systemPath>${project.basedir}/lib/owlapi-bin.jar</systemPath-->
     </dependency>
     <!-- Dependency for Yam++2012 -->
@@ -99,8 +105,8 @@
       <groupId>MainYam</groupId>
       <artifactId>main</artifactId>
       <version>1.0</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/Main2.jar</systemPath>
+      <!--scope>system</scope>
+      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/Main2.jar</systemPath-->
       <!--systemPath>${project.basedir}/lib/YamAPI.jar</systemPath-->
     </dependency>
     <!--
@@ -114,8 +120,8 @@
       <groupId>fr.inrialpes.exmo</groupId>
       <artifactId>align</artifactId>
       <version>1.0</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/procalign.jar</systemPath>
+      <!--scope>system</scope>
+      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/procalign.jar</systemPath-->
       <!--systemPath>${project.basedir}/lib/procalign.jar</systemPath-->
     </dependency>
   </dependencies>
@@ -188,7 +194,8 @@
           </executions>
       </plugin-->
 
-      <!--plugin>
+      <plugin>
+        <!-- When package, it will put all local jar dependencies in the jar -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
         <version>2.3</version>
@@ -205,7 +212,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin-->
+      </plugin>
     </plugins>
   </build>
 
