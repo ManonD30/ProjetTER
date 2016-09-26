@@ -111,8 +111,18 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.langSelect = {"en": "en", "fr": "fr"};
 
   // Little function to get the first element of an object (used to get first label if selectedLang not available
-  $scope.getFirstElement = function (obj) {
-    return obj[Object.keys(obj)[0]];
+  $scope.getEntityLabel = function (entity, selectedLang) {
+    if (entity.label !== undefined) {
+      if (entity.label[selectedLang]) {
+        console.log("selectedd: " + entity.label[selectedLang]);
+        return entity.label[selectedLang];
+      } else if (entity.label[Object.keys(entity.label)[0]]) {
+        console.log("entityy first label: " + entity.label[Object.keys(entity.label)[0]]);
+        return entity.label[Object.keys(entity.label)[0]];
+      }
+    }
+    console.log("entityy: " + entity.id);
+    return entity.id;
   };
 
   //Range slider config
@@ -127,6 +137,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   };
 
   $scope.changeDetails = function (clickedOn) {
+    console.log(this.alignment);
     if ($scope.detailsLocked == false || clickedOn == true) {
       //$scope.selected = this.alignment;
       //$scope.selected = '';
@@ -142,7 +153,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
           var selected = this.selected;
           $scope.lastSelected.selected = "";
         }
-        
+
         // Remove selected if click again on selected row
         if (selected === "selected") {
           this.selected = "";
