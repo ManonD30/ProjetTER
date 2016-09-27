@@ -514,10 +514,18 @@ public class YamFileHandler {
       // Read in TTL if first parsing failed (it waits for RDF/XML)
       model.read(skosFile.toURI().toString(), null, "TTL");
     }
-
+    
     // Add rdf:type owl:Ontology to the namespace URI
     if (model.getNsPrefixURI("") != null) {
       model.createResource(model.getNsPrefixURI("")).addProperty(RDF.type, OWL.Ontology);
+    } else if (model.listSubjectsWithProperty(RDF.type, model.getResource("http://www.w3.org/2004/02/skos/core#ConceptScheme")).hasNext()) {
+      ResIterator skosSchemeIterator = model.listSubjectsWithProperty(RDF.type, model.getResource("http://www.w3.org/2004/02/skos/core#ConceptScheme"));
+      while (skosSchemeIterator.hasNext()) {
+      Resource cls = skosSchemeIterator.next();
+      if (cls != null) {
+        cls.addProperty(RDF.type, OWL.Ontology);
+      }
+    }
     } else {
       Property inSchemeProperty = model.getProperty("http://www.w3.org/2004/02/skos/core#inScheme");
       // If no base namespace, then we try to take it from skos:inScheme
