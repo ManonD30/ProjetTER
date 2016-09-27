@@ -2,6 +2,7 @@ package fr.lirmm.opendata.yamgui;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.vocabulary.OWL;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -18,9 +19,26 @@ import org.semanticweb.owl.align.AlignmentVisitor;
 import fr.inrialpes.exmo.align.impl.BasicParameters;
 import fr.inrialpes.exmo.align.impl.URIAlignment;
 import fr.inrialpes.exmo.align.impl.renderer.RDFRendererVisitor;
+import java.io.StringReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 public class Download extends HttpServlet {
 
@@ -149,6 +167,7 @@ public class Download extends HttpServlet {
    */
   public static String generateAlignment(ArrayList<HashMap> MapFinal) {
     Alignment alignments = new URIAlignment();
+    String alignmentString = null;
     try {
       alignments.init(new URI("c"), new URI("c"));
       alignments.setLevel("0");
@@ -177,7 +196,6 @@ public class Download extends HttpServlet {
 
         //errorMessage = errorMessage + " SCORE " + score + " ENTITY1 " + entity1 + " ENTITY2 " + entity2 + " RELATION " + relation;
       } catch (Exception e) {
-        // TODO Auto-generated catch block
         errorMessage = errorMessage + " getMessage: " + e.getMessage() + " ERROR: " + e;
         e.printStackTrace();
       }
@@ -192,16 +210,73 @@ public class Download extends HttpServlet {
 
       alignments.render(renderer);
       alignments.clone();
-      String alignmentString = swriter.toString();
+      alignmentString = swriter.toString();
       swriter.flush();
       swriter.close();
       //return alignmentString;
-      return alignmentString;
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
       return "0";
     }
 
+    // We need to iterate the XML file to add the valid field
+    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+    DocumentBuilder docBuilder = null;
+    try {
+      docBuilder = docBuilderFactory.newDocumentBuilder();
+    } catch (ParserConfigurationException ex) {
+      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    InputSource is = new InputSource(new StringReader(alignmentString));
+    org.w3c.dom.Document document = null;
+    try {
+      document = docBuilder.parse(is);
+    } catch (SAXException ex) {
+      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IOException ex) {
+      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    Node rootNode = document.getDocumentElement();
+    rootNode.appendChild(document.createTextNode(OWL.Ontology.toString()));
+            //document.createTextNode("valid")
+            
+    iterateXmlFields(document.getDocumentElement(), document);
+
+    DOMSource domSource = new DOMSource(document);
+    StringWriter writer = new StringWriter();
+    StreamResult result = new StreamResult(writer);
+    TransformerFactory tf = TransformerFactory.newInstance();
+    Transformer transformer = null;
+    try {
+      transformer = tf.newTransformer();
+    } catch (TransformerConfigurationException ex) {
+      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    try {
+      transformer.transform(domSource, result);
+    } catch (TransformerException ex) {
+      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    //return alignmentString;
+    return writer.toString();
+  }
+
+  public static void iterateXmlFields(Node node, org.w3c.dom.Document document) {
+    // do something with the current node instead of System.out
+    System.out.println(node.getNodeName());
+    NodeList nodeList = node.getChildNodes();
+    for (int i = 0; i < nodeList.getLength(); i++) {
+      Node currentNode = nodeList.item(i);
+      if (currentNode.getNodeName().equals("cell")) {
+        currentNode.appendChild(document.createTextNode("valid"));
+        document.adoptNode(currentNode);
+      }
+      if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
+        //calls this method for all the children which is Element
+        iterateXmlFields(currentNode, document);
+      }
+    }
   }
 }
