@@ -14,6 +14,7 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.rdf.model.impl.StatementImpl;
 import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.RDFS;
 import edu.uci.ics.jung.io.graphml.KeyMap;
 import fr.inrialpes.exmo.align.parser.AlignmentParser;
 import static fr.lirmm.opendata.yamgui.Result.round;
@@ -32,6 +33,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
@@ -532,11 +534,12 @@ public class YamFileHandler {
   }
 
   /**
-   * Convert Skos Ontology to OWL. We are adding the rdf:type owl:Class to every 
-   * skos:Concept. And skos:broader/skos:narrower WILL be replaced by rdfs:subClassOf
+   * Convert Skos Ontology to OWL. We are adding the rdf:type owl:Class to every
+   * skos:Concept. And skos:broader/skos:narrower are replaced by rdfs:subClassOf
+   *
    * @param skosFile
    * @param outputPath
-   * @return
+   * @return String
    */
   public static String convertSkosToOwl(File skosFile, String outputPath) {
     Model model = ModelFactory.createDefaultModel();
@@ -548,15 +551,41 @@ public class YamFileHandler {
       model.read(skosFile.toURI().toString(), null, "TTL");
     }
 
-    ResIterator skosConcepts = model.listSubjectsWithProperty(RDF.type, model.getResource("http://www.w3.org/2004/02/skos/core#Concept"));
-    // get all owl:Class and skos:Concept and add it to the class JSON object
-    while (skosConcepts.hasNext()) {
-      JSONObject clsJObject = new JSONObject();
-      Resource cls = skosConcepts.next();
+    ResIterator skosConceptsIterator = model.listSubjectsWithProperty(RDF.type, model.getResource("http://www.w3.org/2004/02/skos/core#Concept"));
+    // Iterate over skos:Concept to add the rdf:type owl:Class to all concepts
+    while (skosConceptsIterator.hasNext()) {
+      Resource cls = skosConceptsIterator.next();
       if (cls != null) {
         cls.addProperty(RDF.type, OWL.Class);
       }
     }
+// CHANGE IT to iterate over skos:broader properties
+    ResIterator skosBroaderIterator = model.listSubjectsWithProperty(RDF.type, model.getResource("http://www.w3.org/2004/02/skos/core#Concept"));
+    // Iterate over skos:borader properties to add the equivalent with the rdfs:subClassOf property
+    while (skosBroaderIterator.hasNext()) {
+      List<Resource> broaderResources = new ArrayList();
+      List<Resource> narrowerResources = new ArrayList();
+      Resource cls = skosBroaderIterator.next();
+      if (cls != null) {
+        StmtIterator stmts = cls.listProperties();
+        while (stmts.hasNext()) {
+          // the iterator returns statements: [subject, predicate, object]
+          StatementImpl tripleArray = (StatementImpl) stmts.next();
+          if (tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#broader")) {
+            broaderResources.add(tripleArray.getResource());
+          } else if (tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#narrower")) {
+            narrowerResources.add(tripleArray.getResource());
+          }
+        }
+        for (Resource broaderResource: broaderResources) {
+          cls.addProperty(RDFS.subClassOf, broaderResource);
+        }
+        for (Resource narrowerResource: narrowerResources) {
+          narrowerResource.addProperty(RDFS.subClassOf, cls);
+        }
+      }
+    }
+
     try {
       model.write(new FileOutputStream(outputPath), "RDF/XML");
     } catch (FileNotFoundException ex) {
