@@ -550,7 +550,7 @@ public class YamFileHandler {
       }
     }
 // CHANGE IT to iterate over skos:broader properties
-    ResIterator skosBroaderIterator = model.listSubjectsWithProperty(RDF.type, model.getResource("http://www.w3.org/2004/02/skos/core#Concept"));
+    ResIterator skosBroaderIterator = model.listSubjectsWithProperty(model.getProperty("http://www.w3.org/2004/02/skos/core#broader"));
     // Iterate over skos:borader properties to add the equivalent with the rdfs:subClassOf property
     while (skosBroaderIterator.hasNext()) {
       List<Resource> broaderResources = new ArrayList();
