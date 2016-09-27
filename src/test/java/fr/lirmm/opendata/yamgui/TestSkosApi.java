@@ -66,8 +66,8 @@ public class TestSkosApi {
     SKOSDataset iamlDataset = manager.loadDataset(new File("src/test/resources/iaml.ttl").toURI());
     SKOSDataset mimoDataset = manager.loadDataset(new File("src/test/resources/MIMO.xml").toURI());
     
-    YamFileHandler.convertSkosToOwl(new File("src/test/resources/MIMO.xml"), "/tmp/yam2013/teeest1.owl");
-    YamFileHandler.convertSkosToOwl(new File("src/test/resources/iaml.ttl"), "/tmp/yam2013/teeest2.owl");
+    YamFileHandler.convertSkosToOwl(new File("src/test/resources/MIMO.xml"), "/tmp/yam2013/teeest1.owl", "RDF/XML");
+    YamFileHandler.convertSkosToOwl(new File("src/test/resources/iaml.ttl"), "/tmp/yam2013/teeest2.owl", "RDF/XML");
     /*
     SKOStoOWLConverter skosConverter = new SKOStoOWLConverter();
     OWLOntology convertedOwlOnto = skosConverter.getAsOWLOntology(mimoDataset);

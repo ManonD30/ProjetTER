@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -535,13 +536,14 @@ public class YamFileHandler {
 
   /**
    * Convert Skos Ontology to OWL. We are adding the rdf:type owl:Class to every
-   * skos:Concept. And skos:broader/skos:narrower are replaced by rdfs:subClassOf
+   * skos:Concept. And skos:broader/skos:narrower are replaced by
+   * rdfs:subClassOf
    *
    * @param skosFile
    * @param outputPath
    * @return String
    */
-  public static String convertSkosToOwl(File skosFile, String outputPath) {
+  public static String convertSkosToOwl(File skosFile, String outputPath, String outputFormat) {
     Model model = ModelFactory.createDefaultModel();
 
     try {
@@ -577,21 +579,27 @@ public class YamFileHandler {
             narrowerResources.add(tripleArray.getResource());
           }
         }
-        for (Resource broaderResource: broaderResources) {
+        for (Resource broaderResource : broaderResources) {
           cls.addProperty(RDFS.subClassOf, broaderResource);
         }
-        for (Resource narrowerResource: narrowerResources) {
+        for (Resource narrowerResource : narrowerResources) {
           narrowerResource.addProperty(RDFS.subClassOf, cls);
         }
       }
     }
 
+    String owlOntologyString = null;
     try {
-      model.write(new FileOutputStream(outputPath), "RDF/XML");
+      StringWriter out = new StringWriter();
+      model.write(out, outputFormat);
+      owlOntologyString = out.toString();
+      if (outputPath != null) {
+        model.write(new FileOutputStream(outputPath), outputFormat);
+      }
     } catch (FileNotFoundException ex) {
       Logger.getLogger(YamFileHandler.class.getName()).log(Level.SEVERE, null, ex);
     }
-    return null;
+    return owlOntologyString;
   }
 
   public static String getUriWithPrefix(String uri, java.util.Map<String, String> prefixMap) {
