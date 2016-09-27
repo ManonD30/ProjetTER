@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.URI;
 import java.util.Date;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -20,6 +21,12 @@ import org.apache.commons.lang.RandomStringUtils;
 
 import mainyam.MainProgram;
 import org.apache.commons.io.FileUtils;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.skos.SKOSDataset;
+import org.semanticweb.skosapibinding.SKOSManager;
+import org.semanticweb.skosapibinding.SKOStoOWLConverter;
 
 @WebServlet("/rest/matcher")
 public class Matcher extends HttpServlet {
@@ -124,7 +131,19 @@ public class Matcher extends HttpServlet {
 
     String storagePath1 = fileHandler.uploadFile("1", subDirName, request);
     String storagePath2 = fileHandler.uploadFile("2", subDirName, request);
-    
+
+    // First create a new SKOSManager
+    /*SKOSManager manager = new SKOSManager();
+
+    // use the manager to load a SKOS vocabulary from a URI (either physical or on the web)
+    SKOSDataset skosDataset = manager.loadDataset(URI.create(storagePath1));
+    SKOStoOWLConverter skosConverter = new SKOStoOWLConverter();
+    OWLOntology convertedOwlOnto = skosConverter.getAsOWLOntology(skosDataset);
+    OWLOntologyManager owlManager = OWLManager.createOWLOntologyManager();
+    owlManager.saveOntology(convertedOwlOnto, new FileOutputStream("/tmp/yam2013/teeest1.owl"));*/
+
+    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, null, "yeeeeeah");
+
     // Check if file is bigger than 3MB
     int maxFileSize = 3;
     if (fileHandler.getFileSize(storagePath1) >= maxFileSize || fileHandler.getFileSize(storagePath2) >= maxFileSize) {

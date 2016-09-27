@@ -22,9 +22,9 @@ import static org.junit.Assert.*;
  *
  * @author emonet
  */
-public class YamTest {
+public class TestYam {
 
-  public YamTest() {
+  public TestYam() {
   }
 
   @BeforeClass

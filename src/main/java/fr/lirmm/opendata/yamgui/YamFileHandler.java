@@ -12,13 +12,16 @@ import com.hp.hpl.jena.rdf.model.ResIterator;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.rdf.model.impl.StatementImpl;
+import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
 import edu.uci.ics.jung.io.graphml.KeyMap;
 import fr.inrialpes.exmo.align.parser.AlignmentParser;
 import static fr.lirmm.opendata.yamgui.Result.round;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -526,6 +529,40 @@ public class YamFileHandler {
     fullJObject.put("entities", entitiesJObject);
 
     return fullJObject;
+  }
+
+  /**
+   * Convert Skos Ontology to OWL. We are adding the rdf:type owl:Class to every 
+   * skos:Concept. And skos:broader/skos:narrower WILL be replaced by rdfs:subClassOf
+   * @param skosFile
+   * @param outputPath
+   * @return
+   */
+  public static String convertSkosToOwl(File skosFile, String outputPath) {
+    Model model = ModelFactory.createDefaultModel();
+
+    try {
+      model.read(skosFile.toURI().toString());
+    } catch (Exception e) {
+      // Read in TTL if first parsing failed (it waits for RDF/XML)
+      model.read(skosFile.toURI().toString(), null, "TTL");
+    }
+
+    ResIterator skosConcepts = model.listSubjectsWithProperty(RDF.type, model.getResource("http://www.w3.org/2004/02/skos/core#Concept"));
+    // get all owl:Class and skos:Concept and add it to the class JSON object
+    while (skosConcepts.hasNext()) {
+      JSONObject clsJObject = new JSONObject();
+      Resource cls = skosConcepts.next();
+      if (cls != null) {
+        cls.addProperty(RDF.type, OWL.Class);
+      }
+    }
+    try {
+      model.write(new FileOutputStream(outputPath), "TTL");
+    } catch (FileNotFoundException ex) {
+      Logger.getLogger(YamFileHandler.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return null;
   }
 
   public static String getUriWithPrefix(String uri, java.util.Map<String, String> prefixMap) {
