@@ -558,7 +558,7 @@ public class YamFileHandler {
       }
     }
     try {
-      model.write(new FileOutputStream(outputPath), "TTL");
+      model.write(new FileOutputStream(outputPath), "RDF/XML");
     } catch (FileNotFoundException ex) {
       Logger.getLogger(YamFileHandler.class.getName()).log(Level.SEVERE, null, ex);
     }
