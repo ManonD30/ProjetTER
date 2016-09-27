@@ -10,9 +10,9 @@ package fr.lirmm.opendata.yamgui;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import mainyam.MainProgram;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.skos.SKOSCreationException;
 import org.semanticweb.skos.SKOSDataset;
 import org.semanticweb.skosapibinding.SKOSManager;
-import org.semanticweb.skosapibinding.SKOStoOWLConverter;
 
 /**
  *
@@ -69,9 +68,12 @@ public class TestSkosApi {
     // use the manager to load a SKOS vocabulary from a URI (either physical or on the web)
     SKOSDataset iamlDataset = manager.loadDataset(new File("src/test/resources/iaml.ttl").toURI());
     SKOSDataset mimoDataset = manager.loadDataset(new File("src/test/resources/MIMO.xml").toURI());
+    
+    File outputFile1 = new File("/tmp/yam2013/teeest1.owl");
+    File outputFile2 = new File("/tmp/yam2013/teeest2.owl");
 
-    YamFileHandler.convertSkosToOwl(new File("src/test/resources/MIMO.xml"), "/tmp/yam2013/teeest1.owl", "RDF/XML");
-    //YamFileHandler.convertSkosToOwl(new File("src/test/resources/iaml.ttl"), "/tmp/yam2013/teeest2.owl", "RDF/XML");
+    YamFileHandler.convertSkosToOwl(new File("src/test/resources/MIMO.xml"), outputFile1, "RDF/XML");
+    YamFileHandler.convertSkosToOwl(new File("src/test/resources/iaml.ttl"), outputFile2, "RDF/XML");
 
     OWLOntologyManager owlManager;
     OWLOntology ontology;
@@ -80,12 +82,14 @@ public class TestSkosApi {
     // Load the generated OWL ontology
     owlManager = OWLManager.createOWLOntologyManager();
     try {
-      ontology = owlManager.loadOntology(IRI.create(new File("/tmp/yam2013/teeest1.owl").toURI()));
+      ontology = owlManager.loadOntology(IRI.create(outputFile1.toURI()));
       owlManager.saveOntology(ontology, new FileOutputStream("/tmp/yam2013/naaaan.owl"));
       //reasoner = new StructuralReasoner(ontology, new SimpleConfiguration(), BufferingMode.NON_BUFFERING);
     } catch (OWLOntologyCreationException ex) {
       Logger.getLogger(TestSkosApi.class.getName()).log(Level.SEVERE, null, ex);
     }
+    
+    //MainProgram.match(outputFile1.getAbsolutePath(), outputFile2.getAbsolutePath(), "/tmp/yam2013/yam_matcher_results.rdf");
 
     /*
     SKOStoOWLConverter skosConverter = new SKOStoOWLConverter();

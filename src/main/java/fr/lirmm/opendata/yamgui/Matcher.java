@@ -133,8 +133,8 @@ public class Matcher extends HttpServlet {
     String storagePath2 = fileHandler.uploadFile("2", subDirName, request);
     
     Logger.getLogger(Matcher.class.getName()).log(Level.INFO, storagePath1);
-    YamFileHandler.convertSkosToOwl(new File(storagePath1), storagePath1, "RDF/XML");
-    YamFileHandler.convertSkosToOwl(new File(storagePath2), storagePath2, "RDF/XML");
+    YamFileHandler.convertSkosToOwl(new File(storagePath1), new File(storagePath1), "RDF/XML");
+    YamFileHandler.convertSkosToOwl(new File(storagePath2), new File(storagePath2), "RDF/XML");
     // First create a new SKOSManager
     /*SKOSManager manager = new SKOSManager();
 
