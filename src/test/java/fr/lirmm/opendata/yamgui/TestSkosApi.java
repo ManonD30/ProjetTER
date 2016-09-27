@@ -67,7 +67,8 @@ public class TestSkosApi {
 
     // use the manager to load a SKOS vocabulary from a URI (either physical or on the web)
     SKOSDataset iamlDataset = manager.loadDataset(new File("src/test/resources/iaml.ttl").toURI());
-    SKOSDataset mimoDataset = manager.loadDataset(new File("src/test/resources/MIMO.xml").toURI());
+    //SKOSDataset mimoDataset = manager.loadDataset(new File("src/test/resources/MIMO.xml").toURI());
+    SKOSDataset mimoDataset = manager.loadDataset(new File("src/test/resources/rameau.ttl").toURI());
     
     File outputFile1 = new File("/tmp/yam2013/teeest1.owl");
     File outputFile2 = new File("/tmp/yam2013/teeest2.owl");
@@ -89,7 +90,7 @@ public class TestSkosApi {
       Logger.getLogger(TestSkosApi.class.getName()).log(Level.SEVERE, null, ex);
     }
     
-    //MainProgram.match(outputFile1.getAbsolutePath(), outputFile2.getAbsolutePath(), "/tmp/yam2013/yam_matcher_results.rdf");
+    MainProgram.match(outputFile1.getAbsolutePath(), outputFile2.getAbsolutePath(), "/tmp/yam2013/yam_matcher_results.rdf");
 
     /*
     SKOStoOWLConverter skosConverter = new SKOStoOWLConverter();
