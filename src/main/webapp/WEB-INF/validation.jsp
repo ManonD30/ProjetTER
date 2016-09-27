@@ -116,7 +116,13 @@ for the ont1 and ont2 ontology alignment -->
                       </td>
                       <td><input type="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" style="display: none;" readonly>{{alignment.measure}}</input></td>
                       <td class=tdSmall style="word-wrap: break-word; text-align: center;">
+                        <!--input type='checkbox' name='checkbox' class="checkbox" value='{{alignment.index}}' id='{{alignment.index}}' checked/-->
                         <input type='checkbox' name='checkbox' class="checkbox" value='{{alignment.index}}' id='{{alignment.index}}' checked/>
+                        <select id="{{alignment.valid}}" name="valid" class="form-control">
+                          <option value="waiting">Waiting...</option>
+                          <option value="valid">Valid</option>
+                          <option value="notvalid">Not valid</option>
+                        </select>
                       </td>
                     </tr>
                   </tbody>

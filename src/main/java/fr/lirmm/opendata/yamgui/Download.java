@@ -20,6 +20,7 @@ import fr.inrialpes.exmo.align.impl.URIAlignment;
 import fr.inrialpes.exmo.align.impl.renderer.RDFRendererVisitor;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class Download extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -47,19 +48,21 @@ public class Download extends HttpServlet {
           String[] entity2 = request.getParameterValues("entity2");
           String[] relation = request.getParameterValues("relation");
           String[] measure = request.getParameterValues("measure");
+          String[] valid = request.getParameterValues("valid");
           
           String alignmentString = null;
           // Put all checked mappings in an Array of Hashtable
           String[] checkbox = request.getParameterValues("checkbox");
           if (checkbox != null && indexArray != null) {
-            for (String c : checkbox) {
+            for (String i : indexArray) {
                     // Get the index in param arrays of the validate mappings
-                    int paramIndex = Arrays.asList(indexArray).indexOf(c);
+                    int paramIndex = Arrays.asList(indexArray).indexOf(i);
                     hashMapping = new HashMap<>();
                     hashMapping.put("entity1", entity1[paramIndex]);
                     hashMapping.put("entity2", entity2[paramIndex]);
                     hashMapping.put("relation", relation[paramIndex]);
                     hashMapping.put("measure", measure[paramIndex]);
+                    hashMapping.put("valid", valid[paramIndex]);
                     arrayMappings.add(hashMapping);
             }
             // Generate the alignment string
@@ -153,6 +156,7 @@ public class Download extends HttpServlet {
 			e.printStackTrace();
 		}
                 String errorMessage = "";
+                List<String> validArray = new ArrayList();
 		for (int i = 0; i < MapFinal.size(); i++) {
                         HashMap<String, String> hashMapping = null;
 			hashMapping = MapFinal.get(i);
@@ -163,9 +167,11 @@ public class Download extends HttpServlet {
 				double score = Double.parseDouble(hashMapping.get("measure"));
 
 				String relation = hashMapping.get("relation");
+                                validArray.add(hashMapping.get("valid"));
 
-				// add to alignment
-				alignments.addAlignCell(entity1, entity2, relation, score);
+                                // add to alignment
+                                alignments.addAlignCell(entity1, entity2, relation, score);
+
                                 //errorMessage = errorMessage + " SCORE " + score + " ENTITY1 " + entity1 + " ENTITY2 " + entity2 + " RELATION " + relation;
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -193,5 +199,7 @@ public class Download extends HttpServlet {
 			e.printStackTrace();
 			return "0";
 		}
+                
+                
 	}
 }
