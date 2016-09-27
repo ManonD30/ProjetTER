@@ -10,6 +10,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.ResIterator;
 import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.rdf.model.impl.StatementImpl;
 import com.hp.hpl.jena.vocabulary.OWL;
@@ -450,7 +451,7 @@ public class YamFileHandler {
             }
 
             //String objectString = tripleArray.getObject().toString();
-            String objectString = "nooop";
+            String objectString = "No object";
             String objectType = "No object";
             JSONObject resourceJObject = new JSONObject();
 
@@ -460,9 +461,6 @@ public class YamFileHandler {
               resourceJObject.put("type", objectType);
               resourceJObject.put("value", objectString);
               resourceJObject.put("lang", tripleArray.getLiteral().getLanguage());
-              myLog.log(Level.INFO, "predicate: " + predicateString);
-              myLog.log(Level.INFO, "literal: " + objectString);
-              myLog.log(Level.INFO, "lang: " + tripleArray.getLiteral().getLanguage());
             } else {
               objectString = getUriWithPrefix(tripleArray.getObject().toString(), prefixMap);
               objectType = "uri";
@@ -470,50 +468,13 @@ public class YamFileHandler {
               resourceJObject.put("value", objectString);
             }
 
-            //Object: predicate: [{"type": "literal", "fr": "bonjour", "en": "hello"}]
-            // Add type ? {"type": "literal", "fr": "bonjour", "en": "hello"}
-            // Add type ? {"type": "uri", "value": "http://myuri.org/"}
-            // Add type ? {"type": "integer", "value": "13"}
-            // Add type ? {"type": "float", "value": "13.2"}
-            // Add type ? {"type": "date", "value": "13-11-1991"}
-            // Replace URI with namespace prefix
-            /*
-            { namespaces: {"rdfs": "http://rdfs.org/"},
-              entities: {"http://entity1.org/": 
-                            {"id": [{"type": "uri", "value": "http://entity1.org/"}],
-                             "http://rdfs.org/label": [{"type": "literal", "fr": "bonjour", "en": "hello"}]
-                             }
-                        }
-            }
-            
-             */
             JSONArray objectsJArray = new JSONArray();
-            myLog.log(Level.INFO, "clsJObject: " + clsJObject.toString());
-            myLog.log(Level.INFO, "predicateString: " + predicateString);
             // ATTENTION doit être converti en URI avec prefix (i.e.: skos:prefLabel) car les predicats
-            // dans clsJObject sont convertis
+            // dans clsJObject sont convertiss
             if (clsJObject.containsKey(predicateString)) {
-              myLog.log(Level.INFO, "DEDANS");
               objectsJArray = (JSONArray) clsJObject.get(predicateString);
             }
-            myLog.log(Level.INFO, "objectArray: " + objectsJArray.toString());
-            /*for (String key : prefixKeys) {
-              // To replace namespaces by prefix in URI
-              if (predicateString.contains(prefixMap.get(key))) {
-                predicateString = predicateString.replaceAll(prefixMap.get(key), key + ":");
-              }
-              if (tripleArray.getObject().isURIResource()) {
-                if (objectString.contains(prefixMap.get(key))) {
-                  objectString = objectString.replaceAll(prefixMap.get(key), key + ":");
-                }
-              } else if (tripleArray.getObject().isLiteral()) {
-                //objectString = tripleArray.getLiteral().getLexicalForm();
-                objectString = tripleArray.getLiteral().toString();
-              }
-            }*/
             // Add predicate and object to class JSON object
-            //clsJObject.put(predicateString, objectString);
-            //clsJObject.put(predicateString, resourceJObject);
             objectsJArray.add(resourceJObject);
             clsJObject.put(predicateString, objectsJArray);
           }
@@ -552,6 +513,13 @@ public class YamFileHandler {
       // Read in TTL if first parsing failed (it waits for RDF/XML)
       model.read(skosFile.toURI().toString(), null, "TTL");
     }
+
+    //Property hasName = ResourceFactory.createProperty(yourNamespace, "hasName"); // hasName property
+    /*Resource owlOntologyResource = model.createResource(RDF.);
+    Resource instance2 = model.createResource(instance2Uri);
+
+    // Create statements
+    owlOntologyResource.addProperty(RDF.type, class1); // Classification of instance1*/
 
     ResIterator skosConceptsIterator = model.listSubjectsWithProperty(RDF.type, model.getResource("http://www.w3.org/2004/02/skos/core#Concept"));
     // Iterate over skos:Concept to add the rdf:type owl:Class to all concepts

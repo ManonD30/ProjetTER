@@ -131,7 +131,10 @@ public class Matcher extends HttpServlet {
 
     String storagePath1 = fileHandler.uploadFile("1", subDirName, request);
     String storagePath2 = fileHandler.uploadFile("2", subDirName, request);
-
+    
+    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, storagePath1);
+    YamFileHandler.convertSkosToOwl(new File(storagePath1), storagePath1, "RDF/XML");
+    YamFileHandler.convertSkosToOwl(new File(storagePath2), storagePath2, "RDF/XML");
     // First create a new SKOSManager
     /*SKOSManager manager = new SKOSManager();
 
@@ -142,7 +145,7 @@ public class Matcher extends HttpServlet {
     OWLOntologyManager owlManager = OWLManager.createOWLOntologyManager();
     owlManager.saveOntology(convertedOwlOnto, new FileOutputStream("/tmp/yam2013/teeest1.owl"));*/
 
-    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, null, "yeeeeeah");
+    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "yeeeeeah");
 
     // Check if file is bigger than 3MB
     int maxFileSize = 3;
