@@ -82,16 +82,15 @@ for the ont1 and ont2 ontology alignment -->
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText" 
-                        ng-if="alignment.measure >= minRangeSlider.minValue / 100 && alignment.measure <= minRangeSlider.maxValue / 100"
-                        ng-click="changeDetails(true)" class="{{selected}}" style="cursor: pointer; cursor: hand;">
-                      <!--td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td-->
-                      <td><input type="text" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
+                    <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText" class="{{selected}}"
+                        ng-if="alignment.measure >= minRangeSlider.minValue / 100 && alignment.measure <= minRangeSlider.maxValue / 100">
+                      
+                      <!-- Change details div with selected entities details when mouseover or click -->
+                      <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
+                        <input type="text" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input>
+                      </td>
 
-                      <!-- ATTENTION IDEE : affichage details au mouse over des rows. Si on clique sur un row, on le 
-                      vérouille (change couleur) et seulement lui s'affiche. Reclique dessus pour dévérouiller -->
-                      <!-- Add a popover on entities to display more details -->
-                      <td ng-mouseenter="changeDetails()">
+                      <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
                         <!-- Remember on how to make a little window that show when mouseover
                         <div title="Source Entity details" data-toggle="popover" data-html="true" data-placement="right"
                              data-trigger="hover" data-entity="{{alignment.entity1}}"-->
@@ -101,10 +100,9 @@ for the ont1 and ont2 ontology alignment -->
                         <!--/div-->
                       </td>
 
-                      <td>
+                      <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
                         <input type="text" id="{{alignment.entity2.id}}" name="entity2" value="{{alignment.entity2.id}}" 
                                style="display: none;" readonly>{{getEntityLabel(alignment.entity2, selectedLang)}}</input>
-                               <!--style="display: none;" readonly>{{alignment.entity2.label[selectedLang] || getFirstElement(alignment.entity2.label) || alignment.entity2.id}}</input-->
                       </td>
 
                       <td>
