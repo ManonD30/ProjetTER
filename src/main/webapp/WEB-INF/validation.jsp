@@ -58,7 +58,6 @@ for the ont1 and ont2 ontology alignment -->
       <br/><br/>
 
       <label style="margin-left: 1%;">Search: <input type="search" ng-model="searchText"></label>
-      <button type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" onclick="checkAllBoxes()">Check/uncheck all mappings</button>
       <br/>
       <label style="margin-left: 1%;">Language:</label>
       <select class="form-control" style="width: 7%;" ng-model="selectedLang" 
