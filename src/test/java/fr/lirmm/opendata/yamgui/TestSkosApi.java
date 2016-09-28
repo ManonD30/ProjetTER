@@ -61,14 +61,13 @@ public class TestSkosApi {
   // public void hello() {}
   @Test
   public void testSkosApi() throws IOException, ClassNotFoundException, SKOSCreationException, OWLOntologyStorageException {
-    
+
     // First create a new SKOSManager
     //SKOSManager manager = new SKOSManager();
     // use the manager to load a SKOS vocabulary from a URI (either physical or on the web)
     //SKOSDataset iamlDataset = manager.loadDataset(new File("src/test/resources/iaml.ttl").toURI());
     //SKOSDataset mimoDataset = manager.loadDataset(new File("src/test/resources/MIMO.xml").toURI());
     //SKOSDataset mimoDataset = manager.loadDataset(new File("src/test/resources/rameau.ttl").toURI());
-
     FileUtils.forceMkdir(new File("/tmp/yam2013"));
     File outputFile1 = new File("/tmp/yam2013/yam_test_rameau.owl");
     File outputFile2 = new File("/tmp/yam2013/yam_test_iaml.owl");
@@ -80,6 +79,10 @@ public class TestSkosApi {
     OWLOntology ontology;
     //OWLReasoner reasoner;
 
+    // Test values
+    boolean testSubClass = false;
+    boolean testRdfsLabel = false;
+
     // Load the generated OWL ontology
     owlManager = OWLManager.createOWLOntologyManager();
     try {
@@ -90,29 +93,33 @@ public class TestSkosApi {
       for (OWLClass cls : ontology.getClassesInSignature()) {
         System.out.println("Class:");
         System.out.println(cls.getIRI());
+
         for (OWLClassExpression subClsExpr : cls.getSubClasses(ontology)) {
           OWLClass subCls = subClsExpr.asOWLClass();
-          System.out.println("SubClass:");
-          System.out.println(subCls.getIRI());
+          // Check for a subClass of a Class to see if well created
+          if (cls.getIRI().toString().equals("http://data.bnf.fr/ark:/12148/cb16688937f") 
+                  && subCls.getIRI().toString().equals("http://data.bnf.fr/ark:/12148/cb16742478j")) {
+            testSubClass = true;
+          }
         }
+        
         for (OWLAnnotation annotation : cls.getAnnotations(ontology)) {
-          System.out.println("cls property and value:");
-          System.out.println(annotation.getProperty());
-          System.out.println(annotation.getValue());
+          // Check for a rdfs:label to see if well created
+          if (cls.getIRI().toString().equals("http://data.bnf.fr/ark:/12148/cb151095953") 
+                  && annotation.getProperty().getIRI().toString().equals("http://www.w3.org/2000/01/rdf-schema#label")
+                  && annotation.getValue().toString().equals("\"Violon électrique\"")) {
+            testRdfsLabel = true;
+          }
         }
       }
-      //reasoner = new StructuralReasoner(ontology, new SimpleConfiguration(), BufferingMode.NON_BUFFERING);
     } catch (OWLOntologyCreationException ex) {
       Logger.getLogger(TestSkosApi.class.getName()).log(Level.SEVERE, null, ex);
     }
 
     //MainProgram.match(outputFile1.getAbsolutePath(), outputFile2.getAbsolutePath(), "/tmp/yam2013/yam_matcher_results.rdf");
 
-    /*
-    SKOStoOWLConverter skosConverter = new SKOStoOWLConverter();
-    OWLOntology convertedOwlOnto = skosConverter.getAsOWLOntology(mimoDataset);
-    OWLOntologyManager owlManager = convertedOwlOnto.getOWLOntologyManager();
-    owlManager.saveOntology(convertedOwlOnto, new FileOutputStream("/tmp/yam2013/teeest1.owl"));*/
     assertTrue(true);
+    assertTrue(testSubClass);
+    assertTrue(testRdfsLabel);
   }
 }
