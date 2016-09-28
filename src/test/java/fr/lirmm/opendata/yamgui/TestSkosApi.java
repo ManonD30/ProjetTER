@@ -68,16 +68,11 @@ public class TestSkosApi {
     //SKOSDataset iamlDataset = manager.loadDataset(new File("src/test/resources/iaml.ttl").toURI());
     //SKOSDataset mimoDataset = manager.loadDataset(new File("src/test/resources/MIMO.xml").toURI());
     //SKOSDataset mimoDataset = manager.loadDataset(new File("src/test/resources/rameau.ttl").toURI());
-    FileUtils.forceMkdir(new File("/tmp/yam2013"));
-    File outputFile1 = new File("/tmp/yam2013/yam_test_rameau.owl");
-    File outputFile2 = new File("/tmp/yam2013/yam_test_iaml.owl");
 
-    String skosRameau = YamFileHandler.convertSkosToOwl(new File("src/test/resources/rameau.ttl"), new File("/tmp/yam2013/canon.xml"), "RDF/XML");
-    String skosIaml = YamFileHandler.convertSkosToOwl(new File("src/test/resources/iaml.ttl"), null, "RDF/XML");
-    FileUtils.writeStringToFile(new File("/tmp/yam2013/pascon.xml"), skosRameau);
+    String skosRameau = YamFileHandler.convertSkosToOwl(new File("src/test/resources/rameau.ttl"), null, "RDF/XML");
+    //String skosIaml = YamFileHandler.convertSkosToOwl(new File("src/test/resources/iaml.ttl"), new File("/tmp/yam2013/iaml.xml"), "RDF/XML");
     OWLOntologyManager owlManager;
     OWLOntology ontology;
-    //OWLReasoner reasoner;
 
     // Test values
     boolean testSubClass = false;
@@ -87,13 +82,7 @@ public class TestSkosApi {
     owlManager = OWLManager.createOWLOntologyManager();
     try {
       ontology = owlManager.loadOntologyFromOntologyDocument(new ByteArrayInputStream(skosRameau.getBytes(StandardCharsets.UTF_8)));
-      //ontology = owlManager.loadOntology(IRI.create(outputFile1.toURI()));
-      // Write to file: 
-      //owlManager.saveOntology(ontology, new FileOutputStream("/tmp/yam2013/naaaan.owl"));
       for (OWLClass cls : ontology.getClassesInSignature()) {
-        System.out.println("Class:");
-        System.out.println(cls.getIRI());
-
         for (OWLClassExpression subClsExpr : cls.getSubClasses(ontology)) {
           OWLClass subCls = subClsExpr.asOWLClass();
           // Check for a subClass of a Class to see if well created
