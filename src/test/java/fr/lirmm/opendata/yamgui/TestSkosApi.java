@@ -62,13 +62,6 @@ public class TestSkosApi {
   @Test
   public void testSkosApi() throws IOException, ClassNotFoundException, SKOSCreationException, OWLOntologyStorageException {
 
-    // First create a new SKOSManager
-    //SKOSManager manager = new SKOSManager();
-    // use the manager to load a SKOS vocabulary from a URI (either physical or on the web)
-    //SKOSDataset iamlDataset = manager.loadDataset(new File("src/test/resources/iaml.ttl").toURI());
-    //SKOSDataset mimoDataset = manager.loadDataset(new File("src/test/resources/MIMO.xml").toURI());
-    //SKOSDataset mimoDataset = manager.loadDataset(new File("src/test/resources/rameau.ttl").toURI());
-
     String skosRameau = YamFileHandler.convertSkosToOwl(new File("src/test/resources/rameau.ttl"), null, "RDF/XML");
     //String skosIaml = YamFileHandler.convertSkosToOwl(new File("src/test/resources/iaml.ttl"), new File("/tmp/yam2013/iaml.xml"), "RDF/XML");
     OWLOntologyManager owlManager;
