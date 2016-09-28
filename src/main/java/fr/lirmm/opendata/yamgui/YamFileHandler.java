@@ -5,6 +5,7 @@
  */
 package fr.lirmm.opendata.yamgui;
 
+import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
@@ -560,9 +561,9 @@ public class YamFileHandler {
         cls.addProperty(RDF.type, OWL.Class);
       }
     }
-// CHANGE IT to iterate over skos:broader properties
+    
     ResIterator skosBroaderIterator = model.listSubjectsWithProperty(model.getProperty("http://www.w3.org/2004/02/skos/core#broader"));
-    // Iterate over skos:borader properties to add the equivalent with the rdfs:subClassOf property
+    // Iterate over skos:broader properties to add the equivalent with the rdfs:subClassOf property
     while (skosBroaderIterator.hasNext()) {
       List<Resource> broaderResources = new ArrayList();
       List<Resource> narrowerResources = new ArrayList();
@@ -583,6 +584,45 @@ public class YamFileHandler {
         }
         for (Resource narrowerResource : narrowerResources) {
           narrowerResource.addProperty(RDFS.subClassOf, cls);
+        }
+      }
+    }
+    
+    ResIterator skosLabelIterator = model.listSubjectsWithProperty(model.getProperty("http://www.w3.org/2004/02/skos/core#prefLabel"));
+    // Iterate over skos:broader properties to add the equivalent with the rdfs:subClassOf property
+    /*while (skosLabelIterator.hasNext()) {
+      List<Literal> labelResources = new ArrayList();
+      Resource cls = skosLabelIterator.next();
+      if (cls != null) {
+        StmtIterator stmts = cls.listProperties();
+        while (stmts.hasNext()) {
+          // the iterator returns statements: [subject, predicate, object]
+          StatementImpl tripleArray = (StatementImpl) stmts.next();
+          if (tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
+            labelResources.add(tripleArray.getLiteral());
+          }
+        }
+        // Add all label resource to rdfs:label
+        for (Literal labelResource : labelResources) {
+          cls.addProperty(RDFS.label, labelResource);
+        }
+      }
+    }*/
+    while (skosLabelIterator.hasNext()) {
+      List<String> labelResources = new ArrayList();
+      Resource cls = skosLabelIterator.next();
+      if (cls != null) {
+        StmtIterator stmts = cls.listProperties();
+        while (stmts.hasNext()) {
+          // the iterator returns statements: [subject, predicate, object]
+          StatementImpl tripleArray = (StatementImpl) stmts.next();
+          if (tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
+            labelResources.add(tripleArray.getString());
+          }
+        }
+        // Add all label resource to rdfs:label
+        for (String labelResource : labelResources) {
+          cls.addProperty(RDFS.label, labelResource);
         }
       }
     }
