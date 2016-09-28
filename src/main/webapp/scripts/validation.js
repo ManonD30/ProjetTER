@@ -10,6 +10,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.ont1.namespaces, $window.ont2.namespaces);
   $scope.detailsLocked = false;
+  $scope.hideValidatedAlignments = false;
 
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
@@ -40,13 +41,35 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       step: 1
     }
   };
+  
+  $scope.hideAlignments = function () {
+    $scope.hideValidatedAlignments = !$scope.hideValidatedAlignments;
+  }
+  
+
+  /**
+   * Generate the ng if condition to manage which rows will be display
+   * @param {type} alignment
+   * @returns {Boolean}
+   */
+  $scope.generateTableNgIf = function (alignment) {
+    if (alignment.measure >= $scope.minRangeSlider.minValue / 100 
+            && alignment.measure <= $scope.minRangeSlider.maxValue / 100) {
+      if ($scope.hideValidatedAlignments == true && alignment.valid != "waiting") {
+        return false;
+      };
+      return true;
+    }
+    return false;
+  }
 
   /**
    * Change the color of the valid select dropdown// Change the color of the valid select dropdown
    * @param {int} elementId
    * @returns {undefined}
    */
-  $scope.changeValidOptionColor = function (elementId) {
+  $scope.changeValidOptionColor = function (alignment) {
+    var elementId = alignment.index;
     if (document.getElementById(elementId).value == "waiting") {
       document.getElementById(elementId).style.background = "#FFA500";
     } else if (document.getElementById(elementId).value == "valid") {
@@ -54,8 +77,9 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     } else if (document.getElementById(elementId).value == "notvalid") {
       document.getElementById(elementId).style.background = "#ff0000";
     }
+    alignment.valid = document.getElementById(elementId).value;
   }
-  
+
   $scope.getColoredDropdownStyle = function (alignment) {
     var styleString = null;
     if (alignment.valid == "waiting") {
@@ -104,6 +128,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     }
   };
 })
+
 /* Remember on how to make a little window that show when mouseover
  .directive('toggle', function () {
  return {

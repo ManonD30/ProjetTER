@@ -58,6 +58,8 @@ for the ont1 and ont2 ontology alignment -->
       <br/><br/>
 
       <label style="margin-left: 1%;">Search: <input type="search" ng-model="searchText"></label>
+      <button type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
+              ng-click="hideAlignments()">Hide validated alignments</button>
       <br/>
       <label style="margin-left: 1%;">Language:</label>
       <select class="form-control" style="width: 7%;" ng-model="selectedLang" 
@@ -82,7 +84,8 @@ for the ont1 and ont2 ontology alignment -->
                   </thead>
                   <tbody>
                     <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText" class="{{selected}}"
-                        ng-if="alignment.measure >= minRangeSlider.minValue / 100 && alignment.measure <= minRangeSlider.maxValue / 100">
+                        ng-if="generateTableNgIf(alignment)">
+                      <!-- TODO: ATTNTION il faudra repasser en mode "tous afficher" au moment de clicker sur download pour bien tous les afficher -->
                       
                       <!-- Change details div with selected entities details when mouseover or click -->
                       <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
@@ -115,7 +118,7 @@ for the ont1 and ont2 ontology alignment -->
                       <td><input type="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" style="display: none;" readonly>{{alignment.measure}}</input></td>
                       <td class=tdSmall style="word-wrap: break-word; text-align: center;">
                         <!--input type='checkbox' name='checkbox' class="checkbox" value='{{alignment.index}}' id='{{alignment.index}}' checked/-->
-                        <select id="{{alignment.index}}" name="valid" class="form-control" ng-click="changeValidOptionColor(alignment.index)" style="{{getColoredDropdownStyle(alignment)}}">
+                        <select id="{{alignment.index}}" name="valid" class="form-control" ng-click="changeValidOptionColor(alignment)" style="{{getColoredDropdownStyle(alignment)}}">
                           <option style="background: #FFFFFF;" value="waiting">Waiting...</option>
                           <option style="background: #FFFFFF;" value="valid">Valid</option>
                           <option style="background: #FFFFFF;" value="notvalid">Not valid</option>
