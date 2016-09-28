@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -34,9 +33,9 @@ import org.semanticweb.skos.SKOSCreationException;
  *
  * @author emonet
  */
-public class TestSkosApi {
+public class TestSkosToOwlConverter {
 
-  public TestSkosApi() {
+  public TestSkosToOwlConverter() {
   }
 
   @BeforeClass
@@ -60,7 +59,7 @@ public class TestSkosApi {
   // @Test
   // public void hello() {}
   @Test
-  public void testSkosApi() throws IOException, ClassNotFoundException, SKOSCreationException, OWLOntologyStorageException {
+  public void testSkosToOwlConverter() throws IOException, ClassNotFoundException, SKOSCreationException, OWLOntologyStorageException {
 
     String skosRameau = YamFileHandler.convertSkosToOwl(new File("src/test/resources/rameau.ttl"), null, "RDF/XML");
     //String skosIaml = YamFileHandler.convertSkosToOwl(new File("src/test/resources/iaml.ttl"), new File("/tmp/yam2013/iaml.xml"), "RDF/XML");
@@ -95,7 +94,7 @@ public class TestSkosApi {
         }
       }
     } catch (OWLOntologyCreationException ex) {
-      Logger.getLogger(TestSkosApi.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(TestSkosToOwlConverter.class.getName()).log(Level.SEVERE, null, ex);
     }
 
     //MainProgram.match(outputFile1.getAbsolutePath(), outputFile2.getAbsolutePath(), "/tmp/yam2013/yam_matcher_results.rdf");
