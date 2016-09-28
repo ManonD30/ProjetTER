@@ -1,4 +1,18 @@
 var valueAllBoxes = false;
+
+// Change color of all select
+for (var validSelectElement in document.getElementsByName("valid")) {
+  console.log("teeeee");
+  console.log(validSelectElement);
+  if (validSelectElement.value == "waiting") {
+    validSelectElement.style.background = "#FFA500";
+  } else if (validSelectElement.value == "valid") {
+    validSelectElement.style.background = "#00ff00";
+  } else if (validSelectElement.value == "notvalid") {
+    validSelectElement.style.background = "#ff0000";
+  }
+}
+
 /**
  * To check or uncheck all validity checkboxes
  */
@@ -114,14 +128,11 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.getEntityLabel = function (entity, selectedLang) {
     if (entity.label !== undefined) {
       if (entity.label[selectedLang]) {
-        console.log("selectedd: " + entity.label[selectedLang]);
         return entity.label[selectedLang];
       } else if (entity.label[Object.keys(entity.label)[0]]) {
-        console.log("entityy first label: " + entity.label[Object.keys(entity.label)[0]]);
         return entity.label[Object.keys(entity.label)[0]];
       }
     }
-    console.log("entityy: " + entity.id);
     return entity.id;
   };
 
@@ -135,6 +146,16 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       step: 1
     }
   };
+
+  $scope.changeValidOptionColor = function (elementId) {
+    if (document.getElementById(elementId).value == "waiting") {
+      document.getElementById(elementId).style.background = "#FFA500";
+    } else if (document.getElementById(elementId).value == "valid") {
+      document.getElementById(elementId).style.background = "#00ff00";
+    } else if (document.getElementById(elementId).value == "notvalid") {
+      document.getElementById(elementId).style.background = "#ff0000";
+    }
+  }
 
   $scope.changeDetails = function (clickedOn) {
     console.log(this.alignment);

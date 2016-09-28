@@ -85,7 +85,8 @@ for the ont1 and ont2 ontology alignment -->
                     <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText" 
                         ng-if="alignment.measure >= minRangeSlider.minValue / 100 && alignment.measure <= minRangeSlider.maxValue / 100"
                         ng-click="changeDetails(true)" class="{{selected}}" style="cursor: pointer; cursor: hand;">
-                      <td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
+                      <!--td><input type="text" id="{{alignment.index}}" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td-->
+                      <td><input type="text" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input></td>
 
                       <!-- ATTENTION IDEE : affichage details au mouse over des rows. Si on clique sur un row, on le 
                       vérouille (change couleur) et seulement lui s'affiche. Reclique dessus pour dévérouiller -->
@@ -117,11 +118,10 @@ for the ont1 and ont2 ontology alignment -->
                       <td><input type="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" style="display: none;" readonly>{{alignment.measure}}</input></td>
                       <td class=tdSmall style="word-wrap: break-word; text-align: center;">
                         <!--input type='checkbox' name='checkbox' class="checkbox" value='{{alignment.index}}' id='{{alignment.index}}' checked/-->
-                        <input type='checkbox' name='checkbox' class="checkbox" value='{{alignment.index}}' id='{{alignment.index}}' checked/>
-                        <select id="{{alignment.valid}}" name="valid" class="form-control">
-                          <option value="waiting">Waiting...</option>
-                          <option value="valid">Valid</option>
-                          <option value="notvalid">Not valid</option>
+                        <select id="{{alignment.index}}" name="valid" class="form-control" ng-click="changeValidOptionColor(alignment.index)">
+                          <option style="background: #FFA500;" value="waiting">Waiting...</option>
+                          <option style="background: #00ff00;" value="valid">Valid</option>
+                          <option style="background: #ff0000;" value="notvalid">Not valid</option>
                         </select>
                       </td>
                     </tr>

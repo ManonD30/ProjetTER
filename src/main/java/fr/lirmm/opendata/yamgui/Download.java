@@ -74,9 +74,8 @@ public class Download extends HttpServlet {
     String[] valid = request.getParameterValues("valid");
 
     String alignmentString = null;
-    // Put all checked mappings in an Array of Hashtable
-    String[] checkbox = request.getParameterValues("checkbox");
-    if (checkbox != null && indexArray != null) {
+    // Put all mappings in an Array of Hashtable
+    if (indexArray != null) {
       for (String i : indexArray) {
         // Get the index in param arrays of the validate mappings
         int paramIndex = Arrays.asList(indexArray).indexOf(i);
@@ -104,7 +103,7 @@ public class Download extends HttpServlet {
 
     } else {
       // in case no checkbox have been checked
-      alignmentString = "No mappings have been selectioned";
+      alignmentString = "No mappings";
       response.setContentType("plain/text");
     }
 
