@@ -1,18 +1,5 @@
 var valueAllBoxes = false;
 
-// Change color of all select
-for (var validSelectElement in document.getElementsByName("valid")) {
-  console.log("teeeee");
-  console.log(validSelectElement);
-  if (validSelectElement.value == "waiting") {
-    validSelectElement.style.background = "#FFA500";
-  } else if (validSelectElement.value == "valid") {
-    validSelectElement.style.background = "#00ff00";
-  } else if (validSelectElement.value == "notvalid") {
-    validSelectElement.style.background = "#ff0000";
-  }
-}
-
 /**
  * To check or uncheck all validity checkboxes
  */
@@ -121,6 +108,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
   $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson, $scope.ontologies);
+  alignments = $scope.alignments;
 
   $scope.langSelect = {"en": "en", "fr": "fr"};
 
@@ -147,6 +135,11 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     }
   };
 
+  /**
+   * Change the color of the valid select dropdown// Change the color of the valid select dropdown
+   * @param {int} elementId
+   * @returns {undefined}
+   */
   $scope.changeValidOptionColor = function (elementId) {
     if (document.getElementById(elementId).value == "waiting") {
       document.getElementById(elementId).style.background = "#FFA500";
@@ -156,7 +149,25 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       document.getElementById(elementId).style.background = "#ff0000";
     }
   }
+  
+  $scope.getColoredDropdownStyle = function (alignment) {
+    var styleString = null;
+    if (alignment.valid == "waiting") {
+      //document.getElementById(elementId).style.background = "#FFA500";
+      styleString = "background: #FFA500;";
+    } else if (alignment.valid == "valid") {
+      styleString = "background: #00ff00;";
+    } else if (alignment.valid == "notvalid") {
+      styleString = "background: #ff0000;";
+    }
+    return styleString;
+  }
 
+  /**
+   * Change details div to show selected entity details
+   * @param {boolean} clickedOn
+   * @returns {undefined}
+   */
   $scope.changeDetails = function (clickedOn) {
     console.log(this.alignment);
     if ($scope.detailsLocked == false || clickedOn == true) {
@@ -263,4 +274,4 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
   //console.log("alignments");
   //console.log(alignments);
   return alignments;
-} 
+}
