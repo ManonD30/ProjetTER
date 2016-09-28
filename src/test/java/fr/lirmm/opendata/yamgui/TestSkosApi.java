@@ -73,7 +73,7 @@ public class TestSkosApi {
     File outputFile1 = new File("/tmp/yam2013/teeest1.owl");
     File outputFile2 = new File("/tmp/yam2013/teeest2.owl");
 
-    YamFileHandler.convertSkosToOwl(new File("src/test/resources/MIMO.xml"), outputFile1, "RDF/XML");
+    YamFileHandler.convertSkosToOwl(new File("src/test/resources/rameau.ttl"), outputFile1, "RDF/XML");
     YamFileHandler.convertSkosToOwl(new File("src/test/resources/iaml.ttl"), outputFile2, "RDF/XML");
 
     OWLOntologyManager owlManager;

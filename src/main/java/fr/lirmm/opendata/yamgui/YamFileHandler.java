@@ -515,6 +515,7 @@ public class YamFileHandler {
       model.read(skosFile.toURI().toString(), null, "TTL");
     }
     
+    Property inSchemeProperty = model.getProperty("http://www.w3.org/2004/02/skos/core#inScheme");
     // Add rdf:type owl:Ontology to the namespace URI
     if (model.getNsPrefixURI("") != null) {
       model.createResource(model.getNsPrefixURI("")).addProperty(RDF.type, OWL.Ontology);
@@ -526,8 +527,7 @@ public class YamFileHandler {
         cls.addProperty(RDF.type, OWL.Ontology);
       }
     }
-    } else {
-      Property inSchemeProperty = model.getProperty("http://www.w3.org/2004/02/skos/core#inScheme");
+    } else if (model.listSubjectsWithProperty(inSchemeProperty).hasNext()) {
       // If no base namespace, then we try to take it from skos:inScheme
       ResIterator skosInSchemeIterator = model.listSubjectsWithProperty(inSchemeProperty);
       // Iterate over skos:Concept to add the rdf:type owl:Class to all concepts
@@ -536,10 +536,13 @@ public class YamFileHandler {
         if (cls != null) {
           Statement stmt = cls.getProperty(inSchemeProperty);
           // Add rdf:type owl:Class triple to the 1st inScheme object found
-          Resource owlOntologyResource = model.createResource(stmt.getObject().toString()).addProperty(RDF.type, OWL.Ontology);
+          model.createResource(stmt.getObject().toString()).addProperty(RDF.type, OWL.Ontology);
           break;
         }
       }
+    } else {
+      // Define a default ontology URI if nothing found
+      model.createResource("http://yamplusplus.lirmm.fr/matching_ontology").addProperty(RDF.type, OWL.Ontology);
     }
 
     //Property hasName = ResourceFactory.createProperty(yourNamespace, "hasName"); // hasName property
