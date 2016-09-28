@@ -19,6 +19,7 @@ import org.semanticweb.owl.align.AlignmentVisitor;
 import fr.inrialpes.exmo.align.impl.BasicParameters;
 import fr.inrialpes.exmo.align.impl.URIAlignment;
 import fr.inrialpes.exmo.align.impl.renderer.RDFRendererVisitor;
+import java.io.File;
 import java.io.StringReader;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -34,9 +35,11 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -227,23 +230,46 @@ public class Download extends HttpServlet {
     } catch (ParserConfigurationException ex) {
       Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
     }
-    InputSource is = new InputSource(new StringReader(alignmentString));
-    org.w3c.dom.Document document = null;
+    
+    docBuilderFactory.setIgnoringComments(true);
+    DocumentBuilder builder = null;
     try {
-      document = docBuilder.parse(is);
+      builder = docBuilderFactory.newDocumentBuilder();
+    } catch (ParserConfigurationException ex) {
+      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    Document doc = null;
+    Logger.getLogger(Download.class.getName()).log(Level.INFO, validArray.toString());
+    InputSource is = new InputSource(new StringReader(alignmentString));
+    
+    try {
+      doc = builder.parse(is);
     } catch (SAXException ex) {
       Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
     } catch (IOException ex) {
       Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
     }
+    // Iterate other the array of valid mappings to add if valid or not to the Cell in the XML
+    for (int i = 0; i < validArray.size(); i++) {
+      String valid = validArray.get(i);
+      NodeList nodes = doc.getElementsByTagName("Cell");
+      Text a = null;
+      if (valid.equals("valid")) {
+        a = doc.createTextNode("true");
+      } else if (valid.equals("notvalid")) {
+        a = doc.createTextNode("false");
+      }
+      
+      if (a != null) {
+        // Add the valid element if valid or not (don't add if waiting)
+        Element p = doc.createElement("valid");
+        p.appendChild(a);
+        //nodes.item(i).getParentNode().insertBefore(p, nodes.item(i));
+        nodes.item(i).insertBefore(p, nodes.item(i).getFirstChild());
+      }
+    }
 
-    Node rootNode = document.getDocumentElement();
-    rootNode.appendChild(document.createTextNode(OWL.Ontology.toString()));
-            //document.createTextNode("valid")
-            
-    iterateXmlFields(document.getDocumentElement(), document);
-
-    DOMSource domSource = new DOMSource(document);
+    DOMSource domSource = new DOMSource(doc);
     StringWriter writer = new StringWriter();
     StreamResult result = new StreamResult(writer);
     TransformerFactory tf = TransformerFactory.newInstance();
@@ -263,20 +289,4 @@ public class Download extends HttpServlet {
     return writer.toString();
   }
 
-  public static void iterateXmlFields(Node node, org.w3c.dom.Document document) {
-    // do something with the current node instead of System.out
-    System.out.println(node.getNodeName());
-    NodeList nodeList = node.getChildNodes();
-    for (int i = 0; i < nodeList.getLength(); i++) {
-      Node currentNode = nodeList.item(i);
-      if (currentNode.getNodeName().equals("cell")) {
-        currentNode.appendChild(document.createTextNode("valid"));
-        document.adoptNode(currentNode);
-      }
-      if (currentNode.getNodeType() == Node.ELEMENT_NODE) {
-        //calls this method for all the children which is Element
-        iterateXmlFields(currentNode, document);
-      }
-    }
-  }
 }
