@@ -117,9 +117,9 @@ for the ont1 and ont2 ontology alignment -->
                       <td class=tdSmall style="word-wrap: break-word; text-align: center;">
                         <!--input type='checkbox' name='checkbox' class="checkbox" value='{{alignment.index}}' id='{{alignment.index}}' checked/-->
                         <select id="{{alignment.index}}" name="valid" class="form-control" ng-click="changeValidOptionColor(alignment.index)" style="{{getColoredDropdownStyle(alignment)}}">
-                          <option style="background: #FFA500;" value="waiting">Waiting...</option>
-                          <option style="background: #00ff00;" value="valid">Valid</option>
-                          <option style="background: #ff0000;" value="notvalid">Not valid</option>
+                          <option style="background: #FFFFFF;" value="waiting">Waiting...</option>
+                          <option style="background: #FFFFFF;" value="valid">Valid</option>
+                          <option style="background: #FFFFFF;" value="notvalid">Not valid</option>
                         </select>
                       </td>
                     </tr>
