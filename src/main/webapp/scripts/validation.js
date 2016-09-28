@@ -1,85 +1,9 @@
-/**
- * Build the HTML to display entity details (list ul li). 
- * It takes the following objetc as entity:
- * {"http://entity1.org/": {"id": "http://entity1.org/", "label": {"fr":
- * "bonjour", "en": "hello"}, "http://rdfs.org/label": [{"type": "literal",
- * "value": "bonjour", "lang": "fr"}, {"type": "literal", "value": "hello",
- * "lang": "en"}]}}
- * @param {type} entity
- * @returns {undefined}
- */
-function buildEntityDetailsHtml(entity, entityName, selectedLang) {
-  if (entityName === undefined) {
-    var htmlString = "";
-  } else {
-    var htmlString = "<h3 class='contentText'>" + entityName + " entity details</h3>";
-  }
-
-  // Build String to be put in popover
-  htmlString = htmlString + "<ul>";
-  // Order the JSON string to have id and label at the beginning
-  var orderedEntities = {};
-  orderedEntities["id"] = entity["id"].link(entity["id"]);
-
-  // Get the label
-  if (entity["label"] != null) {
-    // Select label according to user selection
-    if (entity["label"].hasOwnProperty(selectedLang)) {
-      orderedEntities["label"] = entity["label"][selectedLang] + " (" + selectedLang + ")";
-    } else {
-      // Take first label in object if selected lang not available
-      orderedEntities["label"] = entity["label"][Object.keys(entity["label"])[0]] + " (" + Object.keys(entity["label"])[0] + ")";
-    }
-  }
-
-  // add each property object linked to each subject
-  // Iterate over the different properties (predicates) of an entity
-  Object.keys(entity).sort().forEach(function (key) {
-    if (key != "id" && key != "label") {
-      orderedEntities[key] = null;
-      // Iterate over the different values of the object of a predicate (the same property can point to different objects)
-      for (var valuesObject in entity[key]) {
-        // to get the value of the object depending if it's an URI or a literal
-        if (entity[key][valuesObject]["value"].startsWith("http://")) {
-          // Concatenate URI too ? With <a href>
-          if (orderedEntities[key] === null) {
-            orderedEntities[key] = entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
-          } else {
-            orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
-          }
-          break;
-          //} else if (entity[key][valuesObject]["type"] == "literal") {
-        } else {
-          // If it is a literal then we concatenate them
-          if (orderedEntities[key] === null) {
-            orderedEntities[key] = entity[key][valuesObject]["value"];
-          } else {
-            orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"];
-          }
-        }
-      }
-    }
-  });
-
-  var printHr = false;
-  for (var attr in orderedEntities) {
-    if (printHr) {
-      htmlString = htmlString + "<hr style='margin: 1% 10%;'>";
-      printHr = false;
-    }
-    htmlString = htmlString + "<li><b>" + attr + "</b> = " + orderedEntities[attr] + "</li>"
-    if (attr == "label") {
-      printHr = htmlString + "<hr>";
-    }
-  }
-  //console.log("ordered entities");
-  //console.log(orderedEntities);
-  return htmlString + "</ul>";
-}
-
 // Using rzSlider for 2 sliders range input
 var validationApp = angular.module('validationApp', ['rzModule', 'ui.bootstrap']);
 
+/**
+ * ValidationApp controller, define all angular interactions
+ */
 validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Get the 2 ont in an object
   $scope.ontologies = {"ont1": $window.ont1, "ont2": $window.ont2};
@@ -256,4 +180,83 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
   //console.log("alignments");
   //console.log(alignments);
   return alignments;
+}
+
+/**
+ * Build the HTML to display entity details (list ul li). 
+ * It takes the following objetc as entity:
+ * {"http://entity1.org/": {"id": "http://entity1.org/", "label": {"fr":
+ * "bonjour", "en": "hello"}, "http://rdfs.org/label": [{"type": "literal",
+ * "value": "bonjour", "lang": "fr"}, {"type": "literal", "value": "hello",
+ * "lang": "en"}]}}
+ * @param {type} entity
+ * @returns {undefined}
+ */
+function buildEntityDetailsHtml(entity, entityName, selectedLang) {
+  if (entityName === undefined) {
+    var htmlString = "";
+  } else {
+    var htmlString = "<h3 class='contentText'>" + entityName + " entity details</h3>";
+  }
+
+  // Build String to be put in popover
+  htmlString = htmlString + "<ul>";
+  // Order the JSON string to have id and label at the beginning
+  var orderedEntities = {};
+  orderedEntities["id"] = entity["id"].link(entity["id"]);
+
+  // Get the label
+  if (entity["label"] != null) {
+    // Select label according to user selection
+    if (entity["label"].hasOwnProperty(selectedLang)) {
+      orderedEntities["label"] = entity["label"][selectedLang] + " (" + selectedLang + ")";
+    } else {
+      // Take first label in object if selected lang not available
+      orderedEntities["label"] = entity["label"][Object.keys(entity["label"])[0]] + " (" + Object.keys(entity["label"])[0] + ")";
+    }
+  }
+
+  // add each property object linked to each subject
+  // Iterate over the different properties (predicates) of an entity
+  Object.keys(entity).sort().forEach(function (key) {
+    if (key != "id" && key != "label") {
+      orderedEntities[key] = null;
+      // Iterate over the different values of the object of a predicate (the same property can point to different objects)
+      for (var valuesObject in entity[key]) {
+        // to get the value of the object depending if it's an URI or a literal
+        if (entity[key][valuesObject]["value"].startsWith("http://")) {
+          // Concatenate URI too ? With <a href>
+          if (orderedEntities[key] === null) {
+            orderedEntities[key] = entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
+          } else {
+            orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
+          }
+          break;
+          //} else if (entity[key][valuesObject]["type"] == "literal") {
+        } else {
+          // If it is a literal then we concatenate them
+          if (orderedEntities[key] === null) {
+            orderedEntities[key] = entity[key][valuesObject]["value"];
+          } else {
+            orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"];
+          }
+        }
+      }
+    }
+  });
+
+  var printHr = false;
+  for (var attr in orderedEntities) {
+    if (printHr) {
+      htmlString = htmlString + "<hr style='margin: 1% 10%;'>";
+      printHr = false;
+    }
+    htmlString = htmlString + "<li><b>" + attr + "</b> = " + orderedEntities[attr] + "</li>"
+    if (attr == "label") {
+      printHr = htmlString + "<hr>";
+    }
+  }
+  //console.log("ordered entities");
+  //console.log(orderedEntities);
+  return htmlString + "</ul>";
 }
