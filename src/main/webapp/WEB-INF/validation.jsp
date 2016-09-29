@@ -77,15 +77,16 @@ for the ont1 and ont2 ontology alignment -->
                       <th href="#" ng-click="orderByField = 'index'; reverseSort = !reverseSort">Line</th>
                       <th href="#" ng-click="orderByField = 'entity1'; reverseSort = !reverseSort">Source label</th>
                       <th href="#" ng-click="orderByField = 'entity2'; reverseSort = !reverseSort">Target label</th>
-                      <th href="#" ng-click="orderByField = 'relation'; reverseSort = !reverseSort">Relation</th>
+                      <th href="#" ng-click="orderByField = 'relation'; reverseSort = !reverseSort"
+                          style="width: 11em;">Relation</th>
                       <th href="#" ng-click="orderByField = 'measure'; reverseSort = !reverseSort">Score</th>
-                      <th href="#" ng-click="" style="word-wrap: break-word;">Validity</th>
+                      <!--th href="#" style="word-wrap: break-word;">Validity</th-->
+                      <th href="#" style="width: 8em;">Validity</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText" class="{{selected}}"
-                        ng-if="generateTableNgIf(alignment)">
-                      <!-- TODO: ATTNTION il faudra repasser en mode "tous afficher" au moment de clicker sur download pour bien tous les afficher -->
+                    <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText"
+                        class="{{selected}}" ng-if="generateTableNgIf(alignment)">
 
                       <!-- Change details div with selected entities details when mouseover or click -->
                       <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
@@ -119,7 +120,7 @@ for the ont1 and ont2 ontology alignment -->
                         <input type="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" 
                                style="display: none;" readonly>{{alignment.measure}}</input>
                       </td>
-                      <td class=tdSmall style="word-wrap: break-word; text-align: center;">
+                      <td>
                         <!-- We are changing the color of the select when a valid option is selected -->
                         <select id="{{generateValidSelectId(alignment.index)}}" name="valid" 
                                 style="{{generateStyleForSelect(alignment)}}" class="form-control" 
