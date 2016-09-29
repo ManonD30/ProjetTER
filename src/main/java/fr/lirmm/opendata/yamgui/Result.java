@@ -91,8 +91,8 @@ public class Result extends HttpServlet {
     // add matching time to response
     request.setAttribute("time", s);
 
-    String stringOnt1 = fileHandler.getOntFileFromRequest("1", request);
-    String stringOnt2 = fileHandler.getOntFileFromRequest("2", request);
+    String sourceString = fileHandler.getOntFileFromRequest("source", request);
+    String targetString = fileHandler.getOntFileFromRequest("target", request);
 
     JSONArray alignmentJson = null;
     // Parse OAEI alignment format to get the matcher results
@@ -110,19 +110,19 @@ public class Result extends HttpServlet {
 
     // Load the 2 given onto using OWLAPI into a JSONObject, and send the object
     // in the reponse as attributes
-    JSONObject loadedOnto1 = null;
-    JSONObject loadedOnto2 = null;
+    JSONObject sourceOntoJson = null;
+    JSONObject targetOntoJson = null;
     try {
       // Old way, using OWLAPI:
-      //loadedOnto1 = fileHandler.loadOwlapiOntoFromRequest(request, "1");
-      //loadedOnto2 = fileHandler.loadOwlapiOntoFromRequest(request, "2");
-      loadedOnto1 = fileHandler.jenaLoadOnto(request, "1");
-      loadedOnto2 = fileHandler.jenaLoadOnto(request, "2");
+      //loadedOnto1 = fileHandler.loadOwlapiOntoFromRequest(request, "source");
+      //loadedOnto2 = fileHandler.loadOwlapiOntoFromRequest(request, "target");
+      sourceOntoJson = fileHandler.jenaLoadOnto(request, "source");
+      targetOntoJson = fileHandler.jenaLoadOnto(request, "target");
     } catch (Exception ex) {
       Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
     }
-    request.setAttribute("ont1", loadedOnto1);
-    request.setAttribute("ont2", loadedOnto2);
+    request.setAttribute("sourceOnt", sourceOntoJson);
+    request.setAttribute("targetOnt", targetOntoJson);
 
     // send response
     this.getServletContext()

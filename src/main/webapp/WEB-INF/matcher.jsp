@@ -21,23 +21,23 @@
 
         <div class="col-md-6">
           <label for=firstFile>Source Ontology</label> <br/>
-          <input type="url" class='ontologyUrl' id="sourceUrl1" name="sourceUrl1" placeholder="Enter ontology URL"/>
+          <input type="url" class='ontologyUrl' id="sourceUrl" name="sourceUrl" placeholder="Enter ontology URL"/>
           <br/>
           <span style="text-align: center">or</span> <br/>
           <label class="btn btn-info btn-file">
             Choose file
-            <input id=ont1 type="file" name="ont1" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" onchange="refreshFileUpload('ont1', 'fileOnt1');" style="display: none;"/>
+            <input id=sourceFile type="file" name="sourceFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" onchange="refreshFileUpload('sourceFile', 'fileOnt1');" style="display: none;"/>
           </label> <br/>
           <label id="fileOnt1" style="font-weight: normal;"></label>
         </div>
         <div class="col-md-6">
           <label for=secondFile>Target Ontology</label> <br/>
-          <input type="url" class='ontologyUrl' id="sourceUrl2" name="sourceUrl2" placeholder="Enter ontology URL"/>
+          <input type="url" class='ontologyUrl' id="targetUrl" name="targetUrl" placeholder="Enter ontology URL"/>
           <br/>
           <span style="text-align: center">or</span> <br/>
           <label id="labelOnt2" class="btn btn-info btn-file">
             Choose file
-            <input id=ont2 type="file" name="ont2" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" onchange="refreshFileUpload('ont2', 'fileOnt2');" style="display: none;" />
+            <input id=targetFile type="file" name="targetFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" onchange="refreshFileUpload('targetFile', 'fileOnt2');" style="display: none;" />
           </label> <br/>
           <label id="fileOnt2" style="font-weight: normal;"></label>
         </div>

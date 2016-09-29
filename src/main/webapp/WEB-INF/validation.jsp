@@ -7,7 +7,7 @@
 
 <!-- The page to display UI to validate an ontology alignment between 2 ontologies
 It is called by Result.java (matcher) and Validator.java to display validation UI
-for the ont1 and ont2 ontology alignment -->
+for the sourceOnt and targetOnt ontology alignment -->
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.css">
@@ -32,8 +32,8 @@ for the ont1 and ont2 ontology alignment -->
         JSONArray alignmentArray = (JSONArray) request.getAttribute("alignment");
 
         // Trying to get ontology loaded using owlapi
-        JSONObject ont1 = (JSONObject) request.getAttribute("ont1");
-        JSONObject ont2 = (JSONObject) request.getAttribute("ont2");
+        JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
+        JSONObject targetOnt = (JSONObject) request.getAttribute("targetOnt");
 
         if (request.getAttribute("errorMessage") == null && request.getAttribute("alignment") != null) {
           //get the execution time from response
@@ -47,8 +47,8 @@ for the ont1 and ont2 ontology alignment -->
       <script type="text/javascript">
             // Put params to javascript to use it with angularjs
             var alignmentJson = <%=alignmentArray%>;
-            var ont1 = <%=ont1%>;
-            var ont2 = <%=ont2%>;
+            var sourceOnt = <%=sourceOnt%>;
+            var targetOnt = <%=targetOnt%>;
       </script>
 
       <label style="margin-left: 1%;">Score range:</label>&nbsp;&nbsp;

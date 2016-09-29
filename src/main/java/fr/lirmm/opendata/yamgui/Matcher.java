@@ -24,18 +24,18 @@ public class Matcher extends HttpServlet {
 
   /**
    * POST request. Use the processRequest method to upload file and run YAM
-   * Upload file using either a local file or an URL. Use ont1 and ont2
+   * Upload file using either a local file or an URL. Use source and target
    * parameters to define the 2 ontologies to work with Upload a file using
    * cURL: curl -X POST -H \"Content-Type: multipart/form-data\ -F
-   * ont1=@/path/to/ontology_file.owl
-   * http://localhost:8083/rest/matcher?sourceUrl2=http://purl.obolibrary.org/obo/po.owl
+   * sourceFile=@/path/to/ontology_file.owl
+   * http://localhost:8083/rest/matcher?targetUrl=http://purl.obolibrary.org/obo/po.owl
    * Only files: curl -X POST -H "Content-Type: multipart/form-data" -F
-   * ont2=@/srv/yam2013/cmt.owl -F ont1=@/srv/yam2013/Conference.owl
+   * targetFile=@/srv/yam2013/cmt.owl -F sourceFile=@/srv/yam2013/Conference.owl
    * http://localhost:8083/rest/matcher Only URL: curl -X POST
    * http://localhost:8083/rest/matcher -d
-   * 'sourceUrl1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl'
+   * 'sourceUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl'
    * -d
-   * 'sourceUrl2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl'
+   * 'targetUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl'
    *
    * @param request
    * @param response
@@ -65,11 +65,10 @@ public class Matcher extends HttpServlet {
   /**
    * Get request. Use the processRequest method to upload file and run YAM curl
    * -X GET
-   * http://localhost:8083/rest/matcher?sourceUrl2=http://purl.obolibrary.org/obo/po.owl&sourceUrl1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
-   * http://localhost:8083/rest/matcher?ont2=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&ont1=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl
+   * http://localhost:8083/rest/matcher?targetUrl=http://purl.obolibrary.org/obo/po.owl&sourceUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
+   * http://localhost:8083/rest/matcher?targetUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&sourceUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl
    * http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db
    * http://data.bioportal.lirmm.fr/ontologies/CIF/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db
-   *
    * @param request
    * @param response
    * @throws ServletException
@@ -84,9 +83,9 @@ public class Matcher extends HttpServlet {
     String responseString = null;
 
     // Check if source URL are fill, if not display a help text
-    String ont1 = request.getParameter("sourceUrl1");
-    String ont2 = request.getParameter("sourceUrl2");
-    if (ont1 != null && ont2 != null) {
+    String sourceUrl = request.getParameter("sourceUrl");
+    String targetUrl = request.getParameter("targetUrl");
+    if (sourceUrl != null && targetUrl != null) {
       try {
         responseString = processRequest(request);
       } catch (Exception e) {
@@ -95,8 +94,8 @@ public class Matcher extends HttpServlet {
       }
     } else {
       responseString = "Example: <br/> curl -X POST -H \"Content-Type: multipart/form-data\" "
-              + "-F ont1=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?sourceUrl2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl <br/>"
-              + "http://localhost:8083/rest/matcher?sourceUrl1=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl&sourceUrl2=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl";
+              + "-F sourceFile=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?targetUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl <br/>"
+              + "http://localhost:8083/rest/matcher?sourceUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl&targetUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl";
     }
 
     out.print(responseString);
@@ -118,25 +117,22 @@ public class Matcher extends HttpServlet {
     // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
     String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
 
-    String storagePath1 = fileHandler.uploadFile("1", subDirName, request);
-    String storagePath2 = fileHandler.uploadFile("2", subDirName, request);
+    String sourceStoragePath = fileHandler.uploadFile("source", subDirName, request);
+    String targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
 
-    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, storagePath1);
-    YamFileHandler.convertSkosToOwl(new File(storagePath1), new File(storagePath1), "RDF/XML");
-    YamFileHandler.convertSkosToOwl(new File(storagePath2), new File(storagePath2), "RDF/XML");
-    // First create a new SKOSManager
+    YamFileHandler.convertSkosToOwl(new File(sourceStoragePath), new File(sourceStoragePath), "RDF/XML");
+    YamFileHandler.convertSkosToOwl(new File(targetStoragePath), new File(targetStoragePath), "RDF/XML");
+
     /*SKOSManager manager = new SKOSManager();
-
     // use the manager to load a SKOS vocabulary from a URI (either physical or on the web)
     SKOSDataset skosDataset = manager.loadDataset(URI.create(storagePath1));
     SKOStoOWLConverter skosConverter = new SKOStoOWLConverter();
     OWLOntology convertedOwlOnto = skosConverter.getAsOWLOntology(skosDataset);
     OWLOntologyManager owlManager = OWLManager.createOWLOntologyManager();
     owlManager.saveOntology(convertedOwlOnto, new FileOutputStream("/tmp/yam2013/teeest1.owl"));*/
-
     // Check if file is bigger than 4MB
     int maxFileSize = 4;
-    if (fileHandler.getFileSize(storagePath1) >= maxFileSize || fileHandler.getFileSize(storagePath2) >= maxFileSize) {
+    if (fileHandler.getFileSize(sourceStoragePath) >= maxFileSize || fileHandler.getFileSize(targetStoragePath) >= maxFileSize) {
       System.out.println("File too big");
       throw new FileNotFoundException("File too big: its size should be less than " + maxFileSize + "MB");
     }
@@ -144,7 +140,7 @@ public class Matcher extends HttpServlet {
     String resultStoragePath = fileHandler.getWorkDir() + "/data/tmp/" + subDirName + "/result.rdf";
 
     // Execute YAM to get the mappings in RDF/XML
-    MainProgram.match(storagePath1, storagePath2, resultStoragePath);
+    MainProgram.match(sourceStoragePath, targetStoragePath, resultStoragePath);
 
     responseString = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
 

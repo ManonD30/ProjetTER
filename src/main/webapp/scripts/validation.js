@@ -6,9 +6,10 @@ var validationApp = angular.module('validationApp', ['rzModule', 'ui.bootstrap']
  */
 validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Get the 2 ont in an object
-  $scope.ontologies = {"ont1": $window.ont1, "ont2": $window.ont2};
+  console.log($window);
+  $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt};
   // Merge namespaces from the 2 ont:
-  $scope.namespaces = $.extend($window.ont1.namespaces, $window.ont2.namespaces);
+  $scope.namespaces = $.extend($window.sourceOnt.namespaces, $window.targetOnt.namespaces);
   $scope.detailsLocked = false;
 
   // init the ng-model used by the valid select dropdown

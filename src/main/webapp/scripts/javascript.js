@@ -7,7 +7,7 @@ function hide_div(id) {
 }
 
 /**
- * Function to update file label
+ * TODO: Use angularjs? Function to update file label
  * @param {type} ontName
  * @returns {undefined}
  */

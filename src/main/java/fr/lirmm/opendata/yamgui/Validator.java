@@ -41,7 +41,7 @@ public class Validator extends HttpServlet {
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    Logger myLog = Logger.getLogger(Result.class.getName());
+    //Logger myLog = Logger.getLogger(Result.class.getName());
 
     // Retrieve ontologies String from file or URL
     YamFileHandler fileHandler = null;
@@ -64,20 +64,20 @@ public class Validator extends HttpServlet {
     // add cell data list to response
     request.setAttribute("alignment", liste);
 
-    JSONObject loadedOnto1 = null;
-    JSONObject loadedOnto2 = null;
+    JSONObject sourceOntoJson = null;
+    JSONObject targetOntoJson = null;
     try {
       // Old way to get ontology files:
-      //String stringOnt1 = fileHandler.getOntFileFromRequest("1", request);
-      //String stringOnt2 = fileHandler.getOntFileFromRequest("2", request);
-      loadedOnto1 = fileHandler.jenaLoadOnto(request, "1");
-      loadedOnto2 = fileHandler.jenaLoadOnto(request, "2");
+      //String sourceOntString = fileHandler.getOntFileFromRequest("source", request);
+      //String targetOntString = fileHandler.getOntFileFromRequest("target", request);
+      sourceOntoJson = fileHandler.jenaLoadOnto(request, "source");
+      targetOntoJson = fileHandler.jenaLoadOnto(request, "target");
     } catch (Exception ex) {
       request.setAttribute("errorMessage", "Error when loading ontologies in Jena: " + ex.getMessage());
       Logger.getLogger(Validator.class.getName()).log(Level.SEVERE, null, ex);
     }
-    request.setAttribute("ont1", loadedOnto1);
-    request.setAttribute("ont2", loadedOnto2);
+    request.setAttribute("sourceOnt", sourceOntoJson);
+    request.setAttribute("targetOnt", targetOntoJson);
 
     // Call result.jsp and send the request with ont1, ont2 and data results
     this.getServletContext()

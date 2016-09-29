@@ -95,36 +95,33 @@ public class YamFileHandler {
   }
 
   /**
-   * Read the ontology file or source URL from the request and returns a String.
-   * We are using ontNumber to get ontology either from uploaded file "ont1" or
-   * URL "sourceUrl1". NOT USED anymore (now we are using the jenaLoadOnto
-   * method)
+   * NOT USED anymore. Now we are using the jenaLoadOnto method. Read the
+   * ontology file or source URL from the request and returns a String. We are
+   * using ontName to get ontology either from uploaded file "sourceFile" or URL
+   * "targetUrl".
    *
-   * @param ontNumber
+   * @param ontName
    * @param request
-   * @return
+   * @return String
    * @throws IOException
    */
-  public String getOntFileFromRequest(String ontNumber, HttpServletRequest request) throws IOException {
+  public String getOntFileFromRequest(String ontName, HttpServletRequest request) throws IOException {
     String ontologyString = null;
-    String sourceUrl = request.getParameter("sourceUrl" + ontNumber);
-
-    // Take sourceUrl in priority. If not, then get the uploaded file
-    if (sourceUrl != null && !sourceUrl.isEmpty()) {
-      ontologyString = getUrlContent(sourceUrl);
+    String ontologyUrl = request.getParameter(ontName + "Url");
+    // Use URL in priority. If not, then get the uploaded file
+    if (ontologyUrl != null && !ontologyUrl.isEmpty()) {
+      ontologyString = getUrlContent(ontologyUrl);
     } else {
-      // ontology name are "ont" + ontology number (ont1 or ont2)
-      ontologyString = readFileFromRequest("ont" + ontNumber, request);
+      ontologyString = readFileFromRequest(ontName + "File", request);
     }
     return ontologyString;
   }
 
   /**
    * Read the file passed in params in the HTTP request
-   *
    * @param fileParam
    * @param request
-   * @return
+   * @return String
    * @throws IOException
    */
   public String readFileFromRequest(String fileParam, HttpServletRequest request) throws IOException {
@@ -146,43 +143,42 @@ public class YamFileHandler {
   }
 
   /**
-   * Upload a file taking its ont number in the params (i.e.: 1 for ont1 or 2
-   * for ont2) and the HTTP request It download the file if it is an URL or get
-   * it from the POST request
+   * Upload a file taking its ont name (source or target) in the params and the
+   * HTTP request It download the file if it is an URL or get it from the POST
+   * request
    *
-   * @param ontNumber
+   * @param ontName
    * @param subDir
    * @param request
    * @return
    * @throws IOException
    */
-  public String uploadFile(String ontNumber, String subDir, HttpServletRequest request) throws IOException {
-
+  public String uploadFile(String ontName, String subDir, HttpServletRequest request) throws IOException {
     // Read the file or source URL in the request and returns a String
-    String ontologyString = getOntFileFromRequest(ontNumber, request);
+    String ontologyString = getOntFileFromRequest(ontName, request);
     boolean saveFile = false;
     if (request.getParameter("saveFile") != null) {
       saveFile = true;
     }
 
     // Store the ontology String in the generated subDir and return file path
-    String storagePath = storeFile("ont" + ontNumber + ".owl", subDir, ontologyString, saveFile);
-
+    String storagePath = storeFile(ontName + ".owl", subDir, ontologyString, saveFile);
     return storagePath;
   }
 
   /**
-   * Store the contentString in a file in the working directory in a
-   * subdirectory working dir + /data/tmp/ + sub dir auto generated + / +
-   * filename (ont1.txt or ont2.txt) Usually the sub directory is randomly
-   * generated before calling uploadFile And returns the path to the created
-   * file
+   * Store the contentString in a file in the working directory. In a
+   * subdirectory working dir + /data/tmp/ + subDir generated + / + filename
+   * (source.owl or target.owl). Usually the sub directory is randomly generated
+   * before calling uploadFile And return the path to the created file
    *
    * @param filename
    * @param subDir
    * @param contentString
    * @param saveFile
-   * @return
+   * @return String
+   * @throws java.io.FileNotFoundException
+   * @throws java.io.UnsupportedEncodingException
    */
   public String storeFile(String filename, String subDir, String contentString, boolean saveFile)
           throws FileNotFoundException, UnsupportedEncodingException, IOException {
@@ -199,7 +195,7 @@ public class YamFileHandler {
    * Get the content of a URL page (to get ontologies from the URL)
    *
    * @param sourceUrl
-   * @return
+   * @return String
    * @throws IOException
    */
   public String getUrlContent(String sourceUrl) throws IOException {
@@ -232,13 +228,13 @@ public class YamFileHandler {
   }
 
   /**
-   * Take a OAEI AlignmentAPI string and use classic XML parser to return a
+   * Take a OAEI AlignmentAPI string and use classic XML parser. To return a
    * JSONArray containing the data of the alignment Format of the array:
    * [{"index": 1, "entity1": "http://entity1.fr", "entity2":
    * "http://entity2.fr", "relation": "skos:exactMatch", "measure": 0.34, }]
    *
    * @param oaeiResult
-   * @return
+   * @return JSONArray
    * @throws AlignmentException
    */
   public JSONArray parseOaeiAlignmentFormat(String oaeiResult) throws AlignmentException {
@@ -305,27 +301,26 @@ public class YamFileHandler {
   }
 
   /**
-   * Load the ontology number from the request with OWLAPI. Returns a JSONArray
-   * with class URI in "id" and all other properties i.e.: { namespaces:
-   * {"rdfs": "http://rdfs.org/"}, entities: {"http://entity1.org/": {"id":
-   * "http://entity1.org/", "rdfs:label": "test"}}}
-   *
+   * NOT USED anymore. Load the ontology number from the request with OWLAPI.
+   * Returns a JSONArray with class URI in "id" and all other properties i.e.: {
+   * namespaces: {"rdfs": "http://rdfs.org/"}, entities: {"http://entity1.org/":
+   * {"id": "http://entity1.org/", "rdfs:label": "test"}}}
    * @param request
-   * @param ontNumber
+   * @param ontName
    * @return JSONArray
    * @throws IOException
    * @throws OWLOntologyCreationException
    * @throws ServletException
    */
-  public static JSONObject loadOwlapiOntoFromRequest(HttpServletRequest request, String ontNumber) throws IOException, OWLOntologyCreationException, ServletException {
+  public static JSONObject loadOwlapiOntoFromRequest(HttpServletRequest request, String ontName) throws IOException, OWLOntologyCreationException, ServletException {
     OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
     OWLOntology ont = null;
 
     // Load ontology in OWLAPI from the URL or the file
-    if (request.getParameter("sourceUrl" + ontNumber) != null && !request.getParameter("sourceUrl" + ontNumber).isEmpty()) {
-      ont = manager.loadOntologyFromOntologyDocument(IRI.create(request.getParameter("sourceUrl" + ontNumber)));
-    } else if (request.getPart("ont" + ontNumber) != null) {
-      Part filePart = request.getPart("ont" + ontNumber); // Retrieves <input type="file" name="file">
+    if (request.getParameter(ontName + "Url") != null && !request.getParameter(ontName + "Url").isEmpty()) {
+      ont = manager.loadOntologyFromOntologyDocument(IRI.create(request.getParameter(ontName + "Url")));
+    } else if (request.getPart(ontName + "File") != null) {
+      Part filePart = request.getPart(ontName + "File"); // Retrieves <input type="file" name="file">
       //String fileName = filePart.getSubmittedFileName();
       InputStream fileContent = filePart.getInputStream();
       ont = manager.loadOntologyFromOntologyDocument(fileContent);
@@ -336,7 +331,6 @@ public class YamFileHandler {
     JSONObject jObject = new JSONObject();
     JSONObject clsJObject = null;
     JSONObject jPrefix = new JSONObject();
-
     try {
       // Get prefix from ontology using OwlApi
       OWLOntologyFormat format = manager.getOntologyFormat(ont);
@@ -400,7 +394,6 @@ public class YamFileHandler {
     JSONObject fullJObject = new JSONObject();
     fullJObject.put("namespaces", jPrefix);
     fullJObject.put("entities", jObject);
-
     return fullJObject;
   }
 
@@ -414,23 +407,22 @@ public class YamFileHandler {
    * "lang": "en"}]}}}
    *
    * @param request
-   * @param ontNumber
+   * @param ontName
    * @return
    * @throws IOException
    * @throws javax.servlet.ServletException
    */
-  public static JSONObject jenaLoadOnto(HttpServletRequest request, String ontNumber) throws IOException, ServletException {
+  public static JSONObject jenaLoadOnto(HttpServletRequest request, String ontName) throws IOException, ServletException {
     Model model = ModelFactory.createDefaultModel();
-
-    Logger myLog = Logger.getLogger(YamFileHandler.class.getName());
+    //Logger myLog = Logger.getLogger(YamFileHandler.class.getName());
 
     // Load ontology in JENA from the URL or the file
-    if (request.getParameter("sourceUrl" + ontNumber) != null && !request.getParameter("sourceUrl" + ontNumber).isEmpty()) {
-      URL url = new URL(request.getParameter("sourceUrl" + ontNumber));
+    if (request.getParameter(ontName + "Url") != null && !request.getParameter(ontName + "Url").isEmpty()) {
+      URL url = new URL(request.getParameter(ontName + "Url"));
       model.read(url.toString());
-    } else if (request.getPart("ont" + ontNumber) != null) {
+    } else if (request.getPart(ontName + "File") != null) {
       // Load ontology from file
-      Part filePart = request.getPart("ont" + ontNumber); // Retrieves <input type="file" name="file">
+      Part filePart = request.getPart(ontName + "File"); // Retrieves <input type="file" name="file">
       //String fileName = filePart.getSubmittedFileName();
       try {
         model.read(filePart.getInputStream(), null);
