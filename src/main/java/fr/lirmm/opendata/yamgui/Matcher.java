@@ -2,13 +2,8 @@ package fr.lirmm.opendata.yamgui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.net.URI;
-import java.util.Date;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -21,12 +16,6 @@ import org.apache.commons.lang.RandomStringUtils;
 
 import mainyam.MainProgram;
 import org.apache.commons.io.FileUtils;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.skos.SKOSDataset;
-import org.semanticweb.skosapibinding.SKOSManager;
-import org.semanticweb.skosapibinding.SKOStoOWLConverter;
 
 @WebServlet("/rest/matcher")
 public class Matcher extends HttpServlet {

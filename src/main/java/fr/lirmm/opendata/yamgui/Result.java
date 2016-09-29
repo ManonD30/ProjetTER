@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 public class Result extends HttpServlet {
 

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.semanticweb.owl.align.AlignmentException;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 //@Path("/matcher")
 public class Validator extends HttpServlet {
