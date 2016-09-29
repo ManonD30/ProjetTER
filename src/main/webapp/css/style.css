@@ -33,17 +33,6 @@ a:visited {
   color: #719eb7;
 }
 
-/*.btn {
-        color: #ffffff;
-        font-size: 15px;
-        background: #8ab7d1;
-        padding: 2px 10px 2px 10px;
-        text-decoration: none;
-        border: none;
-        width: 200px;
-        cursor: pointer;
-}*/
-
 /* To display when radio btn is checked when choosing a format */
 .inputFormatAlignmentAPI:checked + .inputFormatAlignmentAPILabel {
   font-weight: bold;
@@ -79,10 +68,10 @@ a:visited {
 }
 
 /* Max Width of the popover (depending on the container!). Set to 25% of the middle div
-Can't be more to not go outside of window (since it is on the right of the mid div)'*/
+Can't be more to not go outside of window (since it is on the right of the mid div)'
 .popover{
   max-width: 25%;
-}
+}*/
 
 .btn:hover,.btnBig:hover {
   background: #f08b80;

@@ -203,7 +203,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
     var htmlString = "<h3 class='contentText'>" + entityName + " entity details</h3>";
   }
 
-  // Build String to be put in popover
+  // Build String to be put in the details div
   htmlString = htmlString + "<ul>";
   // Order the JSON string to have id and label at the beginning
   var orderedEntities = {};
@@ -266,6 +266,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
 }
 
 /* Remember on how to make a little window that show when mouseover with angularjs
+ * Uncomment popover in style.css if you want to use it
  .directive('toggle', function () {
  return {
  restrict: 'A',
@@ -296,12 +297,5 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
  var _this = this;
  setTimeout(function () {
  if (!$(".popover:hover").length) {
- $(_this).popover("hide")
- }
- }, 100);
- });
- }
- }
- };
- })
- ;*/
+ $(_this).popover("hide")}}, 100); }); }}}; });
+ */
