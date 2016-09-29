@@ -5,7 +5,6 @@
  */
 package fr.lirmm.opendata.yamgui;
 
-import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
@@ -26,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -43,6 +43,9 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
@@ -62,8 +65,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import static org.semanticweb.owlapi.vocab.Namespaces.SKOS;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -268,6 +275,44 @@ public class YamFileHandler {
       index += 1;
       jArray.add(jObject);
     }
+    
+    
+    // We need to iterate the XML file to add the valid field
+    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+    DocumentBuilder docBuilder = null;
+    try {
+      docBuilder = docBuilderFactory.newDocumentBuilder();
+    } catch (ParserConfigurationException ex) {
+      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    docBuilderFactory.setIgnoringComments(true);
+    DocumentBuilder builder = null;
+    try {
+      builder = docBuilderFactory.newDocumentBuilder();
+    } catch (ParserConfigurationException ex) {
+      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    Document doc = null;
+    // Read OAEI alignment
+    InputSource is = new InputSource(new StringReader(oaeiResult));
+    
+    try {
+      doc = builder.parse(is);
+    } catch (SAXException ex) {
+      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IOException ex) {
+      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    // Iterate other the array of valid mappings to add if valid or not to the Cell in the XML
+    //for (int i = 0; i < validArray.size(); i++) {
+    NodeList nodes = doc.getElementsByTagName("Cell");
+    for (int i = 0; i < nodes.getLength(); i++) {
+      // Ici on récupère la valeur de valid
+      //nodes.item(i);
+    }
+    
+    
     return jArray;
   }
 
