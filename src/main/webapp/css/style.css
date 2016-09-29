@@ -442,15 +442,6 @@ td,th {
   height: 50%;
 }
 
-.tdSmall,.thSmall {
-  width: 10%;
-}
-
-.tdSkos,.tdAlignment {
-  width: 10%;
-  display: inline;
-}
-
 th {
   height: 40px;
   background: #8ab7d1;
