@@ -180,7 +180,7 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
     alignToAdd["relation"] = alignment[key]['relation'];
     alignToAdd["index"] = key;
     // All entities are "waiting" for the moment, but we need to extract it from the uploaded alignment
-    alignToAdd["valid"] = "waiting";
+    alignToAdd["valid"] = alignment[key]['valid'];;
     alignments.push(alignToAdd);
   }
   return alignments;

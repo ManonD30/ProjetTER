@@ -67,6 +67,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -235,17 +236,18 @@ public class YamFileHandler {
   }
 
   /**
-   * Take a OAEI AlignmentAPI string and return a JSONArray containing the data
-   * of the alignment Format of the array: [{"index": 1, "entity1":
-   * "http://entity1.fr", "entity2": "http://entity2.fr", "relation":
-   * "skos:exactMatch", "measure": 0.34, }]
+   * Take a OAEI AlignmentAPI string and use classic XML parser to return a
+   * JSONArray containing the data of the alignment Format of the array:
+   * [{"index": 1, "entity1": "http://entity1.fr", "entity2":
+   * "http://entity2.fr", "relation": "skos:exactMatch", "measure": 0.34, }]
    *
    * @param oaeiResult
    * @return
    * @throws AlignmentException
    */
   public JSONArray parseOaeiAlignmentFormat(String oaeiResult) throws AlignmentException {
-    AlignmentParser aparser = new AlignmentParser(0);
+
+    /*AlignmentParser aparser = new AlignmentParser(0);
     // rdf file
     Alignment file = aparser.parseString(oaeiResult);
 
@@ -272,11 +274,13 @@ public class YamFileHandler {
       jObject.put("entity2", cell.getObject2().toString());
       jObject.put("relation", cell.getRelation().getRelation().toString());
       jObject.put("measure", round(cell.getStrength()));
+      jObject.put("valid", "waiting");
       index += 1;
       jArray.add(jObject);
-    }
-    
-    
+    }*/
+    JSONObject jObject = null;
+    JSONArray jArray = new JSONArray();
+
     // We need to iterate the XML file to add the valid field
     DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder docBuilder = null;
@@ -285,7 +289,7 @@ public class YamFileHandler {
     } catch (ParserConfigurationException ex) {
       Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
     }
-    
+
     docBuilderFactory.setIgnoringComments(true);
     DocumentBuilder builder = null;
     try {
@@ -296,7 +300,7 @@ public class YamFileHandler {
     Document doc = null;
     // Read OAEI alignment
     InputSource is = new InputSource(new StringReader(oaeiResult));
-    
+
     try {
       doc = builder.parse(is);
     } catch (SAXException ex) {
@@ -304,15 +308,37 @@ public class YamFileHandler {
     } catch (IOException ex) {
       Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
     }
-    // Iterate other the array of valid mappings to add if valid or not to the Cell in the XML
-    //for (int i = 0; i < validArray.size(); i++) {
+
+    // Iterate over Cell XML elements to get if valid or not
+    int index = 0;
     NodeList nodes = doc.getElementsByTagName("Cell");
     for (int i = 0; i < nodes.getLength(); i++) {
       // Ici on récupère la valeur de valid
-      //nodes.item(i);
+      System.out.println("NOOOOODE");
+      Element cellElem = (Element) nodes.item(i);
+      //NodeList entity1Nodes = nodes.item(i).getChildNodes();
+
+      // Get first node for each field (entities, relation, valid) in the Cell node
+      // And add it to the JSON Array
+      jObject = new JSONObject();
+      jObject.put("index", index);
+      jObject.put("entity1", cellElem.getElementsByTagName("entity1").item(0).getAttributes().getNamedItem("rdf:resource").getNodeValue());
+      jObject.put("entity2", cellElem.getElementsByTagName("entity2").item(0).getAttributes().getNamedItem("rdf:resource").getNodeValue());
+      jObject.put("relation", cellElem.getElementsByTagName("relation").item(0).getTextContent());
+      jObject.put("measure", round(Double.parseDouble(cellElem.getElementsByTagName("measure").item(0).getTextContent())));
+      // If no valid field found then waiting by default
+      if (cellElem.getElementsByTagName("valid").getLength() > 0) {
+        if (cellElem.getElementsByTagName("valid").item(0).getTextContent().equals("true")) {
+          jObject.put("valid", "valid");
+        } else if (cellElem.getElementsByTagName("valid").item(0).getTextContent().equals("false")) {
+          jObject.put("valid", "notvalid");
+        }
+      } else {
+        jObject.put("valid", "waiting");
+      }
+      index += 1;
+      jArray.add(jObject);
     }
-    
-    
     return jArray;
   }
 
@@ -560,7 +586,7 @@ public class YamFileHandler {
       // Read in TTL if first parsing failed (it waits for RDF/XML)
       model.read(skosFile.toURI().toString(), null, "TTL");
     }
-    
+
     Property inSchemeProperty = model.getProperty("http://www.w3.org/2004/02/skos/core#inScheme");
     // Add rdf:type owl:Ontology to the namespace URI
     if (model.getNsPrefixURI("") != null) {
@@ -568,11 +594,11 @@ public class YamFileHandler {
     } else if (model.listSubjectsWithProperty(RDF.type, model.getResource("http://www.w3.org/2004/02/skos/core#ConceptScheme")).hasNext()) {
       ResIterator skosSchemeIterator = model.listSubjectsWithProperty(RDF.type, model.getResource("http://www.w3.org/2004/02/skos/core#ConceptScheme"));
       while (skosSchemeIterator.hasNext()) {
-      Resource cls = skosSchemeIterator.next();
-      if (cls != null) {
-        cls.addProperty(RDF.type, OWL.Ontology);
+        Resource cls = skosSchemeIterator.next();
+        if (cls != null) {
+          cls.addProperty(RDF.type, OWL.Ontology);
+        }
       }
-    }
     } else if (model.listSubjectsWithProperty(inSchemeProperty).hasNext()) {
       // If no base namespace, then we try to take it from skos:inScheme
       ResIterator skosInSchemeIterator = model.listSubjectsWithProperty(inSchemeProperty);
@@ -606,7 +632,7 @@ public class YamFileHandler {
         cls.addProperty(RDF.type, OWL.Class);
       }
     }
-    
+
     ResIterator skosBroaderIterator = model.listSubjectsWithProperty(model.getProperty("http://www.w3.org/2004/02/skos/core#broader"));
     // Iterate over skos:broader properties to add the equivalent with the rdfs:subClassOf property
     while (skosBroaderIterator.hasNext()) {
@@ -632,7 +658,7 @@ public class YamFileHandler {
         }
       }
     }
-    
+
     ResIterator skosLabelIterator = model.listSubjectsWithProperty(model.getProperty("http://www.w3.org/2004/02/skos/core#prefLabel"));
     // Iterate over skos:broader properties to add the equivalent with the rdfs:subClassOf property
     /*while (skosLabelIterator.hasNext()) {

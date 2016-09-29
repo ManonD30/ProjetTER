@@ -55,7 +55,7 @@ public class TestOaeiAlignment {
   @Test
   public void testOaeiAlignment() throws IOException, ClassNotFoundException, SKOSCreationException, OWLOntologyStorageException {
     
-    String iamlRameauAlignment = FileUtils.readFileToString(new File("src/test/resources/iaml-rameau.rdf"), "UTF-8");
+    String iamlRameauAlignment = FileUtils.readFileToString(new File("src/test/resources/iaml-rameau_valid_test.rdf"), "UTF-8");
     
     YamFileHandler fileHandler = new YamFileHandler();
     JSONArray parseOaeiJson = null;
