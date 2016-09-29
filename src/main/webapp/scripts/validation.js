@@ -42,10 +42,23 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     }
   };
   
-  $scope.hideAlignments = function () {
+  // Hide all validated alignments when click on hideValidatedAlignments button
+  $scope.hideAlignments = function ($event) {
     $scope.hideValidatedAlignments = !$scope.hideValidatedAlignments;
+    // Change button color
+    if ($scope.hideValidatedAlignments == true) {
+      angular.element($event.currentTarget).css('background', '#d531b9');
+    } else {
+      angular.element($event.currentTarget).css('background', 'linear-gradient(to bottom, #5bc0de 0%, #2aabd2 100%)');
+    }
   }
   
+  // Display all rows before Download to get all alignments. But they all get back as waiting 
+  // Je pense que dans le html c'est init sur waiting. Mais dans le $scope.alignment c'est updated
+  $scope.displayAllRows = function () {
+    $scope.hideValidatedAlignments = false;
+    angular.element("#hideAlignmentsButton").css('background', 'linear-gradient(to bottom, #5bc0de 0%, #2aabd2 100%)');
+  }
 
   /**
    * Generate the ng if condition to manage which rows will be display
@@ -62,6 +75,35 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     }
     return false;
   }
+  
+  /**
+   * Generate the style string for the valid select dropdown
+   * @param {type} alignment
+   * @returns {String}
+   */
+  $scope.generateStyleForSelect = function (alignment) {
+    var styleString = null;
+    if (alignment.valid == "waiting") {
+      styleString = "background-color: #FFA500;";
+      //$scope.validStyle = "background-color: #FFA500;";
+    } else if (alignment.valid == "valid") {
+      styleString = "background-color: #00ff00;";
+      //$scope.validStyle = "background-color: #00ff00;";
+    } else if (alignment.valid == "notvalid") {
+      styleString = "background-color: #ff0000;";
+      //$scope.validStyle = "background-color: #ff0000;";
+    }
+    return styleString;
+  }
+  
+  /**
+   * Generate the id of an HTML element by concatenating a "validSelect" with the id
+   * @param {int} id
+   * @returns {undefined}
+   */
+  $scope.generateValidSelectElemId = function(id) {
+    return "validSelect" + id;
+  }
 
   /**
    * Change the color of the valid select dropdown// Change the color of the valid select dropdown
@@ -69,16 +111,24 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
    * @returns {undefined}
    */
   $scope.changeValidOptionColor = function (alignment) {
-    var elementId = alignment.index;
+    var elementId = "validSelect" + alignment.index;
+    // TODO: Remplacer par angular.element ? Avec $event
     if (document.getElementById(elementId).value == "waiting") {
-      document.getElementById(elementId).style.background = "#FFA500";
+      //document.getElementById(elementId).style.background = "#FFA500";
+      //$scope.validStyle = "background-color: #FFA500;";
+      $scope.validStyle = "{'background-color': '#FFA500'}";
     } else if (document.getElementById(elementId).value == "valid") {
-      document.getElementById(elementId).style.background = "#00ff00";
+      //document.getElementById(elementId).style.background = "#00ff00";
+      //$scope.validStyle = "background-color: #00ff00;";
+      $scope.validStyle = "{'background-color': '#00ff00'}";
     } else if (document.getElementById(elementId).value == "notvalid") {
-      document.getElementById(elementId).style.background = "#ff0000";
+      //document.getElementById(elementId).style.background = "#ff0000";
+      //$scope.validStyle = "background-color: #ff0000;";
+      $scope.validStyle = "{'background-color': '#ff0000'}";
     }
     alignment.valid = document.getElementById(elementId).value;
   }
+  
 
   $scope.getColoredDropdownStyle = function (alignment) {
     var styleString = null;
@@ -99,7 +149,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
    * @returns {undefined}
    */
   $scope.changeDetails = function (clickedOn) {
-    console.log(this.alignment);
+    //console.log(this.alignment);
     if ($scope.detailsLocked == false || clickedOn == true) {
       //$scope.selected = this.alignment;
       //$scope.selected = '';

@@ -58,8 +58,8 @@ for the ont1 and ont2 ontology alignment -->
       <br/><br/>
 
       <label style="margin-left: 1%;">Search: <input type="search" ng-model="searchText"></label>
-      <button type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
-              ng-click="hideAlignments()">Hide validated alignments</button>
+      <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
+              ng-click="hideAlignments($event)">Hide validated alignments</button>
       <br/>
       <label style="margin-left: 1%;">Language:</label>
       <select class="form-control" style="width: 7%;" ng-model="selectedLang" 
@@ -67,7 +67,7 @@ for the ont1 and ont2 ontology alignment -->
 
       <br/>
       <div>
-        <form action='download' method='post'>
+        <form action='download' method='post' ng-submit="displayAllRows()">
           <div style="display: table; width: 100%;">
             <div style="display: table-row;">
               <div class=tabDiv style="width: 79%; display: table-cell;">
@@ -86,7 +86,7 @@ for the ont1 and ont2 ontology alignment -->
                     <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText" class="{{selected}}"
                         ng-if="generateTableNgIf(alignment)">
                       <!-- TODO: ATTNTION il faudra repasser en mode "tous afficher" au moment de clicker sur download pour bien tous les afficher -->
-                      
+
                       <!-- Change details div with selected entities details when mouseover or click -->
                       <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
                         <input type="text" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input>
@@ -118,7 +118,9 @@ for the ont1 and ont2 ontology alignment -->
                       <td><input type="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" style="display: none;" readonly>{{alignment.measure}}</input></td>
                       <td class=tdSmall style="word-wrap: break-word; text-align: center;">
                         <!--input type='checkbox' name='checkbox' class="checkbox" value='{{alignment.index}}' id='{{alignment.index}}' checked/-->
-                        <select id="{{alignment.index}}" name="valid" class="form-control" ng-click="changeValidOptionColor(alignment)" style="{{getColoredDropdownStyle(alignment)}}">
+                        <!--select id="{{alignment.index}}" name="valid" style="{{validStyle}}" class="form-control" ng-click="changeValidOptionColor(alignment)"-->
+                        <select id="{{generateValidSelectElemId(alignment.index)}}" name="valid" style="{{generateStyleForSelect(alignment)}}" 
+                                class="form-control" ng-click="changeValidOptionColor(alignment)">
                           <option style="background: #FFFFFF;" value="waiting">Waiting...</option>
                           <option style="background: #FFFFFF;" value="valid">Valid</option>
                           <option style="background: #FFFFFF;" value="notvalid">Not valid</option>
