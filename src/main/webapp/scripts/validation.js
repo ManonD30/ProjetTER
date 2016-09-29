@@ -10,6 +10,9 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.ont1.namespaces, $window.ont2.namespaces);
   $scope.detailsLocked = false;
+
+  // init the ng-model used by the valid select dropdown
+  $scope.selectValidModel = {};
   $scope.hideValidatedAlignments = false;
 
   // Get an object with the entities of the alignment as key and their properties
@@ -41,7 +44,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       step: 1
     }
   };
-  
+
   // Hide all validated alignments when click on hideValidatedAlignments button
   $scope.hideAlignments = function ($event) {
     $scope.hideValidatedAlignments = !$scope.hideValidatedAlignments;
@@ -50,9 +53,23 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       angular.element($event.currentTarget).css('background', '#d531b9');
     } else {
       angular.element($event.currentTarget).css('background', 'linear-gradient(to bottom, #5bc0de 0%, #2aabd2 100%)');
+
+      //for (var align in $scope.alignments) {
+      //$scope["validSelect" + align.index] = align.valid;
+      //document.getElementById("validSelect" + align.index).value = align.valid;
+      /*if (align.valid == "waiting") {
+       document.getElementById("validSelect" + align.index).value = "waiting"
+       //angular.element("#validSelect" + align.index).valueOf();
+       //$scope["validSelect" + align.index] = align.valid;
+       } else if (align.valid == "valid") {
+       //angular.element("#validSelect" + align.index).css('background-color', '#00ff00');
+       } else if (align.valid == "notvalid") {
+       //angular.element("#validSelect" + align.index).css('background-color', '#00ff00');
+       }*/
+      //}
     }
   }
-  
+
   // Display all rows before Download to get all alignments. But they all get back as waiting 
   // Je pense que dans le html c'est init sur waiting. Mais dans le $scope.alignment c'est updated
   $scope.displayAllRows = function () {
@@ -66,16 +83,17 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
    * @returns {Boolean}
    */
   $scope.generateTableNgIf = function (alignment) {
-    if (alignment.measure >= $scope.minRangeSlider.minValue / 100 
+    if (alignment.measure >= $scope.minRangeSlider.minValue / 100
             && alignment.measure <= $scope.minRangeSlider.maxValue / 100) {
       if ($scope.hideValidatedAlignments == true && alignment.valid != "waiting") {
         return false;
-      };
+      }
+      ;
       return true;
     }
     return false;
   }
-  
+
   /**
    * Generate the style string for the valid select dropdown
    * @param {type} alignment
@@ -95,13 +113,13 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     }
     return styleString;
   }
-  
+
   /**
    * Generate the id of an HTML element by concatenating a "validSelect" with the id
    * @param {int} id
    * @returns {undefined}
    */
-  $scope.generateValidSelectElemId = function(id) {
+  $scope.generateValidSelectId = function (id) {
     return "validSelect" + id;
   }
 
@@ -110,38 +128,45 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
    * @param {int} elementId
    * @returns {undefined}
    */
-  $scope.changeValidOptionColor = function (alignment) {
+  $scope.changeValidOptionColor = function ($event, alignment) {
     var elementId = "validSelect" + alignment.index;
+    var validValue = angular.element($event.currentTarget).val();
+    //document.getElementById(elementId).value
     // TODO: Remplacer par angular.element ? Avec $event
-    if (document.getElementById(elementId).value == "waiting") {
+    
+    // Put the new value in the valid select dropdown ng-model
+    $scope.selectValidModel[alignment.index] = document.getElementById(elementId).value;
+    // Change the value in the alignment object
+    alignment.valid = validValue;
+
+    if (validValue == "waiting") {
       //document.getElementById(elementId).style.background = "#FFA500";
       //$scope.validStyle = "background-color: #FFA500;";
       $scope.validStyle = "{'background-color': '#FFA500'}";
-    } else if (document.getElementById(elementId).value == "valid") {
+    } else if (validValue == "valid") {
       //document.getElementById(elementId).style.background = "#00ff00";
       //$scope.validStyle = "background-color: #00ff00;";
       $scope.validStyle = "{'background-color': '#00ff00'}";
-    } else if (document.getElementById(elementId).value == "notvalid") {
+    } else if (validValue == "notvalid") {
       //document.getElementById(elementId).style.background = "#ff0000";
       //$scope.validStyle = "background-color: #ff0000;";
       $scope.validStyle = "{'background-color': '#ff0000'}";
     }
-    alignment.valid = document.getElementById(elementId).value;
   }
-  
 
-  $scope.getColoredDropdownStyle = function (alignment) {
-    var styleString = null;
-    if (alignment.valid == "waiting") {
-      //document.getElementById(elementId).style.background = "#FFA500";
-      styleString = "background: #FFA500;";
-    } else if (alignment.valid == "valid") {
-      styleString = "background: #00ff00;";
-    } else if (alignment.valid == "notvalid") {
-      styleString = "background: #ff0000;";
-    }
-    return styleString;
-  }
+
+  /*$scope.getColoredDropdownStyle = function (alignment) {
+   var styleString = null;
+   if (alignment.valid == "waiting") {
+   //document.getElementById(elementId).style.background = "#FFA500";
+   styleString = "background: #FFA500;";
+   } else if (alignment.valid == "valid") {
+   styleString = "background: #00ff00;";
+   } else if (alignment.valid == "notvalid") {
+   styleString = "background: #ff0000;";
+   }
+   return styleString;
+   }*/
 
   /**
    * Change details div to show selected entity details

@@ -115,12 +115,18 @@ for the ont1 and ont2 ontology alignment -->
                           <option value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
                         </select>
                       </td>
-                      <td><input type="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" style="display: none;" readonly>{{alignment.measure}}</input></td>
+                      <td>
+                        <input type="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" 
+                               style="display: none;" readonly>{{alignment.measure}}</input>
+                      </td>
                       <td class=tdSmall style="word-wrap: break-word; text-align: center;">
                         <!--input type='checkbox' name='checkbox' class="checkbox" value='{{alignment.index}}' id='{{alignment.index}}' checked/-->
                         <!--select id="{{alignment.index}}" name="valid" style="{{validStyle}}" class="form-control" ng-click="changeValidOptionColor(alignment)"-->
-                        <select id="{{generateValidSelectElemId(alignment.index)}}" name="valid" style="{{generateStyleForSelect(alignment)}}" 
-                                class="form-control" ng-click="changeValidOptionColor(alignment)">
+                        <select id="{{generateValidSelectId(alignment.index)}}" name="valid" 
+                                style="{{generateStyleForSelect(alignment)}}" class="form-control" 
+                                ng-model="selectValidModel[alignment.index]" ng-click="changeValidOptionColor($event, alignment)"
+                                ng-init="selectValidModel[alignment.index] = alignment.valid">
+                                <!--ng-model="generateValidSelectId(alignment.index)" ng-click="changeValidOptionColor(alignment)"-->
                           <option style="background: #FFFFFF;" value="waiting">Waiting...</option>
                           <option style="background: #FFFFFF;" value="valid">Valid</option>
                           <option style="background: #FFFFFF;" value="notvalid">Not valid</option>
