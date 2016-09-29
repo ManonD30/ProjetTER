@@ -107,20 +107,13 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   }
 
   /**
-   * Change the color of the valid select dropdown// Change the color of the valid select dropdown
+   * Put the new value in the valid select dropdown ng-model and change the value in the alignment object
    * @param {int} elementId
    * @returns {undefined}
    */
-  $scope.changeValidOptionColor = function ($event, alignment) {
-    var elementId = "validSelect" + alignment.index;
-    var validValue = angular.element($event.currentTarget).val();
-    //document.getElementById(elementId).value
-    // TODO: Remplacer par angular.element ? Avec $event
-    
-    // Put the new value in the valid select dropdown ng-model
-    $scope.selectValidModel[alignment.index] = document.getElementById(elementId).value;
-    // Change the value in the alignment object
-    alignment.valid = validValue;
+  $scope.updateSelectValidModels = function ($event, alignment) {
+    $scope.selectValidModel[alignment.index] = angular.element($event.currentTarget).val();
+    alignment.valid = angular.element($event.currentTarget).val();
   }
 
   /**
@@ -131,8 +124,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.changeDetails = function (clickedOn) {
     //console.log(this.alignment);
     if ($scope.detailsLocked == false || clickedOn == true) {
-      //$scope.selected = this.alignment;
-      //$scope.selected = '';
 
       var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1, "Source", $scope.selectedLang);
       var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2, "Target", $scope.selectedLang);
@@ -231,9 +222,6 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
     alignToAdd["valid"] = "waiting";
     alignments.push(alignToAdd);
   }
-
-  //console.log("alignments");
-  //console.log(alignments);
   return alignments;
 }
 

@@ -120,11 +120,11 @@ for the ont1 and ont2 ontology alignment -->
                                style="display: none;" readonly>{{alignment.measure}}</input>
                       </td>
                       <td class=tdSmall style="word-wrap: break-word; text-align: center;">
+                        <!-- We are changing the color of the select when a valid option is selected -->
                         <select id="{{generateValidSelectId(alignment.index)}}" name="valid" 
                                 style="{{generateStyleForSelect(alignment)}}" class="form-control" 
-                                ng-model="selectValidModel[alignment.index]" ng-click="changeValidOptionColor($event, alignment)"
+                                ng-model="selectValidModel[alignment.index]" ng-click="updateSelectValidModels($event, alignment)"
                                 ng-init="selectValidModel[alignment.index] = alignment.valid">
-                                <!--ng-model="generateValidSelectId(alignment.index)" ng-click="changeValidOptionColor(alignment)"-->
                           <option style="background: #FFFFFF;" value="waiting">Waiting...</option>
                           <option style="background: #FFFFFF;" value="valid">Valid</option>
                           <option style="background: #FFFFFF;" value="notvalid">Not valid</option>
