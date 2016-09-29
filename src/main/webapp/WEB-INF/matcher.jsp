@@ -26,20 +26,22 @@
           <span style="text-align: center">or</span> <br/>
           <label class="btn btn-info btn-file">
             Choose file
-            <input id=sourceFile type="file" name="sourceFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" onchange="refreshFileUpload('sourceFile', 'fileOnt1');" style="display: none;"/>
+            <input id=sourceFile type="file" name="sourceFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" 
+                   onchange="refreshFileUpload('sourceFile', 'sourceFilename');" style="display: none;"/>
           </label> <br/>
-          <label id="fileOnt1" style="font-weight: normal;"></label>
+          <label id="sourceFilename" style="font-weight: normal;"></label>
         </div>
         <div class="col-md-6">
           <label for=secondFile>Target Ontology</label> <br/>
           <input type="url" class='ontologyUrl' id="targetUrl" name="targetUrl" placeholder="Enter ontology URL"/>
           <br/>
           <span style="text-align: center">or</span> <br/>
-          <label id="labelOnt2" class="btn btn-info btn-file">
+          <label class="btn btn-info btn-file">
             Choose file
-            <input id=targetFile type="file" name="targetFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" onchange="refreshFileUpload('targetFile', 'fileOnt2');" style="display: none;" />
+            <input id=targetFile type="file" name="targetFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" 
+                   onchange="refreshFileUpload('targetFile', 'targetFilename');" style="display: none;" />
           </label> <br/>
-          <label id="fileOnt2" style="font-weight: normal;"></label>
+          <label id="targetFilename" style="font-weight: normal;"></label>
         </div>
       </div>
       <br/>
@@ -70,8 +72,8 @@
              */
             function getExample()
             {
-              document.getElementById('sourceUrl1').value = "http://data.bioportal.lirmm.fr/ontologies/CIF/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db";
-              document.getElementById('sourceUrl2').value = "http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db";
+              document.getElementById('sourceUrl').value = "http://data.bioportal.lirmm.fr/ontologies/CIF/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db";
+              document.getElementById('targetUrl').value = "http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db";
             }
 </script>
 

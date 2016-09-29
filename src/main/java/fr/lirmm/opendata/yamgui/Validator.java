@@ -79,7 +79,7 @@ public class Validator extends HttpServlet {
     request.setAttribute("sourceOnt", sourceOntoJson);
     request.setAttribute("targetOnt", targetOntoJson);
 
-    // Call result.jsp and send the request with ont1, ont2 and data results
+    // Call result.jsp and send the request with sourceOnt, targetOnt and alignment results
     this.getServletContext()
             .getRequestDispatcher("/WEB-INF/validation.jsp")
             .forward(request, response);

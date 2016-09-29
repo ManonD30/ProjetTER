@@ -14,15 +14,18 @@
     <form action="validator" method="post"
           enctype="multipart/form-data" name=form>
 
-      <label for=rdfAlignmentFile><a href="http://alignapi.gforge.inria.fr/format.html" target="_blank">AlignmentAPI</a> RDF file</label> <br/>
+      <label for=rdfAlignmentFile>
+        <a href="http://alignapi.gforge.inria.fr/format.html" target="_blank">AlignmentAPI</a> RDF file
+      </label> <br/>
+      
       <label class="btn btn-info btn-file">
         Choose file
         <input id=rdfAlignmentFile type="file" name="rdfAlignmentFile" accept=".rdf, .xml" 
                onchange="refreshFileUpload('rdfAlignmentFile', 'fileRdfAlignmentFile');" style="display: none;" />
       </label> <br/>
+      
       <label id="fileRdfAlignmentFile" style="font-weight: normal;"></label>
 
-      <!-- On doit pouvoir virer des name ici-->
       <div class="row">
         <div class="col-md-6">
           <label for=sourceUrl>Source Ontology</label> <br/>
@@ -31,23 +34,26 @@
           <span style="text-align: center">or</span> <br/>
           <label class="btn btn-info btn-file">
             Choose file
-            <input id=sourceFile type="file" name="sourceFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" onchange="refreshFileUpload('sourceFile', 'fileOnt1');" style="display: none;"/>
+            <input id=sourceFile type="file" name="sourceFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" 
+                   onchange="refreshFileUpload('sourceFile', 'sourceFilename');" style="display: none;"/>
           </label> <br/>
-          <label id="fileOnt1" style="font-weight: normal;"></label>
+          <label id="sourceFilename" style="font-weight: normal;"></label>
         </div>
         <div class="col-md-6">
           <label for=targetUrl>Target Ontology</label> <br/>
           <input type="url" class='ontologyUrl' id="targetUrl" name="targetUrl" placeholder="Enter ontology URL"/>
           <br/>
           <span style="text-align: center">or</span> <br/>
-          <label id="labelOnt2" class="btn btn-info btn-file">
+          <label class="btn btn-info btn-file">
             Choose file
-            <input id=targetFile type="file" name="targetFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" onchange="refreshFileUpload('targetFile', 'fileOnt2');" style="display: none;" />
+            <input id=targetFile type="file" name="targetFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" 
+                   onchange="refreshFileUpload('targetFile', 'targetFilename');" style="display: none;" />
           </label> <br/>
-          <label id="fileOnt2" style="font-weight: normal;"></label>
+          <label id="targetFilename" style="font-weight: normal;"></label>
         </div>
       </div>
       <br/>
+      
       <div class="alert alert-info" role="alert">
         Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml
       </div>

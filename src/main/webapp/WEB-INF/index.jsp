@@ -14,10 +14,10 @@
       </h1>
 
       <p>A RESTful API to get an alignment between 2 ontologies. 
-        You can pass the URL of the ontology with "sourceUrl1" and "sourceUrl2" parameters.<br/>
+        You can pass the URL of the ontology with "sourceUrl" and "targetUrl" parameters.<br/>
         For example:
-        <a href="rest/matcher?sourceUrl2=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&sourceUrl1=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl">
-          http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl2=https://Conference.owl&sourceUrl1=https://cmt.owl
+        <a href="rest/matcher?sourceUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&targetUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl">
+          http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://Conference.owl&targetUrl=https://cmt.owl
         </a>
       </p>
 
