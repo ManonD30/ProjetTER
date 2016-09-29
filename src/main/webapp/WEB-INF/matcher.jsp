@@ -17,13 +17,14 @@
         So it may crash or take a really long time for more than 3000 classes ontologies :D
       </div>
 
+      <!-- The user can provide ontologies from URL or by uploading a file -->
       <div class="row">
-
         <div class="col-md-6">
           <label for=firstFile>Source Ontology</label> <br/>
           <input type="url" class='ontologyUrl' id="sourceUrl" name="sourceUrl" placeholder="Enter ontology URL"/>
-          <br/>
-          <span style="text-align: center">or</span> <br/>
+          
+          <br/><span style="text-align: center">or</span><br/>
+          
           <label class="btn btn-info btn-file">
             Choose file
             <input id=sourceFile type="file" name="sourceFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" 
