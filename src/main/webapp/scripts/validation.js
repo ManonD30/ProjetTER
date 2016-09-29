@@ -127,7 +127,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.changeDetails = function (clickedOn) {
     //console.log(this.alignment);
     if ($scope.detailsLocked == false || clickedOn == true) {
-
       var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1, "Source", $scope.selectedLang);
       var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2, "Target", $scope.selectedLang);
 
@@ -152,47 +151,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     }
   };
 })
-
-/* Remember on how to make a little window that show when mouseover
- .directive('toggle', function () {
- return {
- restrict: 'A',
- link: function (scope, element, attrs) {
- if (attrs.toggle == "tooltip") {
- $(element).tooltip();
- }
- if (attrs.toggle == "popover") {
- // Allows the popover to stay when mouseovered
- // And allows us to setup the popover
- 
- var entity = JSON.parse(attrs.entity);
- // Not working properly: it doesn't change with selectedLang
- var popoverString = buildEntityDetailsHtml(entity);
- 
- $(element).popover({
- html: true,
- trigger: 'manual',
- container: $(this).attr('id'),
- content: popoverString
- }).on("mouseenter", function () {
- var _this = this;
- $(this).popover("show");
- $(this).siblings(".popover").on("mouseleave", function () {
- $(_this).popover('hide');
- });
- }).on("mouseleave", function () {
- var _this = this;
- setTimeout(function () {
- if (!$(".popover:hover").length) {
- $(_this).popover("hide")
- }
- }, 100);
- });
- }
- }
- };
- })
- ;*/
 
 /**
  * a function to get the ontology that is linked to an alignment
@@ -261,7 +219,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
       orderedEntities["label"] = entity["label"][Object.keys(entity["label"])[0]] + " (" + Object.keys(entity["label"])[0] + ")";
     }
   }
-
+  
   // add each property object linked to each subject
   // Iterate over the different properties (predicates) of an entity
   Object.keys(entity).sort().forEach(function (key) {
@@ -306,3 +264,44 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
   //console.log(orderedEntities);
   return htmlString + "</ul>";
 }
+
+/* Remember on how to make a little window that show when mouseover with angularjs
+ .directive('toggle', function () {
+ return {
+ restrict: 'A',
+ link: function (scope, element, attrs) {
+ if (attrs.toggle == "tooltip") {
+ $(element).tooltip();
+ }
+ if (attrs.toggle == "popover") {
+ // Allows the popover to stay when mouseovered
+ // And allows us to setup the popover
+ 
+ var entity = JSON.parse(attrs.entity);
+ // Not working properly: it doesn't change with selectedLang
+ var popoverString = buildEntityDetailsHtml(entity);
+ 
+ $(element).popover({
+ html: true,
+ trigger: 'manual',
+ container: $(this).attr('id'),
+ content: popoverString
+ }).on("mouseenter", function () {
+ var _this = this;
+ $(this).popover("show");
+ $(this).siblings(".popover").on("mouseleave", function () {
+ $(_this).popover('hide');
+ });
+ }).on("mouseleave", function () {
+ var _this = this;
+ setTimeout(function () {
+ if (!$(".popover:hover").length) {
+ $(_this).popover("hide")
+ }
+ }, 100);
+ });
+ }
+ }
+ };
+ })
+ ;*/
