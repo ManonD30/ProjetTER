@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -54,18 +55,29 @@ public class TestOaeiAlignment {
   // public void hello() {}
   @Test
   public void testOaeiAlignment() throws IOException, ClassNotFoundException, SKOSCreationException, OWLOntologyStorageException {
-    
+
     String iamlRameauAlignment = FileUtils.readFileToString(new File("src/test/resources/iaml-rameau_valid_test.rdf"), "UTF-8");
-    
+
+    boolean testExtractValid = false;
     YamFileHandler fileHandler = new YamFileHandler();
-    JSONArray parseOaeiJson = null;
+    JSONArray parseOaeiJson = new JSONArray();
     try {
       parseOaeiJson = fileHandler.parseOaeiAlignmentFormat(iamlRameauAlignment);
     } catch (AlignmentException ex) {
       Logger.getLogger(TestOaeiAlignment.class.getName()).log(Level.SEVERE, null, ex);
     }
-    
-    System.out.println(parseOaeiJson.toString());
-    assertTrue(true);
+
+    // Look for a specific valid mapping to test if parsing worked
+    for (int i = 0; i < parseOaeiJson.size(); i++) {
+      JSONObject mappingJObject = (JSONObject) parseOaeiJson.get(i);
+      if (mappingJObject.get("valid").equals("valid") 
+              && mappingJObject.get("entity1").equals("http://iflastandards.info/ns/unimarc/terms/mop/wdb")
+              && mappingJObject.get("entity2").equals("http://data.bnf.fr/ark:/12148/cb12270245r")) {
+        testExtractValid = true;
+        break;
+      }
+    }
+    //System.out.println(parseOaeiJson.toString());
+    assertTrue(testExtractValid);
   }
 }
