@@ -81,17 +81,20 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   }
 
   /**
-   * Generate the style string for the valid select dropdown
+   * Generate the style string for the valid select dropdown to change background color
    * @param {type} alignment
    * @returns {String}
    */
   $scope.generateStyleForSelect = function (alignment) {
     var styleString = null;
     if (alignment.valid == "waiting") {
+      // Orange
       styleString = "background-color: #FFA500;";
     } else if (alignment.valid == "valid") {
+      // Green
       styleString = "background-color: #00ff00;";
     } else if (alignment.valid == "notvalid") {
+      // Red
       styleString = "background-color: #ff0000;";
     }
     return styleString;
