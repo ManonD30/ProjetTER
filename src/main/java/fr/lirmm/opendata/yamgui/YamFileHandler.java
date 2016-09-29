@@ -192,9 +192,9 @@ public class YamFileHandler {
           throws FileNotFoundException, UnsupportedEncodingException, IOException {
     // Generate file storage name: /$WORKING_DIR/ontologies/MYRANDOMID/ont1.txt for example
     String storagePath = this.workDir + "/data/tmp/" + subDir + "/" + filename;
-    FileUtils.writeStringToFile(new File(storagePath), contentString);
+    FileUtils.writeStringToFile(new File(storagePath), contentString, "UTF-8");
     if (saveFile == true) {
-      FileUtils.writeStringToFile(new File(this.workDir + "/data/save/" + subDir + "/" + filename), contentString);
+      FileUtils.writeStringToFile(new File(this.workDir + "/data/save/" + subDir + "/" + filename), contentString, "UTF-8");
     }
     return storagePath;
   }
