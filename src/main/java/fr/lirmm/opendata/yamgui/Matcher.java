@@ -120,7 +120,7 @@ public class Matcher extends HttpServlet {
 
     String storagePath1 = fileHandler.uploadFile("1", subDirName, request);
     String storagePath2 = fileHandler.uploadFile("2", subDirName, request);
-    
+
     Logger.getLogger(Matcher.class.getName()).log(Level.INFO, storagePath1);
     YamFileHandler.convertSkosToOwl(new File(storagePath1), new File(storagePath1), "RDF/XML");
     YamFileHandler.convertSkosToOwl(new File(storagePath2), new File(storagePath2), "RDF/XML");
@@ -134,8 +134,6 @@ public class Matcher extends HttpServlet {
     OWLOntologyManager owlManager = OWLManager.createOWLOntologyManager();
     owlManager.saveOntology(convertedOwlOnto, new FileOutputStream("/tmp/yam2013/teeest1.owl"));*/
 
-    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "yeeeeeah");
-
     // Check if file is bigger than 4MB
     int maxFileSize = 4;
     if (fileHandler.getFileSize(storagePath1) >= maxFileSize || fileHandler.getFileSize(storagePath2) >= maxFileSize) {
@@ -148,25 +146,8 @@ public class Matcher extends HttpServlet {
     // Execute YAM to get the mappings in RDF/XML
     MainProgram.match(storagePath1, storagePath2, resultStoragePath);
 
-    responseString = FileUtils.readFileToString(new File(resultStoragePath));
+    responseString = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
 
     return responseString;
   }
-
-  // upload "fileToUpload" into "fileLocation"
-  /*public void uploadFile(InputStream fileToUpload, String fileLocation) {
-    try {
-      FileOutputStream out = new FileOutputStream(new File(fileLocation));
-      int read = 0;
-      byte[] bytes = new byte[1024];
-      out = new FileOutputStream(new File(fileLocation));
-      while ((read = fileToUpload.read(bytes)) != -1) {
-        out.write(bytes, 0, read);
-      }
-      out.flush();
-      out.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }*/
 }

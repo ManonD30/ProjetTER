@@ -287,7 +287,7 @@ public class YamFileHandler {
       jObject.put("entity2", cellElem.getElementsByTagName("entity2").item(0).getAttributes().getNamedItem("rdf:resource").getNodeValue());
       jObject.put("relation", cellElem.getElementsByTagName("relation").item(0).getTextContent());
       jObject.put("measure", round(Double.parseDouble(cellElem.getElementsByTagName("measure").item(0).getTextContent())));
-      
+
       // If no valid field found then waiting by default
       if (cellElem.getElementsByTagName("valid").getLength() > 0) {
         if (cellElem.getElementsByTagName("valid").item(0).getTextContent().equals("true")) {
