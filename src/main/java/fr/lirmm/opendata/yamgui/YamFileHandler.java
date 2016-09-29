@@ -246,38 +246,6 @@ public class YamFileHandler {
    * @throws AlignmentException
    */
   public JSONArray parseOaeiAlignmentFormat(String oaeiResult) throws AlignmentException {
-
-    /*AlignmentParser aparser = new AlignmentParser(0);
-    // rdf file
-    Alignment file = aparser.parseString(oaeiResult);
-
-    JSONObject jObject = null;
-    JSONArray jArray = new JSONArray();
-
-    ArrayList<Map> liste = new ArrayList<>();
-
-    // cell iterator
-    Iterator<Cell> align = file.iterator();
-    // clear the list
-    liste.clear();
-
-    int index = 1;
-    // add all iteration to the list
-    while (align.hasNext()) {
-      // new Map which will contain a cell
-      Map mapping = new Map();
-      Cell cell = align.next();
-
-      jObject = new JSONObject();
-      jObject.put("index", index);
-      jObject.put("entity1", cell.getObject1().toString());
-      jObject.put("entity2", cell.getObject2().toString());
-      jObject.put("relation", cell.getRelation().getRelation().toString());
-      jObject.put("measure", round(cell.getStrength()));
-      jObject.put("valid", "waiting");
-      index += 1;
-      jArray.add(jObject);
-    }*/
     JSONObject jObject = null;
     JSONArray jArray = new JSONArray();
 
