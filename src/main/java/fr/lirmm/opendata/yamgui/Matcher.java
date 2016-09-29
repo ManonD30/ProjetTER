@@ -147,8 +147,8 @@ public class Matcher extends HttpServlet {
 
     Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "yeeeeeah");
 
-    // Check if file is bigger than 3MB
-    int maxFileSize = 3;
+    // Check if file is bigger than 4MB
+    int maxFileSize = 4;
     if (fileHandler.getFileSize(storagePath1) >= maxFileSize || fileHandler.getFileSize(storagePath2) >= maxFileSize) {
       System.out.println("File too big");
       throw new FileNotFoundException("File too big: its size should be less than " + maxFileSize + "MB");
