@@ -97,9 +97,9 @@ public class YamFileHandler {
   }
 
   /**
-   * NOT USED anymore. Now we are using the jenaLoadOnto method. Read the
-   * ontology file or source URL from the request and returns a String. We are
-   * using ontName to get ontology either from uploaded file "sourceFile" or URL
+   * Used by matcher to get an ontology file from a request. Read the ontology
+   * file or source URL from the request and returns a String. We are using
+   * ontName to get ontology either from uploaded file "sourceFile" or URL
    * "targetUrl".
    *
    * @param ontName
@@ -146,9 +146,11 @@ public class YamFileHandler {
   }
 
   /**
-   * Upload a file taking its ont name (source or target) in the params and the
-   * HTTP request It download the file if it is an URL or get it from the POST
-   * request
+   * Upload a file from HTTP request. It downloads the file if it is an URL or
+   * get it from the POST request. It stores the contentString in a file in the
+   * tmp directory. In a subdirectory /tmp/yam/ + subDir generated + / +
+   * filename (source.owl or target.owl). Usually the sub directory is randomly
+   * generated before calling uploadFile And return the path to the created file
    *
    * @param ontName
    * @param subDir
@@ -163,18 +165,24 @@ public class YamFileHandler {
     if (request.getParameter("saveFile") != null) {
       saveFile = true;
     }
-
-    // Store the ontology String in the generated subDir and return file path
-    String storagePath = storeFile(ontName + ".owl", subDir, ontologyString, saveFile);
+    String filename = ontName + ".owl";
+    // Store the file in the tmp dir: /tmp/yam/subDir/source.owl for example
+    String storagePath = this.tmpDir + subDir + "/" + filename;
+    FileUtils.writeStringToFile(new File(storagePath), ontologyString, "UTF-8");
+    if (saveFile == true) {
+      // Save file in workdir/save/subDir
+      FileUtils.writeStringToFile(new File(this.workDir + "/save/" + subDir + "/" + filename), ontologyString, "UTF-8");
+    }
     return storagePath;
   }
 
   /**
    * Store the contentString in a file in the working directory. In a
-   * subdirectory /tmp/yam/ + subDir generated + / + filename
-   * (source.owl or target.owl). Usually the sub directory is randomly generated
-   * before calling uploadFile And return the path to the created file
-   * TODO: RELOCATE THIS directement dans la function au dessus (uploadFile)
+   * subdirectory /tmp/yam/ + subDir generated + / + filename (source.owl or
+   * target.owl). Usually the sub directory is randomly generated before calling
+   * uploadFile And return the path to the created file TODO: RELOCATE THIS
+   * directement dans la function au dessus (uploadFile)
+   *
    * @param filename
    * @param subDir
    * @param contentString
@@ -722,14 +730,16 @@ public class YamFileHandler {
 
   /**
    * Returns the working directory as a String
+   *
    * @return workDir String
    */
   public String getWorkDir() {
     return workDir;
   }
-  
+
   /**
    * Returns the tmp directory as a String
+   *
    * @return workDir String
    */
   public String getTmpDir() {
