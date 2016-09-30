@@ -232,7 +232,9 @@ public class YamFileHandler {
    * Take a OAEI AlignmentAPI string and use classic XML parser. To return a
    * JSONArray containing the data of the alignment Format of the array:
    * [{"index": 1, "entity1": "http://entity1.fr", "entity2":
-   * "http://entity2.fr", "relation": "skos:exactMatch", "measure": 0.34, }]
+   * "http://entity2.fr", "relation": "skos:exactMatch", "measure": 0.34, }] We
+   * can't use AlignmentAPI parser because of the "valid" property (trigger
+   * error at load
    *
    * @param oaeiResult
    * @return JSONArray

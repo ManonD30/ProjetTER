@@ -120,8 +120,8 @@ public class Matcher extends HttpServlet {
     String sourceStoragePath = fileHandler.uploadFile("source", subDirName, request);
     String targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
 
-    String sourceConvertedPath = "converted" + sourceStoragePath;
-    String targetConvertedPath = "converted" + targetStoragePath;
+    String sourceConvertedPath = sourceStoragePath.replaceAll(".owl", "Converted.owl");
+    String targetConvertedPath = targetStoragePath.replaceAll(".owl", "Converted.owl");
     
     YamFileHandler.convertSkosToOwl(new File(sourceStoragePath), new File(sourceConvertedPath), "RDF/XML");
     YamFileHandler.convertSkosToOwl(new File(targetStoragePath), new File(targetConvertedPath), "RDF/XML");
