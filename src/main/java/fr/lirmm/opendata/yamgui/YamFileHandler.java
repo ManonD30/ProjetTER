@@ -503,8 +503,6 @@ public class YamFileHandler {
             }
 
             JSONArray objectsJArray = new JSONArray();
-            // ATTENTION doit être converti en URI avec prefix (i.e.: skos:prefLabel) car les predicats
-            // dans clsJObject sont convertiss
             if (clsJObject.containsKey(predicateString)) {
               objectsJArray = (JSONArray) clsJObject.get(predicateString);
             }

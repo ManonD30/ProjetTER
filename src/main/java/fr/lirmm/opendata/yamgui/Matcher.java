@@ -57,7 +57,6 @@ public class Matcher extends HttpServlet {
       Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
     }
 
-    // TODO: output result.rdf content
     out.print(responseString);
     out.flush();
   }
@@ -69,6 +68,7 @@ public class Matcher extends HttpServlet {
    * http://localhost:8083/rest/matcher?targetUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&sourceUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl
    * http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db
    * http://data.bioportal.lirmm.fr/ontologies/CIF/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db
+   *
    * @param request
    * @param response
    * @throws ServletException
@@ -111,7 +111,6 @@ public class Matcher extends HttpServlet {
    */
   static String processRequest(HttpServletRequest request) throws Exception {
     String responseString = null;
-
     YamFileHandler fileHandler = new YamFileHandler();
 
     // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
@@ -122,7 +121,7 @@ public class Matcher extends HttpServlet {
 
     String sourceConvertedPath = sourceStoragePath.replaceAll(".owl", "Converted.owl");
     String targetConvertedPath = targetStoragePath.replaceAll(".owl", "Converted.owl");
-    
+
     YamFileHandler.convertSkosToOwl(new File(sourceStoragePath), new File(sourceConvertedPath), "RDF/XML");
     YamFileHandler.convertSkosToOwl(new File(targetStoragePath), new File(targetConvertedPath), "RDF/XML");
 
@@ -146,7 +145,6 @@ public class Matcher extends HttpServlet {
     MainProgram.match(sourceConvertedPath, targetConvertedPath, resultStoragePath);
 
     responseString = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
-
     return responseString;
   }
 }

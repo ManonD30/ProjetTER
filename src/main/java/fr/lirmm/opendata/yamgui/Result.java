@@ -97,7 +97,6 @@ public class Result extends HttpServlet {
     JSONArray alignmentJson = null;
     // Parse OAEI alignment format to get the matcher results
     try {
-      // TODO: use JSON ici [{mapping1:label,etc},{}]
       alignmentJson = fileHandler.parseOaeiAlignmentFormat(matcherResult);
     } catch (AlignmentException ex) {
       request.setAttribute("errorMessage", "Error when loading OAEI alignment results: " + ex.getMessage());
