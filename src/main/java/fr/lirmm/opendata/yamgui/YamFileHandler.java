@@ -177,33 +177,6 @@ public class YamFileHandler {
   }
 
   /**
-   * Store the contentString in a file in the working directory. In a
-   * subdirectory /tmp/yam/ + subDir generated + / + filename (source.owl or
-   * target.owl). Usually the sub directory is randomly generated before calling
-   * uploadFile And return the path to the created file TODO: RELOCATE THIS
-   * directement dans la function au dessus (uploadFile)
-   *
-   * @param filename
-   * @param subDir
-   * @param contentString
-   * @param saveFile
-   * @return String
-   * @throws java.io.FileNotFoundException
-   * @throws java.io.UnsupportedEncodingException
-   */
-  public String storeFile(String filename, String subDir, String contentString, boolean saveFile)
-          throws FileNotFoundException, UnsupportedEncodingException, IOException {
-    // Store the file in the tmp dir: /tmp/yam/subDir/source.owl for example
-    String storagePath = this.tmpDir + subDir + "/" + filename;
-    FileUtils.writeStringToFile(new File(storagePath), contentString, "UTF-8");
-    if (saveFile == true) {
-      // Save file in workdir/save/subDir
-      FileUtils.writeStringToFile(new File(this.workDir + "/save/" + subDir + "/" + filename), contentString, "UTF-8");
-    }
-    return storagePath;
-  }
-
-  /**
    * Get the content of a URL page (to get ontologies from the URL)
    *
    * @param sourceUrl
