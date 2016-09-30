@@ -120,8 +120,11 @@ public class Matcher extends HttpServlet {
     String sourceStoragePath = fileHandler.uploadFile("source", subDirName, request);
     String targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
 
-    YamFileHandler.convertSkosToOwl(new File(sourceStoragePath), new File(sourceStoragePath), "RDF/XML");
-    YamFileHandler.convertSkosToOwl(new File(targetStoragePath), new File(targetStoragePath), "RDF/XML");
+    String sourceConvertedPath = "converted" + sourceStoragePath;
+    String targetConvertedPath = "converted" + targetStoragePath;
+    
+    YamFileHandler.convertSkosToOwl(new File(sourceStoragePath), new File(sourceConvertedPath), "RDF/XML");
+    YamFileHandler.convertSkosToOwl(new File(targetStoragePath), new File(targetConvertedPath), "RDF/XML");
 
     /*SKOSManager manager = new SKOSManager();
     // use the manager to load a SKOS vocabulary from a URI (either physical or on the web)
@@ -140,7 +143,7 @@ public class Matcher extends HttpServlet {
     String resultStoragePath = fileHandler.getWorkDir() + "/data/tmp/" + subDirName + "/result.rdf";
 
     // Execute YAM to get the mappings in RDF/XML
-    MainProgram.match(sourceStoragePath, targetStoragePath, resultStoragePath);
+    MainProgram.match(sourceConvertedPath, targetConvertedPath, resultStoragePath);
 
     responseString = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
 
