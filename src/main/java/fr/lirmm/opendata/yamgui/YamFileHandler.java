@@ -119,6 +119,7 @@ public class YamFileHandler {
 
   /**
    * Read the file passed in params in the HTTP request
+   *
    * @param fileParam
    * @param request
    * @return String
@@ -305,6 +306,7 @@ public class YamFileHandler {
    * Returns a JSONArray with class URI in "id" and all other properties i.e.: {
    * namespaces: {"rdfs": "http://rdfs.org/"}, entities: {"http://entity1.org/":
    * {"id": "http://entity1.org/", "rdfs:label": "test"}}}
+   *
    * @param request
    * @param ontName
    * @return JSONArray
@@ -525,7 +527,9 @@ public class YamFileHandler {
   /**
    * Convert Skos Ontology to OWL. We are adding the rdf:type owl:Class to every
    * skos:Concept. And skos:broader/skos:narrower are replaced by
-   * rdfs:subClassOf
+   * rdfs:subClassOf. Also adding the triple <http://my_ontology_URI/> rdf:type
+   * owl:Ontology And adding rdfs:label for all skos:prefLabel (not really
+   * useful because we handle skos:prefLabel)
    *
    * @param skosFile
    * @param outputPath

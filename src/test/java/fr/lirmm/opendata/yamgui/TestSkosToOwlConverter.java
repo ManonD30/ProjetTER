@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -60,9 +61,10 @@ public class TestSkosToOwlConverter {
   // public void hello() {}
   @Test
   public void testSkosToOwlConverter() throws IOException, ClassNotFoundException, SKOSCreationException, OWLOntologyStorageException {
-
-    String skosRameau = YamFileHandler.convertSkosToOwl(new File("src/test/resources/rameau.ttl"), null, "RDF/XML");
-    //String skosIaml = YamFileHandler.convertSkosToOwl(new File("src/test/resources/iaml.ttl"), new File("/tmp/yam2013/iaml.xml"), "RDF/XML");
+    FileUtils.forceMkdir(new File("/tmp/yam2013"));
+    String skosRameau = YamFileHandler.convertSkosToOwl(new File("src/test/resources/rameau.ttl"), new File("/tmp/yam2013/rameau_converted.xml"), "RDF/XML");
+    String skosIaml = YamFileHandler.convertSkosToOwl(new File("src/test/resources/iaml.ttl"), new File("/tmp/yam2013/iaml_converted.xml"), "RDF/XML");
+    String skosMimo = YamFileHandler.convertSkosToOwl(new File("src/test/resources/MIMO.xml"), new File("/tmp/yam2013/mimo_converted.xml"), "RDF/XML");
     OWLOntologyManager owlManager;
     OWLOntology ontology;
 
