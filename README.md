@@ -52,7 +52,7 @@ Fill the `src/main/resources/config.properties` file with MySQL credentials and 
 
 ## Working directory
 
-The working directory (i.e.: /srv/yam-gui) is the place where the ontologies and alignments are stored on the server. It should have a read, write and execute accessible for everyone and the followings diretories in it: ontologies and save
+The working directory (i.e.: /srv/yam-gui) is the place where the ontologies and alignments are stored on the server. It should have a read, write and execute accessible for everyone and the followings directories in it: ontologies and save
 
 ```bash
 mkdir /srv/yam-gui/ontologies
@@ -91,4 +91,10 @@ To log to tomcat catalina log
 ```java
 Logger myLog = Logger.getLogger (MyClass.class.getName());
 myLog.log(Level.INFO, "hello world");
+```
+
+## Connect to tomcat docker container
+
+```
+docker exec -i -t yam_tomcat bash
 ```

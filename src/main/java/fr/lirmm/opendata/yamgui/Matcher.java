@@ -140,7 +140,7 @@ public class Matcher extends HttpServlet {
       throw new FileNotFoundException("File too big: its size should be less than " + maxFileSize + "MB");
     }
 
-    String resultStoragePath = fileHandler.getWorkDir() + "/data/tmp/" + subDirName + "/result.rdf";
+    String resultStoragePath = fileHandler.getTmpDir() + subDirName + "/result.rdf";
 
     // Execute YAM to get the mappings in RDF/XML
     MainProgram.match(sourceConvertedPath, targetConvertedPath, resultStoragePath);

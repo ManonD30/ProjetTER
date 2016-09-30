@@ -76,6 +76,7 @@ import org.xml.sax.SAXException;
 public class YamFileHandler {
 
   String workDir;
+  String tmpDir = "/tmp/yam/";
 
   /**
    * YamFileHandler constructor. It gets the workdir from the conf.properties
@@ -92,6 +93,7 @@ public class YamFileHandler {
     this.workDir = prop.getProperty("workdir");
     // Create the working directory
     FileUtils.forceMkdir(new File(this.workDir));
+    FileUtils.forceMkdir(new File(this.tmpDir));
   }
 
   /**
@@ -169,10 +171,10 @@ public class YamFileHandler {
 
   /**
    * Store the contentString in a file in the working directory. In a
-   * subdirectory working dir + /data/tmp/ + subDir generated + / + filename
+   * subdirectory /tmp/yam/ + subDir generated + / + filename
    * (source.owl or target.owl). Usually the sub directory is randomly generated
    * before calling uploadFile And return the path to the created file
-   *
+   * TODO: RELOCATE THIS directement dans la function au dessus (uploadFile)
    * @param filename
    * @param subDir
    * @param contentString
@@ -183,11 +185,12 @@ public class YamFileHandler {
    */
   public String storeFile(String filename, String subDir, String contentString, boolean saveFile)
           throws FileNotFoundException, UnsupportedEncodingException, IOException {
-    // Generate file storage name: /$WORKING_DIR/ontologies/MYRANDOMID/ont1.txt for example
-    String storagePath = this.workDir + "/data/tmp/" + subDir + "/" + filename;
+    // Store the file in the tmp dir: /tmp/yam/subDir/source.owl for example
+    String storagePath = this.tmpDir + subDir + "/" + filename;
     FileUtils.writeStringToFile(new File(storagePath), contentString, "UTF-8");
     if (saveFile == true) {
-      FileUtils.writeStringToFile(new File(this.workDir + "/data/save/" + subDir + "/" + filename), contentString, "UTF-8");
+      // Save file in workdir/save/subDir
+      FileUtils.writeStringToFile(new File(this.workDir + "/save/" + subDir + "/" + filename), contentString, "UTF-8");
     }
     return storagePath;
   }
@@ -719,7 +722,19 @@ public class YamFileHandler {
     return size;
   }
 
+  /**
+   * Returns the working directory as a String
+   * @return workDir String
+   */
   public String getWorkDir() {
     return workDir;
+  }
+  
+  /**
+   * Returns the tmp directory as a String
+   * @return workDir String
+   */
+  public String getTmpDir() {
+    return tmpDir;
   }
 }
