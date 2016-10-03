@@ -11,7 +11,7 @@
       <br/><br/>
 
       <div class="alert alert-warning" role="alert">
-        <b>OBO</b> format and <b>SKOS</b> scheme are <b>not supported</b>
+        <b>SKOS</b> scheme are <b>supported</b> but <b>OBO</b> format are <b>not</b>
         <br/>
         The version of YAM++ used in this app is <b>not optimized for big ontologies</b>.<br/>
         So it may crash or take a really long time for more than 3000 classes ontologies :D
