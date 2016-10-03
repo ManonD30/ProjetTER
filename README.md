@@ -98,3 +98,22 @@ myLog.log(Level.INFO, "hello world");
 ```
 docker exec -i -t yam_tomcat bash
 ```
+
+## Use d3.js for vizualisation
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+* GeneOntology vizualisation: http://blog.nextgenetics.net/?e=19
+Pretty neat: http://blog.nextgenetics.net/demo/entry0019/demo.html
+
+* Simple graph de force:
+http://emptypipes.org/2015/02/15/selectable-force-directed-graph/
+
+* Graph sans select avec poids
+http://bl.ocks.org/mbostock/4062045
+
+* Graph avec select sans couleur
+http://bl.ocks.org/mbostock/4566102
+
+* Graph avec select avec couleur (joli)
+http://bl.ocks.org/pkerpedjiev/0389e39fad95e1cf29ce
