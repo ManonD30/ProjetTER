@@ -131,7 +131,7 @@ public class Matcher extends HttpServlet {
     SKOStoOWLConverter skosConverter = new SKOStoOWLConverter();
     OWLOntology convertedOwlOnto = skosConverter.getAsOWLOntology(skosDataset);
     OWLOntologyManager owlManager = OWLManager.createOWLOntologyManager();
-    owlManager.saveOntology(convertedOwlOnto, new FileOutputStream("/tmp/yam2013/teeest1.owl"));*/
+    owlManager.saveOntology(convertedOwlOnto, new FileOutputStream("/tmp/yam-gui/teeest1.owl"));*/
     // Check if file is bigger than 4MB
     int maxFileSize = 4;
     if (fileHandler.getFileSize(sourceStoragePath) >= maxFileSize || fileHandler.getFileSize(targetStoragePath) >= maxFileSize) {

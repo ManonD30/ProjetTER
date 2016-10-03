@@ -8,8 +8,6 @@ package fr.lirmm.opendata.yamgui;
  */
 //import main.MainProgram;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.lang.String;
 import org.junit.After;
 import org.junit.AfterClass;

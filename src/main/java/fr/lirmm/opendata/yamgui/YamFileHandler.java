@@ -26,7 +26,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -76,7 +75,7 @@ import org.xml.sax.SAXException;
 public class YamFileHandler {
 
   String workDir;
-  String tmpDir = "/tmp/yam/";
+  String tmpDir = "/tmp/yam-gui/";
 
   /**
    * YamFileHandler constructor. It gets the workdir from the conf.properties
@@ -148,7 +147,7 @@ public class YamFileHandler {
   /**
    * Upload a file from HTTP request. It downloads the file if it is an URL or
    * get it from the POST request. It stores the contentString in a file in the
-   * tmp directory. In a subdirectory /tmp/yam/ + subDir generated + / +
+   * tmp directory. In a subdirectory /tmp/yam-gui/ + subDir generated + / +
    * filename (source.owl or target.owl). Usually the sub directory is randomly
    * generated before calling uploadFile And return the path to the created file
    *
@@ -166,7 +165,7 @@ public class YamFileHandler {
       saveFile = true;
     }
     String filename = ontName + ".owl";
-    // Store the file in the tmp dir: /tmp/yam/subDir/source.owl for example
+    // Store the file in the tmp dir: /tmp/yam-gui/subDir/source.owl for example
     String storagePath = this.tmpDir + subDir + "/" + filename;
     FileUtils.writeStringToFile(new File(storagePath), ontologyString, "UTF-8");
     if (saveFile == true) {

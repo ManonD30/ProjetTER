@@ -61,10 +61,10 @@ public class TestSkosToOwlConverter {
   // public void hello() {}
   @Test
   public void testSkosToOwlConverter() throws IOException, ClassNotFoundException, SKOSCreationException, OWLOntologyStorageException {
-    FileUtils.forceMkdir(new File("/tmp/yam2013"));
-    String skosRameau = YamFileHandler.convertSkosToOwl(new File("src/test/resources/rameau.ttl"), new File("/tmp/yam2013/rameau_converted.xml"), "RDF/XML");
-    String skosIaml = YamFileHandler.convertSkosToOwl(new File("src/test/resources/iaml.ttl"), new File("/tmp/yam2013/iaml_converted.xml"), "RDF/XML");
-    String skosMimo = YamFileHandler.convertSkosToOwl(new File("src/test/resources/MIMO.xml"), new File("/tmp/yam2013/mimo_converted.xml"), "RDF/XML");
+    FileUtils.forceMkdir(new File("/tmp/yam-gui"));
+    String skosRameau = YamFileHandler.convertSkosToOwl(new File("src/test/resources/rameau.ttl"), new File("/tmp/yam-gui/rameau_converted.xml"), "RDF/XML");
+    String skosIaml = YamFileHandler.convertSkosToOwl(new File("src/test/resources/iaml.ttl"), new File("/tmp/yam-gui/iaml_converted.xml"), "RDF/XML");
+    String skosMimo = YamFileHandler.convertSkosToOwl(new File("src/test/resources/MIMO.xml"), new File("/tmp/yam-gui/mimo_converted.xml"), "RDF/XML");
     OWLOntologyManager owlManager;
     OWLOntology ontology;
 
@@ -99,7 +99,7 @@ public class TestSkosToOwlConverter {
       Logger.getLogger(TestSkosToOwlConverter.class.getName()).log(Level.SEVERE, null, ex);
     }
 
-    //MainProgram.match(outputFile1.getAbsolutePath(), outputFile2.getAbsolutePath(), "/tmp/yam2013/yam_matcher_results.rdf");
+    //MainProgram.match(outputFile1.getAbsolutePath(), outputFile2.getAbsolutePath(), "/tmp/yam-gui/yam_matcher_results.rdf");
 
     assertTrue(true);
     assertTrue(testSubClass);
