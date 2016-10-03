@@ -1,8 +1,7 @@
 function selectableForceDirectedGraph() {
-    var width = 960,
-
-    height = 500,
-    shiftKey, ctrlKey;
+    var width = 960, 
+        height = 500, 
+        shiftKey, ctrlKey;
 
     var nodeGraph = null;
     var xScale = d3.scale.linear()
@@ -93,7 +92,7 @@ function selectableForceDirectedGraph() {
     .on("mousedown.brush", null)
     .on("touchstart.brush", null) 
     .on("touchmove.brush", null)
-    .on("touchend.brush", null); 
+    .on("touchend.brush", null);
 
     brush.select('.background').style('cursor', 'auto');
 
@@ -101,6 +100,7 @@ function selectableForceDirectedGraph() {
     .attr("class", "link")
     .selectAll("line");
 
+    // Retrieve all circles
     var node = vis.append("g")
     .attr("class", "node")
     .selectAll("circle");
@@ -181,7 +181,7 @@ function selectableForceDirectedGraph() {
 
 
         var force = d3.layout.force()
-        .charge(-120)
+        //.charge(-120)
         .linkDistance(30)
         .nodes(graph.nodes)
         .links(graph.links)
@@ -195,7 +195,12 @@ function selectableForceDirectedGraph() {
                 node.classed("selected", function(p) { return p.selected =  p.previouslySelected = false; });
             }
 
+            // Change la class du circle quand il est selected
             d3.select(this).classed("selected", function(p) { d.previouslySelected = d.selected; return d.selected = true; });
+            // Call this function when click on a node (for example to change entity details)
+            d3.select(this).on("click", function() {
+              console.log("clicked!");
+            });
 
             node.filter(function(d) { return d.selected; })
             .each(function(d) { d.fixed |= 2; })
