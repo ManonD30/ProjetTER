@@ -2,6 +2,20 @@
 
 Using Apache Tomcat 7 and Java 8
 
+## Best to run it: using docker-compose
+
+* Install docker (and docker-compose if not packaged with)
+
+```bash
+git pull https://gite.lirmm.fr/opendata/docker-compose-yam
+docker-compose build
+docker-compose up -d
+
+# Stop and start it once it's built and up
+docker-compose stop
+docker-compose start
+```
+
 ## Copy new war to tomcat docker
 
 ```
