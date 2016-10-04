@@ -13,6 +13,8 @@ for the sourceOnt and targetOnt ontology alignment -->
 <link rel="stylesheet" href="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.css">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 <script src="scripts/validation.js"></script>
+<!--script src="scripts/jquery.tablesorter.js"></script>
+<script src="scripts/jquery.tablesorter.pager.js"></script-->
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
@@ -54,7 +56,6 @@ for the sourceOnt and targetOnt ontology alignment -->
       <label style="margin-left: 1%;">Score range:</label>&nbsp;&nbsp;
       <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" 
                 rz-slider-options="minRangeSlider.options" style="margin-left: 1%; width: 50%"></rzslider>
-
       <br/><br/>
 
       <label style="margin-left: 1%;">Search: <input type="search" ng-model="searchText"></label>
@@ -134,6 +135,7 @@ for the sourceOnt and targetOnt ontology alignment -->
                     </tr>
                   </tbody>
                 </table>
+                <!--div id="pager" class="pager" style="top: 687px; position: absolute;"></div-->
                 <br/>
 
                 <h3 class=contentText>Namespaces</h3><br/>
@@ -201,5 +203,14 @@ for the sourceOnt and targetOnt ontology alignment -->
 
   </div>
 </div>
+
+<!--script>
+  Pour générer la pagination ! (marche pas)
+  $(document).ready(function () {
+    $("table")
+            .tablesorter({widthFixed: true, widgets: ['zebra']})
+            .tablesorterPager({container: $("#pager")});
+  });
+</script-->
 
 <%@include file="footer.jsp"%>
