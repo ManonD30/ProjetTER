@@ -131,3 +131,6 @@ http://bl.ocks.org/mbostock/4566102
 
 * Graph avec select avec couleur (joli)
 http://bl.ocks.org/pkerpedjiev/0389e39fad95e1cf29ce
+
+* **Autre méthodes:**
+Y'a des libs plutôt puissantes pour SKOS: Skosmos (très utilisé par beaucoup de monde) ou SkosPlay (dev open source par un français proche, utilisé pour afficher MIMO par exemple))
