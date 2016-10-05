@@ -1,0 +1,2062 @@
+<?xml version='1.0' encoding='utf-8' standalone='no'?>
+<rdf:RDF xmlns='http://knowledgeweb.semanticweb.org/heterogeneity/alignment#'
+         xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+         xmlns:xsd='http://www.w3.org/2001/XMLSchema#'
+         xmlns:align='http://knowledgeweb.semanticweb.org/heterogeneity/alignment#'>
+<Alignment>
+  <xml>yes</xml>
+  <level>0</level>
+  <type>11</type>
+  <onto1>
+    <Ontology rdf:about="c">
+      <location>c</location>
+    </Ontology>
+  </onto1>
+  <onto2>
+    <Ontology rdf:about="c">
+      <location>c</location>
+    </Ontology>
+  </onto2>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wsu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3800'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.21600000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wsu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3810'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bvb'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4331'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.16200000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/scr'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3495'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.15428571428571428</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pbd'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4577'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2025</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/sln'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3183'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/sln'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3186'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.1157142857142857</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/sny'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3193'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.12461538461538463</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wfa'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3960'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mpp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4497'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mpp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/6578'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2025</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wre'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3955'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.135</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wre'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4039'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.13017857142857142</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/kba'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3733'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pct'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2470'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pli'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2949'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/svl'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3573'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/svl'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3609'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.1322448992729187</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/sve'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3609'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.15428571428571428</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wdi'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4391'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wdb'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3804'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tci'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3106'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wsn'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4273'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.16200000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pag'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2373'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pmd'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4578'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.16200000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/stm'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3519'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.29454545454545455</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/psm'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3042'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wdu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3789'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2025</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/blu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4411'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tsi'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3694'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tsi'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3456'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bbb'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4326'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.1683116883116883</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bbb'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/5715'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.10800000000000001</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wcl'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3836'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pto'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2762'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pta'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2738'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pta'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2899'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tbl'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3318'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wob'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4232'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wob'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4164'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/thg'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3242'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bsr'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3808'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tko'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3255'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.11076923076923077</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tko'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3258'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2025</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bta'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4455'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bta'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4467'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tkh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4785'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.135</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tkh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4940'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tkh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3624'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.135</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pcr'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2469'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.14727272727272728</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pfl'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2990'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/spv'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3586'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.24300000000000005</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/spv'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3588'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mbr'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3826'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/svc'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3575'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/svc'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3582'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://www.w3.org/2004/02/skos/core#Concept'/>
+      <entity2 rdf:resource='http://www.w3.org/2004/02/skos/core#Concept'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>1.0</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bbu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3822'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wga'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3970'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mwd'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3730'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.21272465378015823</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/kco'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2246'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.29454545454545455</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/kfp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2299'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pgu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3052'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pgu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/5332'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pmb'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2937'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pmb'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3079'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wbh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3834'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wba'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3795'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wba'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3786'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/moc'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4020'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pvs'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4974'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.4628571428571428</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/sre'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3202'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/sre'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3433'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/ptt'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/6540'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tbj'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3226'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wro'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4243'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.135</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tkt'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3668'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tqa'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3678'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/kca'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2387'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.135</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/sdb'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3111'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/sdb'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3108'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.10800000234083698</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pcw'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2381'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.16200000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pcw'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2389'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.16200000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/khm'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2235'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.16200000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pci'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3633'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mbw'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3525'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mbw'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3538'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/sva'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3597'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.1157142857142857</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bcb'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4354'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2025</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tcz'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3336'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.36</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tcs'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3337'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wmo'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4154'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.10720588235294119</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wmo'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4143'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.28703973306580344</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wpp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4084'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.14727272727272728</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wpp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4024'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.3738461538461539</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wpi'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4345'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/btr'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4446'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tuk'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3250'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.21600000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tuk'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3232'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pdr'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/5369'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pdr'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2585'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.15428571428571428</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pgl'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2968'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.21600000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mck'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2271'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.10800000000000001</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bcu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4390'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tat'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3615'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pza'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/5512'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.36</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pza'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2818'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pza'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2799'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pbl'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2381'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pcb'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/6634'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/kst'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2256'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wch'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4184'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mmi'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2352'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.16200000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mmi'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2347'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.135</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mmi'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2348'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.16200000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/ptr'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2746'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/ptr'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4586'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wfi'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4239'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.1157142857142857</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tbo'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3329'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/ttn'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3466'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tzi'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3624'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.16200000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tzi'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4785'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.16200000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pcg'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2529'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/prs'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/6827'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18225000000000002</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wsh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4055'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wsa'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4346'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pbe'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4691'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.16200000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bah'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4372'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mjh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2861'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.14727272727272728</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mjh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2864'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.14727272727272728</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/kvg'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2257'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.16200000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/psn'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/5648'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tpi'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3413'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/kmp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2287'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wcm'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/6286'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wfg'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3946'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/msw'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4067'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.10800000000000001</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/vbr'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3585'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/sba'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3602'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.4628571428571428</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/sar'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3576'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/khp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2239'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18562500402331353</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/khp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2251'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2025</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mcb'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2358'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.6480000000000001</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pme'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2971'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wau'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4173'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wau'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4088'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.21600000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wdv'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3937'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.135</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/ema'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2217'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.30857142857142855</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tch'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3238'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wna'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4229'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bop'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4299'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tma'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3510'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tma'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4762'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tma'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3509'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.1214999967813492</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pgo'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2752'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.135</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pgo'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2807'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2025</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pgo'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2820'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wbp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3760'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.135</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wbp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4601'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2025</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wbp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4649'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.10125</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/ptb'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/5370'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/ptb'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4691'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tha'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3285'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bse'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4357'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tvi'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3252'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.21600000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pbo'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2515'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mhg'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3305'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.13194570135746608</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mhg'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3311'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.14727272727272728</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mhg'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3304'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.3501878965356367</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/svd'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3608'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.44181818181818183</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bbh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3821'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18514285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wcr'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4189'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wfl'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3963'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.10125</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wfl'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3955'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2025</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/woh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4233'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.20391608391608393</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/btu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4455'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/btu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4467'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pji'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4580'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pmc'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3031'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/svp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3580'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.6480000000000001</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tct'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3335'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.135</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tct'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3365'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.10800000000000001</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/brh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/6534'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tsh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3451'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/kac'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3732'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2025</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pds'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2585'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.12342857326780046</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mah'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3612'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.29454545454545455</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/ksp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/5726'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.14400000000000002</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/ptg'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2807'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.135</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/ptg'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2820'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mme'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4112'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/whp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4670'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/whp'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/6535'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/oga'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2806'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/oga'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2805'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/woa'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4236'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.44181818181818183</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bsx'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4436'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/val'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3561'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.10800000000000001</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tps'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3677'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2025</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pfd'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2599'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.3738461538461539</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pra'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4581'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.16200000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/beu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4463'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bho'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4118'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bhh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4138'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.30375</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bhh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/6724'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.1401923076923077</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bwt'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4468'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.23142857142857146</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pcv'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2989'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/kre'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2237'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.135</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bco'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3860'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bco'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3859'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.3904893955954092</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/psc'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2488'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.10800000000000001</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/prt'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/6684'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mla'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2942'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.1157142857142857</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wmu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/5530'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wmu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3768'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.10800000000000001</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wmu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4651'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bol'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4127'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2025</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wpo'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4671'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.135</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wpo'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4387'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tmd'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3397'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tmd'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3512'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/sli'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3181'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.6942857142857143</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/phh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2489'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.23999999999999996</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/phh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2467'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.23999999999999996</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pha'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4835'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2314285714285714</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/kpf'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2299'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.12960000000000002</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/ptl'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3005'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pte'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2768'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.20571428571428568</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pwm'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3007'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.1157142857142857</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tbb'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3846'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tbi'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3325'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/eth'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2225'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tgu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3237'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bsh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4131'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tpx'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3505'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.36</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pco'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4922'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/pnv'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/2369'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.12252100840336135</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/svg'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3597'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.48600000000000004</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/svg'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3604'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.48600000000000004</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bbd'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4181'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.12960000000000002</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bbd'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4460'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bca'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4386'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bca'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4410'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/ptx'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3006'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.54</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/wge'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3976'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.16200000000000003</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mwh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4613'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2025</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mwh'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/4101'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.2025</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/tlg'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3247'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.405</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/kce'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/5766'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/sgu'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3151'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.32400000000000007</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bct'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3866'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.42659826694382424</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/bct'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3868'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.44181818181818183</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mra'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3429'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mra'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3198'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.27</measure>
+    </Cell>
+  </map>
+  <map>
+    <Cell>
+      <entity1 rdf:resource='http://iflastandards.info/ns/unimarc/terms/mop/mra'/>
+      <entity2 rdf:resource='http://www.mimo-db.eu/InstrumentsKeywords/3506'/>
+      <relation>=</relation>
+      <measure rdf:datatype='http://www.w3.org/2001/XMLSchema#float'>0.18</measure>
+    </Cell>
+  </map>
+</Alignment>
+</rdf:RDF>
+
