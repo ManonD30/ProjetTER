@@ -18,12 +18,6 @@
           <input class="btn btnDdl" type="button" value="Download Yam++"/>
         </a>
       </div>
-
-      <div class=publicationButton>
-        <a href=downloadYamDemo style="text-decoration: none">
-          <input class="btn btnDdl" type="button" value="See a demo"/>
-        </a>
-      </div>
     </div>
 
     <h1>Related Publications</h1>
@@ -76,6 +70,13 @@
 
     <p>DuyHoa Ngo, Zohra Bellahsene, Remi Coletta. A Flexible System
       for Ontology Matching. CAiSE - Forum, 2011.</p>
+
+    <h1>Démo</h1>
+    <video width="100%" controls>
+      <source src="images/yam_demo.mp4" type="video/mp4">
+      <!--source src="movie.ogg" type="video/ogg"-->
+      Your browser does not support the video tag.
+    </video>
 
   </div>
 </div>

@@ -6,6 +6,7 @@ Using Apache Tomcat 7 and Java 8
 
 * Implement HTML from Marie (waiting for it)
 * Label of table columns should be name of ontologies (not source and target). Use filename if ontology name not found
+* SKOS to OWL conversion: gérer SKOS-XL (labels réifiés)
 * Graphical visualization 
 
 ## Best to run it: using docker-compose
