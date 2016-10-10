@@ -413,7 +413,7 @@ public class YamFileHandler {
       //String fileName = filePart.getSubmittedFileName();
       try {
         model.read(filePart.getInputStream(), null);
-      } catch (Exception e) {
+      } catch (IOException e) {
         // Read in TTL if first parsing failed (it waits for RDF/XML)
         model.read(filePart.getInputStream(), null, "TTL");
       }
@@ -490,7 +490,7 @@ public class YamFileHandler {
             objectsJArray.add(resourceJObject);
             clsJObject.put(predicateString, objectsJArray);
           }
-          if (clsLabel.size() == 0) {
+          if (clsLabel.isEmpty()) {
             clsLabel.put("n/a", getLabelFromUri(cls.getURI()));
           }
           clsJObject.put("label", clsLabel);
@@ -515,7 +515,8 @@ public class YamFileHandler {
    * useful because we handle skos:prefLabel)
    *
    * @param skosFile
-   * @param outputPath
+   * @param outputFile
+   * @param outputFormat
    * @return String
    */
   public static String convertSkosToOwl(File skosFile, File outputFile, String outputFormat) {
