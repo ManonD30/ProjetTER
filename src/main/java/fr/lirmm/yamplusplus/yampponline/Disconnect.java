@@ -1,4 +1,4 @@
-package fr.lirmm.opendata.yamgui;
+package fr.lirmm.yamplusplus.yampponline;
 
 import java.io.IOException;
 

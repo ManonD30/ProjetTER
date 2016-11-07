@@ -1,154 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>yamgui</display-name>
- <servlet>
-    <servlet-name>Jersey REST Service</servlet-name>
-    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-
-    <init-param>
-        <param-name>jersey.config.server.provider.packages</param-name>
-        <param-value>fr.lirmm.opendata.yamgui</param-value>
-    </init-param>
-     <init-param>
-        <param-name>jersey.config.server.provider.packages</param-name>
-        <param-value>yam-gui-0.1/index</param-value>
-    </init-param>
-    <init-param>
-        <param-name>com.sun.jersey.config.property.packages</param-name>
-        <param-value>fr.lirmm.opendata.yamgui</param-value>
-    </init-param>
-    <init-param>
-        <param-name>jersey.config.server.provider.classnames</param-name>
-        <param-value>org.glassfish.jersey.filter.LoggingFilter;org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
-    </init-param>
-    
-    <load-on-startup>1</load-on-startup>
-    <async-supported>true</async-supported>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Jersey REST Service</servlet-name>
-    <url-pattern>/rest/*</url-pattern>
-  </servlet-mapping>  
-  
-  <servlet>
-	<servlet-name>Index</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Index</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>Index</servlet-name>
-	<url-pattern>/index</url-pattern>
-  </servlet-mapping>   
-  
-  <welcome-file-list>
+<web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>yamgui</display-name>
+    <servlet>
+        <servlet-name>Jersey REST Service</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>fr.lirmm.opendata.yamgui</param-value>
+        </init-param>
+        <init-param>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>yam-gui-0.1/index</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>fr.lirmm.opendata.yamgui</param-value>
+        </init-param>
+        <init-param>
+            <param-name>jersey.config.server.provider.classnames</param-name>
+            <param-value>org.glassfish.jersey.filter.LoggingFilter;org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Jersey REST Service</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Index</servlet-name>
+        <servlet-class>fr.lirmm.yamplusplus.yampponline.Index</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Index</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
         <welcome-file>index</welcome-file>
         <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
-  
-  
-  <servlet>
-	<servlet-name>Matcher</servlet-name>
-        <jsp-file>/WEB-INF/matcher.jsp</jsp-file>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>Matcher</servlet-name>
-	<url-pattern>/matcher</url-pattern>
-  </servlet-mapping>  
-  
-  <servlet>
-	<servlet-name>Result</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Result</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>Result</servlet-name>
-	<url-pattern>/result</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-	<servlet-name>Validator</servlet-name>
-        <servlet-class>fr.lirmm.opendata.yamgui.Validator</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>Validator</servlet-name>
-        <url-pattern>/validator</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-	<servlet-name>Download</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Download</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>Download</servlet-name>
-	<url-pattern>/download</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-	<servlet-name>Validation</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Validation</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>Validation</servlet-name>
-	<url-pattern>/validation</url-pattern>
-  </servlet-mapping>  
-  
-  <servlet>
-	<servlet-name>Aboutus</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Aboutus</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>Aboutus</servlet-name>
-	<url-pattern>/aboutus</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-	<servlet-name>Documentation</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Documentation</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>Documentation</servlet-name>
-	<url-pattern>/documentation</url-pattern>
-  </servlet-mapping>  
-  
-  <servlet>
-	<servlet-name>DownloadYam</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.DownloadYam</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>DownloadYam</servlet-name>
-	<url-pattern>/downloadYam</url-pattern>
-  </servlet-mapping>
-  
-  
+    </welcome-file-list>
     <servlet>
-	<servlet-name>DownloadYamDemo</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.DownloadYamDemo</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-	<servlet-name>DownloadYamDemo</servlet-name>
-	<url-pattern>/downloadYamDemo</url-pattern>
-  </servlet-mapping>
-  
-  
-  <!-- Servlet mappings for user management -->
+        <servlet-name>Matcher</servlet-name>
+        <jsp-file>/WEB-INF/matcher.jsp</jsp-file>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Matcher</servlet-name>
+        <url-pattern>/matcher</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Result</servlet-name>
+        <servlet-class>fr.lirmm.yamplusplus.yampponline.Result</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Result</servlet-name>
+        <url-pattern>/result</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Validator</servlet-name>
+        <servlet-class>fr.lirmm.yamplusplus.yampponline.Validator</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Validator</servlet-name>
+        <url-pattern>/validator</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Download</servlet-name>
+        <servlet-class>fr.lirmm.yamplusplus.yampponline.Download</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Download</servlet-name>
+        <url-pattern>/download</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Validation</servlet-name>
+        <servlet-class>fr.lirmm.opendata.yamgui.Validation</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Validation</servlet-name>
+        <url-pattern>/validation</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Aboutus</servlet-name>
+        <servlet-class>fr.lirmm.yamplusplus.yampponline.Aboutus</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Aboutus</servlet-name>
+        <url-pattern>/aboutus</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Documentation</servlet-name>
+        <servlet-class>fr.lirmm.yamplusplus.yampponline.Documentation</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Documentation</servlet-name>
+        <url-pattern>/documentation</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DownloadYam</servlet-name>
+        <servlet-class>fr.lirmm.yamplusplus.yampponline.DownloadYam</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DownloadYam</servlet-name>
+        <url-pattern>/downloadYam</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DownloadYamDemo</servlet-name>
+        <servlet-class>fr.lirmm.yamplusplus.yampponline.DownloadYamDemo</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DownloadYamDemo</servlet-name>
+        <url-pattern>/downloadYamDemo</url-pattern>
+    </servlet-mapping>
+    <!-- Servlet mappings for user management -->
     <!--servlet>
 	<servlet-name>Signin</servlet-name>
 	<servlet-class>fr.lirmm.opendata.yamgui.Signin</servlet-class>
@@ -181,9 +154,7 @@
 	<servlet-name>Disconnect</servlet-name>
 	<url-pattern>/disconnect</url-pattern>
   </servlet-mapping-->
-
-
-  <!--servlet>
+    <!--servlet>
 	<servlet-name>Evaluation</servlet-name>
 	<servlet-class>fr.lirmm.opendata.yamgui.Evaluation</servlet-class>
 	<load-on-startup>1</load-on-startup>
@@ -193,5 +164,4 @@
         <servlet-name>Evaluation</servlet-name>
         <url-pattern>/evaluation</url-pattern>
   </servlet-mapping-->
-
 </web-app>
