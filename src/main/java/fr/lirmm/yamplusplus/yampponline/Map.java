@@ -1,4 +1,4 @@
-package fr.lirmm.opendata.yamgui;
+package fr.lirmm.yamplusplus.yampponline;
 
 public class Map {
 	String e1,e2,relation;

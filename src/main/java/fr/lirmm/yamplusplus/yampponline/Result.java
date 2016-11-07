@@ -1,4 +1,4 @@
-package fr.lirmm.opendata.yamgui;
+package fr.lirmm.yamplusplus.yampponline;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.semanticweb.owl.align.AlignmentException;
 
-import static fr.lirmm.opendata.yamgui.Matcher.processRequest;
+import static fr.lirmm.yamplusplus.yampponline.Matcher.processRequest;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

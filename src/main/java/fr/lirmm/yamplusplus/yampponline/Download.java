@@ -1,4 +1,4 @@
-package fr.lirmm.opendata.yamgui;
+package fr.lirmm.yamplusplus.yampponline;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;

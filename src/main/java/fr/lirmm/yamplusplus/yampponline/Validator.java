@@ -1,6 +1,6 @@
-package fr.lirmm.opendata.yamgui;
+package fr.lirmm.yamplusplus.yampponline;
 
-import static fr.lirmm.opendata.yamgui.Result.liste;
+import static fr.lirmm.yamplusplus.yampponline.Result.liste;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

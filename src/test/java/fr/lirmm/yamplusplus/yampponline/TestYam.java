@@ -1,4 +1,4 @@
-package fr.lirmm.opendata.yamgui;
+package fr.lirmm.yamplusplus.yampponline;
 
 
 /*
@@ -7,6 +7,7 @@ package fr.lirmm.opendata.yamgui;
  * and open the template in the editor.
  */
 //import main.MainProgram;
+import fr.lirmm.yamplusplus.yampponline.YamFileHandler;
 import java.io.IOException;
 import java.lang.String;
 import org.junit.After;
