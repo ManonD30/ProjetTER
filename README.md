@@ -4,11 +4,15 @@ Using Apache Tomcat 7 and Java 8
 
 ## Improvements to do
 
+
 * Implement HTML from Marie (waiting for it)
 * Label of table columns should be name of ontologies (not source and target). Use filename if ontology name not found
 * SKOS to OWL conversion: gérer SKOS-XL (labels réifiés)
 * Graphical visualization 
-* Solution pour faire en sorte que le docker soit toujours up : marathon (demander à Joël)
+* Solution pour faire en sorte que le docker soit toujours up (demander à Joël) : 
+
+  * docker run -d --restart always my-docker-image
+  * marathon
 
 ## Best to run it: using docker-compose
 

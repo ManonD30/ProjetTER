@@ -1,0 +1,184 @@
+body{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/*******************
+NAVIGATION
+*******************/
+header ,
+footer {
+  background: #8ab7d1;
+  min-height: 8vh;
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+}
+header {
+  top:0;
+}
+footer {
+  bottom: 0;
+}
+.main-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 5px 0 0 0;
+}
+.main-nav li {
+  list-style-type: none;
+  font-size: 1.6em;
+}
+.main-nav a {
+  padding: 10px 1.5em;
+  color: #f2f7f9;
+  border-right: 1px solid #f2f7f9;
+}
+.main-nav a:hover,
+.main-nav a:focus,
+.main-nav .active a {
+  color: #fff;
+  text-decoration: none;
+}
+
+
+/*******************
+PAGE STRUCTURE
+*******************/
+main {
+  min-height: 84vh;
+  margin: 8vh 0 0 0;
+  overflow: auto;
+  background: #f2f7f9;
+}
+.main-section {
+  min-height: 100%;
+  margin-right: 32%;
+  padding: 10px 50px 100px 50px;
+}
+main aside {
+  height: 100%;
+  border-left: 1px solid #666;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 32%;
+}
+
+/*******************
+ENTITIES
+*******************/
+.entities{
+  display: flex;
+  flex-direction:column;
+  height: 100%;
+}
+.entity{
+  background: #fff;
+  flex: 1 1 50%;
+  height: 50%;
+  border-bottom: 1px solid #666;
+  padding: 0 30px;
+}
+.entity .entity-content{
+  position: absolute;
+  height: 250px;
+  overflow-y:scroll;
+}
+.entity .entity-inner-content{
+  padding-right: 30px;
+}
+.entity h1{
+  font-size: 1.4em;
+  font-weight: bold;
+  margin: 0;
+  padding:20px 0 0 0;
+}
+.entity h2{
+  font-size: 1em;
+  font-weight: normal;
+  margin: 0;
+  padding:0 0 20px 0;
+}
+.entity-graph {
+  display: none;
+}
+.switch-nav {
+  position: absolute;
+  margin-left: -55px;
+  z-index: 5;
+  padding-top: 80px;
+}
+.switch-nav li {
+  padding: 10px 0 0 0;
+  list-style-type: none;
+}
+.switch-nav button {
+  width: 32px;
+  font-family: Helvetica, Arial, sans-serif;
+  list-style-type: none;
+  padding: 5px;
+}
+/*******************
+MAIN : OPTIONS
+*******************/
+.filter-options {
+  display: flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  padding-bottom: 10px;
+}
+.filter-options .checkbox{
+  margin: 0 0 5px 0;
+}
+.filter-options .field-custom{
+  display: flex;
+  align-items:flex-end;
+}
+.filter-options  label {
+  font-weight: normal;
+}
+.display-options  {
+  font-weight: normal;
+}
+
+.display-options input {
+  width: 40px;
+  text-align: center;
+  margin: 0 3px;
+}
+.display-options label {
+  font-weight: normal;
+}
+.display-options input {
+  width: 40px;
+  text-align: center;
+  margin: 0 3px;
+}
+.pagination {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+/*******************
+MAIN : RESULTS
+*******************/
+.main-section table {
+  width: 100%;
+}
+.main-section thead {
+  background: #8ab7d1;
+  color: #fff;
+}
+.main-section th,
+.main-section td {
+  padding-left:3px;
+  font-size: 0.95em;
+}
+.main-section .btn {
+  min-width: 80px;
+  text-align: left;
+}
+.main-section .relation .btn {
+  min-width: 115px;
+}
