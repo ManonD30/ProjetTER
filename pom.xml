@@ -88,9 +88,6 @@
       <groupId>org.semanticweb.owl</groupId>
       <artifactId>org.semanticweb.owl.owlapi</artifactId>
       <version>3.4.4</version>
-      <!--scope>system</scope>
-      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/align.jar</systemPath-->
-      <!--systemPath>${project.basedir}/lib/owlapi-bin.jar</systemPath-->
     </dependency>
     <!-- Dependency for Yam++2012 -->
     <!--
@@ -101,14 +98,17 @@
       -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
       mvn install:install-file -Dfile=src/main/webapp/WEB-INF/lib/Main2.jar -DgroupId=MainYam -DartifactId=main -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true
     -->
-    <dependency>
+    <!--dependency>
       <groupId>MainYam</groupId>
       <artifactId>main</artifactId>
       <version>1.0</version>
-      <!--scope>system</scope>
-      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/Main2.jar</systemPath-->
-      <!--systemPath>${project.basedir}/lib/YamAPI.jar</systemPath-->
+    </dependency-->
+    <dependency>
+      <groupId>fr.lirmm.yamplusplus</groupId>
+      <artifactId>yamppls</artifactId>
+      <version>0.1</version>
     </dependency>
+
     <!--
     mvn install:install-file 
       -Dfile=src/main/webapp/WEB-INF/lib/procalign.jar 
@@ -120,9 +120,6 @@
       <groupId>fr.inrialpes.exmo</groupId>
       <artifactId>align</artifactId>
       <version>1.0</version>
-      <!--scope>system</scope>
-      <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/procalign.jar</systemPath-->
-      <!--systemPath>${project.basedir}/lib/procalign.jar</systemPath-->
     </dependency>
   </dependencies>
 

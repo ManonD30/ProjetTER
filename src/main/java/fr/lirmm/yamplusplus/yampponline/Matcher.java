@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.RandomStringUtils;
 
-import mainyam.MainProgram;
+import fr.lirmm.yamplusplus.yamppls.YamppOntologyMatcher;
 import org.apache.commons.io.FileUtils;
 
 @WebServlet("/rest/matcher")
@@ -119,11 +119,11 @@ public class Matcher extends HttpServlet {
     String sourceStoragePath = fileHandler.uploadFile("source", subDirName, request);
     String targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
 
-    String sourceConvertedPath = sourceStoragePath.replaceAll(".owl", "Converted.owl");
-    String targetConvertedPath = targetStoragePath.replaceAll(".owl", "Converted.owl");
+    //String sourceConvertedPath = sourceStoragePath.replaceAll(".owl", "Converted.owl");
+    //String targetConvertedPath = targetStoragePath.replaceAll(".owl", "Converted.owl");
 
-    YamFileHandler.convertSkosToOwl(new File(sourceStoragePath), new File(sourceConvertedPath), "RDF/XML");
-    YamFileHandler.convertSkosToOwl(new File(targetStoragePath), new File(targetConvertedPath), "RDF/XML");
+    //YamFileHandler.convertSkosToOwl(new File(sourceStoragePath), new File(sourceConvertedPath), "RDF/XML");
+    //YamFileHandler.convertSkosToOwl(new File(targetStoragePath), new File(targetConvertedPath), "RDF/XML");
 
     /*SKOSManager manager = new SKOSManager();
     // use the manager to load a SKOS vocabulary from a URI (either physical or on the web)
@@ -133,16 +133,19 @@ public class Matcher extends HttpServlet {
     OWLOntologyManager owlManager = OWLManager.createOWLOntologyManager();
     owlManager.saveOntology(convertedOwlOnto, new FileOutputStream("/tmp/yam-gui/teeest1.owl"));*/
     // Check if file is bigger than 4MB
-    int maxFileSize = 4;
+    /*int maxFileSize = 4;
     if (fileHandler.getFileSize(sourceStoragePath) >= maxFileSize || fileHandler.getFileSize(targetStoragePath) >= maxFileSize) {
       System.out.println("File too big");
       throw new FileNotFoundException("File too big: its size should be less than " + maxFileSize + "MB");
-    }
+    }*/
 
-    String resultStoragePath = fileHandler.getTmpDir() + subDirName + "/result.rdf";
+    //String resultStoragePath = fileHandler.getTmpDir() + subDirName + "/result.rdf";
 
+    YamppOntologyMatcher matcher = new YamppOntologyMatcher();
     // Execute YAM to get the mappings in RDF/XML
-    MainProgram.match(sourceConvertedPath, targetConvertedPath, resultStoragePath);
+    String resultStoragePath = matcher.align(new File(sourceStoragePath).toURI().toURL(),
+              new File(targetStoragePath).toURI().toURL());
+    //MainProgram.match(sourceConvertedPath, targetConvertedPath, resultStoragePath);
 
     responseString = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
     return responseString;
