@@ -49,7 +49,6 @@ for the sourceOnt and targetOnt ontology alignment -->
     </script>
 
     <!-- Input to filter mappings table -->
-    <div style="display:inline;">
       <!--div class="alert alert-success"-->
       <label>Search: <input type="search" ng-model="searchText"></label>
       <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
@@ -63,7 +62,6 @@ for the sourceOnt and targetOnt ontology alignment -->
       <label style="margin-left: 3%;">Language:</label>
       <select class="form-control"  style="display:inline; margin-bottom: 20px; margin-left: 1%;" ng-model="selectedLang" 
               ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
-    </div>
 
     <br/>
 
