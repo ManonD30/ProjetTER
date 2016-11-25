@@ -55,7 +55,7 @@ main {
 .main-section {
   min-height: 100%;
   margin-right: 32%;
-  padding: 10px 50px 100px 50px;
+  padding: 0px 50px 100px 50px;
 }
 main aside {
   height: 100%;
