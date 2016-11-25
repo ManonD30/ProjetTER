@@ -167,7 +167,8 @@ header ,
 footer {
   background: #8ab7d1;
   /*min-height: 8vh;*/
-  position: fixed;
+  /* TODO: fix this position in every page (only good in validation))
+  position: fixed;*/
   z-index: 10;
   width: 100%;
 }
@@ -183,7 +184,7 @@ header {
 }
 .main-nav li {
   list-style-type: none;
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 .main-nav a {
   padding: 10px 1.5em;
