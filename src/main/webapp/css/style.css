@@ -233,15 +233,6 @@ hr {
   color: #d8e7ef;
 }
 
-.header {
-  background: #8ab7d1;
-  color: #f2f2f2;
-  font-size: 25px;
-  display: inline-block;
-  width: 100%;
-  text-align: center;
-}
-
 input[type="button"] {
   cursor: pointer;
 }
@@ -281,6 +272,12 @@ input[type="button"] {
 }
 
 .nav {
+  background: #8ab7d1;
+  color: #f2f2f2;
+  font-size: 25px;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
   padding: 0;
   margin: 0;
 }

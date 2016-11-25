@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  // Function to resize right entity details window depending on screen size
+  // Function to resize navbar, footer and right entity details window depending on screen size
   function resizePanels(){
     var contentSourceSize = $(".entity-source .entity-inner-content").height();
     var contentTargetSize = $(".entity-target .entity-inner-content").height();
