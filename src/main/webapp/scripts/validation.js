@@ -129,13 +129,13 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     var styleString = null;
     if (alignment.valid == "waiting") {
       // Orange
-      styleString = "background-color: #FFA500;";
+      styleString = "color: #fff; background-color: #f0ad4e;";
     } else if (alignment.valid == "valid") {
       // Green
-      styleString = "background-color: #00ff00;";
+      styleString = "color: #fff; background-color: #5cb85c;";
     } else if (alignment.valid == "notvalid") {
       // Red
-      styleString = "background-color: #ff0000;";
+      styleString = "color: #fff; background-color: #d9534f;";
     }
     return styleString;
   }

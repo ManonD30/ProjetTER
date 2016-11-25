@@ -42,21 +42,23 @@ for the sourceOnt and targetOnt ontology alignment -->
         }
     %>
     <script type="text/javascript">
-      // Put params to javascript to use it with angularjs
-      var alignmentJson = <%=alignmentArray%>;
-      var sourceOnt = <%=sourceOnt%>;
-      var targetOnt = <%=targetOnt%>;
+          // Put params to javascript to use it with angularjs
+          var alignmentJson = <%=alignmentArray%>;
+          var sourceOnt = <%=sourceOnt%>;
+          var targetOnt = <%=targetOnt%>;
     </script>
 
     <!-- Input to filter mappings table -->
+    <!--div class="alert alert-success"-->
     <label>Search: <input type="search" ng-model="searchText"></label>
     <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
             ng-click="hideAlignments($event)">Hide validated alignments</button>
-    
+
+    <!--div class="alert alert-info"-->
     <label style="margin-left: 3%;">Score range:</label>&nbsp;&nbsp;
     <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" 
               rz-slider-options="minRangeSlider.options" style="margin-left: 1%; width: 20%"></rzslider>
-              
+
     <label style="margin-left: 3%;">Language:</label>
     <select class="form-control" style="width: 7%;" ng-model="selectedLang" 
             ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
@@ -212,17 +214,17 @@ for the sourceOnt and targetOnt ontology alignment -->
   </aside>
 
 
-      <%
-        // If errors
-      } else {
-      %>
-      <div class="errorMsg alert alert-danger" role="alert">
-        An error happened during matching <br/>
-        <%
-            out.println(request.getAttribute("errorMessage"));
-          }
-        %>
-      </div>
+  <%
+    // If errors
+  } else {
+  %>
+  <div class="errorMsg alert alert-danger" role="alert">
+    An error happened during matching <br/>
+    <%
+        out.println(request.getAttribute("errorMessage"));
+      }
+    %>
+  </div>
 
 </main>
 

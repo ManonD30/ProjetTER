@@ -65,6 +65,11 @@ main aside {
   top: 0;
   width: 32%;
 }
+/* TODO: not working, il se fait bouffer par bootstrapt.css... */
+tbody > tr > td {
+  padding: 5px;
+  vertical-align: middle;
+}
 
 /*******************
 ENTITIES
