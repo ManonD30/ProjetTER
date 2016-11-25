@@ -8,7 +8,7 @@ NAVIGATION
 header ,
 footer {
   background: #8ab7d1;
-  min-height: 8vh;
+  /*min-height: 8vh;*/
   position: fixed;
   z-index: 10;
   width: 100%;
