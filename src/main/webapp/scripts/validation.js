@@ -15,7 +15,8 @@ $(document).ready(function () {
     $(".entity-source").css({"flexBasis": newSourceSize + "px"});
     $(".entity-target").css({"flexBasis": newTargetSize + "px"});
 
-    $("main aside").css({"paddingTop": headerHeight + "px", "paddingBottom": footerHeight + "px"})
+    $("aside").css({"paddingTop": headerHeight + "px", "paddingBottom": footerHeight + "px"})
+    $("main").css({"paddingTop": headerHeight + "px", "paddingBottom": footerHeight + "px"})
 
     $(".entity-source .entity-content").css({"height": $(".entity-source").height() + "px", "width": contentWidth + "px"});
     $(".entity-target .entity-content").css({"height": $(".entity-target").height() + "px", "width": contentWidth + "px"});
