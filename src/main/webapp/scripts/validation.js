@@ -252,12 +252,13 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
       // Take first label in object if selected lang not available
       var label = entity["label"][Object.keys(entity["label"])[0]] + " (" + Object.keys(entity["label"])[0] + ")";
     }
+  } else {
+      var label = id;
   }
   
   // add each property object linked to each subject
   // Iterate over the different properties (predicates) of an entity
   Object.keys(entity).sort().forEach(function (key) {
-    if (key != "id" && key != "label") {
       orderedEntities[key] = null;
       // Iterate over the different values of the object of a predicate (the same property can point to different objects)
       for (var valuesObject in entity[key]) {
@@ -280,7 +281,6 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
           }
         }
       }
-    }
   });
 
   // Build String to be put in the details div
