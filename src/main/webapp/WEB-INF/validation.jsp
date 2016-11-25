@@ -49,15 +49,15 @@ for the sourceOnt and targetOnt ontology alignment -->
     </script>
 
     <!-- Input to filter mappings table -->
-    <label style="margin-left: 1%;">Score range:</label>&nbsp;&nbsp;
-    <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" 
-              rz-slider-options="minRangeSlider.options" style="margin-left: 1%; width: 50%"></rzslider>
-    <br/><br/>
-    <label style="margin-left: 1%;">Search: <input type="search" ng-model="searchText"></label>
+    <label>Search: <input type="search" ng-model="searchText"></label>
     <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
             ng-click="hideAlignments($event)">Hide validated alignments</button>
-    <br/>
-    <label style="margin-left: 1%;">Language:</label>
+    
+    <label style="margin-left: 3%;">Score range:</label>&nbsp;&nbsp;
+    <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" 
+              rz-slider-options="minRangeSlider.options" style="margin-left: 1%; width: 20%"></rzslider>
+              
+    <label style="margin-left: 3%;">Language:</label>
     <select class="form-control" style="width: 7%;" ng-model="selectedLang" 
             ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
     <br/>
