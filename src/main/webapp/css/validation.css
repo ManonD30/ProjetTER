@@ -48,7 +48,7 @@ PAGE STRUCTURE
 *******************/
 main {
   min-height: 84vh;
-  margin: 8vh 0 0 0;
+  /*margin: 8vh 0 0 0;*/
   overflow: auto;
   background: #f2f7f9;
 }
