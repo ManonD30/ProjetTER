@@ -66,13 +66,18 @@ main aside {
   width: 32%;
 }
 /* TODO: not working, il se fait bouffer par bootstrapt.css... */
-tbody > tr > td {
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
   padding: 5px;
   vertical-align: middle;
 }
 /* Prevent form-control from trashing select dropdown width*/
 .form-control {
-  width: none;
+  width: inherit;
 }
 
 /*******************
