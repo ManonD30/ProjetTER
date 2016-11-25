@@ -1,35 +1,35 @@
-$(document).ready(function() {
+$(document).ready(function () {
   // Function to resize navbar, footer and right entity details window depending on screen size
-  function resizePanels(){
+  function resizePanels() {
     var contentSourceSize = $(".entity-source .entity-inner-content").height();
     var contentTargetSize = $(".entity-target .entity-inner-content").height();
     var headerHeight = $("header").height();
     var footerHeight = $("footer").height();
     var contentWidth = $(".entities").width() - 30;
     var totalSize = $(window).height() - headerHeight - footerHeight;
-    var halfSize =  Math.floor(totalSize/2);
+    var halfSize = Math.floor(totalSize / 2);
     var newSourceSize = (contentSourceSize < halfSize) ? contentSourceSize : halfSize;
     var newTargetSize = (contentTargetSize < halfSize) ? contentTargetSize : halfSize;
     //console.log("contentSourceSize", contentSourceSize, "contentTargetSize", contentTargetSize, "totalSize", totalSize)
     //if()
-    $(".entity-source").css({ "flexBasis" : newSourceSize+"px"});
-    $(".entity-target").css({ "flexBasis" : newTargetSize+"px"});
+    $(".entity-source").css({"flexBasis": newSourceSize + "px"});
+    $(".entity-target").css({"flexBasis": newTargetSize + "px"});
 
-    $("main aside").css({ "paddingTop" : headerHeight + "px", "paddingBottom" : footerHeight + "px" })
+    $("main aside").css({"paddingTop": headerHeight + "px", "paddingBottom": footerHeight + "px"})
 
-    $(".entity-source .entity-content").css({ "height" :$(".entity-source").height() +"px", "width" : contentWidth + "px" });
-    $(".entity-target .entity-content").css({ "height" : $(".entity-target").height() +"px" , "width" : contentWidth + "px" });
+    $(".entity-source .entity-content").css({"height": $(".entity-source").height() + "px", "width": contentWidth + "px"});
+    $(".entity-target .entity-content").css({"height": $(".entity-target").height() + "px", "width": contentWidth + "px"});
   }
-  
+
   // Button to switch between text and graph entities details
-  $(".switch-nav").on("click", "li", function(){
+  $(".switch-nav").on("click", "li", function () {
     $(".entity-view").hide();
     $(this).find("button").addClass("btn-info");
     $(this).siblings("li").find("button").removeClass("btn-info");
     $(".entity-" + $(this).attr("class")).show();
   })
-  
-  $(window).on('resize', function(){
+
+  $(window).on('resize', function () {
     resizePanels();
   })
   resizePanels();
@@ -219,7 +219,8 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
     alignToAdd["relation"] = alignment[key]['relation'];
     alignToAdd["index"] = key;
     // All entities are "waiting" for the moment, but we need to extract it from the uploaded alignment
-    alignToAdd["valid"] = alignment[key]['valid'];;
+    alignToAdd["valid"] = alignment[key]['valid'];
+    ;
     alignments.push(alignToAdd);
   }
   return alignments;
@@ -253,34 +254,38 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
       var label = entity["label"][Object.keys(entity["label"])[0]] + " (" + Object.keys(entity["label"])[0] + ")";
     }
   } else {
-      var label = id;
+    var label = id;
   }
-  
+
   // add each property object linked to each subject
   // Iterate over the different properties (predicates) of an entity
   Object.keys(entity).sort().forEach(function (key) {
+    if (key !== "id" && key !== "label") {
       orderedEntities[key] = null;
       // Iterate over the different values of the object of a predicate (the same property can point to different objects)
       for (var valuesObject in entity[key]) {
-        // to get the value of the object depending if it's an URI or a literal
-        if (entity[key][valuesObject]["value"].startsWith("http://")) {
-          // Concatenate URI too ? With <a href>
-          if (orderedEntities[key] === null) {
-            orderedEntities[key] = entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
+        if (typeof entity[key][valuesObject]["value"] !== "undefined") {
+          // to get the value of the object depending if it's an URI or a literal
+          if (entity[key][valuesObject]["value"].startsWith("http://")) {
+            // Concatenate URI too ? With <a href>
+            if (orderedEntities[key] === null) {
+              orderedEntities[key] = entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
+            } else {
+              orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
+            }
+            break;
+            //} else if (entity[key][valuesObject]["type"] == "literal") {
           } else {
-            orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
-          }
-          break;
-          //} else if (entity[key][valuesObject]["type"] == "literal") {
-        } else {
-          // If it is a literal then we concatenate them
-          if (orderedEntities[key] === null) {
-            orderedEntities[key] = entity[key][valuesObject]["value"];
-          } else {
-            orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"];
+            // If it is a literal then we concatenate them
+            if (orderedEntities[key] === null) {
+              orderedEntities[key] = entity[key][valuesObject]["value"];
+            } else {
+              orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"];
+            }
           }
         }
       }
+    }
   });
 
   // Build String to be put in the details div

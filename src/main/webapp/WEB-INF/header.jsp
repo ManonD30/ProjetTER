@@ -17,7 +17,7 @@
   <body role="document" style="background-color:#f2f7f9">
     <header>
       <div class=nav>
-        <ul id=nav-box>
+        <ul id=nav-box class="main-nav">
           <li><a href=index>
               <img class=navLogo alt="Home" src="images/yam_top.png">
             </a></li>

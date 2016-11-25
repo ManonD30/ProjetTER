@@ -197,7 +197,6 @@ for the sourceOnt and targetOnt ontology alignment -->
         </div>
       </section>
 
-
       <section class="entity entity-target">
         <div class="entity-content">
           <div class="entity-inner-content">
@@ -211,21 +210,6 @@ for the sourceOnt and targetOnt ontology alignment -->
       </section>
     </div>
   </aside>
-  
-
-
-  <!--div style="position: relative;">
-    <div style="width: 20%; max-width: 20%; display: inline-table; position: fixed;
-         top: 15%; bottom: 15%; max-height: 70%; height: 70%"> 
-      <div id="entityDetail1" class="entityDetailsDiv"> 
-      </div>
-      <hr/>
-      <div id="entityDetail2" class="entityDetailsDiv">
-      </div>
-    </div>
-  </div-->
-
-  <!-------------------------------------------------------------------------------------------------------------------------------------------------------->
 
 
       <%
