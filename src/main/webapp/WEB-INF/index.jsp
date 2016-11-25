@@ -24,7 +24,7 @@
       <hr>
 
       <h1 style='margin-top: 0;'>
-        <a href=matcher.html>Matcher</a>
+        <a href=matcher>Matcher</a>
       </h1>
       <p>Takes as an input ontologies in different formats (owl, skos,
         and various serializations of rdf, such as ttl) and produces
@@ -33,7 +33,7 @@
       <hr>
 
       <h1>
-        <a href=validator.html>Validator</a>
+        <a href=validator>Validator</a>
       </h1>
 
       <p>Takes as an input an alignment in one out of several possible
@@ -44,7 +44,7 @@
         formats.</p>
 
       <!--h1>
-              <a href=evaluator.html>Evaluator</a>
+              <a href=evaluator>Evaluator</a>
       </h1>
   
       <p>Takes as an input an alignment in one out of several possible
