@@ -90,12 +90,14 @@ ENTITIES
   padding-right: 30px;
 }
 .entity h1{
+  text-align: left;
   font-size: 1.4em;
   font-weight: bold;
   margin: 0;
   padding:20px 0 0 0;
 }
 .entity h2{
+  text-align: left;
   font-size: 1em;
   font-weight: normal;
   margin: 0;
