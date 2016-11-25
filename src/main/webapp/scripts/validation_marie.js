@@ -2,6 +2,7 @@ $(document).ready(function() {
 
 
   function resizePanels(){
+    // Function to resize window depending on screen size
     var contentSourceSize = $(".entity-source .entity-inner-content").height();
     var contentTargetSize = $(".entity-target .entity-inner-content").height();
     var headerHeight = $("header").height();
@@ -21,12 +22,15 @@ $(document).ready(function() {
     $(".entity-source .entity-content").css({ "height" :$(".entity-source").height() +"px", "width" : contentWidth + "px" });
     $(".entity-target .entity-content").css({ "height" : $(".entity-target").height() +"px" , "width" : contentWidth + "px" });
   }
+  
+  // Button to switch between text and graph entities details
   $(".switch-nav").on("click", "li", function(){
     $(".entity-view").hide();
     $(this).find("button").addClass("btn-info");
     $(this).siblings("li").find("button").removeClass("btn-info");
     $(".entity-" + $(this).attr("class")).show();
   })
+  
   $(window).on('resize', function(){
     resizePanels();
   })
