@@ -37,7 +37,7 @@
       </div>
     </header>
 
-    <div class=yellow></div>
+    <!--div class=yellow></div-->
     
     <!-- From Marie Validation UI -->
     <!--header>
