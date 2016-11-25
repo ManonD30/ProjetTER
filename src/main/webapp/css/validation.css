@@ -132,10 +132,15 @@ ENTITIES
 }
 .switch-nav button {
   width: 32px;
+  height: 32px;
   font-family: Helvetica, Arial, sans-serif;
   list-style-type: none;
   padding: 5px;
 }
+.btn-info, .btn-default {
+  text-shadow: inherit;
+}
+
 /*******************
 MAIN : OPTIONS
 *******************/
