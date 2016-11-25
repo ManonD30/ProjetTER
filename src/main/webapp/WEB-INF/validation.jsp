@@ -121,9 +121,9 @@ for the sourceOnt and targetOnt ontology alignment -->
                       style="{{generateStyleForSelect(alignment)}}" class="form-control" 
                       ng-model="selectValidModel[alignment.index]" ng-click="updateSelectValidModels($event, alignment)"
                       ng-init="selectValidModel[alignment.index] = alignment.valid">
-                <option style="background: #FFFFFF;" value="waiting">Waiting...</option>
-                <option style="background: #FFFFFF;" value="valid">Valid</option>
-                <option style="background: #FFFFFF;" value="notvalid">Not valid</option>
+                <option style="background: #f0ad4e;" value="waiting">Waiting...</option>
+                <option style="background: #5cb85c;" value="valid">Valid</option>
+                <option style="background: #d9534f;" value="notvalid">Not valid</option>
               </select>
             </td>
           </tr>
