@@ -188,23 +188,7 @@ for the sourceOnt and targetOnt ontology alignment -->
       <section class="entity entity-source">
         <div class="entity-content">
           <div class="entity-inner-content">
-            <div class="entity-view entity-text">
-              <div id="entityDetail1" class="entityDetailsDiv"> 
-              </div>
-              <!--h1>fonctions psychosociales globales (fr)</h1>
-              <h2>http://chu-rouen.fr/cismef/CIF#b122</h2>
-              <dl>
-                <dt><abbr title="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">rdf:type</abbr></dt>
-                <dd>owl:Class</dd>
-                <dt>rdfs:subClassOf</dt>
-                <dd>:b110-b139</dd>
-                <dt>skos:altLabel</dt>
-                <dd>C2371006@fr</dd>
-                <dt>skos:definition</dt>
-                <dd>Fonctions mentales générales qui se développent au cours de la vie, nécessaires pour comprendre et pour intégrer de manière constructive les fonctions mentales qui président à la formation des aptitudes aux relations sociales réciproques permettant les@fr</dd>
-                <dt>skos:prefLabel</dt>
-                <dd>fonctions psychosociales globales@fr</dd>
-              </dl-->
+            <div id="entityDetail1"  class="entity-view entity-text">
             </div>
             <div class="entity-view entity-graph">
               <img src="images/placeholder.png" alt="temporaire" />
@@ -217,9 +201,7 @@ for the sourceOnt and targetOnt ontology alignment -->
       <section class="entity entity-target">
         <div class="entity-content">
           <div class="entity-inner-content">
-            <div class="entity-view entity-text">
-              <div id="entityDetail2" class="entityDetailsDiv"> 
-              </div>
+            <div id="entityDetail2" class="entity-view entity-text">
             </div>
             <div class="entity-view entity-graph">
               <img src="images/placeholder.png" alt="temporaire" />

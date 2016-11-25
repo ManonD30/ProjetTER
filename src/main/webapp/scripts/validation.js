@@ -198,26 +198,21 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
  * @returns {undefined}
  */
 function buildEntityDetailsHtml(entity, entityName, selectedLang) {
-  if (entityName === undefined) {
-    var htmlString = "";
-  } else {
-    var htmlString = "<h3 class='contentText'>" + entityName + " entity details</h3>";
-  }
+  // TODO: remove entity name from param?
 
-  // Build String to be put in the details div
-  htmlString = htmlString + "<ul>";
   // Order the JSON string to have id and label at the beginning
   var orderedEntities = {};
-  orderedEntities["id"] = entity["id"].link(entity["id"]);
+  var id = entity["id"].link(entity["id"]);
+  //orderedEntities["id"] = entity["id"].link(entity["id"]);
 
   // Get the label
   if (entity["label"] != null) {
     // Select label according to user selection
     if (entity["label"].hasOwnProperty(selectedLang)) {
-      orderedEntities["label"] = entity["label"][selectedLang] + " (" + selectedLang + ")";
+      var label = entity["label"][selectedLang] + " (" + selectedLang + ")";
     } else {
       // Take first label in object if selected lang not available
-      orderedEntities["label"] = entity["label"][Object.keys(entity["label"])[0]] + " (" + Object.keys(entity["label"])[0] + ")";
+      var label = entity["label"][Object.keys(entity["label"])[0]] + " (" + Object.keys(entity["label"])[0] + ")";
     }
   }
   
@@ -250,20 +245,17 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
     }
   });
 
+  // Build String to be put in the details div
+  var htmlString = "<h1>" + label + "</h1><h2>" + id + "</h2><dl>"
   var printHr = false;
   for (var attr in orderedEntities) {
-    if (printHr) {
-      htmlString = htmlString + "<hr style='margin: 1% 10%;'>";
-      printHr = false;
-    }
-    htmlString = htmlString + "<li><b>" + attr + "</b> = " + orderedEntities[attr] + "</li>"
-    if (attr == "label") {
-      printHr = htmlString + "<hr>";
-    }
+    htmlString = htmlString + "<dt>" + attr + "</dt><dd>" + orderedEntities[attr] + "</dd>"
+    // TODO: possibilité de rajouter l'URI dans un mouseover
+    //<dt><abbr title="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">rdf:type</abbr></dt>
   }
   //console.log("ordered entities");
   //console.log(orderedEntities);
-  return htmlString + "</ul>";
+  return htmlString + "</dl>";
 }
 
 /* Remember on how to make a little window that show when mouseover with angularjs

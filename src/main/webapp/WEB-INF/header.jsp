@@ -15,7 +15,7 @@
     <title>YAM++</title>
   </head>
   <body role="document" style="background-color:#f2f7f9">
-    <div class=header>
+    <header>
       <div class=nav>
         <ul id=nav-box>
           <li><a href=index>
@@ -35,7 +35,7 @@
             --%>
         </ul>
       </div>
-    </div>
+    </header>
 
     <div class=yellow></div>
     
