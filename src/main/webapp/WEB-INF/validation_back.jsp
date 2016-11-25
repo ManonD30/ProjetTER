@@ -11,6 +11,8 @@ for the sourceOnt and targetOnt ontology alignment -->
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.css">
+<!-- Custom CSS for validation: -->
+<link href="css/validation.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 <script src="scripts/validation.js"></script>
 <!--script src="scripts/jquery.tablesorter.js"></script>
