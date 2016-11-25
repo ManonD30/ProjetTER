@@ -49,21 +49,20 @@ for the sourceOnt and targetOnt ontology alignment -->
     </script>
 
     <!-- Input to filter mappings table -->
-      <!--div class="alert alert-success"-->
+    <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">
       <label>Search: <input type="search" ng-model="searchText"></label>
       <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
               ng-click="hideAlignments($event)">Hide validated alignments</button>
 
-      <!--div class="alert alert-info"-->
       <label style="margin-left: 3%;">Score range:</label>&nbsp;&nbsp;
       <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" 
-                rz-slider-options="minRangeSlider.options" style="margin-top: 15px; margin-left: 1%; width: 20%"></rzslider>
+                rz-slider-options="minRangeSlider.options" style="margin-top: 20px; margin-left: 1%; width: 20%"></rzslider>
 
       <label style="margin-left: 3%;">Language:</label>
-      <select class="form-control"  style="display:inline; margin-bottom: 20px; margin-left: 1%;" ng-model="selectedLang" 
+      <select class="form-control"  style="display:inline; margin-left: 1%;" ng-model="selectedLang" 
               ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
-
-    <br/>
+    </div>
+    
 
     <form action='download' method='post' ng-submit="displayAllRows()">
       <table id=table class="table table-striped">
