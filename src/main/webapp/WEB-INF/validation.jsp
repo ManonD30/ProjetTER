@@ -23,7 +23,7 @@ for the sourceOnt and targetOnt ontology alignment -->
 <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
 
 <main>
-  <section class="main-section" ng-app="validationApp" ng-controller="ValidationCtrl" id=toHideWhenDownload >&nbsp;
+  <section class="main-section" ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
 
     <%
       // Get alignment Array with all aligned entities
