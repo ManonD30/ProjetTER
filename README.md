@@ -14,6 +14,12 @@ Using Apache Tomcat 7 and Java 8
   * docker run -d --restart always my-docker-image
   * marathon
 
+### Add javadoc to tomcat
+
+* Create a folder in webapps folder e.g. javadoc
+* Put your html and css in that folder and name the html file, which you want to be the starting page for your application, index.html
+* Start tomcat and point your browser to url "http://localhost:8080/javadoc". Your index.html page will pop up in the browser
+
 ## Best to run it: using docker-compose
 
 * Install docker (and docker-compose if not packaged with)
