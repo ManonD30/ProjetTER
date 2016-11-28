@@ -14,25 +14,16 @@
 
     <h4>Using your browser</h4>
     <p>
-    <ul>
-      <li>
-        <a href="rest/matcher?sourceUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&targetUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl">
-          http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://Conference.owl&targetUrl=https://cmt.owl
-        </a>
-      </li>
-      <li>
-        <a href="rest/matcher?sourceUrl=http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db&targetUrl=http://data.bioportal.lirmm.fr/ontologies/CIF/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db">
-          http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download&targetUrl=http://data.bioportal.lirmm.fr/ontologies/CIF/download
-        </a>
-      </li>
-    </ul>
+      <a href="rest/matcher?sourceUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl&targetUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl">
+        http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://Conference.owl&targetUrl=https://cmt.owl
+      </a>
     </p>
     <br/>
 
     <h4>Using cURL command</h4>
 
     <pre class="prettyprint">curl -X GET http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=http://purl.obolibrary.org/obo/po.owl&targetUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
-curl -X GET http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&targetUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl
+curl -X GET http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl&targetUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/cmt.owl
     </pre>
 
     <h4>Using Java</h4>
@@ -71,14 +62,14 @@ curl -X GET http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://raw.githu
 
     <pre class="prettyprint">curl -X POST -H \"Content-Type: multipart/form-data\ 
   -F sourceFile=@/path/to/ontology_file.owl 
-  http://yamplusplus.lirmm.fr/rest/matcher?targetUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl'
+  http://yamplusplus.lirmm.fr/rest/matcher?targetUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl'
 curl -X POST -H "Content-Type: multipart/form-data" 
   -F targetFile=@/path/to/ont1.owl 
   -F sourceFile=@/path/to/ont2.owl 
   http://yamplusplus.lirmm.fr/rest/matcher
 curl -X POST http://localhost:8083/rest/matcher 
-  -d 'sourceUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl'
-  -d 'targetUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl'
+  -d 'sourceUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl'
+  -d 'targetUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/cmt.owl'
     </pre>
 
   </div>
