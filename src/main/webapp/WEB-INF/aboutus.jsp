@@ -16,6 +16,12 @@
 
   <div class=textMainBody>
     <p>
+      <b>Yam++ Online</b> is a web tool to match ontologies and thesaurus, with an interface to validate the generated mappings.
+      <br/>It uses the 
+      <a href="http://search.maven.org/#artifactdetails%7Cfr.lirmm.yamplusplus%7Cyampp-ls%7C0.1.1%7Cjar"><b>Yam++ Large Scale library</b></a> 
+      to perform the ontology matching.
+    </p>
+    <p>
        Thanks: Marie Destandau
     </p>
     <div class=contentCenter>
