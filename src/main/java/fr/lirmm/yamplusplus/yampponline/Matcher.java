@@ -108,7 +108,7 @@ public class Matcher extends HttpServlet {
    * @return response String
    * @throws IOException
    */
-  static String processRequest(HttpServletRequest request) throws Exception {
+  static String processRequest(HttpServletRequest request) throws IOException, ClassNotFoundException {
     String responseString = null;
     YamFileHandler fileHandler = new YamFileHandler();
 

@@ -69,16 +69,17 @@ public class Result extends HttpServlet {
 
     // Process request (upload files and run YAM)
     String matcherResult = null;
+    
     try {
       matcherResult = processRequest(request);
       if (matcherResult.startsWith("error:")) {
-        request.setAttribute("errorMessage", "Error when matching ontologies:: " + matcherResult);
+        request.setAttribute("errorMessage", "Error when matching ontologies: " + matcherResult);
         // TODO: faire une petite function pour faire ça (sendResponse)
         this.getServletContext() // send response
             .getRequestDispatcher("/WEB-INF/validation.jsp")
             .forward(request, response);
       }
-    } catch (Exception e) {
+    } catch (ClassNotFoundException e) {
       request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
       System.out.println("YAM matcher execution failed: " + e.getMessage());
       this.getServletContext() // send response

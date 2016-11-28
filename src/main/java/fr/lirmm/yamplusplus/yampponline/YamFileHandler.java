@@ -287,104 +287,6 @@ public class YamFileHandler {
   }
 
   /**
-   * NOT USED anymore. Load the ontology number from the request with OWLAPI.
-   * Returns a JSONArray with class URI in "id" and all other properties i.e.: {
-   * namespaces: {"rdfs": "http://rdfs.org/"}, entities: {"http://entity1.org/":
-   * {"id": "http://entity1.org/", "rdfs:label": "test"}}}
-   *
-   * @param request
-   * @param ontName
-   * @return JSONArray
-   * @throws IOException
-   * @throws OWLOntologyCreationException
-   * @throws ServletException
-   */
-  public static JSONObject loadOwlapiOntoFromRequest(HttpServletRequest request, String ontName) throws IOException, OWLOntologyCreationException, ServletException {
-    OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-    OWLOntology ont = null;
-
-    // Load ontology in OWLAPI from the URL or the file
-    if (request.getParameter(ontName + "Url") != null && !request.getParameter(ontName + "Url").isEmpty()) {
-      ont = manager.loadOntologyFromOntologyDocument(IRI.create(request.getParameter(ontName + "Url")));
-    } else if (request.getPart(ontName + "File") != null) {
-      Part filePart = request.getPart(ontName + "File"); // Retrieves <input type="file" name="file">
-      //String fileName = filePart.getSubmittedFileName();
-      InputStream fileContent = filePart.getInputStream();
-      ont = manager.loadOntologyFromOntologyDocument(fileContent);
-    } else {
-      return null;
-    }
-
-    JSONObject jObject = new JSONObject();
-    JSONObject clsJObject = null;
-    JSONObject jPrefix = new JSONObject();
-    try {
-      // Get prefix from ontology using OwlApi
-      OWLOntologyFormat format = manager.getOntologyFormat(ont);
-      PrefixOWLOntologyFormat prefixFormat = format.asPrefixOWLOntologyFormat();
-      java.util.Map<String, String> prefixMap = prefixFormat.getPrefixName2PrefixMap();
-
-      // The prefix used in this ontology
-      Set<String> keys = prefixMap.keySet();
-
-      // Iterate over classes
-      String ontologyString = "";
-      // Iterate over all classes of the ontology
-      for (OWLClass cls : ont.getClassesInSignature()) {
-        clsJObject = new JSONObject();
-        clsJObject.put("id", cls.getIRI().toString());
-        String clsLabel = null;
-
-        // Iterate over annotations of the class
-        for (Iterator<OWLAnnotationAssertionAxiom> it = cls.getAnnotationAssertionAxioms(ont).iterator(); it.hasNext();) {
-          OWLAnnotationAssertionAxiom annotation = it.next();
-          String propertyString = annotation.getProperty().getIRI().toString();
-          String valueString = annotation.getValue().toString();
-
-          // Get label for skos:prefLabel or rdfs:label
-          if (clsLabel == null && propertyString.equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
-            clsLabel = valueString;
-          } else if (clsLabel == null && propertyString.equals("http://www.w3.org/2000/01/rdf-schema#label")) {
-            clsLabel = valueString;
-          }
-
-          // Get the used prefix in the ontology
-          for (String key : keys) {
-            if (propertyString.contains(prefixMap.get(key))) {
-              propertyString = propertyString.replaceAll(prefixMap.get(key), key);
-              if (!jPrefix.containsKey(key)) {
-                // Add prefix to json objet
-                jPrefix.put(key, prefixMap.get(key));
-              }
-            }
-            if (valueString.contains(prefixMap.get(key))) {
-              valueString = valueString.replaceAll(prefixMap.get(key), key);
-              if (!jPrefix.containsKey(key)) {
-                jPrefix.put(key, prefixMap.get(key));
-              }
-            }
-          }
-          // Careful : it bugs. With bioportal examples
-          clsJObject.put(propertyString, valueString);
-        }
-        // If no skos:prefLabel or rdfs:label, we get the label from the URI
-        if (clsLabel == null) {
-          clsLabel = getLabelFromUri(cls.getIRI().toString());
-        }
-        clsJObject.put("label", clsLabel);
-        jObject.put(cls.getIRI().toString(), clsJObject);
-      }
-    } catch (Exception e) {
-      Logger.getLogger(YamFileHandler.class.getName()).log(Level.SEVERE, null, e);
-    }
-
-    JSONObject fullJObject = new JSONObject();
-    fullJObject.put("namespaces", jPrefix);
-    fullJObject.put("entities", jObject);
-    return fullJObject;
-  }
-
-  /**
    * Load ontology in Jena to get class label and other triples. Returns the
    * following JSON: Returns a JSONArray with class URI in "id" and all other
    * properties i.e.: { namespaces: {"rdfs": "http://rdfs.org/"}, entities:
@@ -505,14 +407,80 @@ public class YamFileHandler {
     fullJObject.put("entities", entitiesJObject);
 
     return fullJObject;
+  }  
+  
+  public static String getUriWithPrefix(String uri, java.util.Map<String, String> prefixMap) {
+
+    for (String key : prefixMap.keySet()) {
+      // To replace namespaces by prefix in URI
+      if (uri.contains(prefixMap.get(key))) {
+        uri = uri.replaceAll(prefixMap.get(key), key + ":");
+      }
+    }
+    return uri;
   }
 
   /**
-   * Convert Skos Ontology to OWL. We are adding the rdf:type owl:Class to every
-   * skos:Concept. And skos:broader/skos:narrower are replaced by
-   * rdfs:subClassOf. Also adding the triple <http://my_ontology_URI/> rdf:type
-   * owl:Ontology And adding rdfs:label for all skos:prefLabel (not really
-   * useful because we handle skos:prefLabel)
+   * Get the label of a class from its URI (taking everything after the last #
+   * Or after the last / if # not found
+   *
+   * @param uri
+   * @return String
+   */
+  public static String getLabelFromUri(String uri) {
+    String label = null;
+    if (uri != null) {
+      if (uri.lastIndexOf("#") != -1) {
+        label = uri.substring(uri.lastIndexOf("#") + 1);
+      } else {
+        label = uri.substring(uri.lastIndexOf("/") + 1);
+      }
+    }
+    return label;
+  }
+
+  /**
+   * Return the file size in MB
+   *
+   * @param filepath
+   * @return long of file size in MB
+   */
+  public int getFileSize(String filepath) {
+    File file = new File(filepath);
+    //long size = file.length();
+    Integer size = (int) (long) file.length();
+    // Convert the bytes to Kilobytes (1 KB = 1024 Bytes)
+    size = size / 1024;
+    // Convert the KB to MegaBytes (1 MB = 1024 KBytes)
+    size = size / 1024;
+    return size;
+  }
+
+  /**
+   * Returns the working directory as a String
+   *
+   * @return workDir String
+   */
+  public String getWorkDir() {
+    return workDir;
+  }
+
+  /**
+   * Returns the tmp directory as a String
+   *
+   * @return workDir String
+   */
+  public String getTmpDir() {
+    return tmpDir;
+  }
+  
+  /**
+   * TODO: REMOVE? Done by yampp-ls. Convert Skos Ontology to OWL. We are adding
+   * the rdf:type owl:Class to every skos:Concept. And
+   * skos:broader/skos:narrower are replaced by rdfs:subClassOf. Also adding the
+   * triple <http://my_ontology_URI/> rdf:type owl:Ontology And adding
+   * rdfs:label for all skos:prefLabel (not really useful because we handle
+   * skos:prefLabel)
    *
    * @param skosFile
    * @param outputFile
@@ -654,68 +622,102 @@ public class YamFileHandler {
     return owlOntologyString;
   }
 
-  public static String getUriWithPrefix(String uri, java.util.Map<String, String> prefixMap) {
+  /**
+   * NOT USED anymore. Load the ontology number from the request with OWLAPI.
+   * Returns a JSONArray with class URI in "id" and all other properties i.e.: {
+   * namespaces: {"rdfs": "http://rdfs.org/"}, entities: {"http://entity1.org/":
+   * {"id": "http://entity1.org/", "rdfs:label": "test"}}}
+   *
+   * @param request
+   * @param ontName
+   * @return JSONArray
+   * @throws IOException
+   * @throws OWLOntologyCreationException
+   * @throws ServletException
+   */
+  public static JSONObject loadOwlapiOntoFromRequest(HttpServletRequest request, String ontName) throws IOException, OWLOntologyCreationException, ServletException {
+    OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+    OWLOntology ont = null;
 
-    for (String key : prefixMap.keySet()) {
-      // To replace namespaces by prefix in URI
-      if (uri.contains(prefixMap.get(key))) {
-        uri = uri.replaceAll(prefixMap.get(key), key + ":");
-      }
+    // Load ontology in OWLAPI from the URL or the file
+    if (request.getParameter(ontName + "Url") != null && !request.getParameter(ontName + "Url").isEmpty()) {
+      ont = manager.loadOntologyFromOntologyDocument(IRI.create(request.getParameter(ontName + "Url")));
+    } else if (request.getPart(ontName + "File") != null) {
+      Part filePart = request.getPart(ontName + "File"); // Retrieves <input type="file" name="file">
+      //String fileName = filePart.getSubmittedFileName();
+      InputStream fileContent = filePart.getInputStream();
+      ont = manager.loadOntologyFromOntologyDocument(fileContent);
+    } else {
+      return null;
     }
-    return uri;
-  }
 
-  /**
-   * Get the label of a class from its URI (taking everything after the last #
-   * Or after the last / if # not found
-   *
-   * @param uri
-   * @return String
-   */
-  public static String getLabelFromUri(String uri) {
-    String label = null;
-    if (uri != null) {
-      if (uri.lastIndexOf("#") != -1) {
-        label = uri.substring(uri.lastIndexOf("#") + 1);
-      } else {
-        label = uri.substring(uri.lastIndexOf("/") + 1);
+    JSONObject jObject = new JSONObject();
+    JSONObject clsJObject = null;
+    JSONObject jPrefix = new JSONObject();
+    try {
+      // Get prefix from ontology using OwlApi
+      OWLOntologyFormat format = manager.getOntologyFormat(ont);
+      PrefixOWLOntologyFormat prefixFormat = format.asPrefixOWLOntologyFormat();
+      java.util.Map<String, String> prefixMap = prefixFormat.getPrefixName2PrefixMap();
+
+      // The prefix used in this ontology
+      Set<String> keys = prefixMap.keySet();
+
+      // Iterate over classes
+      String ontologyString = "";
+      // Iterate over all classes of the ontology
+      for (OWLClass cls : ont.getClassesInSignature()) {
+        clsJObject = new JSONObject();
+        clsJObject.put("id", cls.getIRI().toString());
+        String clsLabel = null;
+
+        // Iterate over annotations of the class
+        for (Iterator<OWLAnnotationAssertionAxiom> it = cls.getAnnotationAssertionAxioms(ont).iterator(); it.hasNext();) {
+          OWLAnnotationAssertionAxiom annotation = it.next();
+          String propertyString = annotation.getProperty().getIRI().toString();
+          String valueString = annotation.getValue().toString();
+
+          // Get label for skos:prefLabel or rdfs:label
+          if (clsLabel == null && propertyString.equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
+            clsLabel = valueString;
+          } else if (clsLabel == null && propertyString.equals("http://www.w3.org/2000/01/rdf-schema#label")) {
+            clsLabel = valueString;
+          }
+
+          // Get the used prefix in the ontology
+          for (String key : keys) {
+            if (propertyString.contains(prefixMap.get(key))) {
+              propertyString = propertyString.replaceAll(prefixMap.get(key), key);
+              if (!jPrefix.containsKey(key)) {
+                // Add prefix to json objet
+                jPrefix.put(key, prefixMap.get(key));
+              }
+            }
+            if (valueString.contains(prefixMap.get(key))) {
+              valueString = valueString.replaceAll(prefixMap.get(key), key);
+              if (!jPrefix.containsKey(key)) {
+                jPrefix.put(key, prefixMap.get(key));
+              }
+            }
+          }
+          // Careful : it bugs. With bioportal examples
+          clsJObject.put(propertyString, valueString);
+        }
+        // If no skos:prefLabel or rdfs:label, we get the label from the URI
+        if (clsLabel == null) {
+          clsLabel = getLabelFromUri(cls.getIRI().toString());
+        }
+        clsJObject.put("label", clsLabel);
+        jObject.put(cls.getIRI().toString(), clsJObject);
       }
+    } catch (Exception e) {
+      Logger.getLogger(YamFileHandler.class.getName()).log(Level.SEVERE, null, e);
     }
-    return label;
-  }
 
-  /**
-   * Return the file size in MB
-   *
-   * @param filepath
-   * @return long of file size in MB
-   */
-  public int getFileSize(String filepath) {
-    File file = new File(filepath);
-    //long size = file.length();
-    Integer size = (int) (long) file.length();
-    // Convert the bytes to Kilobytes (1 KB = 1024 Bytes)
-    size = size / 1024;
-    // Convert the KB to MegaBytes (1 MB = 1024 KBytes)
-    size = size / 1024;
-    return size;
+    JSONObject fullJObject = new JSONObject();
+    fullJObject.put("namespaces", jPrefix);
+    fullJObject.put("entities", jObject);
+    return fullJObject;
   }
-
-  /**
-   * Returns the working directory as a String
-   *
-   * @return workDir String
-   */
-  public String getWorkDir() {
-    return workDir;
-  }
-
-  /**
-   * Returns the tmp directory as a String
-   *
-   * @return workDir String
-   */
-  public String getTmpDir() {
-    return tmpDir;
-  }
+  
 }
