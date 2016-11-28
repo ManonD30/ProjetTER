@@ -5,7 +5,19 @@ Using Apache Tomcat 7 and Java 8
 ## Improvements to do
 
 
-* Implement HTML from Marie (waiting for it)
+* Implement HTML from Marie (waiting for it) : DONE
+* Edit contacts infos:
+  * Add my name/email
+  * Remove Nasser
+  * Add Hoa contact
+  * Add thanks to Marie
+* Edit example ontologies (put cmt and conference)
+  * https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl
+  * https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/cmt.owl
+
+* Faire en sorte que header & footer fonctionne partout pareil : dans results et ailleurs (pour le moment "fixed" seulement dans results)
+  * OU MIEUX : fixed nul part. Et la colonne de droit prend TOUTE la largeur de la page, on met la nav bar et le footer autour de la main section à gauche !
+
 * Label of table columns should be name of ontologies (not source and target). Use filename if ontology name not found
 * SKOS to OWL conversion: gérer SKOS-XL (labels réifiés)
 * Graphical visualization 
