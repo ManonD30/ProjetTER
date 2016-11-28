@@ -15,6 +15,9 @@
   </div>
 
   <div class=textMainBody>
+    <p>
+       Thanks: Marie Destandau
+    </p>
     <div class=contentCenter>
       <div class=publicationButton>
         <a href=downloadYam style="text-decoration: none">
