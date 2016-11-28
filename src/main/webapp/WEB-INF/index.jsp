@@ -16,7 +16,7 @@
       <p>A RESTful API to get an alignment between 2 ontologies. 
         You can pass the URL of the ontology with "sourceUrl" and "targetUrl" parameters.<br/>
         For example:
-        <a href="rest/matcher?sourceUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&targetUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl">
+        <a href="rest/matcher?sourceUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl&targetUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/cmt.owl">
           http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://Conference.owl&targetUrl=https://cmt.owl
         </a>
       </p>
@@ -26,22 +26,18 @@
       <h1 style='margin-top: 0;'>
         <a href=matcher>Matcher</a>
       </h1>
-      <p>Takes as an input ontologies in different formats (owl, skos,
-        and various serializations of rdf, such as ttl) and produces
-        alignments in a format of the user's choice.</p>
-
+      <p>Takes as an input ontologies in different formats (owl, skos, and various serializations of rdf, 
+        such as ttl) and produces alignments in a format of the user's choice.</p>
       <hr>
 
       <h1>
         <a href=validator>Validator</a>
       </h1>
 
-      <p>Takes as an input an alignment in one out of several possible
-        formats (alignment, owl, skos), visualises it together with the
-        degree of confidence of each mapping and lets the user confirm,
-        reject or mark as uncertain each of the produced mappings. The
-        modified alignment can be stored in one of the possible alignment
-        formats.</p>
+      <p>Takes as an input an alignment in one out of several possible formats (alignment, owl, skos),
+        visualises it together with the degree of confidence of each mapping and lets the user confirm,
+        reject or mark as uncertain each of the produced mappings. The modified alignment can be 
+        stored in one of the possible alignment formats.</p>
 
       <!--h1>
               <a href=evaluator>Evaluator</a>
