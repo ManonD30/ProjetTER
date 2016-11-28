@@ -68,15 +68,19 @@ public class Result extends HttpServlet {
     long begin = System.currentTimeMillis();
 
     // Process request (upload files and run YAM)
-    String matcherResult = null; //= fr.lirmm.opendata.yamgui.Matcher.processRequest(request);
+    String matcherResult = null;
     try {
       matcherResult = processRequest(request);
       if (matcherResult.startsWith("error:")) {
         request.setAttribute("errorMessage", "Error when matching ontologies:: " + matcherResult);
+        // TODO: faire une petite function pour faire ça (sendResponse)
+        this.getServletContext() // send response
+            .getRequestDispatcher("/WEB-INF/validation.jsp")
+            .forward(request, response);
       }
     } catch (Exception e) {
       request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
-      System.out.println("bug matcher: " + e.getMessage());
+      System.out.println("YAM matcher execution failed: " + e.getMessage());
       this.getServletContext() // send response
               .getRequestDispatcher("/WEB-INF/validation.jsp")
               .forward(request, response);
@@ -94,8 +98,8 @@ public class Result extends HttpServlet {
     // add matching time to response
     request.setAttribute("time", s);
 
-    String sourceString = fileHandler.getOntFileFromRequest("source", request);
-    String targetString = fileHandler.getOntFileFromRequest("target", request);
+    //String sourceString = fileHandler.getOntFileFromRequest("source", request);
+    //String targetString = fileHandler.getOntFileFromRequest("target", request);
 
     JSONArray alignmentJson = null;
     // Parse OAEI alignment format to get the matcher results

@@ -105,7 +105,7 @@ public class Matcher extends HttpServlet {
    * Call the YAM match method to get alignment giving 2 ontology files
    *
    * @param request
-   * @return
+   * @return response String
    * @throws IOException
    */
   static String processRequest(HttpServletRequest request) throws Exception {
@@ -117,12 +117,6 @@ public class Matcher extends HttpServlet {
 
     String sourceStoragePath = fileHandler.uploadFile("source", subDirName, request);
     String targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
-
-    //String sourceConvertedPath = sourceStoragePath.replaceAll(".owl", "Converted.owl");
-    //String targetConvertedPath = targetStoragePath.replaceAll(".owl", "Converted.owl");
-
-    //YamFileHandler.convertSkosToOwl(new File(sourceStoragePath), new File(sourceConvertedPath), "RDF/XML");
-    //YamFileHandler.convertSkosToOwl(new File(targetStoragePath), new File(targetConvertedPath), "RDF/XML");
 
     /*SKOSManager manager = new SKOSManager();
     // use the manager to load a SKOS vocabulary from a URI (either physical or on the web)
@@ -138,9 +132,8 @@ public class Matcher extends HttpServlet {
       throw new FileNotFoundException("File too big: its size should be less than " + maxFileSize + "MB");
     }*/
 
-    //String resultStoragePath = fileHandler.getTmpDir() + subDirName + "/result.rdf";
-
     YamppOntologyMatcher matcher = new YamppOntologyMatcher();
+    
     // Execute YAM to get the mappings in RDF/XML
     // Soon to be String resultStoragePath = matcher.alignOntologies()
     String resultStoragePath = matcher.alignOntologies(new File(sourceStoragePath).toURI().toURL(),
