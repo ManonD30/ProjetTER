@@ -23,30 +23,31 @@ for the sourceOnt and targetOnt ontology alignment -->
 <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
 
 <main>
+
+  <%
+    // Get alignment Array with all aligned entities
+    JSONArray alignmentArray = (JSONArray) request.getAttribute("alignment");
+
+    // Trying to get ontology loaded using owlapi
+    JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
+    JSONObject targetOnt = (JSONObject) request.getAttribute("targetOnt");
+
+    if (request.getAttribute("errorMessage") == null && request.getAttribute("alignment") != null) {
+      //get the execution time from response
+      String time = (String) request.getAttribute("time");
+      if (time != null) {
+        out.println("<p class=contentTime> Calculated with YAM++ in "
+                + time + " seconds</p><br/>");
+      }
+  %>
+  <script type="text/javascript">
+    // Put params to javascript to use it with angularjs
+    var alignmentJson = <%=alignmentArray%>;
+    var sourceOnt = <%=sourceOnt%>;
+    var targetOnt = <%=targetOnt%>;
+  </script>
+
   <section class="main-section" ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
-
-    <%
-      // Get alignment Array with all aligned entities
-      JSONArray alignmentArray = (JSONArray) request.getAttribute("alignment");
-
-      // Trying to get ontology loaded using owlapi
-      JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
-      JSONObject targetOnt = (JSONObject) request.getAttribute("targetOnt");
-
-      if (request.getAttribute("errorMessage") == null && request.getAttribute("alignment") != null) {
-        //get the execution time from response
-        String time = (String) request.getAttribute("time");
-        if (time != null) {
-          out.println("<p class=contentTime> Calculated with YAM++ in "
-                  + time + " seconds</p><br/>");
-        }
-    %>
-    <script type="text/javascript">
-          // Put params to javascript to use it with angularjs
-          var alignmentJson = <%=alignmentArray%>;
-          var sourceOnt = <%=sourceOnt%>;
-          var targetOnt = <%=targetOnt%>;
-    </script>
 
     <!-- Input to filter mappings table -->
     <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">
@@ -62,7 +63,7 @@ for the sourceOnt and targetOnt ontology alignment -->
       <select class="form-control"  style="display:inline; margin-left: 1%;" ng-model="selectedLang" 
               ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
     </div>
-    
+
 
     <form action='download' method='post' ng-submit="displayAllRows()">
       <table id=table class="table table-striped">
@@ -217,13 +218,15 @@ for the sourceOnt and targetOnt ontology alignment -->
     // If errors
   } else {
   %>
-  <div class="errorMsg alert alert-danger" role="alert">
-    An error happened during matching <br/>
-    <%
-        out.println(request.getAttribute("errorMessage"));
-      }
-    %>
-  </div>
+  <section class="main-section" style="margin: 0 auto;"
+           ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
+    <div class="errorMsg alert alert-danger" role="alert" style="width: 75%;">
+      An error happened during matching <br/>
+      <%
+          out.println(request.getAttribute("errorMessage"));
+        }
+      %>
+    </div>
 
 </main>
 
