@@ -71,6 +71,9 @@ public class Result extends HttpServlet {
     String matcherResult = null; //= fr.lirmm.opendata.yamgui.Matcher.processRequest(request);
     try {
       matcherResult = processRequest(request);
+      if (matcherResult.startsWith("error:")) {
+        request.setAttribute("errorMessage", "Error when matching ontologies:: " + matcherResult);
+      }
     } catch (Exception e) {
       request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
       System.out.println("bug matcher: " + e.getMessage());
