@@ -5,10 +5,13 @@
 
   <div class=contactUs>
     <h1 style="margin-top: 0;padding-top:1%; text-align: left;">Contact us:</h1>
-    <h3 class=contactName><a href="mailto:Zohra.Bellahsene@lirmm.fr" target="_top">Zohra.Bellahsene@lirmm.fr</a> &nbsp; | &nbsp;
-      <a href="mailto:Konstantin.Todorov@lirmm.fr" target="_top">Konstantin.Todorov@lirmm.fr</a> &nbsp; | &nbsp;
-      <a href="mailto:Abdennasser.Tigrine@lirmm.fr" target="_top">Abdennasser.Tigrine@lirmm.fr</a></h3>
-    <br>
+    <h3 class=contactName>
+      <a href="vincent.emonet@lirmm.fr" target="_top">Vincent Emonet</a> &nbsp; | &nbsp;
+      <a href="mailto:Hoa.Ngo@csiro.au" target="_top">DuyHoa Ngo</a> &nbsp; | &nbsp;
+      <a href="mailto:Zohra.Bellahsene@lirmm.fr" target="_top">Zohra Bellahsene</a> &nbsp; | &nbsp;
+      <a href="mailto:Konstantin.Todorov@lirmm.fr" target="_top">Konstantin Todorov</a>
+    </h3>
+    <br/>
   </div>
 
   <div class=textMainBody>
