@@ -10,7 +10,11 @@ Using Apache Tomcat 7 and Java 8
 * Faire en sorte que header & footer fonctionne partout pareil : dans results et ailleurs (pour le moment "fixed" seulement dans results)
   * OU MIEUX : fixed nul part. Et la colonne de droit prend TOUTE la largeur de la page, on met la nav bar et le footer autour de la main section à gauche !
 
-* Label of table columns should be name of ontologies (not source and target). Use filename if ontology name not found
+* A faire aussi dans yampp-ls
+  * Label of table columns should be name of ontologies (not source and target). Use filename if ontology name not found
+  * Return l'error pour la display (return "error: " + e)
+
+
 * SKOS to OWL conversion: gérer SKOS-XL (labels réifiés)
 * Graphical visualization 
 * Solution pour faire en sorte que le docker soit toujours up (demander à Joël) : 
