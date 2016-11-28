@@ -73,7 +73,7 @@ public class Result extends HttpServlet {
     try {
       matcherResult = processRequest(request);
       if (matcherResult.startsWith("error:")) {
-        request.setAttribute("errorMessage", "Error when matching ontologies: " + matcherResult);
+        request.setAttribute("errorMessage", matcherResult);
         // TODO: faire une petite function pour faire ça (sendResponse)
         this.getServletContext() // send response
             .getRequestDispatcher("/WEB-INF/validation.jsp")
