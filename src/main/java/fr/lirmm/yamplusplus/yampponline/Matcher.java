@@ -143,7 +143,7 @@ public class Matcher extends HttpServlet {
     YamppOntologyMatcher matcher = new YamppOntologyMatcher();
     // Execute YAM to get the mappings in RDF/XML
     // Soon to be String resultStoragePath = matcher.alignOntologies()
-    String resultStoragePath = matcher.align(new File(sourceStoragePath).toURI().toURL(),
+    String resultStoragePath = matcher.alignOntologies(new File(sourceStoragePath).toURI().toURL(),
               new File(targetStoragePath).toURI().toURL());
     
     //MainProgram.match(sourceConvertedPath, targetConvertedPath, resultStoragePath);
