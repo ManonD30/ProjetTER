@@ -26,8 +26,8 @@
     </p>
     <div class=contentCenter>
       <div class=publicationButton>
-        <a href=downloadYam style="text-decoration: none">
-          <input class="btn btnDdl" type="button" value="Download Yam++"/>
+        <a href="http://search.maven.org/#artifactdetails%7Cfr.lirmm.yamplusplus%7Cyampp-ls%7C0.1.1%7Cjar" style="text-decoration: none" target="_blank">
+          <input class="btn btnDdl" type="button" value="Use Yam++"/>
         </a>
       </div>
     </div>
@@ -82,13 +82,6 @@
 
     <p>DuyHoa Ngo, Zohra Bellahsene, Remi Coletta. A Flexible System
       for Ontology Matching. CAiSE - Forum, 2011.</p>
-
-    <h1>Démo</h1>
-    <video width="100%" controls>
-      <source src="images/yam_demo.mp4" type="video/mp4">
-      <!--source src="movie.ogg" type="video/ogg"-->
-      Your browser does not support the video tag.
-    </video>
 
   </div>
 </div>
