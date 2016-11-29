@@ -45,6 +45,12 @@ var validationApp = angular.module('validationApp', ['rzModule', 'ui.bootstrap']
  */
 validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Get the 2 ont in an object
+  if ($window.alignmentJson.srcOntologyURI === undefined) {
+    $window.alignmentJson.srcOntologyURI = "Source entities";
+  }
+  if ($window.alignmentJson.tarOntologyURI === undefined) {
+    $window.alignmentJson.tarOntologyURI = "Target entities";
+  }
   $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": $window.alignmentJson.srcOntologyURI, "tarOntUri": $window.alignmentJson.tarOntologyURI};
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.sourceOnt.namespaces, $window.targetOnt.namespaces);
