@@ -265,11 +265,11 @@ public class YamFileHandler {
     } catch (SAXException | IOException ex) {
       Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
     }
-    
+
     // Get source and target ontology URI
     Element srcOntoElem = (Element) doc.getElementsByTagName("onto1").item(0);
     jObjectAlign.put("srcOntologyURI", srcOntoElem.getElementsByTagName("Ontology").item(0).getAttributes().getNamedItem("rdf:about").getNodeValue());
-    
+
     Element tarOntoElem = (Element) doc.getElementsByTagName("onto2").item(0);
     jObjectAlign.put("tarOntologyURI", tarOntoElem.getElementsByTagName("Ontology").item(0).getAttributes().getNamedItem("rdf:about").getNodeValue());
 
@@ -400,11 +400,10 @@ public class YamFileHandler {
               resourceJObject.put("lang", tripleArray.getLiteral().getLanguage());
               resourceJObject.put("fullPredicate", fullPredicate);
             } else {
-              objectString = getUriWithPrefix(tripleArray.getObject().toString(), prefixMap);
+              objectString = tripleArray.getObject().toString();
               objectType = "uri";
               resourceJObject.put("type", objectType);
               resourceJObject.put("value", objectString);
-              resourceJObject.put("fullUri", tripleArray.getObject().toString());
               resourceJObject.put("fullPredicate", fullPredicate);
             }
 
@@ -433,6 +432,14 @@ public class YamFileHandler {
     return fullJObject;
   }
 
+  /**
+   * Replace the full URI by a prefixed URI. Using namespaces defined in
+   * prefixMap
+   *
+   * @param uri
+   * @param prefixMap
+   * @return String
+   */
   public static String getUriWithPrefix(String uri, java.util.Map<String, String> prefixMap) {
 
     for (String key : prefixMap.keySet()) {
