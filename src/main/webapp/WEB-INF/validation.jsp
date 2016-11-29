@@ -26,7 +26,7 @@ for the sourceOnt and targetOnt ontology alignment -->
 
   <%
     // Get alignment Array with all aligned entities
-    JSONArray alignmentArray = (JSONArray) request.getAttribute("alignment");
+    JSONObject alignmentObject = (JSONObject) request.getAttribute("alignment");
 
     // Trying to get ontology loaded using owlapi
     JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
@@ -42,7 +42,7 @@ for the sourceOnt and targetOnt ontology alignment -->
   %>
   <script type="text/javascript">
     // Put params to javascript to use it with angularjs
-    var alignmentJson = <%=alignmentArray%>;
+    var alignmentJson = <%=alignmentObject%>;
     var sourceOnt = <%=sourceOnt%>;
     var targetOnt = <%=targetOnt%>;
   </script>
@@ -70,8 +70,8 @@ for the sourceOnt and targetOnt ontology alignment -->
         <thead>
           <tr>
             <th href="#" ng-click="orderByField = 'index'; reverseSort = !reverseSort">Line</th>
-            <th href="#" ng-click="orderByField = 'entity1'; reverseSort = !reverseSort">Source label</th>
-            <th href="#" ng-click="orderByField = 'entity2'; reverseSort = !reverseSort">Target label</th>
+            <th href="#" ng-click="orderByField = 'entity1'; reverseSort = !reverseSort">{{ontologies.srcOntUri}}</th>
+            <th href="#" ng-click="orderByField = 'entity2'; reverseSort = !reverseSort">{{ontologies.tarOntUri}}</th>
             <th href="#" ng-click="orderByField = 'relation'; reverseSort = !reverseSort"
                 style="width: 11em;">Relation</th>
             <th href="#" ng-click="orderByField = 'measure'; reverseSort = !reverseSort">Score</th>

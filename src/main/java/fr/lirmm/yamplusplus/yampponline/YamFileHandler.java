@@ -64,6 +64,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -213,20 +214,32 @@ public class YamFileHandler {
 
   /**
    * Take a OAEI AlignmentAPI string and use classic XML parser. To return a
-   * JSONArray containing the data of the alignment Format of the array:
-   * [{"index": 1, "entity1": "http://entity1.fr", "entity2":
-   * "http://entity2.fr", "relation": "skos:exactMatch", "measure": 0.34, }] We
-   * can't use AlignmentAPI parser because of the "valid" property (trigger
-   * error at load
+   * JSONObject with onto URIs and containing a JSONArray with the data of the
+   * alignment Format of the array: {srcOntologyURI: "http://onto1.fr",
+   * tarOntologyUri; "http://onto2.fr", entities: [{"index": 1, "entity1":
+   * "http://entity1.fr", "entity2": "http://entity2.fr", "relation":
+   * "skos:exactMatch", "measure": 0.34, }]} We can't use AlignmentAPI parser
+   * because of the "valid" property (trigger error at load
    *
    * @param oaeiResult
-   * @return JSONArray
+   * @return JSONObject
    * @throws AlignmentException
    */
-  public JSONArray parseOaeiAlignmentFormat(String oaeiResult) throws AlignmentException {
+  public JSONObject parseOaeiAlignmentFormat(String oaeiResult) throws AlignmentException {
+    JSONObject jObjectAlign = new JSONObject();
     JSONObject jObject = null;
     JSONArray jArray = new JSONArray();
 
+    /*<onto1>
+    <Ontology rdf:about="http://chu-rouen.fr/cismef/CIF">
+      <location>http://chu-rouen.fr/cismef/CIF</location>
+    </Ontology>
+  </onto1>
+  <onto2>
+    <Ontology rdf:about="http://chu-rouen.fr/cismef/MedlinePlus">
+      <location>http://chu-rouen.fr/cismef/MedlinePlus</location>
+    </Ontology>
+  </onto2>*/
     // We need to iterate the XML file to add the valid field
     DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder docBuilder = null;
@@ -249,11 +262,16 @@ public class YamFileHandler {
 
     try {
       doc = builder.parse(is);
-    } catch (SAXException ex) {
-      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (IOException ex) {
+    } catch (SAXException | IOException ex) {
       Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
     }
+    
+    // Get source and target ontology URI
+    Element srcOntoElem = (Element) doc.getElementsByTagName("onto1").item(0);
+    jObjectAlign.put("srcOntologyURI", srcOntoElem.getElementsByTagName("Ontology").item(0).getAttributes().getNamedItem("rdf:about").getNodeValue());
+    
+    Element tarOntoElem = (Element) doc.getElementsByTagName("onto2").item(0);
+    jObjectAlign.put("tarOntologyURI", tarOntoElem.getElementsByTagName("Ontology").item(0).getAttributes().getNamedItem("rdf:about").getNodeValue());
 
     // Iterate over Cell XML elements to get if valid or not
     int index = 0;
@@ -283,7 +301,9 @@ public class YamFileHandler {
       index += 1;
       jArray.add(jObject);
     }
-    return jArray;
+    // Put the array of entities in the alignment JSON object
+    jObjectAlign.put("entities", jArray);
+    return jObjectAlign;
   }
 
   /**
@@ -407,8 +427,8 @@ public class YamFileHandler {
     fullJObject.put("entities", entitiesJObject);
 
     return fullJObject;
-  }  
-  
+  }
+
   public static String getUriWithPrefix(String uri, java.util.Map<String, String> prefixMap) {
 
     for (String key : prefixMap.keySet()) {
@@ -473,7 +493,7 @@ public class YamFileHandler {
   public String getTmpDir() {
     return tmpDir;
   }
-  
+
   /**
    * TODO: REMOVE? Done by yampp-ls. Convert Skos Ontology to OWL. We are adding
    * the rdf:type owl:Class to every skos:Concept. And
@@ -719,5 +739,5 @@ public class YamFileHandler {
     fullJObject.put("entities", jObject);
     return fullJObject;
   }
-  
+
 }

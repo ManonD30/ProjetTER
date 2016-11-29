@@ -45,8 +45,7 @@ var validationApp = angular.module('validationApp', ['rzModule', 'ui.bootstrap']
  */
 validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Get the 2 ont in an object
-  console.log($window);
-  $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt};
+  $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": $window.alignmentJson.srcOntologyURI, "tarOntUri": $window.alignmentJson.tarOntologyURI};
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.sourceOnt.namespaces, $window.targetOnt.namespaces);
   $scope.detailsLocked = false;
@@ -57,7 +56,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
 
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
-  $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson, $scope.ontologies);
+  $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson.entities, $scope.ontologies);
   alignments = $scope.alignments;
 
   $scope.langSelect = {"en": "en", "fr": "fr"};

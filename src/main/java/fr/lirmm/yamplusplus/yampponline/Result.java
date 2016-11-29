@@ -10,18 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.semanticweb.owl.align.AlignmentException;
 
 import static fr.lirmm.yamplusplus.yampponline.Matcher.processRequest;
-import java.sql.SQLException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class Result extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
-  public static JSONArray liste = null;
+  public static JSONObject liste = null;
   public static java.util.Map<String, String> Onto1 = new HashMap<>();
   public static java.util.Map<String, String> Onto2 = new HashMap<>();
 
@@ -39,7 +37,6 @@ public class Result extends HttpServlet {
     // check and update "asMatched" value
     //int asMatched = 0;
     //int canMatch = 0;
-
     Logger myLog = Logger.getLogger(Result.class.getName());
     /* Check user in MySQL, not useful now
     try {
@@ -71,15 +68,15 @@ public class Result extends HttpServlet {
 
     // Process request (upload files and run YAM)
     String matcherResult = null;
-    
+
     try {
       matcherResult = processRequest(request);
       if (matcherResult.startsWith("error:")) {
         request.setAttribute("errorMessage", matcherResult);
         // TODO: faire une petite function pour faire ça? (sendResponse)
         this.getServletContext() // send response
-            .getRequestDispatcher("/WEB-INF/validation.jsp")
-            .forward(request, response);
+                .getRequestDispatcher("/WEB-INF/validation.jsp")
+                .forward(request, response);
       }
     } catch (ClassNotFoundException e) {
       request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
@@ -103,8 +100,7 @@ public class Result extends HttpServlet {
 
     //String sourceString = fileHandler.getOntFileFromRequest("source", request);
     //String targetString = fileHandler.getOntFileFromRequest("target", request);
-
-    JSONArray alignmentJson = null;
+    JSONObject alignmentJson = null;
     // Parse OAEI alignment format to get the matcher results
     try {
       alignmentJson = fileHandler.parseOaeiAlignmentFormat(matcherResult);

@@ -7,7 +7,6 @@ package fr.lirmm.yamplusplus.yampponline;
  * and open the template in the editor.
  */
 //import main.MainProgram;
-import fr.lirmm.yamplusplus.yampponline.YamFileHandler;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -61,16 +60,17 @@ public class TestOaeiAlignment {
 
     boolean testExtractValid = false;
     YamFileHandler fileHandler = new YamFileHandler();
-    JSONArray parseOaeiJson = new JSONArray();
+    JSONObject parseOaeiJson = new JSONObject();
     try {
       parseOaeiJson = fileHandler.parseOaeiAlignmentFormat(iamlRameauAlignment);
     } catch (AlignmentException ex) {
       Logger.getLogger(TestOaeiAlignment.class.getName()).log(Level.SEVERE, null, ex);
     }
+    JSONArray entities = (JSONArray) parseOaeiJson.get("entities");
 
     // Look for a specific valid mapping to test if parsing worked
-    for (int i = 0; i < parseOaeiJson.size(); i++) {
-      JSONObject mappingJObject = (JSONObject) parseOaeiJson.get(i);
+    for (int i = 0; i < entities.size(); i++) {
+      JSONObject mappingJObject = (JSONObject) entities.get(i);
       if (mappingJObject.get("valid").equals("valid") 
               && mappingJObject.get("entity1").equals("http://iflastandards.info/ns/unimarc/terms/mop/wdb")
               && mappingJObject.get("entity2").equals("http://data.bnf.fr/ark:/12148/cb12270245r")) {
