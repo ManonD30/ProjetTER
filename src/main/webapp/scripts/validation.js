@@ -248,8 +248,8 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
   var id = entity["id"].link(entity["id"]);
   //orderedEntities["id"] = entity["id"].link(entity["id"]);
 
-  // Get the label
-  if (entity["label"] !== null) {
+  // Get the label (using "!=" instead of "!==" allows to avoid null AND undefined)
+  if (entity["label"] != null) {
     // Select label according to user selection
     if (entity["label"].hasOwnProperty(selectedLang)) {
       var label = entity["label"][selectedLang] + " (" + selectedLang + ")";
@@ -278,7 +278,6 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
               orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
             }
             break;
-            //} else if (entity[key][valuesObject]["type"] == "literal") {
           } else {
             // If it is a literal then we concatenate them
             if (orderedEntities[key] === null) {
@@ -297,7 +296,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
   for (var attr in orderedEntities) {
     var prefixedPredicate = attr;
     if (entity[attr][0]["prefixedPredicate"] !== null) {
-      // Add fullUri in mouseover
+      // Display full URI when mouseover
       //<dt><abbr title="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">rdf:type</abbr></dt>
       prefixedPredicate = '<abbr title="' + attr + '">' + entity[attr][0]["prefixedPredicate"] + "</abbr>";
     }
