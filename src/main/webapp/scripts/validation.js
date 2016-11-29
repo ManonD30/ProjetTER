@@ -273,7 +273,6 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
           if (entity[key][valuesObject]["value"].startsWith("http://")) {
             // Concatenate URI too ? With <a href>
             if (orderedEntities[key] === null) {
-                      // HERE TO ADD fllUri for objects
               orderedEntities[key] = entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
             } else {
               orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
@@ -294,19 +293,16 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
   });
 
   // Build String to be put in the details div
-  var htmlString = "<h1>" + label + "</h1><h2>" + id + "</h2><dl>"
-  var printHr = false;
+  var htmlString = "<h1>" + label + "</h1><h2>" + id + "</h2><dl>";
   for (var attr in orderedEntities) {
-    var fullPredicate = attr;
-    if (entity[attr][0]["fullPredicate"] !== null) {
-      fullPredicate = '<abbr title="' + entity[attr][0]["fullPredicate"] + '">' + attr + "</abbr>"
+    var prefixedPredicate = attr;
+    if (entity[attr][0]["prefixedPredicate"] !== null) {
+      // Add fullUri in mouseover
+      //<dt><abbr title="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">rdf:type</abbr></dt>
+      prefixedPredicate = '<abbr title="' + attr + '">' + entity[attr][0]["prefixedPredicate"] + "</abbr>";
     }
-    htmlString = htmlString + "<dt>" + fullPredicate + "</dt><dd>" + orderedEntities[attr] + "</dd>"
-    // TODO: possibilité de rajouter l'URI dans un mouseover
-    //<dt><abbr title="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">rdf:type</abbr></dt>
+    htmlString = htmlString + "<dt>" + prefixedPredicate + "</dt><dd>" + orderedEntities[attr] + "</dd>";
   }
-  //console.log("ordered entities");
-  //console.log(orderedEntities);
   return htmlString + "</dl>";
 }
 
