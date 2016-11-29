@@ -398,6 +398,7 @@ public class YamFileHandler {
               resourceJObject.put("type", objectType);
               resourceJObject.put("value", objectString);
               resourceJObject.put("lang", tripleArray.getLiteral().getLanguage());
+              // We add the prefixed predicates as triple attributes, to avoid having to calculate on the fly in javascript afterwards
               resourceJObject.put("prefixedPredicate", prefixedPredicate);
             } else {
               objectString = tripleArray.getObject().toString();
