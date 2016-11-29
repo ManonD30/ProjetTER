@@ -275,6 +275,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
           if (entity[key][valuesObject]["value"].startsWith("http://")) {
             // Concatenate URI too ? With <a href>
             if (orderedEntities[key] === null) {
+                      // HERE TO ADD fllUri for objects
               orderedEntities[key] = entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
             } else {
               orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
@@ -298,7 +299,11 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
   var htmlString = "<h1>" + label + "</h1><h2>" + id + "</h2><dl>"
   var printHr = false;
   for (var attr in orderedEntities) {
-    htmlString = htmlString + "<dt>" + attr + "</dt><dd>" + orderedEntities[attr] + "</dd>"
+    var fullPredicate = attr;
+    if (entity[attr][0]["fullPredicate"] !== null) {
+      fullPredicate = '<abbr title="' + entity[attr][0]["fullPredicate"] + '">' + attr + "</abbr>"
+    }
+    htmlString = htmlString + "<dt>" + fullPredicate + "</dt><dd>" + orderedEntities[attr] + "</dd>"
     // TODO: possibilité de rajouter l'URI dans un mouseover
     //<dt><abbr title="http://www.w3.org/1999/02/22-rdf-syntax-ns#type">rdf:type</abbr></dt>
   }

@@ -377,6 +377,7 @@ public class YamFileHandler {
             Set<String> prefixKeys = prefixMap.keySet();
 
             String predicateString = getUriWithPrefix(tripleArray.getPredicate().toString(), prefixMap);
+            String fullPredicate = tripleArray.getPredicate().toString();
 
             // Get label for skos:prefLabel or rdfs:label
             if (tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
@@ -397,11 +398,14 @@ public class YamFileHandler {
               resourceJObject.put("type", objectType);
               resourceJObject.put("value", objectString);
               resourceJObject.put("lang", tripleArray.getLiteral().getLanguage());
+              resourceJObject.put("fullPredicate", fullPredicate);
             } else {
               objectString = getUriWithPrefix(tripleArray.getObject().toString(), prefixMap);
               objectType = "uri";
               resourceJObject.put("type", objectType);
               resourceJObject.put("value", objectString);
+              resourceJObject.put("fullUri", tripleArray.getObject().toString());
+              resourceJObject.put("fullPredicate", fullPredicate);
             }
 
             JSONArray objectsJArray = new JSONArray();
