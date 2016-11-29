@@ -241,8 +241,6 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
  * @returns {undefined}
  */
 function buildEntityDetailsHtml(entity, entityName, selectedLang) {
-  // TODO: remove entity name from param?
-
   // Order the JSON string to have id and label at the beginning
   var orderedEntities = {};
   var id = entity["id"].link(entity["id"]);
@@ -255,7 +253,12 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
       var label = entity["label"][selectedLang] + " (" + selectedLang + ")";
     } else {
       // Take first label in object if selected lang not available
-      var label = entity["label"][Object.keys(entity["label"])[0]] + " (" + Object.keys(entity["label"])[0] + ")";
+      if (Object.keys(entity["label"])[0] == null || Object.keys(entity["label"])[0] == "") {
+        var label = entity["label"][Object.keys(entity["label"])[0]];
+      } else {
+        // Add language between parenthesis if not undefined
+        var label = entity["label"][Object.keys(entity["label"])[0]] + " (" + Object.keys(entity["label"])[0] + ")";
+      }
     }
   } else {
     var label = id;
@@ -292,7 +295,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
   });
 
   // Build String to be put in the details div
-  var htmlString = "<h1>" + label + "</h1><h2>" + id + "</h2><dl>";
+  var htmlString = "<h1 style='text-align: center;'>" + entityName + " entity details</h1><h1>" + label + "</h1><h2>" + id + "</h2><dl>";
   for (var attr in orderedEntities) {
     var prefixedPredicate = attr;
     if (entity[attr][0]["prefixedPredicate"] !== null) {
