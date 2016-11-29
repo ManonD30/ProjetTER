@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.semanticweb.owl.align.AlignmentException;
 
 import static fr.lirmm.yamplusplus.yampponline.Matcher.processRequest;
+import java.sql.SQLException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,10 +37,11 @@ public class Result extends HttpServlet {
           throws ServletException, IOException {
 
     // check and update "asMatched" value
-    int asMatched = 0;
-    int canMatch = 0;
+    //int asMatched = 0;
+    //int canMatch = 0;
 
     Logger myLog = Logger.getLogger(Result.class.getName());
+    /* Check user in MySQL, not useful now
     try {
       // get user's mail
       String mail = (String) request.getSession().getAttribute("mail");
@@ -49,10 +51,10 @@ public class Result extends HttpServlet {
 
       asMatched = user.getAsMatched();
       canMatch = user.getCanMatch();
-    } catch (Exception e) {
+    } catch (IOException | ClassNotFoundException | SQLException e) {
       System.err.println("Exception catched for database login!");
       System.err.println(e.getMessage());
-    }
+    }*/
 
     // Retrieve ontologies String
     YamFileHandler fileHandler = null;
@@ -74,7 +76,7 @@ public class Result extends HttpServlet {
       matcherResult = processRequest(request);
       if (matcherResult.startsWith("error:")) {
         request.setAttribute("errorMessage", matcherResult);
-        // TODO: faire une petite function pour faire ça (sendResponse)
+        // TODO: faire une petite function pour faire ça? (sendResponse)
         this.getServletContext() // send response
             .getRequestDispatcher("/WEB-INF/validation.jsp")
             .forward(request, response);
@@ -125,7 +127,7 @@ public class Result extends HttpServlet {
       //loadedOnto2 = fileHandler.loadOwlapiOntoFromRequest(request, "target");
       sourceOntoJson = fileHandler.jenaLoadOnto(request, "source");
       targetOntoJson = fileHandler.jenaLoadOnto(request, "target");
-    } catch (Exception ex) {
+    } catch (IOException | ServletException ex) {
       Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
     }
     request.setAttribute("sourceOnt", sourceOntoJson);

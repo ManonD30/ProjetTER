@@ -301,7 +301,7 @@ public class YamFileHandler {
    * @throws IOException
    * @throws javax.servlet.ServletException
    */
-  public static JSONObject jenaLoadOnto(HttpServletRequest request, String ontName) throws IOException, ServletException {
+  public JSONObject jenaLoadOnto(HttpServletRequest request, String ontName) throws IOException, ServletException {
     Model model = ModelFactory.createDefaultModel();
     //Logger myLog = Logger.getLogger(YamFileHandler.class.getName());
 
