@@ -130,18 +130,18 @@ for the sourceOnt and targetOnt ontology alignment -->
         </tbody>
       </table>
 
-
       <!--div id="pager" class="pager" style="top: 687px; position: absolute;"></div-->
       <br/>
 
-      <h3 class=contentText>Namespaces</h3><br/>
+      <!-- List the different prefixes/namespaces used by the 2 ontologies (not used anymore)
+      h3 class=contentText>Namespaces</h3><br/>
       <div class="row" style="text-align: center;">
         <ul class="list-group" style="margin: 0 auto; max-width: 65%">
           <li class="list-group-item" ng-repeat="(prefix, namespace) in namespaces">
             <b>{{prefix}}</b> {{namespace}}
           </li>
         </ul>
-      </div><br/>
+      </div><br/-->
 
       <h3 class=contentText>Formats</h3><br/>
       <div class="row" style="text-align: center;">

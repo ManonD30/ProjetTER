@@ -11,7 +11,6 @@ $(document).ready(function () {
     var newSourceSize = (contentSourceSize < halfSize) ? contentSourceSize : halfSize;
     var newTargetSize = (contentTargetSize < halfSize) ? contentTargetSize : halfSize;
     //console.log("contentSourceSize", contentSourceSize, "contentTargetSize", contentTargetSize, "totalSize", totalSize)
-    //if()
     $(".entity-source").css({"flexBasis": newSourceSize + "px"});
     $(".entity-target").css({"flexBasis": newTargetSize + "px"});
 
@@ -35,7 +34,6 @@ $(document).ready(function () {
   })
   resizePanels();
 });
-
 
 // Using rzSlider for 2 sliders range input
 var validationApp = angular.module('validationApp', ['rzModule', 'ui.bootstrap']);
@@ -94,19 +92,19 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.hideAlignments = function ($event) {
     $scope.hideValidatedAlignments = !$scope.hideValidatedAlignments;
     // Change button color
-    if ($scope.hideValidatedAlignments == true) {
+    if ($scope.hideValidatedAlignments === true) {
       angular.element($event.currentTarget).css('background', '#d531b9');
     } else {
       angular.element($event.currentTarget).css('background', 'linear-gradient(to bottom, #5bc0de 0%, #2aabd2 100%)');
     }
-  }
+  };
 
   // Display all rows before Download to get all alignments. But they all get back as waiting 
   // Je pense que dans le html c'est init sur waiting. Mais dans le $scope.alignment c'est updated
   $scope.displayAllRows = function () {
     $scope.hideValidatedAlignments = false;
     angular.element("#hideAlignmentsButton").css('background', 'linear-gradient(to bottom, #5bc0de 0%, #2aabd2 100%)');
-  }
+  };
 
   /**
    * Generate the ng if condition to manage which rows will be display
@@ -116,14 +114,14 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.generateTableNgIf = function (alignment) {
     if (alignment.measure >= $scope.minRangeSlider.minValue / 100
             && alignment.measure <= $scope.minRangeSlider.maxValue / 100) {
-      if ($scope.hideValidatedAlignments == true && alignment.valid != "waiting") {
+      if ($scope.hideValidatedAlignments === true && alignment.valid !== "waiting") {
         return false;
       }
       ;
       return true;
     }
     return false;
-  }
+  };
 
   /**
    * Generate the style string for the valid select dropdown to change background color
@@ -132,18 +130,18 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
    */
   $scope.generateStyleForSelect = function (alignment) {
     var styleString = null;
-    if (alignment.valid == "waiting") {
+    if (alignment.valid === "waiting") {
       // Orange
       styleString = "color: #fff; background-color: #f0ad4e;";
-    } else if (alignment.valid == "valid") {
+    } else if (alignment.valid === "valid") {
       // Green
       styleString = "color: #fff; background-color: #5cb85c;";
-    } else if (alignment.valid == "notvalid") {
+    } else if (alignment.valid === "notvalid") {
       // Red
       styleString = "color: #fff; background-color: #d9534f;";
     }
     return styleString;
-  }
+  };
 
   /**
    * Generate the id of an HTML element by concatenating a "validSelect" with the id
@@ -152,7 +150,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
    */
   $scope.generateValidSelectId = function (id) {
     return "validSelect" + id;
-  }
+  };
 
   /**
    * Put the new value in the valid select dropdown ng-model and change the value in the alignment object
@@ -162,7 +160,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.updateSelectValidModels = function ($event, alignment) {
     $scope.selectValidModel[alignment.index] = angular.element($event.currentTarget).val();
     alignment.valid = angular.element($event.currentTarget).val();
-  }
+  };
 
   /**
    * Change details div to show selected entity details
@@ -171,13 +169,13 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
    */
   $scope.changeDetails = function (clickedOn) {
     //console.log(this.alignment);
-    if ($scope.detailsLocked == false || clickedOn == true) {
+    if ($scope.detailsLocked === false || clickedOn === true) {
       var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1, "Source", $scope.selectedLang);
       var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2, "Target", $scope.selectedLang);
 
       document.getElementById("entityDetail1").innerHTML = stringDetail1;
       document.getElementById("entityDetail2").innerHTML = stringDetail2;
-      if (clickedOn == true) {
+      if (clickedOn === true) {
         $scope.detailsLocked = true;
         if ($scope.lastSelected) {
           var selected = this.selected;
@@ -195,7 +193,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       }
     }
   };
-})
+});
 
 /**
  * a function to get the ontology that is linked to an alignment
@@ -209,7 +207,7 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
   var alignments = [];
 
   for (var key in alignment) {
-    var alignToAdd = {"entity1": {}, "entity2": {}}
+    var alignToAdd = {"entity1": {}, "entity2": {}};
     if (alignment[key]['entity1'] in ontologies["ont1"]["entities"]) {
       alignToAdd["entity1"] = ontologies["ont1"]['entities'][alignment[key]['entity1']];
     } else {
@@ -219,7 +217,7 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
     if (alignment[key]['entity2'] in ontologies["ont2"]["entities"]) {
       alignToAdd["entity2"] = ontologies["ont2"]['entities'][alignment[key]['entity2']];
     } else {
-      alignToAdd["entity2"] = {"id": alignment[key]['entity2'].toString()}
+      alignToAdd["entity2"] = {"id": alignment[key]['entity2'].toString()};
     }
     alignToAdd["measure"] = alignment[key]['measure'];
     alignToAdd["relation"] = alignment[key]['relation'];
@@ -251,7 +249,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
   //orderedEntities["id"] = entity["id"].link(entity["id"]);
 
   // Get the label
-  if (entity["label"] != null) {
+  if (entity["label"] !== null) {
     // Select label according to user selection
     if (entity["label"].hasOwnProperty(selectedLang)) {
       var label = entity["label"][selectedLang] + " (" + selectedLang + ")";

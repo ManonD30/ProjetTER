@@ -317,7 +317,7 @@ public class YamFileHandler {
    *
    * @param request
    * @param ontName
-   * @return
+   * @return JSONObject
    * @throws IOException
    * @throws javax.servlet.ServletException
    */
@@ -376,8 +376,8 @@ public class YamFileHandler {
             java.util.Map<String, String> prefixMap = model.getNsPrefixMap();
             Set<String> prefixKeys = prefixMap.keySet();
 
-            String predicateString = getUriWithPrefix(tripleArray.getPredicate().toString(), prefixMap);
-            String fullPredicate = tripleArray.getPredicate().toString();
+            String predicateString = tripleArray.getPredicate().toString();
+            String prefixedPredicate = getUriWithPrefix(predicateString, prefixMap);
 
             // Get label for skos:prefLabel or rdfs:label
             if (tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
@@ -398,13 +398,13 @@ public class YamFileHandler {
               resourceJObject.put("type", objectType);
               resourceJObject.put("value", objectString);
               resourceJObject.put("lang", tripleArray.getLiteral().getLanguage());
-              resourceJObject.put("fullPredicate", fullPredicate);
+              resourceJObject.put("prefixedPredicate", prefixedPredicate);
             } else {
               objectString = tripleArray.getObject().toString();
               objectType = "uri";
               resourceJObject.put("type", objectType);
               resourceJObject.put("value", objectString);
-              resourceJObject.put("fullPredicate", fullPredicate);
+              resourceJObject.put("prefixedPredicate", prefixedPredicate);
             }
 
             JSONArray objectsJArray = new JSONArray();
@@ -441,7 +441,6 @@ public class YamFileHandler {
    * @return String
    */
   public static String getUriWithPrefix(String uri, java.util.Map<String, String> prefixMap) {
-
     for (String key : prefixMap.keySet()) {
       // To replace namespaces by prefix in URI
       if (uri.contains(prefixMap.get(key))) {
