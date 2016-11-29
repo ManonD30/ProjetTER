@@ -4,8 +4,7 @@ Using Apache Tomcat 7 and Java 8
 
 ## Improvements to do
 
-
-* Implement HTML from Marie (waiting for it) : DONE
+* Passer le projet en 2 submodule: ls et online
 
 * Faire en sorte que header & footer fonctionne partout pareil : dans results et ailleurs (pour le moment "fixed" seulement dans results)
   * OU MIEUX : fixed nul part. Et la colonne de droit prend TOUTE la largeur de la page, on met la nav bar et le footer autour de la main section à gauche !
@@ -13,6 +12,7 @@ Using Apache Tomcat 7 and Java 8
 * A faire aussi dans yampp-ls
   * Label of table columns should be name of ontologies (not source and target). Use filename if ontology name not found
   * Return l'error pour la display (return "error: " + e)
+  * Contacter OWLAPI pour résoudre le problème de TO (les imports vers des pURL qui redirect ne sont pas gérés)
 
 
 * SKOS to OWL conversion: gérer SKOS-XL (labels réifiés)
