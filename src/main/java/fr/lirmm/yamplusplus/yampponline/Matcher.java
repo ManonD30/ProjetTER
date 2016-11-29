@@ -51,7 +51,7 @@ public class Matcher extends HttpServlet {
 
     try {
       responseString = processRequest(request);
-    } catch (Exception e) {
+    } catch (IOException | ClassNotFoundException e) {
       request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
       Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
     }
@@ -87,7 +87,7 @@ public class Matcher extends HttpServlet {
     if (sourceUrl != null && targetUrl != null) {
       try {
         responseString = processRequest(request);
-      } catch (Exception e) {
+      } catch (IOException | ClassNotFoundException e) {
         request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
         Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
       }
