@@ -10,7 +10,7 @@ Using Apache Tomcat 7 and Java 8
   * OU MIEUX : fixed nul part. Et la colonne de droit prend TOUTE la largeur de la page, on met la nav bar et le footer autour de la main section à gauche !
 
 * A faire aussi dans yampp-ls
-  * Label of table columns should be name of ontologies (not source and target). Use filename if ontology name not found
+  * Label of table columns should be name of ontologies (not source and target). Use filename if ontology name not found. BOF, on display le nom du fichier /tmp/yamppls/... parfois...
   * Return l'error pour la display (return "error: " + e)
   * Contacter OWLAPI pour résoudre le problème de TO (les imports vers des pURL qui redirect ne sont pas gérés)
 

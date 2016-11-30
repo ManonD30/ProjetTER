@@ -238,6 +238,8 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
  * "value": "bonjour", "lang": "fr"}, {"type": "literal", "value": "hello",
  * "lang": "en"}]}}
  * @param {type} entity
+ * @param {type} entityName
+ * @param {type} selectedLang
  * @returns {undefined}
  */
 function buildEntityDetailsHtml(entity, entityName, selectedLang) {
@@ -252,12 +254,14 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
     if (entity["label"].hasOwnProperty(selectedLang)) {
       var label = entity["label"][selectedLang] + " (" + selectedLang + ")";
     } else {
-      // Take first label in object if selected lang not available
-      if (Object.keys(entity["label"])[0] == null || Object.keys(entity["label"])[0] == "") {
-        var label = entity["label"][Object.keys(entity["label"])[0]];
+      var labelLang = Object.keys(entity["label"])[0];
+      // Take first label in object if selected lang not available (using == to not take account of types)
+      console.log(labelLang);
+      if (labelLang == null || labelLang == "" || labelLang.toString().toLowerCase() === "n/a") {
+        var label = entity["label"][labelLang];
       } else {
         // Add language between parenthesis if not undefined
-        var label = entity["label"][Object.keys(entity["label"])[0]] + " (" + Object.keys(entity["label"])[0] + ")";
+        var label = entity["label"][labelLang] + " (" + labelLang + ")";
       }
     }
   } else {
