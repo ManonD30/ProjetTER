@@ -69,24 +69,26 @@ public class Result extends HttpServlet {
     // Process request (upload files and run YAM)
     String matcherResult = null;
 
+    JSONObject sourceOntoJson = null;
+    JSONObject targetOntoJson = null;
+
     try {
-      matcherResult = processRequest(request);
-      if (matcherResult.startsWith("error:")) {
-        request.setAttribute("errorMessage", matcherResult);
-        // TODO: faire une petite function pour faire ça? (sendResponse)
-        this.getServletContext() // send response
-                .getRequestDispatcher("/WEB-INF/validation.jsp")
-                .forward(request, response);
-      }
+      // TODO: ICI on recupere la request et on set les attributes dedans
+      request = processRequest(request);
+      matcherResult = (String) request.getAttribute("matcherResult");
     } catch (ClassNotFoundException e) {
       request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
       System.out.println("YAM matcher execution failed: " + e.getMessage());
+    }
+    sourceOntoJson = fileHandler.jenaLoadOnto(request, "source");
+    targetOntoJson = fileHandler.jenaLoadOnto(request, "target");
+    if (matcherResult.startsWith("error:")) {
+      request.setAttribute("errorMessage", matcherResult);
+      // TODO: faire une petite function pour faire ça? (sendResponse)
       this.getServletContext() // send response
               .getRequestDispatcher("/WEB-INF/validation.jsp")
               .forward(request, response);
     }
-
-    request.setAttribute("matcherResult", matcherResult);
 
     // get time at the matching end
     long end = System.currentTimeMillis();
@@ -113,6 +115,7 @@ public class Result extends HttpServlet {
     // add cell data list of matcher results to response
     request.setAttribute("alignment", alignmentJson);
 
+    /*
     // Load the 2 given onto using OWLAPI into a JSONObject, and send the object
     // in the reponse as attributes
     JSONObject sourceOntoJson = null;
@@ -121,14 +124,14 @@ public class Result extends HttpServlet {
       // Old way, using OWLAPI:
       //loadedOnto1 = fileHandler.loadOwlapiOntoFromRequest(request, "source");
       //loadedOnto2 = fileHandler.loadOwlapiOntoFromRequest(request, "target");
+      // TODO: ICI il faut recup le model parsé par le matcher
       sourceOntoJson = fileHandler.jenaLoadOnto(request, "source");
       targetOntoJson = fileHandler.jenaLoadOnto(request, "target");
     } catch (IOException | ServletException ex) {
       Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
     }
     request.setAttribute("sourceOnt", sourceOntoJson);
-    request.setAttribute("targetOnt", targetOntoJson);
-
+    request.setAttribute("targetOnt", targetOntoJson);*/
     // send response
     this.getServletContext()
             .getRequestDispatcher("/WEB-INF/validation.jsp")

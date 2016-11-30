@@ -1,7 +1,12 @@
 package fr.lirmm.yamplusplus.yampponline;
 
+import com.hp.hpl.jena.rdf.model.Model;
+import fr.lirmm.yamplusplus.yamppls.YamppUtils;
 import static fr.lirmm.yamplusplus.yampponline.Result.liste;
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -9,6 +14,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import org.apache.commons.lang.RandomStringUtils;
 import org.json.simple.JSONObject;
 import org.semanticweb.owl.align.AlignmentException;
 
@@ -62,14 +69,28 @@ public class Validator extends HttpServlet {
       Logger.getLogger(Validator.class.getName()).log(Level.SEVERE, null, ex);
     }
     // add cell data list to response
+    // TODO: Change liste variable name
     request.setAttribute("alignment", liste);
 
+    // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
+    String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
+    // Store ontology from URI or file in /tmp/yampponline/SCENARIO_HASH/source.rdf
+    String sourceStoragePath = fileHandler.uploadFile("source", subDirName, request);
+    String targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
+
+    // Read ontology with Jena and get ontology JSON model for JavaScript
     JSONObject sourceOntoJson = null;
     JSONObject targetOntoJson = null;
+    Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI());
+    Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI());
+    request.setAttribute("sourceOnt", YamppUtils.getOntoJsonFromJena(srcJenaModel));
+    request.setAttribute("targetOnt", YamppUtils.getOntoJsonFromJena(tarJenaModel));
     try {
       // Old way to get ontology files:
       //String sourceOntString = fileHandler.getOntFileFromRequest("source", request);
       //String targetOntString = fileHandler.getOntFileFromRequest("target", request);
+
+      // TODO: USE YamppUtils.getJsonFromJena
       sourceOntoJson = fileHandler.jenaLoadOnto(request, "source");
       targetOntoJson = fileHandler.jenaLoadOnto(request, "target");
     } catch (Exception ex) {

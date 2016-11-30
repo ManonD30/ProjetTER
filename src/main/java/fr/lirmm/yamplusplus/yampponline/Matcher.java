@@ -50,7 +50,8 @@ public class Matcher extends HttpServlet {
     String responseString = null;
 
     try {
-      responseString = processRequest(request);
+      request = processRequest(request);
+      responseString = (String) request.getAttribute("matcherResult");
     } catch (IOException | ClassNotFoundException e) {
       request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
       Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
@@ -86,7 +87,8 @@ public class Matcher extends HttpServlet {
     String targetUrl = request.getParameter("targetUrl");
     if (sourceUrl != null && targetUrl != null) {
       try {
-        responseString = processRequest(request);
+        request = processRequest(request);
+        responseString = (String) request.getAttribute("matcherResult");
       } catch (IOException | ClassNotFoundException e) {
         request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
         Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
@@ -108,7 +110,7 @@ public class Matcher extends HttpServlet {
    * @return response String
    * @throws IOException
    */
-  static String processRequest(HttpServletRequest request) throws IOException, ClassNotFoundException {
+  static HttpServletRequest processRequest(HttpServletRequest request) throws IOException, ClassNotFoundException {
     String responseString = null;
     YamFileHandler fileHandler = new YamFileHandler();
 
@@ -131,17 +133,23 @@ public class Matcher extends HttpServlet {
       System.out.println("File too big");
       throw new FileNotFoundException("File too big: its size should be less than " + maxFileSize + "MB");
     }*/
-
     YamppOntologyMatcher matcher = new YamppOntologyMatcher();
-    
+
     // Execute YAM to get the mappings in RDF/XML
     // Soon to be String resultStoragePath = matcher.alignOntologies()
     String resultStoragePath = matcher.alignOntologies(new File(sourceStoragePath).toURI(),
-              new File(targetStoragePath).toURI());
-    
-    //MainProgram.match(sourceConvertedPath, targetConvertedPath, resultStoragePath);
+            new File(targetStoragePath).toURI());
 
-    responseString = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");    
-    return responseString;
+    request.setAttribute("sourceOnt", matcher.getSrcJsonModel());
+    request.setAttribute("targetOnt", matcher.getTarJsonModel());
+
+    //MainProgram.match(sourceConvertedPath, targetConvertedPath, resultStoragePath);
+    String matcherResult = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
+    if (matcherResult.startsWith("error:")) {
+      request.setAttribute("errorMessage", matcherResult);
+    }
+    request.setAttribute("matcherResult", matcherResult);
+
+    return request;
   }
 }
