@@ -28,12 +28,11 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
@@ -64,7 +63,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -307,7 +305,7 @@ public class YamFileHandler {
   }
 
   /**
-   * Load ontology in Jena to get class label and other triples. Returns the
+   * Get the Ontology JSON model for javascript by loading ontology in Jena to get class label and other triples. Returns the
    * following JSON: Returns a JSONArray with class URI in "id" and all other
    * properties i.e.: { namespaces: {"rdfs": "http://rdfs.org/"}, entities:
    * {"http://entity1.org/": {"id": "http://entity1.org/", "label": {"fr":
@@ -315,39 +313,17 @@ public class YamFileHandler {
    * "value": "bonjour", "lang": "fr"}, {"type": "literal", "value": "hello",
    * "lang": "en"}]}}}
    *
-   * @param request
-   * @param ontName
+   * @param model
    * @return JSONObject
    * @throws IOException
    * @throws javax.servlet.ServletException
    */
-  public JSONObject jenaLoadOnto(HttpServletRequest request, String ontName) throws IOException, ServletException {
-    Model model = ModelFactory.createDefaultModel();
-    //Logger myLog = Logger.getLogger(YamFileHandler.class.getName());
-
-    // Load ontology in JENA from the URL or the file
-    if (request.getParameter(ontName + "Url") != null && !request.getParameter(ontName + "Url").isEmpty()) {
-      URL url = new URL(request.getParameter(ontName + "Url"));
-      model.read(url.toString());
-    } else if (request.getPart(ontName + "File") != null) {
-      // Load ontology from file
-      Part filePart = request.getPart(ontName + "File"); // Retrieves <input type="file" name="file">
-      //String fileName = filePart.getSubmittedFileName();
-      try {
-        model.read(filePart.getInputStream(), null);
-      } catch (IOException e) {
-        // Read in TTL if first parsing failed (it waits for RDF/XML)
-        model.read(filePart.getInputStream(), null, "TTL");
-      }
-    } else {
-      return null;
-    }
-
+  public static JSONObject getOntoJsonFromJena(Model model) throws IOException, ServletException {
     // Get prefix namespaces used in the ontology
     JSONObject jPrefix = new JSONObject();
     Iterator prefixes = model.getNsPrefixMap().entrySet().iterator();
     while (prefixes.hasNext()) {
-      Entry thisEntry = (Entry) prefixes.next();
+      Map.Entry thisEntry = (Map.Entry) prefixes.next();
       jPrefix.put(thisEntry.getKey(), thisEntry.getValue());
     }
 

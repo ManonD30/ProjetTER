@@ -83,8 +83,8 @@ public class Validator extends HttpServlet {
     JSONObject targetOntoJson = null;
     Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI());
     Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI());
-    request.setAttribute("sourceOnt", YamppUtils.getOntoJsonFromJena(srcJenaModel));
-    request.setAttribute("targetOnt", YamppUtils.getOntoJsonFromJena(tarJenaModel));
+    request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(srcJenaModel));
+    request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(tarJenaModel));
 
     // Call result.jsp and send the request with sourceOnt, targetOnt and alignment results
     this.getServletContext()

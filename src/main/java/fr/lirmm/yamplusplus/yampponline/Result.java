@@ -69,9 +69,6 @@ public class Result extends HttpServlet {
     // Process request (upload files and run YAM)
     String matcherResult = null;
 
-    JSONObject sourceOntoJson = null;
-    JSONObject targetOntoJson = null;
-
     try {
       // TODO: ICI on recupere la request et on set les attributes dedans
       request = processRequest(request);

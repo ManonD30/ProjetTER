@@ -110,7 +110,7 @@ public class Matcher extends HttpServlet {
    * @return response String
    * @throws IOException
    */
-  static HttpServletRequest processRequest(HttpServletRequest request) throws IOException, ClassNotFoundException {
+  static HttpServletRequest processRequest(HttpServletRequest request) throws IOException, ClassNotFoundException, ServletException {
     String responseString = null;
     YamFileHandler fileHandler = new YamFileHandler();
 
@@ -140,8 +140,8 @@ public class Matcher extends HttpServlet {
     String resultStoragePath = matcher.alignOntologies(new File(sourceStoragePath).toURI(),
             new File(targetStoragePath).toURI());
 
-    request.setAttribute("sourceOnt", matcher.getSrcJsonModel());
-    request.setAttribute("targetOnt", matcher.getTarJsonModel());
+    request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel()));
+    request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel()));
 
     //MainProgram.match(sourceConvertedPath, targetConvertedPath, resultStoragePath);
     String matcherResult = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
