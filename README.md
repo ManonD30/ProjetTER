@@ -14,6 +14,11 @@ Using Apache Tomcat 7 and Java 8
   * Return l'error pour la display (return "error: " + e)
   * Contacter OWLAPI pour résoudre le problème de TO (les imports vers des pURL qui redirect ne sont pas gérés)
 
+* Pour éviter de loader plusieurs fois dans Jena : générer le JSON direct dans yampp-ls à partir de l'ontology déjà loadé dans Jena (Pour la conversion en SKOS). Dans YamppUtils:
+  * Faire une fonction qui load l'onto dans Jena et retourne le model
+  * Fonction qui converti SKOS en OWL en prenant le model en param
+  * Fonction qui retourne le JSON Object préparé pour le javascript de yampp-online
+
 
 * SKOS to OWL conversion: gérer SKOS-XL (labels réifiés)
 * Graphical visualization 
