@@ -80,11 +80,8 @@ public class Result extends HttpServlet {
       request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
       System.out.println("YAM matcher execution failed: " + e.getMessage());
     }
-    sourceOntoJson = fileHandler.jenaLoadOnto(request, "source");
-    targetOntoJson = fileHandler.jenaLoadOnto(request, "target");
     if (matcherResult.startsWith("error:")) {
       request.setAttribute("errorMessage", matcherResult);
-      // TODO: faire une petite function pour faire ça? (sendResponse)
       this.getServletContext() // send response
               .getRequestDispatcher("/WEB-INF/validation.jsp")
               .forward(request, response);

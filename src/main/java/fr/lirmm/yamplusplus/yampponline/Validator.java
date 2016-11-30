@@ -85,20 +85,6 @@ public class Validator extends HttpServlet {
     Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI());
     request.setAttribute("sourceOnt", YamppUtils.getOntoJsonFromJena(srcJenaModel));
     request.setAttribute("targetOnt", YamppUtils.getOntoJsonFromJena(tarJenaModel));
-    try {
-      // Old way to get ontology files:
-      //String sourceOntString = fileHandler.getOntFileFromRequest("source", request);
-      //String targetOntString = fileHandler.getOntFileFromRequest("target", request);
-
-      // TODO: USE YamppUtils.getJsonFromJena
-      sourceOntoJson = fileHandler.jenaLoadOnto(request, "source");
-      targetOntoJson = fileHandler.jenaLoadOnto(request, "target");
-    } catch (Exception ex) {
-      request.setAttribute("errorMessage", "Error when loading ontologies in Jena: " + ex.getMessage());
-      Logger.getLogger(Validator.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    request.setAttribute("sourceOnt", sourceOntoJson);
-    request.setAttribute("targetOnt", targetOntoJson);
 
     // Call result.jsp and send the request with sourceOnt, targetOnt and alignment results
     this.getServletContext()
