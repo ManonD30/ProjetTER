@@ -299,7 +299,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
   });
 
   // Build String to be put in the details div
-  var htmlString = "<h1 style='text-align: center;'>" + entityName + " entity details</h1><h1>" + label + "</h1><h2>" + id + "</h2><dl>";
+  var htmlString = "<h1 style='text-align: center; color: #5cb85c'>" + entityName + " entity details</h1><h1 style='padding-top: 10px;'>" + label + "</h1><h2>" + id + "</h2><dl>";
   for (var attr in orderedEntities) {
     var prefixedPredicate = attr;
     if (entity[attr][0]["prefixedPredicate"] !== null) {
