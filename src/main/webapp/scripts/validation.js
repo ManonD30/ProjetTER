@@ -49,7 +49,15 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   if ($window.alignmentJson.tarOntologyURI === undefined) {
     $window.alignmentJson.tarOntologyURI = "Target entities";
   }
-  $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": $window.alignmentJson.srcOntologyURI, "tarOntUri": $window.alignmentJson.tarOntologyURI};
+  var srcOntoUri = $window.alignmentJson.srcOntologyURI;
+  var tarOntoUri = $window.alignmentJson.tarOntologyURI;
+  if ( !srcOntoUri ) {
+    srcOntoUri = "Source Entities"
+  }
+  if ( !tarOntoUri ) {
+    tarOntoUri = "Target Entities"
+  }
+  $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": srcOntoUri, "tarOntUri": tarOntoUri};
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.sourceOnt.namespaces, $window.targetOnt.namespaces);
   $scope.detailsLocked = false;
