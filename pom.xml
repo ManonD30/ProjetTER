@@ -102,6 +102,8 @@
       <groupId>fr.lirmm.yamplusplus</groupId>
       <artifactId>yampp-ls</artifactId>
       <version>0.1.2-SNAPSHOT</version>
+      <scope>provided</scope>
+      <!-- Provided scope allows to use yamppls from the system. Meaning we just need to run "mvn clean install" to use it -->
       <!--version>0.1.1</version-->
     </dependency>
 
