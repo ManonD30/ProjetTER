@@ -70,7 +70,7 @@ public class Result extends HttpServlet {
     String matcherResult = null;
 
     try {
-      // TODO: ICI on recupere la request et on set les attributes dedans
+      // Processing the request (running YamppOntologyMatcher)
       request = processRequest(request);
       matcherResult = (String) request.getAttribute("matcherResult");
     } catch (ClassNotFoundException e) {
