@@ -11,7 +11,8 @@
       <br/><br/>
 
       <div class="alert alert-warning" role="alert">
-        <b>SKOS</b> scheme are <b>supported</b> but <b>OBO</b> format are <b>not</b>
+        <b>SKOS</b> scheme are converted to OWL to be <b>supported</b>, so the semantic may be slightly altered (skos:broader and skos:narrower to owl:subClassOf). <br/>
+        <b>OBO</b> format are <b>not supported</b>
       </div>
 
       <!-- The user can provide ontologies from URL or by uploading a file -->
