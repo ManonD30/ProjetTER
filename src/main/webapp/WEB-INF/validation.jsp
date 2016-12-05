@@ -35,10 +35,6 @@ for the sourceOnt and targetOnt ontology alignment -->
     if (request.getAttribute("errorMessage") == null && request.getAttribute("alignment") != null) {
       //get the execution time from response
       String time = (String) request.getAttribute("time");
-      if (time != null) {
-        out.println("<p class=contentTime> Calculated with YAM++ in "
-                + time + " seconds</p><br/>");
-      }
   %>
   <script type="text/javascript">
     // Put params to javascript to use it with angularjs
@@ -48,6 +44,18 @@ for the sourceOnt and targetOnt ontology alignment -->
   </script>
 
   <section class="main-section" ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
+
+    <%
+      if (time != null) {
+        out.println("<p> Calculated with YAM++ Large Scale in "
+                + time + " seconds</p>");
+      }
+    %>
+    <p>
+      This UI displays the results of the ontology matching and allows the user to validate or not each mapping.
+      It shows informations about mapped concepts extracted from the provided ontologies on the right.
+    </p>
+
 
     <!-- Input to filter mappings table -->
     <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">

@@ -22,6 +22,8 @@ Using Apache Tomcat 7 and Java 8
 
 * SKOS to OWL conversion: gérer SKOS-XL (labels réifiés)
 * Graphical visualization 
+  * Afficher tous les concepts à une distance 1 qui sont également dans l'ontologie
+
 * Solution pour faire en sorte que le docker soit toujours up (demander à Joël) : 
 
   * docker run -d --restart always my-docker-image
