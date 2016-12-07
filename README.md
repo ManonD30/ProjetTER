@@ -4,25 +4,36 @@ Using Apache Tomcat 7 and Java 8
 
 ## Improvements to do
 
-* Passer le projet en 2 submodule: ls et online
+### Now
 
-* Faire en sorte que header & footer fonctionne partout pareil : dans results et ailleurs (pour le moment "fixed" seulement dans results)
-  * OU MIEUX : fixed nul part. Et la colonne de droit prend TOUTE la largeur de la page, on met la nav bar et le footer autour de la main section à gauche !
+* **ATTENTION: IL FAUT RETIRER LES scope provided DU POM.XML**
+
+* **BUG**
+  * Le langage sélectionné n'est pas forcément celui affiché (voir iaml-MIMO sur certains concepts, mais pas tous)
+  * Le nom des ontologies n'est pas encore au top.. (mettre une URL file:/ nom du file original si rien dans l'onto)
 
 * A faire aussi dans yampp-ls
   * Label of table columns should be name of ontologies (not source and target). Use filename if ontology name not found. BOF, on display le nom du fichier /tmp/yamppls/... parfois...
   * Return l'error pour la display (return "error: " + e)
-  * Contacter OWLAPI pour résoudre le problème de TO (les imports vers des pURL qui redirect ne sont pas gérés)
+  * Contacter OWLAPI pour résoudre le problème de TO (les imports vers des pURL qui redirect ne sont pas gérés) ?
 
 * Pour éviter de loader plusieurs fois dans Jena : générer le JSON direct dans yampp-ls à partir de l'ontology déjà loadé dans Jena (Pour la conversion en SKOS). Dans YamppUtils:
   * Faire une fonction qui load l'onto dans Jena et retourne le model
   * Fonction qui converti SKOS en OWL en prenant le model en param
   * Fonction qui retourne le JSON Object préparé pour le javascript de yampp-online
+  * **FAIT ???**
 
-
-* SKOS to OWL conversion: gérer SKOS-XL (labels réifiés)
 * Graphical visualization 
   * Afficher tous les concepts à une distance 1 qui sont également dans l'ontologie
+
+### Later
+
+* Faire en sorte que header & footer fonctionne partout pareil : dans results et ailleurs (pour le moment "fixed" seulement dans results)
+  * OU MIEUX : fixed nul part. Et la colonne de droit prend TOUTE la largeur de la page, on met la nav bar et le footer autour de la main section à gauche !
+
+* Passer le projet en 2 submodule ? ls et online
+
+* SKOS to OWL conversion: gérer SKOS-XL (labels réifiés)
 
 * Solution pour faire en sorte que le docker soit toujours up (demander à Joël) : 
 
