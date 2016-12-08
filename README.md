@@ -12,6 +12,10 @@ Using Apache Tomcat 7 and Java 8
   * Le langage sélectionné n'est pas forcément celui affiché (voir iaml-MIMO sur certains concepts, mais pas tous)
   * Le nom des ontologies n'est pas encore au top.. (mettre une URL file:/ nom du file original si rien dans l'onto)
 
+* **UI improvements**
+  * Voir dernier Mail Marie : utiliser même taille et police qu'elle
+  * Voir mail Zohra et Konstantin pour mettre à jour l'UI (surtout about us)
+
 * A faire aussi dans yampp-ls
   * Label of table columns should be name of ontologies (not source and target). Use filename if ontology name not found. BOF, on display le nom du fichier /tmp/yamppls/... parfois...
   * Return l'error pour la display (return "error: " + e)
