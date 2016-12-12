@@ -8,6 +8,8 @@ Using Apache Tomcat 7 and Java 8
 
 * **ATTENTION: IL FAUT RETIRER LES scope provided DU POM.XML**
 
+* Il faut virer les formats, ça fonctionne plus
+
 * **BUG**
   * Le langage sélectionné n'est pas forcément celui affiché (voir iaml-MIMO sur certains concepts, mais pas tous)
   * Le nom des ontologies n'est pas encore au top.. (mettre une URL file:/ nom du file original si rien dans l'onto)
