@@ -8,7 +8,10 @@ Using Apache Tomcat 7 and Java 8
 
 * **ATTENTION: IL FAUT RETIRER LES scope provided DU POM.XML**
 
-* Il faut virer les formats, ça fonctionne plus
+* **FORMATS**
+  * OAEI XML (format de "sauvegarde des données" qui permet de sauvegarder l'état des mappings)
+  * Simple RDF : simple format RDF (à implémenter dans yampp-ls)
+  * Eventuellement un format RDF réifier avec les scores
 
 * **BUG**
   * Le langage sélectionné n'est pas forcément celui affiché (voir iaml-MIMO sur certains concepts, mais pas tous)
