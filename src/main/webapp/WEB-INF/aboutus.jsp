@@ -7,7 +7,7 @@
     <h1 style="margin-top: 0;padding-top:1%; text-align: left;">Contact us:</h1>
     <h3 class=contactName>
       <a href="mailto:Zohra.Bellahsene@lirmm.fr" target="_top">Zohra Bellahsene</a> &nbsp; | &nbsp;
-      <a href="mailto:Konstantin.Todorov@lirmm.fr" target="_top">Konstantin Todorov</a>
+      <a href="mailto:Konstantin.Todorov@lirmm.fr" target="_top">Konstantin Todorov</a> &nbsp; | &nbsp;
       <a href="mailto:Hoa.Ngo@csiro.au" target="_top">DuyHoa Ngo</a> &nbsp; | &nbsp;
       <a href="vincent.emonet@lirmm.fr" target="_top">Vincent Emonet</a>
     </h3>
