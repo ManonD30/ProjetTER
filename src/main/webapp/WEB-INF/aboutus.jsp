@@ -6,23 +6,23 @@
   <div class=contactUs>
     <h1 style="margin-top: 0;padding-top:1%; text-align: left;">Contact us:</h1>
     <h3 class=contactName>
-      <a href="vincent.emonet@lirmm.fr" target="_top">Vincent Emonet</a> &nbsp; | &nbsp;
-      <a href="mailto:Hoa.Ngo@csiro.au" target="_top">DuyHoa Ngo</a> &nbsp; | &nbsp;
       <a href="mailto:Zohra.Bellahsene@lirmm.fr" target="_top">Zohra Bellahsene</a> &nbsp; | &nbsp;
       <a href="mailto:Konstantin.Todorov@lirmm.fr" target="_top">Konstantin Todorov</a>
+      <a href="mailto:Hoa.Ngo@csiro.au" target="_top">DuyHoa Ngo</a> &nbsp; | &nbsp;
+      <a href="vincent.emonet@lirmm.fr" target="_top">Vincent Emonet</a>
     </h3>
     <br/>
   </div>
 
   <div class=textMainBody>
     <p>
-      <b>Yam++ Online</b> is a web tool to match ontologies and thesaurus, with an interface to validate the generated mappings.
+      <b>Yam++ Online</b> is a web tool for ontology and thesaurus matching, with an interface for human validation of the generated mappings. 
       <br/>It uses the 
       <a href="http://search.maven.org/#artifactdetails%7Cfr.lirmm.yamplusplus%7Cyampp-ls%7C0.1.1%7Cjar"><b>Yam++ Large Scale library</b></a> 
-      to perform the ontology matching.
+      to perform the matching.
     </p>
     <p>
-       Thanks: Marie Destandau
+      <b>Thanks:</b> Marie Destandau, for helping us with the visualization of the aligned concepts
     </p>
     <div class=contentCenter>
       <div class=publicationButton>
