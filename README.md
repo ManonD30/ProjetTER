@@ -8,10 +8,11 @@ Using Apache Tomcat 7 and Java 8
 
 * **ATTENTION: IL FAUT RETIRER LES scope provided DU POM.XML**
 
-* **FORMATS A FAIRE MARCHER**
-  * OAEI XML (format de "sauvegarde des données" qui permet de sauvegarder l'état des mappings)
+* **FORMATS**
+  * OAEI XML (format de "sauvegarde des données" qui permet de sauvegarder l'état des mappings et de reprendre)
   * Simple RDF : simple format RDF (à implémenter dans yampp-ls)
-  * Eventuellement un format RDF réifier avec les scores
+  * Format RDF réifier avec les scores
+  * On parle d'export pour le RDF ? (au lieu d'avoir un Radio button + ddl button, on fait 3 ddl button)
 
 * **RAPIDE:** Ajouter les paramètres pour OAEI
 
