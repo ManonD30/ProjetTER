@@ -6,8 +6,6 @@ Using Apache Tomcat 7 and Java 8
 
 ### Now
 
-* **ATTENTION: IL FAUT RETIRER LES scope provided DU POM.XML**
-
 * **FORMATS**
   * OAEI XML (format de "sauvegarde des données" qui permet de sauvegarder l'état des mappings et de reprendre)
   * Simple RDF : simple format RDF (à implémenter dans yampp-ls)
