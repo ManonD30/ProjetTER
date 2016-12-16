@@ -12,7 +12,7 @@ Using Apache Tomcat 7 and Java 8
   * OAEI XML (format de "sauvegarde des données" qui permet de sauvegarder l'état des mappings et de reprendre)
   * Simple RDF : simple format RDF (à implémenter dans yampp-ls)
   * Format RDF réifier avec les scores
-  * On parle d'export pour le RDF ? (au lieu d'avoir un Radio button + ddl button, on fait 3 ddl button)
+  * On parle d'export pour le RDF ? Au lieu d'avoir un Radio button + ddl button, on fait 3 ddl button. Et on ne sort que les mappings "valid" quand on exporte vers RDF (alors qu'on garde tout pour OAEI qui est un format pour enregistrer)
 
 * **RAPIDE:** Ajouter les paramètres pour OAEI
 
