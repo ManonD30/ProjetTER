@@ -15,7 +15,9 @@ Using Apache Tomcat 7 and Java 8
 * **RAPIDE:** Ajouter les paramètres pour OAEI
 
 * Stocker les ontologies données en input, par domaine. Par exemple, les ontologies en biomedical devrait être dans le même groupe. L'objectif est de pouvoir les retrouver facilement pour les recommander à des utilisateurs ou pour les utiliser comme connaissance a priori pour l'alignement.
-Du coup, pour faciliter la classification des ontologies on pourrait peut être demander le "domaine" au moment du download.
+  * Pour faciliter la classification des ontologies on pourrait peut être demander le "domaine" au moment du download.
+  * Il faudrait également éviter les doublons (comparer les ontologies, demander un "nom" pour l'ontologie et l'enregistrer avec ce nom comme ID ?)
+  * Donc, demander: nom (ID) et domaine?
 
 * **BUG**
   * Le langage sélectionné n'est pas forcément celui affiché (voir iaml-MIMO sur certains concepts, mais pas tous)
