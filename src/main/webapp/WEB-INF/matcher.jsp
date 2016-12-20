@@ -20,9 +20,9 @@
         <div class="col-md-6">
           <label for=firstFile>Source Ontology</label> <br/>
           <input type="url" class='ontologyUrl' id="sourceUrl" name="sourceUrl" placeholder="Enter ontology URL"/>
-          
+
           <br/><span style="text-align: center">or</span><br/>
-          
+
           <label class="btn btn-info btn-file">
             Choose file
             <input id=sourceFile type="file" name="sourceFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" 
@@ -48,6 +48,18 @@
         Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml
       </div>
       <br/>
+      <button type="button" class="btn btn-default" ng-click="showparams = !showparams" ng-init="showparams = false">Show matcher parameters</button>
+      <div ng-show="showparams">
+        <br/>
+        <label style="margin-left: 3%;">Language:</label>
+        <select id="matcherType" class="form-control"  style="display:inline; margin-left: 1%;" ng-init="selectedLang = langSelect['fr']">
+          <option value="VERYLARGE" selected>Very Large Scale (for big ontologies)</option>
+          <option value="LARGE">Large Scale</option>
+          <option value="SCALABILITY">Scalability versionning (for ontologies containing less than 4000 concepts)</option>
+          <option value="SMALL">Small Scale (for ontologies containing less than 500 concepts)</option>
+        </select>
+      </div>
+      <br/>
       <label style="font-weight: normal;"><input type="checkbox" id=saveFile name="saveFile">I agree to let YAM++ save my ontologies</label>
       <br/><br/>
       <input class="btn btnSubmit" type="submit" value="Match!"/>
@@ -66,14 +78,14 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript">
-            /**
-             * Fill sourceUrl fields with default ontologies from the GitLab opendata repo
-             */
-            function getExample()
-            {
-              document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl";
-              document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/cmt.owl";
-            }
+                  /**
+                   * Fill sourceUrl fields with default ontologies from the GitLab opendata repo
+                   */
+                  function getExample()
+                  {
+                    document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl";
+                    document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/cmt.owl";
+                  }
 </script>
 
 <%@include file="footer.jsp" %>
