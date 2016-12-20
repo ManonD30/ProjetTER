@@ -167,8 +167,11 @@ PRIMARY KEY (mail)
 
 To log to tomcat catalina log
 ```java
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 Logger myLog = Logger.getLogger (MyClass.class.getName());
-myLog.log(Level.INFO, "hello world");
+myLog.log(Level.DEBUG, "hello world");
 ```
 
 ## Connect to tomcat docker container

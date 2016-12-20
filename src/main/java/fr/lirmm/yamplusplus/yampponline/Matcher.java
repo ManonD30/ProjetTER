@@ -4,8 +4,6 @@ import fr.lirmm.yamplusplus.yamppls.MatcherType;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
@@ -15,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.RandomStringUtils;
 
 import fr.lirmm.yamplusplus.yamppls.YamppOntologyMatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 
 @WebServlet("/rest/matcher")
@@ -55,7 +55,7 @@ public class Matcher extends HttpServlet {
       responseString = (String) request.getAttribute("matcherResult");
     } catch (IOException | ClassNotFoundException e) {
       request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
-      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
+      // TODO:QUICK LoggerFactory.getLogger(Matcher.class).debug(e.toString());
     }
 
     out.print(responseString);
@@ -92,7 +92,7 @@ public class Matcher extends HttpServlet {
         responseString = (String) request.getAttribute("matcherResult");
       } catch (IOException | ClassNotFoundException e) {
         request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
-        Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
+        // TODO:QUICK LoggerFactory.getLogger(Matcher.class).debug(e.toString());
       }
     } else {
       responseString = "Example: <br/> curl -X POST -H \"Content-Type: multipart/form-data\" "
@@ -134,15 +134,15 @@ public class Matcher extends HttpServlet {
       System.out.println("File too big");
       throw new FileNotFoundException("File too big: its size should be less than " + maxFileSize + "MB");
     }*/
+    
     YamppOntologyMatcher matcher = new YamppOntologyMatcher();
     
-    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "priiiint before if ");
-    System.out.println("priiint sout before if");
+    Logger.getLogger(Matcher.class.getName()).log(Level.WARNING, "priiiint before if ");
 
     // Set params
     if (request.getAttribute("matcherType") != null) {
-      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "priiiint " + request.getAttribute("matcherType").toString());
-      System.out.println("priiint sout" + request.getAttribute("matcherType").toString());
+      // TODO:QUICK logger.debug("priiiint " + request.getAttribute("matcherType").toString());
+      Logger.getLogger(Matcher.class.getName()).log(Level.WARNING, "priiiint in if " + request.getAttribute("matcherType") .toString());
       matcher.setMatcherType(MatcherType.valueOf(request.getAttribute("matcherType").toString()));
     }
 
