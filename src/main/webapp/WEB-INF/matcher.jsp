@@ -48,11 +48,11 @@
         Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml
       </div>
       <br/>
-      <button type="button" class="btn btn-default" ng-click="showparams = !showparams" ng-init="showparams = false">Show matcher parameters</button>
-      <div ng-show="showparams">
+      <button type="button" class="btn btn-default" onclick="toggleParams()" style="margin-bottom: 2%;">Show matcher parameters</button>
+      <div id="paramsDiv" style="display:none;">
         <br/>
-        <label style="margin-left: 3%;">Language:</label>
-        <select id="matcherType" class="form-control"  style="display:inline; margin-left: 1%;" ng-init="selectedLang = langSelect['fr']">
+        <label style="margin-left: 3%;">Matcher type</label>
+        <select name="matcherType" class="form-control"  style="width: auto; display:inline; margin-left: 1%;">
           <option value="VERYLARGE" selected>Very Large Scale (for big ontologies)</option>
           <option value="LARGE">Large Scale</option>
           <option value="SCALABILITY">Scalability versionning (for ontologies containing less than 4000 concepts)</option>
@@ -76,16 +76,30 @@
   </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript">
-                  /**
-                   * Fill sourceUrl fields with default ontologies from the GitLab opendata repo
-                   */
-                  function getExample()
-                  {
-                    document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl";
-                    document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/cmt.owl";
-                  }
+  /**
+   * Fill sourceUrl fields with default ontologies from the GitLab opendata repo
+   */
+  function getExample()
+  {
+    document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl";
+    document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/cmt.owl";
+  }
+
+  function toggleParams()
+  {
+    var e = document.getElementById("paramsDiv");
+    if (e.style.display == 'block')
+      e.style.display = 'none';
+    else
+      e.style.display = 'block';
+  }
+
+  $(document).ready(function () {
+    $("paramsBtn").click(function () {
+      $("paramsDiv").toggle();
+    });
+  });
 </script>
 
 <%@include file="footer.jsp" %>
