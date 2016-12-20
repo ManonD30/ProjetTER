@@ -7,12 +7,14 @@ Using Apache Tomcat 7 and Java 8
 ### Now
 
 * **FORMATS**
+  * *semble que ça marche pas dans validator*
   * OAEI XML (format de "sauvegarde des données" qui permet de sauvegarder l'état des mappings et de reprendre)
   * Simple RDF : simple format RDF (à implémenter dans yampp-ls)
   * Format RDF réifier avec les scores
   * On parle d'export pour le RDF ? Au lieu d'avoir un Radio button + ddl button, on fait 3 ddl button. Et on ne sort que les mappings "valid" quand on exporte vers RDF (alors qu'on garde tout pour OAEI qui est un format pour enregistrer)
 
 * **RAPIDE:** Ajouter les paramètres pour OAEI
+  * Mettre *Not valid* dans le dropdown des relations (virer le dropdown validity)
 
 * Stocker les ontologies données en input, par domaine. Par exemple, les ontologies en biomedical devrait être dans le même groupe. L'objectif est de pouvoir les retrouver facilement pour les recommander à des utilisateurs ou pour les utiliser comme connaissance a priori pour l'alignement.
   * Pour faciliter la classification des ontologies on pourrait peut être demander le "domaine" au moment du download.
@@ -40,6 +42,9 @@ Using Apache Tomcat 7 and Java 8
 
 * Graphical visualization 
   * Afficher tous les concepts à une distance 1 qui sont également dans l'ontologie
+
+* Safari
+  * La table de results se resize pas super bien quand on la rapetissit trop
 
 ### Later
 
