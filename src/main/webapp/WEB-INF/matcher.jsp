@@ -5,7 +5,7 @@
   <div class=form>
     <form action="result" method="post"
           enctype="multipart/form-data" name=form
-          onsubmit="document.location.href = '#overlay';">
+          onsubmit="return  validateForm()">
 
       <button type="button" class="btn btn-sm btn-info" onclick="getExample()">Fill with example</button>
       <br/><br/>
@@ -98,6 +98,27 @@
     document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/cmt.owl";
   }
 
+  /**
+   * Check if source and target ontologies have been provided if the form
+   * @returns {Boolean}
+   */
+  function validateForm() {
+    if (document.forms["form"]["sourceUrl"].value == "" && document.getElementById("sourceFile").files.length == 0) {
+      console.log("You must provide a Source ontology");
+      alert("You must provide a Source ontology");
+      return false;
+    }
+    if (document.forms["form"]["targetUrl"].value == "" && document.getElementById("targetFile").files.length == 0) {
+      console.log("You must provide a Target ontology");
+      alert("You must provide a Target ontology");
+      return false;
+    }
+    document.location.href = '#overlay';
+  }
+
+  /**
+   * To show/hide the matcher params div
+   */
   function toggleParams()
   {
     var e = document.getElementById("paramsDiv");
