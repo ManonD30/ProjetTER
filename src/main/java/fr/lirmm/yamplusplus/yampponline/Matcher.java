@@ -136,14 +136,10 @@ public class Matcher extends HttpServlet {
     }*/
     
     YamppOntologyMatcher matcher = new YamppOntologyMatcher();
-    
-    Logger.getLogger(Matcher.class.getName()).log(Level.WARNING, "priiiint before if ");
 
     // Set params
-    if (request.getAttribute("matcherType") != null) {
-      // TODO:QUICK logger.debug("priiiint " + request.getAttribute("matcherType").toString());
-      Logger.getLogger(Matcher.class.getName()).log(Level.WARNING, "priiiint in if " + request.getAttribute("matcherType") .toString());
-      matcher.setMatcherType(MatcherType.valueOf(request.getAttribute("matcherType").toString()));
+    if (request.getParameter("matcherType") != null) {
+      matcher.setMatcherType(MatcherType.valueOf(request.getParameter("matcherType").toString()));
     }
 
     // Execute YAM to get the mappings in RDF/XML

@@ -52,7 +52,7 @@
       <div id="paramsDiv" style="display:none;">
         <br/>
         <label style="margin-left: 3%;">Matcher type</label>
-        <select name="matcherType" class="form-control"  style="width: auto; display:inline; margin-left: 1%;">
+        <select name="matcherType" id="matcherType" class="form-control"  style="width: auto; display:inline; margin-left: 1%;">
           <option value="VERYLARGE" selected>Very Large Scale (for big ontologies)</option>
           <option value="LARGE">Large Scale</option>
           <option value="SCALABILITY">Scalability versionning (for ontologies containing less than 4000 concepts)</option>
