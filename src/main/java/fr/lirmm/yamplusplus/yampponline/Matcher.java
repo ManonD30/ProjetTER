@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.RandomStringUtils;
 
 import fr.lirmm.yamplusplus.yamppls.YamppOntologyMatcher;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
@@ -136,11 +137,25 @@ public class Matcher extends HttpServlet {
     }*/
     
     YamppOntologyMatcher matcher = new YamppOntologyMatcher();
+    
+    //Logger myLog = Logger.getLogger (Matcher.class.getName());
+    //myLog.log(Level.WARNING, "hellow!!!" );
 
     // Set params
     if (request.getParameter("matcherType") != null) {
       matcher.setMatcherType(MatcherType.valueOf(request.getParameter("matcherType").toString()));
     }
+    // Conflicts true by default
+    if (request.getParameter("explicitConflictCheckbox") == null) {
+      matcher.setVlsExplicitDisjoint(false);
+    }
+    if (request.getParameter("relativeConflictCheckbox") == null) {
+      matcher.setVlsRelativeDisjoint(false);
+    }
+    if (request.getParameter("crisscrossConflictCheckbox") == null) {
+      matcher.setVlsCrisscross(true);
+    }
+    
 
     // Execute YAM to get the mappings in RDF/XML
     // Soon to be String resultStoragePath = matcher.alignOntologies()

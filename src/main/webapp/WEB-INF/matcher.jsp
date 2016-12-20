@@ -58,6 +58,18 @@
           <option value="SCALABILITY">Scalability versionning (for ontologies containing less than 4000 concepts)</option>
           <option value="SMALL">Small Scale (for ontologies containing less than 500 concepts)</option>
         </select>
+        <br/><br/>
+        <label>Remove conflicts</label>
+        <p>Disabling the removal of conflicts increases number of mappings, but there is more chances to get wrong mappings.</p>
+        <div class="checkbox">
+          <label><input type="checkbox" name="explicitConflictCheckbox" id="explicitConflictCheckbox" checked>&nbsp;Remove Explicit Disjoint conflicts</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="relativeConflictCheckbox" id="relativeConflictCheckbox" checked>&nbsp;Remove Relative Disjoint conflicts</label>
+        </div>
+        <div class="checkbox">
+          <label><input type="checkbox" name="crisscrossConflictCheckbox" id="crisscrossConflictCheckbox" checked>&nbsp;Remove Crisscross conflicts</label>
+        </div>
       </div>
       <br/>
       <label style="font-weight: normal;"><input type="checkbox" id=saveFile name="saveFile">I agree to let YAM++ save my ontologies</label>
