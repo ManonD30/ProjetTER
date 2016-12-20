@@ -1,5 +1,6 @@
 package fr.lirmm.yamplusplus.yampponline;
 
+import fr.lirmm.yamplusplus.yamppls.MatcherType;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -134,6 +135,9 @@ public class Matcher extends HttpServlet {
       throw new FileNotFoundException("File too big: its size should be less than " + maxFileSize + "MB");
     }*/
     YamppOntologyMatcher matcher = new YamppOntologyMatcher();
+    
+    // Set params
+    matcher.setMatcherType(MatcherType.valueOf(request.getAttribute("matcherType").toString()));
 
     // Execute YAM to get the mappings in RDF/XML
     // Soon to be String resultStoragePath = matcher.alignOntologies()
