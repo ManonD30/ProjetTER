@@ -5,17 +5,14 @@ import fr.lirmm.yamplusplus.yamppls.YamppUtils;
 import static fr.lirmm.yamplusplus.yampponline.Result.liste;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.semanticweb.owl.align.AlignmentException;
 
@@ -55,7 +52,7 @@ public class Validator extends HttpServlet {
     try {
       fileHandler = new YamFileHandler();
     } catch (ClassNotFoundException ex) {
-      Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(Result.class.getName()).log(Level.ERROR, null, ex);
     }
 
     // Get string of alignment from file
@@ -66,7 +63,7 @@ public class Validator extends HttpServlet {
       liste = fileHandler.parseOaeiAlignmentFormat(stringAlignmentFile);
     } catch (AlignmentException ex) {
       request.setAttribute("errorMessage", "Error when loading OAEI alignment results: " + ex.getMessage());
-      Logger.getLogger(Validator.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(Validator.class.getName()).log(Level.ERROR, null, ex);
     }
     // add cell data list to response
     // TODO: Change liste variable name
@@ -81,8 +78,8 @@ public class Validator extends HttpServlet {
     // Read ontology with Jena and get ontology JSON model for JavaScript
     JSONObject sourceOntoJson = null;
     JSONObject targetOntoJson = null;
-    Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI());
-    Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI());
+    Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI(), Logger.getLogger(Result.class.getName()));
+    Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI(),  Logger.getLogger(Result.class.getName()));
     request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(srcJenaModel));
     request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(tarJenaModel));
 
