@@ -11,8 +11,8 @@
       <br/><br/>
 
       <div class="alert alert-warning" role="alert">
-        <b>SKOS</b> scheme are converted to OWL to be <b>supported</b>, so the semantic may be slightly altered (skos:broader and skos:narrower to owl:subClassOf). <br/>
-        <b>OBO</b> format are <b>not supported</b>
+        <b>SKOS</b> scheme are converted to OWL (currently supported by YAM++), so mind that the semantics may be slightly altered (skos:broader and skos:narrower to owl:subClassOf). <br/>
+        <b>OBO</b> format are currently  <b>not supported</b>
       </div>
 
       <!-- The user can provide ontologies from URL or by uploading a file -->
@@ -76,13 +76,15 @@
                 <h3 class="panel-title">Matcher parameters</h3>
               </div>
               <div class="panel-body">
-                <label style="cursor: pointer;"><input type="checkbox" name="subLabel2subLabel" id="subLabel2subLabel" checked>&nbsp;Match altLabel with altLabel</label>
-                <p>By default Yam++ match prefLabel with prefLabel and prefLabel with altLabel. Enabling it perform Label matching between altLabel and altLabel.</p>
+                <label style="cursor: pointer;"><input type="checkbox" name="subLabel2subLabel" id="subLabel2subLabel" checked>&nbsp;Match skos:altLabel to skos:altLabel</label>
+                <p>By default Yam++ matches skos:prefLabel to skos:prefLabel and skos:prefLabel to skos:altLabel. Enabling this option allows to perform label matching between skos:altLabel and skos:altLabel.</p>
                 <hr/><br/>
                 <label for="labelSimWeight">Label similarity informative word weight threshold:</label>
                 <input id="labelSimWeight" name="labelSimWeight" type="number" step="0.01" min="0" max="1" value="0.34">
-                <p>If two labels differ a high informative keyword in Label similarity score computing (if word weight superior to this threshold), the mapping is considered as wrong.
-                  So raising it can increase the number of mappings.</p>
+                <p>YAM++ relies on the notion of word informativeness in order to assign weights to tokens. 
+                  If two labels differ by a highly informative word in the label similarity score computation (if the weight of the word that differ is superior to this threshold), 
+                  the mapping is considered as wrong, even if the similarity score is high. 
+                  Higher threshold could potentially increase the number of mappings (since it makes it harder to get to the threshold to be labeled as an informative word).</p>
               </div>
             </div>
           </div><!-- /.col-sm-6 -->
@@ -93,7 +95,7 @@
                 <h3 class="panel-title">Remove conflicts</h3>
               </div>
               <div class="panel-body">
-                <p>Disabling the removal of conflicts increases number of mappings, but there is more chances to get wrong mappings.</p>
+                <p>Disabling the removal of conflicts increases the number of mappings, but also the likelihood of error (wrong mappings).</p>
                 <div class="checkbox">
                   <label><input type="checkbox" name="explicitConflict" id="explicitConflict">&nbsp;Remove Explicit Disjoint conflicts</label>
                 </div>
