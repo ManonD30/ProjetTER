@@ -100,7 +100,7 @@ public class Matcher extends HttpServlet {
       }
     } else {
       // Print 2 examples to show how to use the REST matcher
-      responseString = "<b>Example:</b><li><a href='" +prop.getProperty("appurl") + "rest/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false'>"
+      responseString = "<b>Use the REST API:</b><li><a href='" +prop.getProperty("appurl") + "rest/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false'>"
               + prop.getProperty("appurl") + "rest/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false</a></li>"
               + "<li><b>Parameters available:</b> matcherType (VERYLARGE, LARGE, SCALABILITY, SMALL), explicitConflict (default: true), relativeConflict (default: true), crisscrossConflict (default: true), altLabel2altLabel (default: false), labelSimWeight (default: 0.34)</li>"
               + "<li><b>cURL POST request:</b> curl -X POST -H \"Content-Type: multipart/form-data\" -F sourceFile=@/path/to/ontology_file.owl " + prop.getProperty("appurl") + "rest/matcher?targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl </li></ul>";
