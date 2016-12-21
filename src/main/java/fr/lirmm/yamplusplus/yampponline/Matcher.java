@@ -119,7 +119,6 @@ public class Matcher extends HttpServlet {
    * @throws IOException
    */
   static HttpServletRequest processRequest(HttpServletRequest request) throws IOException, ClassNotFoundException, ServletException {
-    String responseString = null;
     YamFileHandler fileHandler = new YamFileHandler();
 
     // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
@@ -149,7 +148,7 @@ public class Matcher extends HttpServlet {
 
     // Set params
     if (request.getParameter("matcherType") != null) {
-      matcher.setMatcherType(MatcherType.valueOf(request.getParameter("matcherType").toString()));
+      matcher.setMatcherType(MatcherType.valueOf(request.getParameter("matcherType")));
     }
     // Conflicts true by default
     if (request.getParameter("explicitConflict") == null || request.getParameter("explicitConflict").equals("false")) {

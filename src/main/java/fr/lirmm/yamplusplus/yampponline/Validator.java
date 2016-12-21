@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.json.simple.JSONObject;
-import org.semanticweb.owl.align.AlignmentException;
 
 //@Path("/matcher")
 public class Validator extends HttpServlet {
@@ -59,14 +57,9 @@ public class Validator extends HttpServlet {
     String stringAlignmentFile = fileHandler.readFileFromRequest("rdfAlignmentFile", request);
 
     // Parse the alignment file to put its data in an Array of Map
-    try {
-      liste = fileHandler.parseOaeiAlignmentFormat(stringAlignmentFile);
-    } catch (AlignmentException ex) {
-      request.setAttribute("errorMessage", "Error when loading OAEI alignment results: " + ex.getMessage());
-      Logger.getLogger(Validator.class.getName()).log(Level.ERROR, null, ex);
-    }
+    liste = fileHandler.parseOaeiAlignmentFormat(stringAlignmentFile);
     // add cell data list to response
-    // TODO: Change liste variable name
+    // TODO: Change liste variable name?
     request.setAttribute("alignment", liste);
 
     // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
@@ -76,10 +69,8 @@ public class Validator extends HttpServlet {
     String targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
 
     // Read ontology with Jena and get ontology JSON model for JavaScript
-    JSONObject sourceOntoJson = null;
-    JSONObject targetOntoJson = null;
     Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI(), Logger.getLogger(Result.class.getName()));
-    Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI(),  Logger.getLogger(Result.class.getName()));
+    Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI(), Logger.getLogger(Result.class.getName()));
     request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(srcJenaModel));
     request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(tarJenaModel));
 

@@ -51,16 +51,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.semanticweb.owl.align.AlignmentException;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -221,9 +211,8 @@ public class YamFileHandler {
    *
    * @param oaeiResult
    * @return JSONObject
-   * @throws AlignmentException
    */
-  public JSONObject parseOaeiAlignmentFormat(String oaeiResult) throws AlignmentException {
+  public JSONObject parseOaeiAlignmentFormat(String oaeiResult) {
     JSONObject jObjectAlign = new JSONObject();
     JSONObject jObject = null;
     JSONArray jArray = new JSONArray();
@@ -642,7 +631,7 @@ public class YamFileHandler {
    * @throws OWLOntologyCreationException
    * @throws ServletException
    */
-  public static JSONObject loadOwlapiOntoFromRequest(HttpServletRequest request, String ontName) throws IOException, OWLOntologyCreationException, ServletException {
+  /*public static JSONObject loadOwlapiOntoFromRequest(HttpServletRequest request, String ontName) throws IOException, OWLOntologyCreationException, ServletException {
     OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
     OWLOntology ont = null;
 
@@ -725,6 +714,6 @@ public class YamFileHandler {
     fullJObject.put("namespaces", jPrefix);
     fullJObject.put("entities", jObject);
     return fullJObject;
-  }
+  }*/
 
 }

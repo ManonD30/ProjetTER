@@ -7,7 +7,6 @@ package fr.lirmm.yamplusplus.yampponline;
  * and open the template in the editor.
  */
 //import main.MainProgram;
-import fr.lirmm.yamplusplus.yampponline.YamFileHandler;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
