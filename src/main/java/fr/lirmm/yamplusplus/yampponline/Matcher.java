@@ -159,6 +159,9 @@ public class Matcher extends HttpServlet {
       matcher.setVlsSubSrc2subTar(true);
       matcher.setVlsAllLevels(true);
     }
+    if (request.getParameter("inputLabelSimWeight") != null) {
+      matcher.setMaxWeightInformativeWord(Double.parseDouble(request.getParameter("inputLabelSimWeight")));
+    }
     
 
     // Execute YAM to get the mappings in RDF/XML

@@ -74,6 +74,11 @@
         <br/><br/>
         <label><input type="checkbox" name="subLab2subLabCheck" id="subLab2subLabCheck">&nbsp;Match altLabel with altLabel</label>
         <p>By default Yam++ match prefLabel with prefLabel and prefLabel with altLabel</p>
+        <br/><br/>
+        <label for="inputLabelSimWeight">Label similarity informative word weight threshold:</label>
+        <input id="inputLabelSimWeight" name="inputLabelSimWeight" type="number" step="0.01" min="0" max="1" value="0.34">
+        <p>If two labels differ a high informative keyword (defined by this threshold) in Label similarity score computing, the mapping is considered as wrong.
+        So raising it can increase the number of mappings.</p>
       </div>
       <br/>
       <label style="font-weight: normal;"><input type="checkbox" id=saveFile name="saveFile">I agree to let YAM++ save my ontologies</label>
