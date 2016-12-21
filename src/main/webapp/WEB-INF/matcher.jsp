@@ -132,8 +132,8 @@
    */
   function getExample()
   {
-    document.getElementById('sourceUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl";
-    document.getElementById('targetUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-rameau.ttl";
+    document.getElementById('sourceUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl";
+    document.getElementById('targetUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl";
   }
 
   /**
