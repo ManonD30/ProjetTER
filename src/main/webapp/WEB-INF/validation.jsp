@@ -32,6 +32,15 @@ for the sourceOnt and targetOnt ontology alignment -->
     JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
     JSONObject targetOnt = (JSONObject) request.getAttribute("targetOnt");
 
+    String srcOverlappingProportion = "0";
+    String tarOverlappingProportion = "0";
+    if (request.getAttribute("srcOverlappingProportion") != null) {
+      srcOverlappingProportion = request.getAttribute("srcOverlappingProportion").toString();
+    }
+    if (request.getAttribute("tarOverlappingProportion") != null) {
+      tarOverlappingProportion = request.getAttribute("tarOverlappingProportion").toString();
+    }
+
     if (request.getAttribute("errorMessage") == null && request.getAttribute("alignment") != null) {
       //get the execution time from response
       String time = (String) request.getAttribute("time");
@@ -44,18 +53,23 @@ for the sourceOnt and targetOnt ontology alignment -->
   </script>
 
   <section class="main-section" ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
+    <p>
+      This UI displays the results of the ontology matching and allows the user to validate or not each mapping.
+      It shows informations about mapped concepts extracted from the provided ontologies on the right.
+    </p>
 
     <%
       if (time != null) {
         out.println("<p> Calculated with YAM++ Large Scale in "
                 + time + " seconds</p>");
       }
+      if (!srcOverlappingProportion.equals("0")) {
+        out.println("<p><b>" + srcOverlappingProportion + "%</b> of Source ontology mapped</p>");
+      }
+      if (!tarOverlappingProportion.equals("0")) {
+        out.println("<p><b>" + tarOverlappingProportion + "%</b> of Target ontology mapped</p>");
+      }
     %>
-    <p>
-      This UI displays the results of the ontology matching and allows the user to validate or not each mapping.
-      It shows informations about mapped concepts extracted from the provided ontologies on the right.
-    </p>
-
 
     <!-- Input to filter mappings table -->
     <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">

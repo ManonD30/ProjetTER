@@ -172,6 +172,9 @@ public class Matcher extends HttpServlet {
 
     request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel()));
     request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel()));
+    
+    request.setAttribute("srcOverlappingProportion", matcher.getSrcOverlappingProportion());
+    request.setAttribute("tarOverlappingProportion", matcher.getTarOverlappingProportion());
 
     // No alignment file means no mappings found
     String matcherResult = "error: No mappings have been found";
