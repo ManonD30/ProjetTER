@@ -68,7 +68,6 @@ public class Download extends HttpServlet {
     String[] entity2 = request.getParameterValues("entity2");
     String[] relation = request.getParameterValues("relation");
     String[] measure = request.getParameterValues("measure");
-    String[] valid = request.getParameterValues("valid");
 
     String alignmentString = null;
     // Put all mappings in an Array of Hashtable
@@ -81,7 +80,6 @@ public class Download extends HttpServlet {
         hashMapping.put("entity2", entity2[paramIndex]);
         hashMapping.put("relation", relation[paramIndex]);
         hashMapping.put("measure", measure[paramIndex]);
-        hashMapping.put("valid", valid[paramIndex]);
         arrayMappings.add(hashMapping);
       }
       // Generate the alignment string
@@ -110,18 +108,25 @@ public class Download extends HttpServlet {
 
   /**
    * Generate alignment String retrieved from validation UI to generate the
-   * alignment in a simple RDF format (entity1-relation-entity2 triples)
+   * alignment in a simple RDF format (entity1-relation-entity2 triples). Take
+   * an ArrayList of HashMap {entity1, entity2, relation, score}
    *
    * @param MapFinal
-   * @return
+   * @return String
    */
   public static String generateSimpleRdfAlignment(ArrayList<HashMap> MapFinal) {
     String rdfAlignmentString = "";
     for (int i = 0; i < MapFinal.size(); i++) {
       HashMap<String, String> hashMapping = null;
       hashMapping = MapFinal.get(i);
-      rdfAlignmentString = rdfAlignmentString + "<" + hashMapping.get("entity1") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity2") + "> .\n"
-              + "<" + hashMapping.get("entity2") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity1") + "> .\n";
+      if (hashMapping.get("relation").equals("http://www.w3.org/2004/02/skos/core#exactMatch") || hashMapping.get("relation").equals("http://www.w3.org/2004/02/skos/core#closeMatch")) {
+        // exactMatch and closeMatch are symmetric
+        rdfAlignmentString = rdfAlignmentString + "<" + hashMapping.get("entity1") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity2") + "> .\n"
+                + "<" + hashMapping.get("entity2") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity1") + "> .\n";
+      }
+      if (!hashMapping.get("relation").equals("notvalid")) {
+        rdfAlignmentString = rdfAlignmentString + "<" + hashMapping.get("entity1") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity2") + "> .\n";
+      }
     }
     return rdfAlignmentString;
   }
@@ -140,16 +145,18 @@ public class Download extends HttpServlet {
     for (int i = 0; i < MapFinal.size(); i++) {
       HashMap<String, String> hashMapping = null;
       hashMapping = MapFinal.get(i);
+      if (!hashMapping.get("relation").equals("notvalid")) {
 
-      alignmentUri = "http://yamplusplus.lirmm.fr/ontology";
+        alignmentUri = "http://yamplusplus.lirmm.fr/ontology";
 
-      model.setNsPrefix("align", alignmentUri);
+        model.setNsPrefix("align", alignmentUri);
 
-      model.createResource(alignmentUri + "/mapping/" + Integer.toString(i))
-              .addProperty(model.createProperty(alignmentUri + "#entity"), hashMapping.get("entity1"))
-              .addProperty(model.createProperty(alignmentUri + "#entity"), hashMapping.get("entity2"))
-              .addProperty(model.createProperty(alignmentUri + "#relation"), hashMapping.get("relation"))
-              .addProperty(model.createProperty(alignmentUri + "#score"), hashMapping.get("measure"));
+        model.createResource(alignmentUri + "/mapping/" + Integer.toString(i))
+                .addProperty(model.createProperty(alignmentUri + "#entity"), hashMapping.get("entity1"))
+                .addProperty(model.createProperty(alignmentUri + "#entity"), hashMapping.get("entity2"))
+                .addProperty(model.createProperty(alignmentUri + "#relation"), hashMapping.get("relation"))
+                .addProperty(model.createProperty(alignmentUri + "#score"), hashMapping.get("measure"));
+      }
     }
 
     StringWriter out = new StringWriter();
@@ -158,8 +165,8 @@ public class Download extends HttpServlet {
   }
 
   /**
-   * Generate alignment String retrieved from validation UI to generate the
-   * alignment in RDF/XML format
+   * Generate OAEI AlignAPI alignment String retrieved from validation UI to
+   * generate the alignment in RDF/XML format
    *
    * @param MapFinal
    * @return
@@ -173,7 +180,6 @@ public class Download extends HttpServlet {
       alignments.setType("11");
 
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     String errorMessage = "";
@@ -188,7 +194,7 @@ public class Download extends HttpServlet {
         double score = Double.parseDouble(hashMapping.get("measure"));
 
         String relation = hashMapping.get("relation");
-        validArray.add(hashMapping.get("valid"));
+        validArray.add(hashMapping.get("relation"));
 
         // add to alignment
         alignments.addAlignCell(entity1, entity2, relation, score);
@@ -226,7 +232,7 @@ public class Download extends HttpServlet {
     } catch (ParserConfigurationException ex) {
       Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
     }
-    
+
     docBuilderFactory.setIgnoringComments(true);
     DocumentBuilder builder = null;
     try {
@@ -237,7 +243,7 @@ public class Download extends HttpServlet {
     Document doc = null;
     Logger.getLogger(Download.class.getName()).log(Level.INFO, validArray.toString());
     InputSource is = new InputSource(new StringReader(alignmentString));
-    
+
     try {
       doc = builder.parse(is);
     } catch (SAXException ex) {
@@ -250,12 +256,12 @@ public class Download extends HttpServlet {
       String valid = validArray.get(i);
       NodeList nodes = doc.getElementsByTagName("Cell");
       Text a = null;
-      if (valid.equals("valid")) {
-        a = doc.createTextNode("true");
-      } else if (valid.equals("notvalid")) {
+      if (valid.equals("notvalid")) {
         a = doc.createTextNode("false");
+      } else {
+        a = doc.createTextNode("true");
       }
-      
+
       if (a != null) {
         // Add the valid element if valid or not (don't add if waiting)
         Element p = doc.createElement("valid");

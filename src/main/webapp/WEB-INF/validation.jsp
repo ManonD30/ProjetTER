@@ -131,6 +131,7 @@ for the sourceOnt and targetOnt ontology alignment -->
                 <option value="http://www.w3.org/2004/02/skos/core#closeMatch">skos:closeMatch</option>
                 <option value="http://www.w3.org/2004/02/skos/core#broadMatch">skos:broadMatch</option>
                 <option value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
+                <option style="background: #d9534f;" value="notvalid">Not valid</option>
               </select>
             </td>
             <td>
