@@ -18,11 +18,11 @@
         <a href=rest/matcher>Matcher REST API</a>
       </h1>
 
-      <p>A RESTful API to get an alignment between 2 ontologies. 
+      <p>A <a href="http://yamplusplus.lirmm.fr/rest/matcher">RESTful API</a> to get an alignment between 2 ontologies. 
         You can pass the URL of the ontology with "sourceUrl" and "targetUrl" parameters.<br/>
         For example:
-        <a href="rest/matcher?sourceUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl&targetUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/cmt.owl">
-          http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://Conference.owl&targetUrl=https://cmt.owl
+        <a href="rest/matcher?sourceUrl=sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false">
+          http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://mop-iaml.ttl&targetUrl=https://mop-diabolo.ttl&crisscrossConflict=false
         </a>
       </p>
 
