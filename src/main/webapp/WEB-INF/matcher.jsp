@@ -48,38 +48,65 @@
         Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml
       </div>
       <br/>
-      <button type="button" class="btn btn-default" onclick="toggleParams()" style="margin-bottom: 2%;">Show matcher parameters</button>
+      <button type="button" id="paramsBtn" class="btn btn-default" onclick="toggleParams()" style="margin-bottom: 3%;">Show matcher parameters</button>
+
       <div id="paramsDiv" style="display:none;">
         <br/>
-        <label style="margin-left: 3%;">Matcher type</label>
-        <p>Changing the matcher type can change the matching results. Use the Very Large Scale matcher for ontologies bigger than 4 000 concepts</p>
-        <select name="matcherType" id="matcherType" class="form-control"  style="width: auto; display:inline; margin-left: 1%;">
-          <option value="VERYLARGE" selected>Very Large Scale (for big ontologies)</option>
-          <option value="LARGE">Large Scale</option>
-          <option value="SCALABILITY">Scalability versionning (for ontologies containing less than 4000 concepts)</option>
-          <option value="SMALL">Small Scale (for ontologies containing less than 500 concepts)</option>
-        </select>
-        <br/><br/>
-        <div id="veryLargeParams">
-          <label>Remove conflicts</label>
-          <p>Disabling the removal of conflicts increases number of mappings, but there is more chances to get wrong mappings.</p>
-          <div class="checkbox">
-            <label><input type="checkbox" name="explicitConflictCheckbox" id="explicitConflictCheckbox" checked>&nbsp;Remove Explicit Disjoint conflicts</label>
+
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title" style="font-weight: bold;">Matcher type</h3>
           </div>
-          <div class="checkbox">
-            <label><input type="checkbox" name="relativeConflictCheckbox" id="relativeConflictCheckbox" checked>&nbsp;Remove Relative Disjoint conflicts</label>
+          <div class="panel-body">
+            <p>Changing the matcher type can change the matching results. Use the Very Large Scale matcher for ontologies bigger than 4 000 concepts</p>
+            <select name="matcherType" id="matcherType" class="form-control"  style="width: auto; display:inline; margin-left: 1%;">
+              <option value="VERYLARGE" selected>Very Large Scale (for big ontologies)</option>
+              <option value="LARGE">Large Scale</option>
+              <option value="SCALABILITY">Scalability versionning (for ontologies containing less than 4000 concepts)</option>
+              <option value="SMALL">Small Scale (for ontologies containing less than 500 concepts)</option>
+            </select>
           </div>
-          <div class="checkbox">
-            <label><input type="checkbox" name="crisscrossConflictCheckbox" id="crisscrossConflictCheckbox" checked>&nbsp;Remove Crisscross conflicts</label>
-          </div>
-          <br/><br/>
-          <label style="cursor: pointer;"><input type="checkbox" name="subLab2subLabCheck" id="subLab2subLabCheck">&nbsp;Match altLabel with altLabel</label>
-          <p>By default Yam++ match prefLabel with prefLabel and prefLabel with altLabel</p>
-          <br/><br/>
-          <label for="inputLabelSimWeight">Label similarity informative word weight threshold:</label>
-          <input id="inputLabelSimWeight" name="inputLabelSimWeight" type="number" step="0.01" min="0" max="1" value="0.34">
-          <p>If two labels differ a high informative keyword (defined by this threshold) in Label similarity score computing, the mapping is considered as wrong.
-            So raising it can increase the number of mappings.</p>
+        </div>
+        <br/>
+        <div id="veryLargeParams" class="row" style="width: 150%; margin-left: -25%;">
+
+          <div class="col-sm-6">
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h3 class="panel-title">Matcher parameters</h3>
+              </div>
+              <div class="panel-body">
+                <label style="cursor: pointer;"><input type="checkbox" name="subLab2subLabCheck" id="subLab2subLabCheck">&nbsp;Match altLabel with altLabel</label>
+                <p>By default Yam++ match prefLabel with prefLabel and prefLabel with altLabel</p>
+                <hr/><br/>
+                <label for="inputLabelSimWeight">Label similarity informative word weight threshold:</label>
+                <input id="inputLabelSimWeight" name="inputLabelSimWeight" type="number" step="0.01" min="0" max="1" value="0.34">
+                <p>If two labels differ a high informative keyword in Label similarity score computing (if word weight superior to this threshold), the mapping is considered as wrong.
+                  So raising it can increase the number of mappings.</p>
+              </div>
+            </div>
+          </div><!-- /.col-sm-6 -->
+
+          <div class="col-md-6">
+            <div class="panel panel-warning">
+              <div class="panel-heading">
+                <h3 class="panel-title">Remove conflicts</h3>
+              </div>
+              <div class="panel-body">
+                <p>Disabling the removal of conflicts increases number of mappings, but there is more chances to get wrong mappings.</p>
+                <div class="checkbox">
+                  <label><input type="checkbox" name="explicitConflictCheckbox" id="explicitConflictCheckbox" checked>&nbsp;Remove Explicit Disjoint conflicts</label>
+                </div>
+                <div class="checkbox">
+                  <label><input type="checkbox" name="relativeConflictCheckbox" id="relativeConflictCheckbox" checked>&nbsp;Remove Relative Disjoint conflicts</label>
+                </div>
+                <div class="checkbox">
+                  <label><input type="checkbox" name="crisscrossConflictCheckbox" id="crisscrossConflictCheckbox" checked>&nbsp;Remove Crisscross conflicts</label>
+                </div>
+              </div>
+            </div>
+          </div><!-- /.col-sm-6 -->
+
         </div>
       </div>
       <br/>
