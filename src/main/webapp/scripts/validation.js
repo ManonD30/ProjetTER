@@ -138,7 +138,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
    */
   $scope.generateStyleForSelect = function (alignment) {
     var styleString = null;
-    console.log(alignment.relation);
     if (alignment.relation === "notvalid") {
       // Red
       styleString = "background-color: #d9534f;";
@@ -229,7 +228,6 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
       alignToAdd["entity2"] = {"id": alignment[key]['entity2'].toString()};
     }
     alignToAdd["measure"] = alignment[key]['measure'];
-    console.log("relatioooon: " + alignment[key]['relation']);
     if (alignment[key]['relation'] == "=") {
       // If relation is "=" (default from Yam matcher) we set it to skos:exactMatch
       alignToAdd["relation"] = "http://www.w3.org/2004/02/skos/core#exactMatch";
@@ -270,7 +268,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
     } else {
       var labelLang = Object.keys(entity["label"])[0];
       // Take first label in object if selected lang not available (using == to not take account of types)
-      console.log(labelLang);
+      //console.log(labelLang);
       if (labelLang == null || labelLang == "" || labelLang.toString().toLowerCase() === "n/a") {
         var label = entity["label"][labelLang];
       } else {
