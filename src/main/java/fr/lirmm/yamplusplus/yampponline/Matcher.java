@@ -165,10 +165,13 @@ public class Matcher extends HttpServlet {
     request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel()));
     request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel()));
 
-    //MainProgram.match(sourceConvertedPath, targetConvertedPath, resultStoragePath);
-    String matcherResult = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
+    // No alignment file means no mappings found
+    String matcherResult = "error: No mappings have been found";
+    if (resultStoragePath != null) {
+      matcherResult = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
+    }
     if (matcherResult.startsWith("error:")) {
-      request.setAttribute("errorMessage", matcherResult);
+      request.setAttribute("errorMessage", matcherResult.substring(6));
     }
     request.setAttribute("matcherResult", matcherResult);
 
