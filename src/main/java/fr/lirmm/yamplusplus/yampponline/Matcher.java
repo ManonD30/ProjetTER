@@ -56,7 +56,6 @@ public class Matcher extends HttpServlet {
       responseString = (String) request.getAttribute("matcherResult");
     } catch (IOException | ClassNotFoundException e) {
       request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
-      // TODO:QUICK LoggerFactory.getLogger(Matcher.class).debug(e.toString());
     }
 
     out.print(responseString);
@@ -93,7 +92,6 @@ public class Matcher extends HttpServlet {
         responseString = (String) request.getAttribute("matcherResult");
       } catch (IOException | ClassNotFoundException e) {
         request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
-        // TODO:QUICK LoggerFactory.getLogger(Matcher.class).debug(e.toString());
       }
     } else {
       responseString = "Example: <br/> curl -X POST -H \"Content-Type: multipart/form-data\" "
@@ -146,21 +144,21 @@ public class Matcher extends HttpServlet {
       matcher.setMatcherType(MatcherType.valueOf(request.getParameter("matcherType").toString()));
     }
     // Conflicts true by default
-    if (request.getParameter("explicitConflictCheckbox") == null) {
+    if (request.getParameter("explicitConflict") == null) {
       matcher.setVlsExplicitDisjoint(false);
     }
-    if (request.getParameter("relativeConflictCheckbox") == null) {
+    if (request.getParameter("relativeConflict") == null) {
       matcher.setVlsRelativeDisjoint(false);
     }
-    if (request.getParameter("crisscrossConflictCheckbox") == null) {
+    if (request.getParameter("crisscrossConflict") == null) {
       matcher.setVlsCrisscross(false);
     }
     // subLab2suLab and label sim weight false by default
-    if (request.getParameter("subLab2subLabCheck") != null) {
+    if (request.getParameter("altLabel2altLabel") != null) {
       matcher.setVlsSubSrc2subTar(true);
       matcher.setVlsAllLevels(true);
     }
-    if (request.getParameter("inputLabelSimWeight") != null) {
+    if (request.getParameter("labelSimWeight") != null) {
       matcher.setMaxWeightInformativeWord(Double.parseDouble(request.getParameter("inputLabelSimWeight")));
     }
     

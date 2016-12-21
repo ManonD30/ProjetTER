@@ -76,11 +76,11 @@
                 <h3 class="panel-title">Matcher parameters</h3>
               </div>
               <div class="panel-body">
-                <label style="cursor: pointer;"><input type="checkbox" name="subLab2subLabCheck" id="subLab2subLabCheck" checked>&nbsp;Match altLabel with altLabel</label>
+                <label style="cursor: pointer;"><input type="checkbox" name="subLabel2subLabel" id="subLabel2subLabel" checked>&nbsp;Match altLabel with altLabel</label>
                 <p>By default Yam++ match prefLabel with prefLabel and prefLabel with altLabel. Enabling it perform Label matching between altLabel and altLabel.</p>
                 <hr/><br/>
-                <label for="inputLabelSimWeight">Label similarity informative word weight threshold:</label>
-                <input id="inputLabelSimWeight" name="inputLabelSimWeight" type="number" step="0.01" min="0" max="1" value="0.34">
+                <label for="labelSimWeight">Label similarity informative word weight threshold:</label>
+                <input id="labelSimWeight" name="labelSimWeight" type="number" step="0.01" min="0" max="1" value="0.34">
                 <p>If two labels differ a high informative keyword in Label similarity score computing (if word weight superior to this threshold), the mapping is considered as wrong.
                   So raising it can increase the number of mappings.</p>
               </div>
@@ -95,13 +95,13 @@
               <div class="panel-body">
                 <p>Disabling the removal of conflicts increases number of mappings, but there is more chances to get wrong mappings.</p>
                 <div class="checkbox">
-                  <label><input type="checkbox" name="explicitConflictCheckbox" id="explicitConflictCheckbox">&nbsp;Remove Explicit Disjoint conflicts</label>
+                  <label><input type="checkbox" name="explicitConflict" id="explicitConflict">&nbsp;Remove Explicit Disjoint conflicts</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" name="relativeConflictCheckbox" id="relativeConflictCheckbox">&nbsp;Remove Relative Disjoint conflicts</label>
+                  <label><input type="checkbox" name="relativeConflict" id="relativeConflict">&nbsp;Remove Relative Disjoint conflicts</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" name="crisscrossConflictCheckbox" id="crisscrossConflictCheckbox">&nbsp;Remove Crisscross conflicts</label>
+                  <label><input type="checkbox" name="crisscrossConflictCheckbox" id="crisscrossConflict">&nbsp;Remove Crisscross conflicts</label>
                 </div>
               </div>
             </div>
