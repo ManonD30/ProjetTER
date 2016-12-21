@@ -51,10 +51,10 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   }
   var srcOntoUri = $window.alignmentJson.srcOntologyURI;
   var tarOntoUri = $window.alignmentJson.tarOntologyURI;
-  if ( !srcOntoUri ) {
+  if (!srcOntoUri) {
     srcOntoUri = "Source Entities"
   }
-  if ( !tarOntoUri ) {
+  if (!tarOntoUri) {
     tarOntoUri = "Target Entities"
   }
   $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": srcOntoUri, "tarOntUri": tarOntoUri};
@@ -62,8 +62,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.namespaces = $.extend($window.sourceOnt.namespaces, $window.targetOnt.namespaces);
   $scope.detailsLocked = false;
 
-  // init the ng-model used by the valid select dropdown
-  $scope.selectValidModel = {};
+  // init the ng-model used by the relation select dropdown
+  $scope.selectRelationModel = {};
   $scope.hideValidatedAlignments = false;
 
   // Get an object with the entities of the alignment as key and their properties
@@ -122,7 +122,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.generateTableNgIf = function (alignment) {
     if (alignment.measure >= $scope.minRangeSlider.minValue / 100
             && alignment.measure <= $scope.minRangeSlider.maxValue / 100) {
-      if ($scope.hideValidatedAlignments === true && alignment.valid !== "waiting") {
+      if ($scope.hideValidatedAlignments === true && alignment.relation == "notvalid") {
         return false;
       }
       ;
@@ -132,42 +132,42 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   };
 
   /**
-   * Generate the style string for the valid select dropdown to change background color
+   * Used to change relation select color when notvalid selected. Generate the style string for the relation select dropdown to change background color
    * @param {type} alignment
    * @returns {String}
    */
   $scope.generateStyleForSelect = function (alignment) {
     var styleString = null;
-    if (alignment.valid === "waiting") {
-      // Orange
-      styleString = "color: #fff; background-color: #f0ad4e;";
-    } else if (alignment.valid === "valid") {
-      // Green
-      styleString = "color: #fff; background-color: #5cb85c;";
-    } else if (alignment.valid === "notvalid") {
+    console.log(alignment.relation);
+    if (alignment.relation === "notvalid") {
       // Red
-      styleString = "color: #fff; background-color: #d9534f;";
+      styleString = "background-color: #d9534f;";
+      // Orange "color: #fff; background-color: #f0ad4e;"
+      // Green "color: #fff; background-color: #5cb85c;"
+    } else {
+      styleString = "background-color: #fff;";
     }
     return styleString;
   };
 
   /**
-   * Generate the id of an HTML element by concatenating a "validSelect" with the id
+   * Generate the id of an HTML element by concatenating a "relationSelect" with the id
    * @param {int} id
    * @returns {undefined}
    */
-  $scope.generateValidSelectId = function (id) {
-    return "validSelect" + id;
+  $scope.generateRelationSelectId = function (id) {
+    return "relationSelect" + id;
   };
 
   /**
-   * Put the new value in the valid select dropdown ng-model and change the value in the alignment object
-   * @param {int} elementId
+   * Put the new value in the relation select dropdown ng-model and change the value in the alignment object
+   * @param {type} $event
+   * @param {type} alignment
    * @returns {undefined}
    */
-  $scope.updateSelectValidModels = function ($event, alignment) {
-    $scope.selectValidModel[alignment.index] = angular.element($event.currentTarget).val();
-    alignment.valid = angular.element($event.currentTarget).val();
+  $scope.updateSelectRelationModels = function ($event, alignment) {
+    $scope.selectRelationModel[alignment.index] = angular.element($event.currentTarget).val();
+    alignment.relation = angular.element($event.currentTarget).val();
   };
 
   /**
@@ -208,8 +208,9 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
  * Example of the alignments object:
  * {"entity1": {"attr1": "http://attr1.fr"}, "entity2": {"attr1": "http://attr1.fr"}, 
  * "measure": 0.84, "relation": "skos:exactMatch", "index": 1}
- * 
- * @returns alignments
+ * @param {type} alignment
+ * @param {type} ontologies
+ * @returns {Array|getAlignmentsWithOntologiesData.alignments}
  */
 function getAlignmentsWithOntologiesData(alignment, ontologies) {
   var alignments = [];
@@ -228,11 +229,16 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
       alignToAdd["entity2"] = {"id": alignment[key]['entity2'].toString()};
     }
     alignToAdd["measure"] = alignment[key]['measure'];
-    alignToAdd["relation"] = alignment[key]['relation'];
+    console.log("relatioooon: " + alignment[key]['relation']);
+    if (alignment[key]['relation'] == "=") {
+      // If relation is "=" (default from Yam matcher) we set it to skos:exactMatch
+      alignToAdd["relation"] = "http://www.w3.org/2004/02/skos/core#exactMatch";
+    } else {
+      alignToAdd["relation"] = alignment[key]['relation'];
+    }
     alignToAdd["index"] = key;
     // All entities are "waiting" for the moment, but we need to extract it from the uploaded alignment
-    alignToAdd["valid"] = alignment[key]['valid'];
-    ;
+
     alignments.push(alignToAdd);
   }
   return alignments;

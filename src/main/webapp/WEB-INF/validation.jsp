@@ -98,7 +98,7 @@ for the sourceOnt and targetOnt ontology alignment -->
                 style="width: 11em;">Relation</th>
             <th href="#" ng-click="orderByField = 'measure'; reverseSort = !reverseSort">Score</th>
             <!--th href="#" style="word-wrap: break-word;">Validity</th-->
-            <th href="#" style="width: 8em;">Validity</th>
+            <!--th href="#" style="width: 8em;">Validity</th-->
           </tr>
         </thead>
         <tbody>
@@ -126,38 +126,40 @@ for the sourceOnt and targetOnt ontology alignment -->
             </td>
 
             <td>
-              <select id="{{alignment.relation}}" name="relation" class="form-control">
-                <option value="http://www.w3.org/2004/02/skos/core#exactMatch">skos:exactMatch</option>
-                <option value="http://www.w3.org/2004/02/skos/core#closeMatch">skos:closeMatch</option>
-                <option value="http://www.w3.org/2004/02/skos/core#broadMatch">skos:broadMatch</option>
-                <option value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
+              <select id="{{generateRelationSelectId(alignment.index)}}" name="relation" class="form-control"
+                      style="{{generateStyleForSelect(alignment)}}" ng-model="selectRelationModel[alignment.index]" 
+                      ng-click="updateSelectRelationModels($event, alignment)" ng-init="selectRelationModel[alignment.index] = alignment.relation || 'http://www.w3.org/2004/02/skos/core#exactMatch'">
+                <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#exactMatch">skos:exactMatch</option>
+                <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#closeMatch">skos:closeMatch</option>
+                <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#broadMatch">skos:broadMatch</option>
+                <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
                 <option style="background: #d9534f;" value="notvalid">Not valid</option>
-              </select>
+                </select>
             </td>
             <td>
               <input type="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" 
                      style="display: none;" readonly>{{alignment.measure}}</input>
             </td>
-            <td>
-              <!-- We are changing the color of the select when a valid option is selected -->
-              <select id="{{generateValidSelectId(alignment.index)}}" name="valid" 
-                      style="{{generateStyleForSelect(alignment)}}" class="form-control" 
-                      ng-model="selectValidModel[alignment.index]" ng-click="updateSelectValidModels($event, alignment)"
-                      ng-init="selectValidModel[alignment.index] = alignment.valid">
-                <option style="background: #f0ad4e;" value="waiting">Waiting...</option>
-                <option style="background: #5cb85c;" value="valid">Valid</option>
-                <option style="background: #d9534f;" value="notvalid">Not valid</option>
-              </select>
-            </td>
+            <!--td>
+            <!-- We are changing the color of the select when a valid option is se            lected ->
+            <select id="{{generateValidSelectId(alignment.index)}}" name="valid" 
+style="{{generateStyleForSelect(alignment)}}" class="form-co                      ntrol" 
+                        ng-model="selectValidModel[alignment.index]" ng-click="upd                        ateSelectValidMo                    dels($event, alignment)"
+                    ng-init="selectValidModel[alignment.index] = alignment.valid">                    
+                             <option style="background: #f0ad4e;" value="waiting">                             Waiting...</option>
+                   <option style="background: #5cb85c;" value="valid">Valid</optio                   n>
+                          <option style="background: #d9534f;" value="notvalid">No                          t valid</option>
+                   </select>
+</          td-->
           </tr>
         </tbody>
       </table>
 
-      <!--div id="pager" class="pager" style="top: 687px; position: absolute;"></div-->
+      <!--div id="pager" cl          ass="pager" style="top: 687px; position: absolute;">      </div-->
       <br/>
 
       <!-- List the different prefixes/namespaces used by the 2 ontologies (not used anymore)
-      h3 class=contentText>Namespaces</h3><br/>
+ h3 class=contentText>Namespaces</h3><br/>
       <div class="row" style="text-align: center;">
         <ul class="list-group" style="margin: 0 auto; max-width: 65%">
           <li class="list-group-item" ng-repeat="(prefix, namespace) in namespaces">
@@ -195,11 +197,11 @@ for the sourceOnt and targetOnt ontology alignment -->
   </section>
 
 
-  <!-- Create window at the right of the screen (to display entities details) -->
+  <!-- Createwindow at the right of the screen (to display entities details) -->
   <aside>
-    <nav class="switch-nav">
+    <nav class="    switch-nav">
       <ul>
-        <!-- the 2 glyphicons to choose between list and graph view -->
+        <!-- the 2 glyphicons to choose between list a    nd graph view -->
         <li class="text"><button type="button" class="btn btn-default btn-info" aria-label="Left Align">
             <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
           </button></li>
@@ -252,7 +254,7 @@ for the sourceOnt and targetOnt ontology alignment -->
     </div>
 
 </main>
-
+    
 <!--script>
   Pour générer la pagination ! (marche pas)
   $(document).ready(function () {
