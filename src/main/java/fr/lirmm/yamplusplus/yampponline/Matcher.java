@@ -155,6 +155,10 @@ public class Matcher extends HttpServlet {
     if (request.getParameter("crisscrossConflictCheckbox") == null) {
       matcher.setVlsCrisscross(true);
     }
+    if (request.getParameter("subLab2subLabCheck") == null) {
+      matcher.setVlsSubSrc2subTar(true);
+      matcher.setVlsAllLevels(true);
+    }
     
 
     // Execute YAM to get the mappings in RDF/XML

@@ -52,6 +52,7 @@
       <div id="paramsDiv" style="display:none;">
         <br/>
         <label style="margin-left: 3%;">Matcher type</label>
+        <p>Changing the matcher type can change the matching results. Use the Very Large Scale matcher for ontologies bigger than 4 000 concepts</p>
         <select name="matcherType" id="matcherType" class="form-control"  style="width: auto; display:inline; margin-left: 1%;">
           <option value="VERYLARGE" selected>Very Large Scale (for big ontologies)</option>
           <option value="LARGE">Large Scale</option>
@@ -70,6 +71,9 @@
         <div class="checkbox">
           <label><input type="checkbox" name="crisscrossConflictCheckbox" id="crisscrossConflictCheckbox" checked>&nbsp;Remove Crisscross conflicts</label>
         </div>
+        <br/><br/>
+        <label><input type="checkbox" name="subLab2subLabCheck" id="subLab2subLabCheck">&nbsp;Match altLabel with altLabel</label>
+        <p>By default Yam++ match prefLabel with prefLabel and prefLabel with altLabel</p>
       </div>
       <br/>
       <label style="font-weight: normal;"><input type="checkbox" id=saveFile name="saveFile">I agree to let YAM++ save my ontologies</label>

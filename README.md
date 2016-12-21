@@ -80,7 +80,19 @@ docker-compose stop
 docker-compose start
 ```
 
-## Copy new war to tomcat docker
+## Run the yampp-online application
+
+### Generate war
+
+```shell
+// Install maven local dependencies
+./maven_install_local_dependencies.sh
+
+// mvn package and copy to yam_tomcat docker container
+./compile.sh
+```
+
+### Copy new war to tomcat docker
 
 ```
 docker cp yam.war yam_tomcat:/usr/local/tomcat/webapps/ROOT.war
