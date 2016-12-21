@@ -133,7 +133,7 @@
   function getExample()
   {
     document.getElementById('sourceUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl";
-    document.getElementById('targetUrl').value = "https://raw.githubusercontent.com/philharmoniedeparis/mimo/master/our-data/03_skos/keywords_skos.xml";
+    document.getElementById('targetUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-rameau.ttl";
   }
 
   /**
