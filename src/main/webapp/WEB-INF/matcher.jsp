@@ -160,10 +160,13 @@
   function toggleParams()
   {
     var e = document.getElementById("paramsDiv");
-    if (e.style.display == 'block')
+    if (e.style.display == 'block') {
       e.style.display = 'none';
-    else
+      document.getElementById("paramsBtn").innerText = "Show matcher parameters";
+    } else {
       e.style.display = 'block';
+      document.getElementById("paramsBtn").innerText = "Hide matcher parameters";
+    }
   }
 
   /**
