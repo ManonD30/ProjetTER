@@ -14,6 +14,7 @@ import org.apache.commons.lang.RandomStringUtils;
 
 import fr.lirmm.yamplusplus.yamppls.YamppOntologyMatcher;
 import java.util.Arrays;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
@@ -46,7 +47,7 @@ public class Matcher extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.setCharacterEncoding("UTF-8");
-    response.setContentType("text/plain");
+    response.setContentType("application/xml");
     PrintWriter out = response.getWriter();
 
     String responseString = null;
@@ -78,8 +79,11 @@ public class Matcher extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     response.setCharacterEncoding("UTF-8");
-    response.setContentType("text/plain");
     PrintWriter out = response.getWriter();
+    
+    // Load properties file for Application URL
+    Properties prop = new Properties();
+    prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
 
     String responseString = null;
 
@@ -90,13 +94,17 @@ public class Matcher extends HttpServlet {
       try {
         request = processRequest(request);
         responseString = (String) request.getAttribute("matcherResult");
+        response.setContentType("application/xml");
       } catch (IOException | ClassNotFoundException e) {
         request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
       }
     } else {
-      responseString = "Example: <br/> curl -X POST -H \"Content-Type: multipart/form-data\" "
-              + "-F sourceFile=@/path/to/ontology_file.owl http://localhost:8083/rest/matcher?targetUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl <br/>"
-              + "http://localhost:8083/rest/matcher?sourceUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl&targetUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl";
+      // Print 2 examples to show how to use the REST matcher
+      responseString = "<b>Example:</b><li><a href='" +prop.getProperty("appurl") + "rest/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false'>"
+              + prop.getProperty("appurl") + "rest/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false</a></li>"
+              + "<li><b>Parameters available:</b> matcherType (VERYLARGE, LARGE, SCALABILITY, SMALL), explicitConflict (default: true), relativeConflict (default: true), crisscrossConflict (default: true), altLabel2altLabel (default: false), labelSimWeight (default: 0.34)</li>"
+              + "<li><b>cURL POST request:</b> curl -X POST -H \"Content-Type: multipart/form-data\" -F sourceFile=@/path/to/ontology_file.owl " + prop.getProperty("appurl") + "rest/matcher?targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl </li></ul>";
+      response.setContentType("text/html");
     }
 
     out.print(responseString);
@@ -144,22 +152,31 @@ public class Matcher extends HttpServlet {
       matcher.setMatcherType(MatcherType.valueOf(request.getParameter("matcherType").toString()));
     }
     // Conflicts true by default
-    if (request.getParameter("explicitConflict") == null) {
+    if (request.getParameter("explicitConflict") == null || request.getParameter("explicitConflict").equals("false")) {
       matcher.setVlsExplicitDisjoint(false);
+    } else {
+      matcher.setVlsExplicitDisjoint(true);
     }
-    if (request.getParameter("relativeConflict") == null) {
+    if (request.getParameter("relativeConflict") == null || request.getParameter("relativeConflict").equals("false")) {
       matcher.setVlsRelativeDisjoint(false);
+    } else {
+      matcher.setVlsRelativeDisjoint(true);
     }
-    if (request.getParameter("crisscrossConflict") == null) {
+    if (request.getParameter("crisscrossConflict") == null || request.getParameter("crisscrossConflict").equals("false")) {
       matcher.setVlsCrisscross(false);
+    } else {
+      matcher.setVlsCrisscross(true);
     }
     // subLab2suLab and label sim weight false by default
-    if (request.getParameter("altLabel2altLabel") != null) {
+    if (request.getParameter("altLabel2altLabel") == null || request.getParameter("altLabel2altLabel").equals("false")) {
+      matcher.setVlsSubSrc2subTar(false);
+      matcher.setVlsAllLevels(false);
+    } else {
       matcher.setVlsSubSrc2subTar(true);
       matcher.setVlsAllLevels(true);
     }
     if (request.getParameter("labelSimWeight") != null) {
-      matcher.setMaxWeightInformativeWord(Double.parseDouble(request.getParameter("inputLabelSimWeight")));
+      matcher.setMaxWeightInformativeWord(Double.parseDouble(request.getParameter("labelSimWeight")));
     }
     
 
