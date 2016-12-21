@@ -153,9 +153,10 @@ public class Matcher extends HttpServlet {
       matcher.setVlsRelativeDisjoint(false);
     }
     if (request.getParameter("crisscrossConflictCheckbox") == null) {
-      matcher.setVlsCrisscross(true);
+      matcher.setVlsCrisscross(false);
     }
-    if (request.getParameter("subLab2subLabCheck") == null) {
+    // subLab2suLab and label sim weight false by default
+    if (request.getParameter("subLab2subLabCheck") != null) {
       matcher.setVlsSubSrc2subTar(true);
       matcher.setVlsAllLevels(true);
     }
