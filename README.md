@@ -107,22 +107,6 @@ sudo apt-get install tomcat7
 sudo apt-get install tomcat7-docs tomcat7-admin tomcat7-examples
 ```
 
-## Install WordNet
-
-Install WordNet on Ubuntu (used by Yam)
-
-```shell
-sudo apt-get upgrade
-sudo apt-get install wordnet
-```
-
-You also have to make the dictionary used by "Main.jar" MainProgram available on your server.
-
-Using WordNet needs you to provide a path to the wordnet dictionary in configs/WNTemplate.xml in Main.jar
-By default it is `/home/emonet/wordnet_dict`
-
-You can find the content of this directory in this Git repository under "wordnet_dict"
-
 ## Install it
 
 ```shell
