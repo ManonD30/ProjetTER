@@ -136,7 +136,7 @@ public class Download extends HttpServlet {
    * alignment in RDF format
    *
    * @param MapFinal
-   * @return
+   * @return String
    */
   public static String generateRdfAlignment(ArrayList<HashMap> MapFinal) {
     // create an empty Model
@@ -168,7 +168,7 @@ public class Download extends HttpServlet {
    * generate the alignment in RDF/XML format
    *
    * @param MapFinal
-   * @return
+   * @return String
    */
   public static String generateAlignment(ArrayList<HashMap> MapFinal) {
     Alignment alignments = new URIAlignment();
