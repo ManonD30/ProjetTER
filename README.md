@@ -82,11 +82,15 @@ docker-compose start
 ### Generate war
 
 ```shell
-// Install maven local dependencies
+# Install maven local dependencies
 ./maven_install_local_dependencies.sh
 
-// mvn package and copy to yam_tomcat docker container
+# mvn package and copy to yam_tomcat docker container
 ./compile.sh
+
+
+# Install maven local dependencies, then generate war and upload to docker yam_tomcat
+./compile.sh -i
 ```
 
 ### Copy new war to tomcat docker
