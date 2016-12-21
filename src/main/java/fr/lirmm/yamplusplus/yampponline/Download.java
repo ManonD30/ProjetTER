@@ -146,16 +146,15 @@ public class Download extends HttpServlet {
       HashMap<String, String> hashMapping = null;
       hashMapping = MapFinal.get(i);
       if (!hashMapping.get("relation").equals("notvalid")) {
-
-        alignmentUri = "http://yamplusplus.lirmm.fr/ontology";
-
+        // Add Alignment URI to namespaces with align prefix
+        alignmentUri = "http://yamplusplus.lirmm.fr/ontology#";
         model.setNsPrefix("align", alignmentUri);
 
-        model.createResource(alignmentUri + "/mapping/" + Integer.toString(i))
-                .addProperty(model.createProperty(alignmentUri + "#entity"), hashMapping.get("entity1"))
-                .addProperty(model.createProperty(alignmentUri + "#entity"), hashMapping.get("entity2"))
-                .addProperty(model.createProperty(alignmentUri + "#relation"), hashMapping.get("relation"))
-                .addProperty(model.createProperty(alignmentUri + "#score"), hashMapping.get("measure"));
+        model.createResource(alignmentUri + "mapping/" + Integer.toString(i))
+                .addProperty(model.createProperty(alignmentUri + "entity"), hashMapping.get("entity1"))
+                .addProperty(model.createProperty(alignmentUri + "entity"), hashMapping.get("entity2"))
+                .addProperty(model.createProperty(alignmentUri + "relation"), hashMapping.get("relation"))
+                .addProperty(model.createProperty(alignmentUri + "score"), hashMapping.get("measure"));
       }
     }
 
