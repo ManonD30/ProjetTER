@@ -21,7 +21,7 @@
       <p>A <a href="http://yamplusplus.lirmm.fr/rest/matcher">RESTful API</a> to get an alignment between 2 ontologies. 
         You can pass the URL of the ontology with "sourceUrl" and "targetUrl" parameters.<br/>
         For example:
-        <a href="rest/matcher?sourceUrl=sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false">
+        <a href="rest/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false">
           http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://mop-iaml.ttl&targetUrl=https://mop-diabolo.ttl&crisscrossConflict=false
         </a>
       </p>
