@@ -57,22 +57,45 @@ for the sourceOnt and targetOnt ontology alignment -->
       This UI displays the results of the ontology matching and allows the user to validate or not each mapping.
       It shows informations about mapped concepts extracted from the provided ontologies on the right.
     </p>
+    <div style="width: 100%; display: inline-block;">
+      <%
+        if (time != null) {
+          //out.println("<p> Calculated with YAM++ Large Scale in " + time + " seconds</p>");
+          out.println("<div class='col-sm-4'><div class='panel panel-info'><div class='panel-heading' style='text-align: center;'><h3 class='panel-title'>Running time</h3></div><div class='panel-body' style='text-align: center;'>"
+                  + time + " seconds</div></div></div>");
+        }
+        if (!srcOverlappingProportion.equals("0")) {
+          /* out.println("<label style='margin-left: 2%; margin-bottom: 1%;'>Source ontology mapped: </label>&nbsp;&nbsp;<div class='progress' style='width: 40%; display: inline-block; margin-bottom: 0px;'>"
+                  + "<div class='progress-bar' role='progressbar' aria-valuenow='" + srcOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
+                  + srcOverlappingProportion + "%;'><b>" + srcOverlappingProportion + "%</b></div></div>");*/
+          out.println("<div class='col-sm-4'><div class='panel panel-primary'><div class='panel-heading' style='text-align: center;'><h3 class='panel-title'>Source ontology mapped</h3></div><div class='panel-body' style='padding-bottom: 0px;'>"
+                  + "<div class='progress'><div class='progress-bar' role='progressbar' aria-valuenow='" + srcOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
+                  + srcOverlappingProportion + "%;'><b>" + srcOverlappingProportion + "%</b></div></div>"
+                  + "</div></div></div>");
+        }
+        if (!tarOverlappingProportion.equals("0")) {
+          /*out.println("<br/><label style='margin-left: 2%; margin-bottom: 2%;'>Target ontology mapped: </label>&nbsp;&nbsp;<div class='progress' style='width: 40%; display: inline-block; margin-bottom: 0px;'>"
+                  + "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='" + tarOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
+                  + tarOverlappingProportion + "%;'><b>" + tarOverlappingProportion + "%</b></div></div>");*/
+          out.println("<div class='col-md-4'><div class='panel panel-success'><div class='panel-heading' style='text-align: center;'><h3 class='panel-title'>Target ontology mapped</h3></div><div class='panel-body' style='padding-bottom: 0px;'>"
+                  + "<div class='progress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='" + tarOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
+                  + tarOverlappingProportion + "%;'><b>" + tarOverlappingProportion + "%</b></div></div>"
+                  + "</div></div></div>");
+        }
+      %>
+    </div>
 
-    <%
-      if (time != null) {
-        out.println("<p> Calculated with YAM++ Large Scale in " + time + " seconds</p>");
-      }
-      if (!srcOverlappingProportion.equals("0")) {
-        out.println("<label style='margin-left: 2%; margin-bottom: 1%;'>Source ontology mapped: </label>&nbsp;&nbsp;<div class='progress' style='width: 40%; display: inline-block; margin-bottom: 0px;'>"
-                + "<div class='progress-bar' role='progressbar' aria-valuenow='" + srcOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
-                + srcOverlappingProportion + "%;'><b>" + srcOverlappingProportion +  "%</b></div></div>");
-      }
-      if (!tarOverlappingProportion.equals("0")) {
-        out.println("<br/><label style='margin-left: 2%; margin-bottom: 2%;'>Target ontology mapped: </label>&nbsp;&nbsp;<div class='progress' style='width: 40%; display: inline-block; margin-bottom: 0px;'>"
-                + "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='" + tarOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
-                + tarOverlappingProportion + "%;'><b>" + tarOverlappingProportion +  "%</b></div></div>");
-      }
-    %>
+    <!--div class='col-sm-4'><div class='panel panel-info'><div class='panel-heading'><h3 class='panel-title'>Running time</h3></div><div class='panel-body'>
+
+        </div></div></div>
+
+    <div class='col-sm-4'><div class='panel panel-primary'><div class='panel-heading'><h3 class='panel-title'>Source ontology mapped: </h3></div><div class='panel-body'>
+
+        </div></div></div>
+
+    <div class='col-md-4'><div class='panel panel-success'><div class='panel-heading'><h3 class='panel-title'>Target ontology mapped: </h3></div><div class='panel-body'>
+
+        </div></div></div-->
 
     <!-- Input to filter mappings table -->
     <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">
@@ -124,20 +147,20 @@ for the sourceOnt and targetOnt ontology alignment -->
             </td>
 
             <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
-  <input type="text" id="{{alignment.entity2.id}}" name="entity2" value="{{alignment.entity2.id}}" 
-         style="display: none;" readonly>{{getEntityLabel(alignment.entity2, selectedLang)}}</input>
-</td>
+              <input type="text" id="{{alignment.entity2.id}}" name="entity2" value="{{alignment.entity2.id}}" 
+                     style="display: none;" readonly>{{getEntityLabel(alignment.entity2, selectedLang)}}</input>
+            </td>
 
-<td>
-  <select id="{{generateRelationSelectId(alignment.index)}}" name="relation" class="form-control"
-          style="{{generateStyleForSelect(alignment)}}" ng-model="selectRelationModel[alignment.index]" 
-          ng-click="updateSelectRelationModels($event, alignment)" ng-init="selectRelationModel[alignment.index] = alignment.relation || 'http://www.w3.org/2004/02/skos/core#exactMatch'">
+            <td>
+              <select id="{{generateRelationSelectId(alignment.index)}}" name="relation" class="form-control"
+                      style="{{generateStyleForSelect(alignment)}}" ng-model="selectRelationModel[alignment.index]" 
+                      ng-click="updateSelectRelationModels($event, alignment)" ng-init="selectRelationModel[alignment.index] = alignment.relation || 'http://www.w3.org/2004/02/skos/core#exactMatch'">
                 <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#exactMatch">skos:exactMatch</option>
                 <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#closeMatch">skos:closeMatch</option>
                 <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#broadMatch">skos:broadMatch</option>
                 <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
                 <option style="background: #d9534f;" value="notvalid">Not valid</option>
-                </select>
+              </select>
             </td>
             <td>
               <input ty              pe="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" 
@@ -201,7 +224,7 @@ style="{{generateStyleForSelect(alignment)}}" class="form-co                    
 
 
   <!-- Createwindow at the right of the screen (to display entities details) -->
- <aside>
+  <aside>
     <nav class="    switch-nav">
       <ul>
         <!-- the 2 glyphicons to choose between list a    nd graph view -->
@@ -229,7 +252,7 @@ style="{{generateStyleForSelect(alignment)}}" class="form-co                    
 
       <section class="entity entity-target">
         <div class="entity-content">
- <div class="entity-inner-content">
+          <div class="entity-inner-content">
             <div id="entityDetail2" class="entity-view entity-text">
             </div>
             <div class="entity-view entity-graph">
@@ -242,29 +265,29 @@ style="{{generateStyleForSelect(alignment)}}" class="form-co                    
   </aside>
 
 
-          <%
-            // If errors
-          } else {
-          %>
-          <section class="main-section" style="margin: 0 auto;"
-                   ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
-            <div class="errorMsg alert alert-danger" role="alert" style="width: 75%;">
-              An error happened during matching <br/>
-              <%
-                  out.println(request.getAttribute("errorMessage"));
-                }
-              %>
-            </div>
+  <%
+    // If errors
+  } else {
+  %>
+  <section class="main-section" style="margin: 0 auto;"
+           ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
+    <div class="errorMsg alert alert-danger" role="alert" style="width: 75%;">
+      An error happened during matching <br/>
+      <%
+          out.println(request.getAttribute("errorMessage"));
+        }
+      %>
+    </div>
 
-            </main>
+</main>
 
-            <!--script>
-              Pour generer la pagination ! (marche pas)
-              $(document).ready(function () {
-                $("table")
-                        .tablesorter({widthFixed: true, widgets: ['zebra']})
-                        .tablesorterPager({container: $("#pager")});
-              });
-            </script-->
+<!--script>
+  Pour generer la pagination ! (marche pas)
+  $(document).ready(function () {
+    $("table")
+            .tablesorter({widthFixed: true, widgets: ['zebra']})
+            .tablesorterPager({container: $("#pager")});
+  });
+</script-->
 
-            <%@include file="footer.jsp"%>
+<%@include file="footer.jsp"%>
