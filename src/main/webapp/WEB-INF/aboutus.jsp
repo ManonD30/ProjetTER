@@ -18,19 +18,19 @@
     <p>
       <b>Yam++ Online</b> is a web tool for ontology and thesaurus matching, with an interface for human validation of the generated mappings. 
       <br/>It uses the 
-      <a href="http://search.maven.org/#artifactdetails%7Cfr.lirmm.yamplusplus%7Cyampp-ls%7C0.1.1%7Cjar"><b>Yam++ Large Scale library</b></a> 
+      <!--a href="http://search.maven.org/#artifactdetails%7Cfr.lirmm.yamplusplus%7Cyampp-ls%7C0.1.1%7Cjar"--><b>Yam++ Large Scale library</b><!--/a--> 
       to perform the matching.
     </p>
     <p>
       <b>Thanks:</b> Marie Destandau, for helping us with the visualization of the aligned concepts
     </p>
-    <div class=contentCenter>
+    <!--div class=contentCenter>
       <div class=publicationButton>
         <a href="http://search.maven.org/#artifactdetails%7Cfr.lirmm.yamplusplus%7Cyampp-ls%7C0.1.1%7Cjar" style="text-decoration: none" target="_blank">
           <input class="btn btnDdl" type="button" value="Use Yam++"/>
         </a>
       </div>
-    </div>
+    </div-->
 
     <h1>Related Publications</h1>
 
