@@ -14,6 +14,8 @@ Using Apache Tomcat 7 and Java 8
 
 * **RAPIDE:** Ajouter les paramètres pour OAEI
 
+* **RAPIDE:** Faire en sorte que le %age de recouvrement marche pour le validator (c'est fait dans yampp-ls pour l'instant)
+
 * Stocker les ontologies données en input, par domaine. Par exemple, les ontologies en biomedical devrait être dans le même groupe. L'objectif est de pouvoir les retrouver facilement pour les recommander à des utilisateurs ou pour les utiliser comme connaissance a priori pour l'alignement.
   * Pour faciliter la classification des ontologies on pourrait peut être demander le "domaine" au moment du download.
   * Il faudrait également éviter les doublons (comparer les ontologies, demander un "nom" pour l'ontologie et l'enregistrer avec ce nom comme ID ?)
