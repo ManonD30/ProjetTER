@@ -26,6 +26,7 @@
           <label class="btn btn-info btn-file">
             Choose file
             <input id=sourceFile type="file" name="sourceFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" 
+                   title="Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml"
                    onchange="refreshFileUpload('sourceFile', 'sourceFilename');" style="display: none;"/>
           </label> <br/>
           <label id="sourceFilename" style="font-weight: normal;"></label>
@@ -38,6 +39,7 @@
           <label class="btn btn-info btn-file">
             Choose file
             <input id=targetFile type="file" name="targetFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" 
+                   title="Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml"
                    onchange="refreshFileUpload('targetFile', 'targetFilename');" style="display: none;" />
           </label> <br/>
           <label id="targetFilename" style="font-weight: normal;"></label>
