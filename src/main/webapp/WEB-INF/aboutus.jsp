@@ -34,6 +34,13 @@
 
     <h1>Related Publications</h1>
 
+    <h3>2016</h3>
+    <p>DuyHoa Ngo, Zohra Bellahsene. 
+      <a href="http://www.websemanticsjournal.org/index.php/ps/article/view/483/499">
+        Overview of YAM++ - (not) Yet Another Matcher for ontology alignment task</a>.
+      Journal of  Web Semantics (JWS), Volume 41, December 2016, Pages 30-49</p>
+
+    <hr>
     <h3>2015</h3>
     <p>DuyHoa Ngo, Zohra Bellahsene. Efficient Semantic Verification
       of Ontology Alignment, ACM IEEE WI 2015, to appear.</p>
@@ -41,7 +48,7 @@
     <hr>
     <h3>2013</h3>
 
-    <p>DuyHoa Ngo, Zohra Bellahsene. YAM++ -- Results for OAEI 2013.
+    <p>DuyHoa Ngo, Zohra Bellahsene. YAM++ - Results for OAEI 2013.
       In ISWC/OM, 2013.</p>
 
     <p>DuyHoa Ngo, Zohra Bellahsene, Konstantin Todorov: Resolving
