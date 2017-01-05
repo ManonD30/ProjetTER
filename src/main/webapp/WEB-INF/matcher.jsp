@@ -71,6 +71,11 @@
         <br/>
         <div id="veryLargeParams" class="row" style="width: 150%; margin-left: -25%;">
 
+          <p>More details on the matcher used and its parameters in 
+            <a href="http://www.websemanticsjournal.org/index.php/ps/article/view/483/499">
+              Overview of YAM++ - (not) Yet Another Matcher for ontology alignment task</a>.
+          </p>
+
           <div class="col-sm-6">
             <div class="panel panel-success">
               <div class="panel-heading">
@@ -88,7 +93,7 @@
                   Higher threshold could potentially increase the number of mappings (since it makes it harder to get to the threshold to be labeled as an informative word).</p>
               </div>
             </div>
-          </div><!-- /.col-sm-6 -->
+          </div>
 
           <div class="col-md-6">
             <div class="panel panel-warning">
@@ -108,7 +113,7 @@
                 </div>
               </div>
             </div>
-          </div><!-- /.col-sm-6 -->
+          </div>
 
         </div>
       </div>
