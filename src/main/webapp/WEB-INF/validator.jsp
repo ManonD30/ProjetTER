@@ -10,10 +10,13 @@
 <div class="container theme-showcase" role="main">
 
   <p style="text-align: center;">
-    The Yam++ Online Validator is an interface for human validation of already generated mappings. It takes the alignment in the AlignmentAPI RDF format.
+    The Yam++ Online Validator is an interface for human validation of already generated mappings. 
+    It takes as an input an alignment in AlignmentAPI RDF format and the corresponding ontologies file. 
+    Then it displays the concepts details for each mapping to help the user choose the relation between the concepts or unvalidate it
+    The modified alignment can be stored using one of the available format.
   </p>
   <h3 class=contentText>Select the alignment to validate and the ontologies corresponding</h3>
-  
+
   <div class=form>
     <form action="validator" method="post"
           enctype="multipart/form-data" name=form>
@@ -22,13 +25,13 @@
         AlignmentAPI RDF file
         <a class="infolink" href="http://alignapi.gforge.inria.fr/format.html" target="_blank"></a>
       </label> <br/>
-      
+
       <label class="btn btn-info btn-file" title="Accepting alignment files of following extensions: .rdf, .xml">
         Choose file
         <input id=rdfAlignmentFile type="file" name="rdfAlignmentFile" accept=".rdf, .xml" 
                onchange="refreshFileUpload('rdfAlignmentFile', 'fileRdfAlignmentFile');" style="display: none;" />
       </label> <br/>
-      
+
       <label id="fileRdfAlignmentFile" style="font-weight: normal;"></label>
 
       <div class="row">
