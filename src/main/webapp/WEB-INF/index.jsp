@@ -8,7 +8,7 @@
   <div class=indexContentDiv>
     <div class=indexContent>
       <br>
-      
+
       <b>Yam++ Online</b> is a web tool for ontology and thesaurus matching, with an interface for human validation of the generated mappings. 
       <br/>It uses the 
       <a href="http://search.maven.org/#artifactdetails%7Cfr.lirmm.yamplusplus%7Cyampp-ls%7C0.1.1%7Cjar"><b>Yam++ Large Scale library</b></a> 
@@ -39,10 +39,9 @@
         <a href=validator>Validator</a>
       </h1>
 
-      <p>Takes as an input an alignment in one out of several possible formats (alignment, owl, skos),
-        visualises it together with the degree of confidence of each mapping and lets the user confirm,
-        reject or mark as uncertain each of the produced mappings. The modified alignment can be 
-        stored in one of the possible alignment formats.</p>
+      <p>Takes as an input an alignment in AlignmentAPI RDF format, visualises it together with the 
+        degree of confidence of each mapping and lets the user confirm, reject or mark as uncertain each 
+        of the produced mappings. The modified alignment can be stored in one of the possible alignment formats.</p>
 
       <!--h1>
               <a href=evaluator>Evaluator</a>

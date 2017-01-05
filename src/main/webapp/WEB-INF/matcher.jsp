@@ -1,7 +1,7 @@
 <%@include file="header.jsp" %>
 
 <div class="container theme-showcase" role="main">
-  <h3 class=contentText>Select your ontologies.</h3>
+  <h3 class=contentText>Select the ontologies to match</h3>
   <div class=form>
     <form action="result" method="post"
           enctype="multipart/form-data" name=form
