@@ -10,11 +10,14 @@
 <div class="container theme-showcase" role="main">
 
   <h3 class=contentText>Select your ontologies and your alignment.</h3>
+  <p>
+    
+  </p>
   <div class=form>
     <form action="validator" method="post"
           enctype="multipart/form-data" name=form>
 
-      <label for=rdfAlignmentFile>
+      <label>
         AlignmentAPI RDF file
         <a class="infolink" href="http://alignapi.gforge.inria.fr/format.html" target="_blank"></a>
       </label> <br/>
