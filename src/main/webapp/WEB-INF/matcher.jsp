@@ -48,7 +48,8 @@
         Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml
       </div>
       <br/>
-      <button type="button" id="paramsBtn" class="btn btn-default" onclick="toggleParams()" style="margin-bottom: 3%;">Show matcher parameters</button>
+      <button type="button" id="paramsBtn" class="btn btn-default" onclick="toggleParams()" 
+              style="margin-bottom: 3%;">Show matcher parameters</button>
 
       <div id="paramsDiv" style="display:none;">
         <br/>
