@@ -15,7 +15,8 @@
           enctype="multipart/form-data" name=form>
 
       <label for=rdfAlignmentFile>
-        <a href="http://alignapi.gforge.inria.fr/format.html" target="_blank">AlignmentAPI</a> RDF file
+        AlignmentAPI RDF file
+        <a class="infolink" href="http://alignapi.gforge.inria.fr/format.html" target="_blank"></a>
       </label> <br/>
       
       <label class="btn btn-info btn-file" title="Accepting alignment files of following extensions: .rdf, .xml">

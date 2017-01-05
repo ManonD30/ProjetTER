@@ -33,6 +33,36 @@ a:visited {
   color: #719eb7;
 }
 
+/* To generate a ? in a circle (for info), see validator */
+.infolink:before
+{
+    content: '?';
+    display: inline-block;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
+    width: 1.8ex;
+    height: 1.8ex;
+    font-size: 1.4ex;
+    line-height: 1.8ex;
+    border-radius: 1.2ex;
+    margin-right: 4px;
+    padding: 1px;
+    color: blue;
+    background: white;
+    border: 1px solid blue;
+    text-decoration: none;
+    box-sizing: content-box;
+}
+
+.infolink:hover:before
+{
+    color: white;
+    background: blue;
+    border-color: white;
+    text-decoration: none;
+}
+
 /* To display when radio btn is checked when choosing a format */
 .inputFormatAlignmentAPI:checked + .inputFormatAlignmentAPILabel {
   font-weight: bold;
