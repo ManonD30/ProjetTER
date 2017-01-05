@@ -43,14 +43,6 @@
         degree of confidence of each mapping and lets the user confirm, reject or mark as uncertain each 
         of the produced mappings. The modified alignment can be stored in one of the possible alignment formats.</p>
 
-      <!--h1>
-              <a href=evaluator>Evaluator</a>
-      </h1>
-  
-      <p>Takes as an input an alignment in one out of several possible
-              formats, compares it to a reference alignment and outputs the
-              corresponding evaluation measures (precision, recall and f-measure)
-              together with graphs.</p-->
     </div>
   </div>
 </div>
