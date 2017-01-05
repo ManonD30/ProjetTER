@@ -17,16 +17,19 @@
 
       <!-- The user can provide ontologies from URL or by uploading a file -->
       <div class="row">
+        <%
+          String acceptFormatTitle = "title='Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml'";
+          String acceptFormatInput = "accept='.owl, .rdf, .nt, .ttl, .jsonld, .json, .xml'";
+        %>
         <div class="col-md-6">
           <label for=firstFile>Source Ontology</label> <br/>
           <input type="url" class='ontologyUrl' id="sourceUrl" name="sourceUrl" placeholder="Enter ontology URL"/>
 
           <br/><span style="text-align: center">or</span><br/>
 
-          <label class="btn btn-info btn-file">
+          <label class="btn btn-info btn-file" <%=acceptFormatTitle%>>
             Choose file
-            <input id=sourceFile type="file" name="sourceFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" 
-                   title="Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml"
+            <input id=sourceFile type="file" name="sourceFile" <%=acceptFormatInput%> 
                    onchange="refreshFileUpload('sourceFile', 'sourceFilename');" style="display: none;"/>
           </label> <br/>
           <label id="sourceFilename" style="font-weight: normal;"></label>
@@ -36,18 +39,13 @@
           <input type="url" class='ontologyUrl' id="targetUrl" name="targetUrl" placeholder="Enter ontology URL"/>
           <br/>
           <span style="text-align: center">or</span> <br/>
-          <label class="btn btn-info btn-file">
+          <label class="btn btn-info btn-file" <%=acceptFormatTitle%>>
             Choose file
-            <input id=targetFile type="file" name="targetFile" accept=".owl, .rdf, .nt, .ttl, .jsonld, .json, .xml" 
-                   title="Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml"
+            <input id=targetFile type="file" name="targetFile" <%=acceptFormatInput%> 
                    onchange="refreshFileUpload('targetFile', 'targetFilename');" style="display: none;" />
           </label> <br/>
           <label id="targetFilename" style="font-weight: normal;"></label>
         </div>
-      </div>
-      <br/>
-      <div class="alert alert-info" role="alert">
-        Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml
       </div>
       <br/>
       <button type="button" id="paramsBtn" class="btn btn-default" onclick="toggleParams()" 
