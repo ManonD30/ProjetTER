@@ -85,18 +85,6 @@ for the sourceOnt and targetOnt ontology alignment -->
       %>
     </div>
 
-    <!--div class='col-sm-4'><div class='panel panel-info'><div class='panel-heading'><h3 class='panel-title'>Running time</h3></div><div class='panel-body'>
-
-        </div></div></div>
-
-    <div class='col-sm-4'><div class='panel panel-primary'><div class='panel-heading'><h3 class='panel-title'>Source ontology mapped: </h3></div><div class='panel-body'>
-
-        </div></div></div>
-
-    <div class='col-md-4'><div class='panel panel-success'><div class='panel-heading'><h3 class='panel-title'>Target ontology mapped: </h3></div><div class='panel-body'>
-
-        </div></div></div-->
-
     <!-- Input to filter mappings table -->
     <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">
       <label>Search: <input type="search" ng-model="searchText"></label>

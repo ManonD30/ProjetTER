@@ -7,7 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.semanticweb.owl.align.AlignmentException;
 
 import static fr.lirmm.yamplusplus.yampponline.Matcher.processRequest;
 
@@ -100,6 +99,7 @@ public class Result extends HttpServlet {
     // add cell data list of matcher results to response
     request.setAttribute("alignment", alignmentJson);
 
+    // Call validation.jsp to display results in /result URL path and send the request with sourceOnt, targetOnt and alignment results
     this.getServletContext()
             .getRequestDispatcher("/WEB-INF/validation.jsp")
             .forward(request, response);

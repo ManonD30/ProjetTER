@@ -82,9 +82,8 @@ public class Download extends HttpServlet {
         hashMapping.put("measure", measure[paramIndex]);
         arrayMappings.add(hashMapping);
       }
-      // Generate the alignment string
-      //alignmentString = generateAlignement(arrayMappings);
 
+      // Generate the alignment string depending on selected format
       String format = request.getParameter("format");
       if (format.equals("simpleRDF")) {
         alignmentString = generateSimpleRdfAlignment(arrayMappings);

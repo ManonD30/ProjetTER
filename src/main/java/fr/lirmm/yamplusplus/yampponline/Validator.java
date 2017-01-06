@@ -74,7 +74,7 @@ public class Validator extends HttpServlet {
     request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(srcJenaModel));
     request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(tarJenaModel));
 
-    // Call result.jsp and send the request with sourceOnt, targetOnt and alignment results
+    // Call validation.jsp to display results in /validator URL path and send the request with sourceOnt, targetOnt and alignment results
     this.getServletContext()
             .getRequestDispatcher("/WEB-INF/validation.jsp")
             .forward(request, response);

@@ -4,9 +4,10 @@
     <servlet>
         <servlet-name>Jersey REST Service</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <!-- A quoi sert tous ces jersey.config.server ?  A gérer le rest service... Mais est-ce vraimen,t la façon la plus propre de le faire ? -->
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>fr.lirmm.opendata.yamgui</param-value>
+            <param-value>fr.lirmm.yamplusplus.yampponline</param-value>
         </init-param>
         <init-param>
             <param-name>jersey.config.server.provider.packages</param-name>
@@ -14,7 +15,7 @@
         </init-param>
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
-            <param-value>fr.lirmm.opendata.yamgui</param-value>
+            <param-value>fr.lirmm.yamplusplus.yampponline</param-value>
         </init-param>
         <init-param>
             <param-name>jersey.config.server.provider.classnames</param-name>
@@ -27,6 +28,7 @@
         <servlet-name>Jersey REST Service</servlet-name>
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <servlet-name>Index</servlet-name>
         <servlet-class>fr.lirmm.yamplusplus.yampponline.Index</servlet-class>
@@ -40,6 +42,8 @@
         <welcome-file>index</welcome-file>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    
+    <!-- Mapping /matcher to matcher.jsp file -->
     <servlet>
         <servlet-name>Matcher</servlet-name>
         <jsp-file>/WEB-INF/matcher.jsp</jsp-file>
@@ -49,6 +53,8 @@
         <servlet-name>Matcher</servlet-name>
         <url-pattern>/matcher</url-pattern>
     </servlet-mapping>
+    
+    <!-- Mapping /result to Result.java class-->
     <servlet>
         <servlet-name>Result</servlet-name>
         <servlet-class>fr.lirmm.yamplusplus.yampponline.Result</servlet-class>
@@ -58,6 +64,8 @@
         <servlet-name>Result</servlet-name>
         <url-pattern>/result</url-pattern>
     </servlet-mapping>
+    
+    <!-- Mapping /validator to Validator.java class-->
     <servlet>
         <servlet-name>Validator</servlet-name>
         <servlet-class>fr.lirmm.yamplusplus.yampponline.Validator</servlet-class>
@@ -67,6 +75,8 @@
         <servlet-name>Validator</servlet-name>
         <url-pattern>/validator</url-pattern>
     </servlet-mapping>
+    
+    <!-- Mapping /download to Download.java class. When called it forces align file ddl, so the webpage is never really opened -->
     <servlet>
         <servlet-name>Download</servlet-name>
         <servlet-class>fr.lirmm.yamplusplus.yampponline.Download</servlet-class>
@@ -76,15 +86,7 @@
         <servlet-name>Download</servlet-name>
         <url-pattern>/download</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>Validation</servlet-name>
-        <servlet-class>fr.lirmm.opendata.yamgui.Validation</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Validation</servlet-name>
-        <url-pattern>/validation</url-pattern>
-    </servlet-mapping>
+    
     <servlet>
         <servlet-name>Aboutus</servlet-name>
         <servlet-class>fr.lirmm.yamplusplus.yampponline.Aboutus</servlet-class>
@@ -103,6 +105,17 @@
         <servlet-name>Documentation</servlet-name>
         <url-pattern>/documentation</url-pattern>
     </servlet-mapping>
+    
+    <!--servlet>
+        <servlet-name>Validation</servlet-name>
+        <servlet-class>fr.lirmm.opendata.yamgui.Validation</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Validation</servlet-name>
+        <url-pattern>/validation</url-pattern>
+    </servlet-mapping>
+    
     <servlet>
         <servlet-name>DownloadYam</servlet-name>
         <servlet-class>fr.lirmm.yamplusplus.yampponline.DownloadYam</servlet-class>
@@ -112,6 +125,7 @@
         <servlet-name>DownloadYam</servlet-name>
         <url-pattern>/downloadYam</url-pattern>
     </servlet-mapping>
+    
     <servlet>
         <servlet-name>DownloadYamDemo</servlet-name>
         <servlet-class>fr.lirmm.yamplusplus.yampponline.DownloadYamDemo</servlet-class>
@@ -120,7 +134,7 @@
     <servlet-mapping>
         <servlet-name>DownloadYamDemo</servlet-name>
         <url-pattern>/downloadYamDemo</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping-->
     <!-- Servlet mappings for user management -->
     <servlet>
         <servlet-name>Signin</servlet-name>
@@ -130,7 +144,7 @@
   <servlet-mapping>
         <servlet-name>Signin</servlet-name>
         <url-pattern>/sign</url-pattern>
-  </servlet-mapping> 
+  </servlet-mapping>
   
   <servlet>
         <servlet-name>ChangePassword</servlet-name>
