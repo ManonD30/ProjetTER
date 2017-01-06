@@ -61,11 +61,7 @@ public class TestOaeiAlignment {
     boolean testExtractValid = false;
     YamFileHandler fileHandler = new YamFileHandler();
     JSONObject parseOaeiJson = new JSONObject();
-    try {
-      parseOaeiJson = fileHandler.parseOaeiAlignmentFormat(iamlRameauAlignment);
-    } catch (AlignmentException ex) {
-      Logger.getLogger(TestOaeiAlignment.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    parseOaeiJson = fileHandler.parseOaeiAlignmentFormat(iamlRameauAlignment);
     JSONArray entities = (JSONArray) parseOaeiJson.get("entities");
 
     // Look for a specific valid mapping to test if parsing worked
