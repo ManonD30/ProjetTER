@@ -12,11 +12,13 @@ Using Apache Tomcat 7 and Java 8
   * Format RDF réifier avec les scores
   * On parle d'export pour le RDF ? Au lieu d'avoir un Radio button + ddl button, on fait 3 ddl button. Et on ne sort que les mappings "valid" quand on exporte vers RDF (alors qu'on garde tout pour OAEI qui est un format pour enregistrer)
 
-* **RAPIDE:** Ajouter les paramètres pour OAEI
-
 * Edit les textes de description dans la page index
 
 * **IMPORTANT** ajouter le login
+  * Le top serait d'être capable d'envoyer des **mails** automatiquement
+    * Pour notifier de la création de nouveaux utilisateurs
+    * Pour réinitialiser les mots de passes perdus (en donnant un mot de passe au hasard)
+  * En attendant reset mot de passe par envoie d'un mail à l'administrateur
 
 * **RAPIDE:** Faire en sorte que le %age de recouvrement marche pour le validator (c'est fait dans yampp-ls pour l'instant)
 
