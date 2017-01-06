@@ -13,10 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.RandomStringUtils;
 
 import fr.lirmm.yamplusplus.yamppls.YamppOntologyMatcher;
-import java.util.Arrays;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 
 @WebServlet("/rest/matcher")

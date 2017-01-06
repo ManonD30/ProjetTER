@@ -9,8 +9,6 @@ package fr.lirmm.yamplusplus.yampponline;
 //import main.MainProgram;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,7 +18,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.semanticweb.owl.align.AlignmentException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.skos.SKOSCreationException;
 
