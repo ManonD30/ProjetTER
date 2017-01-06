@@ -39,10 +39,11 @@ public class YamDatabaseConnector {
     this.dbPassword = prop.getProperty("dbpassword");
     this.workDir = prop.getProperty("workdir");
 
-    this.driver = "org.gjt.mm.mysql.Driver";
+    //this.driver = "org.gjt.mm.mysql.Driver";
+    this.driver = "com.mysql.jdbc.Driver";
 
     Class.forName(this.driver);
-    //Connection conn = DriverManager.getConnection(myUrl, "root", "lirmmpass");
+    //Connection conn = DriverManager.getConnection(myUrl, "root", "password");
   }
 
   public String getWorkDir() {

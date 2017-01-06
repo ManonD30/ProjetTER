@@ -75,9 +75,7 @@ public class Signup extends HttpServlet {
         // send response
       }
     } catch (Exception e) {
-      myLog.log(Level.INFO, "Error creating the user: {0}", e.getMessage());
-      System.err.println("Exception catched!");
-      System.err.println(e.getMessage());
+      myLog.log(Level.SEVERE, "Error creating the user: {0}", e.toString());
     }
     //URI uri = new URL(prop.getProperty("appurl") + "/index").toURI();
     // TODO: CHANGE IT
