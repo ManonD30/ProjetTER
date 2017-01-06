@@ -87,9 +87,10 @@
         <url-pattern>/download</url-pattern>
     </servlet-mapping>
     
+    <!-- Mapping /aboutus and /documentation to their respective jsp files -->
     <servlet>
         <servlet-name>Aboutus</servlet-name>
-        <servlet-class>fr.lirmm.yamplusplus.yampponline.Aboutus</servlet-class>
+        <jsp-file>/WEB-INF/aboutus.jsp</jsp-file>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -98,7 +99,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Documentation</servlet-name>
-        <servlet-class>fr.lirmm.yamplusplus.yampponline.Documentation</servlet-class>
+        <jsp-file>/WEB-INF/documentation.jsp</jsp-file>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -135,6 +136,7 @@
         <servlet-name>DownloadYamDemo</servlet-name>
         <url-pattern>/downloadYamDemo</url-pattern>
     </servlet-mapping-->
+    
     <!-- Servlet mappings for user management -->
     <servlet>
         <servlet-name>Signin</servlet-name>
