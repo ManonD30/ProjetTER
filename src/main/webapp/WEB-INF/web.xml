@@ -167,14 +167,4 @@
         <servlet-name>Disconnect</servlet-name>
         <url-pattern>/disconnect</url-pattern>
   </servlet-mapping>
-    <!--servlet>
-	<servlet-name>Evaluation</servlet-name>
-	<servlet-class>fr.lirmm.opendata.yamgui.Evaluation</servlet-class>
-	<load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-        <servlet-name>Evaluation</servlet-name>
-        <url-pattern>/evaluation</url-pattern>
-  </servlet-mapping-->
 </web-app>
