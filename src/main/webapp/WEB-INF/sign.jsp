@@ -59,8 +59,7 @@
 
   <div class=signin>
     <h1>Sign in:</h1>
-    <form action="sign"
-          method="post" name=signin>
+    <form action="sign" method="post" name=signin>
       <p>Mail:</p>
       <input type="email" name="mailIn" placeholder=joesmith@example.com
              maxlength=32 required>

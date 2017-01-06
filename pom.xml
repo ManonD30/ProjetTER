@@ -63,7 +63,8 @@
       <artifactId>jena</artifactId>
       <version>2.6.4</version>
     </dependency>
-    <!-- http://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-multipart -->
+    
+    <!-- REST lib http://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-multipart -->
     <dependency>
       <groupId>org.glassfish.jersey.media</groupId>
       <artifactId>jersey-media-multipart</artifactId>
