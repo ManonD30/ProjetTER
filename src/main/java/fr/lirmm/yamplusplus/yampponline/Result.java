@@ -32,8 +32,6 @@ public class Result extends HttpServlet {
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-
-    Logger myLog = Logger.getLogger(Result.class.getName());
     
     /* Check user in MySQL, not useful now
     int asMatched = 0;

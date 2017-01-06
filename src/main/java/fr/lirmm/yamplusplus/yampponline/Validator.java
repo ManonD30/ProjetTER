@@ -20,7 +20,7 @@ public class Validator extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Redirect to validator.jsp
+   * Redirect to validator.jsp to ask user to provide alignment and ontologies files
    *
    * @param request
    * @param response
@@ -34,7 +34,7 @@ public class Validator extends HttpServlet {
   }
 
   /**
-   * Process Post request and redirect to result.jsp
+   * Process Post request (from /validator form submission) and redirect to result.jsp
    *
    * @param request
    * @param response

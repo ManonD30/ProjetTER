@@ -1,8 +1,7 @@
 <%@include file="header.jsp" %>
 
 <div class="container theme-showcase" role="main">
-  <%
-    String canMatch = (String) request.getSession().getAttribute(
+  <%    String canMatch = (String) request.getSession().getAttribute(
             "canMatch");
     if (name != null) {
       out.println("<br><h2>Connected as " + name + ".</h2>");
@@ -24,8 +23,8 @@
     have to create a (free) account.</h3>
   <div class=signup>
     <h1>Sign up:</h1>
-    <form action="rest/account/signup" method="post" name=signup
-          enctype="multipart/form-data">
+    <!--form action="signup" method="post" name=signup enctype="multipart/form-data"-->
+    <form action="signup" method="post" name=signup>
       <p>Mail:</p>
       <input type="email" name="mailUp" placeholder=joesmith@example.com
              maxlength=32 required>
