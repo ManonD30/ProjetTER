@@ -54,7 +54,7 @@
     <url-pattern>/matcher</url-pattern>
   </servlet-mapping>
     
-  <!-- Mapping /result to Result.java class-->
+  <!-- Mapping /result to Result.java class to get Yam++ matcher results -->
   <servlet>
     <servlet-name>Result</servlet-name>
     <servlet-class>fr.lirmm.yamplusplus.yampponline.Result</servlet-class>
@@ -65,7 +65,7 @@
     <url-pattern>/result</url-pattern>
   </servlet-mapping>
     
-  <!-- Mapping /validator to Validator.java class-->
+  <!-- Mapping /validator to Validator.java class for the validator webpage-->
   <servlet>
     <servlet-name>Validator</servlet-name>
     <servlet-class>fr.lirmm.yamplusplus.yampponline.Validator</servlet-class>
