@@ -7,8 +7,13 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -19,10 +24,70 @@ import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
-@Path("/account")
-public class Signup {
+public class Signup extends HttpServlet {
 
-  @Context
+  /**
+   * Servlet's doPost which run YAM++ and redirect to the .JSP
+   *
+   * @param request
+   * @param response
+   * @throws ServletException
+   * @throws IOException
+   */
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    // Load properties file for work directory
+    //Properties prop = new Properties();
+    //prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
+    String mail = request.getParameter("mailUp");
+    String password = request.getParameter("passwordUp");
+    String name = request.getParameter("nameUp");
+    String affiliation = request.getParameter("affiliationUp");
+    
+    // write logs to catalina.out
+    Logger myLog = Logger.getLogger(Signup.class.getName());
+
+    myLog.log(Level.INFO, "Before try !!!");
+    try {
+      YamDatabaseConnector dbConnector = new YamDatabaseConnector();
+      YamUser user = dbConnector.userCreate(mail, name, affiliation, password);
+
+      if (user == null) {
+        myLog.log(Level.INFO, "Already in DB !!! (user == null)");
+        
+        //response.sendRedirect("sign")
+        //URI uri = new URL(prop.getProperty("appurl") + "/sign").toURI();
+
+        // TODO: CHANGE IT
+        this.getServletContext()
+                .getRequestDispatcher("/WEB-INF/index.jsp")
+                .forward(request, response);
+      } else {
+        myLog.log(Level.INFO, "Creating user... In else");
+        // create session
+        HttpSession session = request.getSession();
+        // add user's key (mail) to session
+        session.setAttribute("mail", user.getMail());
+        // add user's name to session
+        session.setAttribute("name", user.getName());
+        //add canMatch to session
+        session.setAttribute("canMatch", user.getCanMatch());
+        // send response
+      }
+    } catch (Exception e) {
+      myLog.log(Level.INFO, "Error creating the user: {0}", e.getMessage());
+      System.err.println("Exception catched!");
+      System.err.println(e.getMessage());
+    }
+    //URI uri = new URL(prop.getProperty("appurl") + "/index").toURI();
+    // TODO: CHANGE IT
+    this.getServletContext()
+            .getRequestDispatcher("/WEB-INF/index.jsp")
+            .forward(request, response);
+
+  }
+
+  /*@Context
   private HttpServletRequest request;
 
   @POST
@@ -66,10 +131,15 @@ public class Signup {
     URI uri = new URL(prop.getProperty("appurl") + "/index")
             .toURI();
     return Response.seeOther(uri).build();
-  }
-
-  // method which hash String with prefix
-  // prefix have to be the same when user is registering or connecting
+  }*/
+  
+  /**
+   * Method which hash String with prefix. Prefix have to be the same when user
+   * is registering or connecting
+   *
+   * @param password
+   * @return hashed String
+   */
   public String hash(String password) {
     try {
       password = password + "WONh31K5RYaal07";

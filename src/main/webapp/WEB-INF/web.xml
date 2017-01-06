@@ -131,6 +131,16 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>Signup</servlet-name>
+    <servlet-class>fr.lirmm.yamplusplus.yampponline.Signup</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Signup</servlet-name>
+    <url-pattern>/signup</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>ChangePassword</servlet-name>
     <servlet-class>fr.lirmm.yamplusplus.yampponline.ChangePassword</servlet-class>
     <load-on-startup>1</load-on-startup>
