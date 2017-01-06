@@ -127,44 +127,44 @@
         <url-pattern>/downloadYam</url-pattern>
     </servlet-mapping>
     
-    <servlet>
-        <servlet-name>DownloadYamDemo</servlet-name>
-        <servlet-class>fr.lirmm.yamplusplus.yampponline.DownloadYamDemo</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DownloadYamDemo</servlet-name>
-        <url-pattern>/downloadYamDemo</url-pattern>
-    </servlet-mapping-->
+  <servlet>
+      <servlet-name>DownloadYamDemo</servlet-name>
+      <servlet-class>fr.lirmm.yamplusplus.yampponline.DownloadYamDemo</servlet-class>
+      <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+      <servlet-name>DownloadYamDemo</servlet-name>
+      <url-pattern>/downloadYamDemo</url-pattern>
+  </servlet-mapping-->
     
-    <!-- Servlet mappings for user management -->
-    <servlet>
-        <servlet-name>Signin</servlet-name>
-        <servlet-class>fr.lirmm.yamplusplus.yampponline.Signin</servlet-class>
-        <load-on-startup>1</load-on-startup>
+  <!-- Servlet mappings for user management -->
+  <servlet>
+    <servlet-name>Signin</servlet-name>
+    <servlet-class>fr.lirmm.yamplusplus.yampponline.Signin</servlet-class>
+    <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-        <servlet-name>Signin</servlet-name>
-        <url-pattern>/sign</url-pattern>
+    <servlet-name>Signin</servlet-name>
+    <url-pattern>/sign</url-pattern>
   </servlet-mapping>
   
   <servlet>
-        <servlet-name>ChangePassword</servlet-name>
-        <servlet-class>fr.lirmm.yamplusplus.yampponline.ChangePassword</servlet-class>
-        <load-on-startup>1</load-on-startup>
+    <servlet-name>ChangePassword</servlet-name>
+    <servlet-class>fr.lirmm.yamplusplus.yampponline.ChangePassword</servlet-class>
+    <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-        <servlet-name>ChangePassword</servlet-name>
-        <url-pattern>/changePassword</url-pattern>
+    <servlet-name>ChangePassword</servlet-name>
+    <url-pattern>/changePassword</url-pattern>
   </servlet-mapping>
   
   <servlet>
-        <servlet-name>Disconnect</servlet-name>
-        <servlet-class>fr.lirmm.yamplusplus.yampponline.Disconnect</servlet-class>
-        <load-on-startup>1</load-on-startup>
+    <servlet-name>Disconnect</servlet-name>
+    <servlet-class>fr.lirmm.yamplusplus.yampponline.Disconnect</servlet-class>
+    <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-        <servlet-name>Disconnect</servlet-name>
-        <url-pattern>/disconnect</url-pattern>
+    <servlet-name>Disconnect</servlet-name>
+    <url-pattern>/disconnect</url-pattern>
   </servlet-mapping>
 </web-app>
