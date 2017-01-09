@@ -59,6 +59,7 @@ public class Signup extends HttpServlet {
         session.setAttribute("name", user.getName());
         //add canMatch to session
         session.setAttribute("canMatch", user.getCanMatch());
+        session.setAttribute("asMatched", user.getAsMatched());
         // send response
       }
     } catch (IOException | ClassNotFoundException | SQLException | ServletException e) {

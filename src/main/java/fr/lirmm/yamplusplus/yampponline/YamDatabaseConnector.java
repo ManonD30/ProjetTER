@@ -105,8 +105,7 @@ public class YamDatabaseConnector {
   public YamUser userCreate(String mail, String name, String affiliation, String password) throws SQLException, ClassNotFoundException {
     // create a mysql database connection
     Class.forName(this.driver);
-    Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername,
-            this.dbPassword);
+    Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
 
     // check if user is in database
     // the mysql insert statement
@@ -134,18 +133,17 @@ public class YamDatabaseConnector {
       // Insert into Database
       // the mysql insert statement
       query = " insert into user (mail, name, isAffiliateTo, asMatched, canMatch, password)"
-              + " values (?, ?, ?, ?, ?)";
+              + " values (?, ?, ?, ?, ?, ?)";
 
       // create the mysql insert preparedstatement
       preparedStmt = conn.prepareStatement(query);
       preparedStmt.setString(1, mail);
       preparedStmt.setString(2, name);
-      String hashed = getPasswordHash(password);
       preparedStmt.setString(3, affiliation);
-      // Set asMatched to 0 at creation
       preparedStmt.setInt(4, asMatched);
-      // Set canMatch to 10 at creation
       preparedStmt.setInt(5, canMatch);
+      
+      String hashed = getPasswordHash(password);
       preparedStmt.setString(6, hashed);
 
       // execute the preparedstatement

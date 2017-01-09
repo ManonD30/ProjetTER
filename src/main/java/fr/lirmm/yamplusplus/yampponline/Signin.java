@@ -38,6 +38,7 @@ public class Signin extends HttpServlet {
       session.setAttribute("name", name);
       //add number of matching allowed to session
       session.setAttribute("canMatch", user.getCanMatch());
+      session.setAttribute("asMatched", user.getAsMatched());
       // send response
       this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
       
