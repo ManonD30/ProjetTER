@@ -161,27 +161,32 @@ chmod -R 777 /srv/yam-gui
 
 ## MySQL
 
-`mysql -u root -p`
+* Connect to the MySQL container
+
+```shell
+docker exec -i -t yam_mysqlDb mysql
+```
+
+* Script used to create the table
 
 ```sql
-CREATE DATABASE yam;
-USE	yam;
+CREATE DATABASE IF NOT EXISTS yam;
+USE yam;
 
-CREATE TABLE user
+CREATE TABLE IF NOT EXISTS user
 (
-mail varchar(255),
-name varchar(255),
+apikey varchar(16),
+mail varchar(255) NOT NULL,
+username varchar(255) NOT NULL,
 isAffiliateTo varchar(255),
 matchCount int,
 canMatch int,
 password varchar(255),
-PRIMARY KEY (mail)
+PRIMARY KEY (apikey),
+UNIQUE (mail),
+UNIQUE (username)
 );
 ```
-
-* Start MySQL daemon
-
-`sudo /etc/init.d/mysql start`
 
 
 ## Use logger
