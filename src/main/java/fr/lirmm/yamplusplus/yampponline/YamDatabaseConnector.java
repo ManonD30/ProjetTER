@@ -130,18 +130,8 @@ public class YamDatabaseConnector {
     String apikey = null;
     boolean apikeyExists = true;
     while (apikeyExists) {
-      apikeyExists = false;
       apikey = new BigInteger(130, random).toString(32).substring(0, 16);
-      String apikeyQuery = "SELECT username FROM user WHERE apikey=?";
-
-      // create the mysql insert preparedstatement
-      PreparedStatement apikeyPreparedStmt = conn.prepareStatement(apikeyQuery);
-      apikeyPreparedStmt.setString(1, apikey);
-      // execute the prepared statement
-      ResultSet apikeyResult = apikeyPreparedStmt.executeQuery();
-      while (apikeyResult.next()) {
-        apikeyExists = true;
-      }
+      apikeyExists = isValidApikey(apikey);
     }
 
     // Set matchCount to 0 at creation
