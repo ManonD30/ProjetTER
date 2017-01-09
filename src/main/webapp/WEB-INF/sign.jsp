@@ -9,6 +9,7 @@
     if (name != null) {
       out.println("<br><h2>Connected as " + name + ".</h2>");
       out.println("<p class=contentCenter>You have done " + asMatched + " matchings.</p>");
+      out.println("<p class=contentCenter>Affiliate to " + request.getSession().getAttribute("isAffiliateTo").toString() + ".</p>");
       out.println("<form action='changePassword'"
               + "method='get' name=modify enctype='multipart/form-data'>"
               + "<input type='submit' class=btnBig value='Change my password'>"
