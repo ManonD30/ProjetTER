@@ -21,8 +21,6 @@ public class Signin extends HttpServlet {
 
     String mail = request.getParameter("mailIn");
     String password = request.getParameter("passwordIn");
-    String name = null;
-    String canMatch = null;
 
     // write logs to catalina.out
     Logger myLog = Logger.getLogger(Signin.class.getName());

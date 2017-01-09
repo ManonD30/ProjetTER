@@ -8,106 +8,116 @@ package fr.lirmm.yamplusplus.yampponline;
 import javax.servlet.http.HttpSession;
 
 /**
- * Class for Yam Users. With: name, mail, password, matchCount and number of possible matchs
+ * Class for Yam Users. With: name, mail, password, matchCount and number of
+ * possible matchs
  *
  * @author emonet
  */
 public class YamUser {
-    String name;
-    String mail;
-    String passwordHash;
-    String isAffiliateTo;
-    Integer asMatched;
-    Integer canMatch;
 
-    /**
-     * YamUser constructor
-     * 
-     * @param name
-     * @param mail
-     * @param passwordHash
-     * @param isAffiliateTo
-     * @param asMatched 
-     * @param canMatch
-     */
-    public YamUser(String name, String mail, String passwordHash, String isAffiliateTo, int asMatched, int canMatch) {
-        this.name = name;
-        this.mail = mail;
-        this.passwordHash = passwordHash;
-        this.isAffiliateTo = isAffiliateTo;
-        
-        this.asMatched = asMatched;
-        this.canMatch = canMatch;
-    }
-    
-    /**
-     * Build YAM from session
-     * @param session 
-     */
-    public YamUser(HttpSession session) {
-      this.mail = (String) session.getAttribute("mail");
-      this.name = (String) session.getAttribute("name");
-      this.isAffiliateTo = (String) session.getAttribute("isAffiliateTo");
-      
-      this.asMatched = (int) session.getAttribute("asMatched");
-      this.canMatch = (int) session.getAttribute("canMatch");
-    }
-    
-    /**
-     * Add the YamUser param to the given session.
-     * 
-     * @param session
-     * @return HttpSession
-     */
-    public HttpSession addUserToSession(HttpSession session) {
-      session.setAttribute("mail", this.mail);
-      session.setAttribute("name", this.name);
-      session.setAttribute("asMatched", this.asMatched);
-      session.setAttribute("canMatch", this.canMatch);
-      session.setAttribute("isAffiliateTo", this.isAffiliateTo);
-      
-      return session;
-    }
+  String apikey;
+  String name;
+  String mail;
+  String passwordHash;
+  String isAffiliateTo;
+  Integer matchCount;
+  Integer canMatch;
 
-    public String getName() {
-        return name;
-    }
+  /**
+   * YamUser constructor
+   *
+   * @param name
+   * @param mail
+   * @param passwordHash
+   * @param isAffiliateTo
+   * @param asMatched
+   * @param canMatch
+   */
+  public YamUser(String apikey, String mail, String name, String passwordHash, String isAffiliateTo, int matchCount, int canMatch) {
+    this.apikey = apikey;
+    this.mail = mail;
+    this.name = name;
+    this.passwordHash = passwordHash;
+    this.isAffiliateTo = isAffiliateTo;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    this.matchCount = matchCount;
+    this.canMatch = canMatch;
+  }
 
-    public String getMail() {
-        return mail;
-    }
+  /**
+   * Build YAM from HTTP session
+   *
+   * @param session
+   */
+  public YamUser(HttpSession session) {
+    this.apikey = (String) session.getAttribute("apikey");
+    this.mail = (String) session.getAttribute("mail");
+    this.name = (String) session.getAttribute("name");
+    this.isAffiliateTo = (String) session.getAttribute("isAffiliateTo");
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
+    this.matchCount = (int) session.getAttribute("matchCount");
+    this.canMatch = (int) session.getAttribute("canMatch");
+  }
 
-    public String getIsAffiliateTo() {
-        return isAffiliateTo;
-    }
+  /**
+   * Add the YamUser param to the given session.
+   *
+   * @param session
+   * @return HttpSession
+   */
+  public HttpSession addUserToSession(HttpSession session) {
+    session.setAttribute("apikey", this.apikey);
+    session.setAttribute("mail", this.mail);
+    session.setAttribute("name", this.name);
+    session.setAttribute("matchCount", this.matchCount);
+    session.setAttribute("canMatch", this.canMatch);
+    session.setAttribute("isAffiliateTo", this.isAffiliateTo);
 
-    public void setIsAffiliateTo(String isAffiliateTo) {
-        this.isAffiliateTo = isAffiliateTo;
-    }
+    return session;
+  }
 
-    public Integer getAsMatched() {
-        return asMatched;
-    }
+  public String getApikey() {
+    return apikey;
+  }
+  
+  public String getName() {
+    return name;
+  }
 
-    public void setAsMatched(Integer asMatched) {
-        this.asMatched = asMatched;
-    }
-    
-    public Integer getCanMatch() {
-        return canMatch;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setCanMatch(Integer canMatch) {
-        this.canMatch = canMatch;
-    }
-    
-    
+  public String getMail() {
+    return mail;
+  }
+
+  public void setMail(String mail) {
+    this.mail = mail;
+  }
+
+  public String getIsAffiliateTo() {
+    return isAffiliateTo;
+  }
+
+  public void setIsAffiliateTo(String isAffiliateTo) {
+    this.isAffiliateTo = isAffiliateTo;
+  }
+
+  public Integer getMatchCount() {
+    return matchCount;
+  }
+
+  public void setMatchCount(Integer matchCount) {
+    this.matchCount = matchCount;
+  }
+
+  public Integer getCanMatch() {
+    return canMatch;
+  }
+
+  public void setCanMatch(Integer canMatch) {
+    this.canMatch = canMatch;
+  }
+
 }

@@ -1,14 +1,14 @@
 <%@include file="header.jsp" %>
 
 <div class="container theme-showcase" role="main">
-  <% String asMatched = "0";
-    if (request.getSession().getAttribute("asMatched") != null) {
-      asMatched = request.getSession().getAttribute("asMatched").toString();
+  <% String matchCount = "0";
+    if (request.getSession().getAttribute("matchCount") != null) {
+      matchCount = request.getSession().getAttribute("matchCount").toString();
     }
 
     if (name != null) {
       out.println("<br><h2>Connected as " + name + ".</h2>");
-      out.println("<p class=contentCenter>You have done " + asMatched + " matchings.</p>");
+      out.println("<p class=contentCenter>You have done " + matchCount + " matchings.</p>");
       out.println("<p class=contentCenter>Affiliate to " + request.getSession().getAttribute("isAffiliateTo").toString() + ".</p>");
       out.println("<form action='changePassword'"
               + "method='get' name=modify enctype='multipart/form-data'>"

@@ -41,7 +41,7 @@ public class Result extends HttpServlet {
       String mail = (String) request.getSession().getAttribute("mail");
 
       YamDatabaseConnector dbConnector = new YamDatabaseConnector();
-      YamUser user = dbConnector.updateAsMatched(mail);
+      YamUser user = dbConnector.updateMatchCount(apikey);
 
       asMatched = user.getAsMatched();
       canMatch = user.getCanMatch();

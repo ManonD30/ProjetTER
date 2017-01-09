@@ -7,8 +7,10 @@ package fr.lirmm.yamplusplus.yampponline;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -81,8 +83,8 @@ public class YamDatabaseConnector {
     YamUser user = null;
     // get user
     while (result.next()) {
-      user = new YamUser(result.getString("name"), result.getString("mail"), result.getString("password"), 
-              result.getString("isAffiliateTo"), result.getInt("asMatched"), result.getInt("canMatch"));
+      user = new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("name"), result.getString("password"),
+              result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"));
     }
 
     // close connection to database
@@ -120,31 +122,52 @@ public class YamDatabaseConnector {
 
     // get result
     String inDatabase = null;
-    // Set asMatched to 0 at creation
-    int asMatched = 0;
-    // Set canMatch to 10 at creation
-    int canMatch = 10;
     while (result.next()) {
       inDatabase = result.getString("name");
     }
+
+    // Generate unique random apikey
+    SecureRandom random = new SecureRandom();
+    String apikey = null;
+    boolean apikeyExists = true;
+    while (apikeyExists) {
+      apikeyExists = false;
+      apikey = new BigInteger(130, random).toString(32).substring(0,10).toUpperCase();
+      String apikeyQuery = "SELECT name FROM user WHERE apikey=?";
+
+      // create the mysql insert preparedstatement
+      PreparedStatement apikeyPreparedStmt = conn.prepareStatement(apikeyQuery);
+      apikeyPreparedStmt.setString(1, apikey);
+      // execute the prepared statement
+      ResultSet apikeyResult = apikeyPreparedStmt.executeQuery();
+      while (apikeyResult.next()) {
+        apikeyExists = true;
+      }
+    }
+
+    // Set matchCount to 0 at creation
+    int matchCount = 0;
+    // Set canMatch to 10 at creation
+    int canMatch = 10;
 
     // if user not in database
     if (inDatabase == null) {
       // Insert into Database
       // the mysql insert statement
-      query = " insert into user (mail, name, isAffiliateTo, asMatched, canMatch, password)"
-              + " values (?, ?, ?, ?, ?, ?)";
+      query = " insert into user (apikey, mail, name, isAffiliateTo, matchCount, canMatch, password)"
+              + " values (?, ?, ?, ?, ?, ?, ?)";
 
       // create the mysql insert preparedstatement
       preparedStmt = conn.prepareStatement(query);
-      preparedStmt.setString(1, mail);
-      preparedStmt.setString(2, name);
-      preparedStmt.setString(3, affiliation);
-      preparedStmt.setInt(4, asMatched);
-      preparedStmt.setInt(5, canMatch);
-      
+      preparedStmt.setString(1, apikey);
+      preparedStmt.setString(2, mail);
+      preparedStmt.setString(3, name);
+      preparedStmt.setString(4, affiliation);
+      preparedStmt.setInt(5, matchCount);
+      preparedStmt.setInt(6, canMatch);
+
       String hashed = getPasswordHash(password);
-      preparedStmt.setString(6, hashed);
+      preparedStmt.setString(7, hashed);
 
       // execute the preparedstatement
       preparedStmt.execute();
@@ -155,19 +178,19 @@ public class YamDatabaseConnector {
     }
     conn.close();
 
-    return new YamUser(name, mail, affiliation, password, asMatched, canMatch);
+    return new YamUser(apikey, mail, name, affiliation, password, matchCount, canMatch);
   }
 
   /**
-   * To update asMatched of a user. It takes the mail. And retrieves the
+   * To update matchCount of a user. It takes the apikey. And retrieves the
    * corresponding user in the database
    *
-   * @param mail
+   * @param apikey
    * @return YamUser
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public YamUser updateAsMatched(String mail) throws SQLException, ClassNotFoundException {
+  public YamUser updateMatchCount(String apikey) throws SQLException, ClassNotFoundException {
     // create a mysql database connection
     Class.forName(this.driver);
     Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
@@ -175,29 +198,29 @@ public class YamDatabaseConnector {
     Class.forName(this.driver);
 
     // increment asMatched value
-    String query = "UPDATE user SET asMatched=asMatched+1 WHERE mail=?";
+    String query = "UPDATE user SET matchCount=matchCount+1 WHERE apikey=?";
 
     // create the mysql prepared statement
     PreparedStatement preparedStmt = conn.prepareStatement(query);
-    preparedStmt.setString(1, mail);
+    preparedStmt.setString(1, apikey);
 
     // execute the preparedstatement
     preparedStmt.execute();
 
-    // check asMatched value
-    query = "SELECT * FROM user WHERE mail=?";
+    // check matchCount value
+    query = "SELECT * FROM user WHERE apikey=?";
 
     // create the mysql prepared statement
     preparedStmt = conn.prepareStatement(query);
-    preparedStmt.setString(1, mail);
+    preparedStmt.setString(1, apikey);
 
     // execute the preparedstatement
     ResultSet result = preparedStmt.executeQuery();
 
     YamUser user = null;
     while (result.next()) {
-      user = new YamUser(result.getString("name"), result.getString("mail"),
-              result.getString("password"), result.getString("isAffiliateTo"), result.getInt("asMatched"), result.getInt("canMatch"));
+      user = new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("name"),
+              result.getString("password"), result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"));
     }
     // close connection to database
     conn.close();
