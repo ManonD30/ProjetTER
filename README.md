@@ -49,6 +49,7 @@ Using Apache Tomcat 7 and Java 8
 
 * Graphical visualization 
   * Afficher tous les concepts à une distance 1 qui sont également dans l'ontologie
+  * Visualisation d'ontologies: http://jowl.ontologyonline.org
 
 * Safari
   * La table de results se resize pas super bien quand on la rapetissit trop

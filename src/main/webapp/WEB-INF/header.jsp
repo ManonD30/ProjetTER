@@ -10,8 +10,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="scripts/bootstrap.js"></script>
     <script type="text/javascript" src="scripts/javascript.js"></script>
-    <script type="text/javascript" src="scripts/account.js"></script>
-    <script type="text/javascript" src="scripts/cookies.js"></script>
     <title>YAM++</title>
   </head>
   <body role="document" style="background-color:#f2f7f9">

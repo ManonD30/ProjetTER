@@ -1,4 +1,5 @@
-/*create a new random key this key will be used to
+/* NOT USED ANYMORE
+ create a new random key this key will be used to
  give a unique name to temporary files*/
 function createCookie(days) {
   if (days) {
