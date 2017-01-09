@@ -148,7 +148,7 @@ public class YamDatabaseConnector {
     }
     conn.close();
 
-    return new YamUser(mail, name, affiliation, password, "0", "5");
+    return new YamUser(name, mail, affiliation, password, "0", "5");
   }
 
   /**
