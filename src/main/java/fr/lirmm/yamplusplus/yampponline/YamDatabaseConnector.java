@@ -162,7 +162,7 @@ public class YamDatabaseConnector {
       preparedStmt.execute();
 
     } else {
-      System.out.println("In DB");
+      Logger.getLogger (Matcher.class.getName()).log(Level.WARNING, "Already in database");;
       return null;
     }
     conn.close();
