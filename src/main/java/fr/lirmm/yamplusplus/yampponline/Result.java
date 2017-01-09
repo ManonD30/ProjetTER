@@ -32,7 +32,7 @@ public class Result extends HttpServlet {
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    
+
     /* Check user in MySQL, not useful now
     int asMatched = 0;
     int canMatch = 0;
@@ -49,7 +49,6 @@ public class Result extends HttpServlet {
       System.err.println("Exception catched for database login!");
       System.err.println(e.getMessage());
     }*/
-
     // Retrieve ontologies String
     YamFileHandler fileHandler = null;
     try {
@@ -67,16 +66,16 @@ public class Result extends HttpServlet {
     try {
       // Processing the request (running YamppOntologyMatcher)
       request = processRequest(request);
-      matcherResult = (String) request.getAttribute("matcherResult");
+      if (request.getAttribute("errorMessage") == null) {
+        matcherResult = (String) request.getAttribute("matcherResult");
+      }
     } catch (ClassNotFoundException e) {
       request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
       System.out.println("YAM matcher execution failed: " + e.getMessage());
     }
-    if (matcherResult.startsWith("error:")) {
-      request.setAttribute("errorMessage", matcherResult);
-      this.getServletContext() // send response
-              .getRequestDispatcher("/WEB-INF/validation.jsp")
-              .forward(request, response);
+    if (request.getAttribute("errorMessage") != null) {
+      // send response
+      this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
     }
 
     // get time at the matching end
@@ -105,6 +104,7 @@ public class Result extends HttpServlet {
 
   /**
    * Round a double to 2 decimal places
+   *
    * @param value
    * @return double
    */

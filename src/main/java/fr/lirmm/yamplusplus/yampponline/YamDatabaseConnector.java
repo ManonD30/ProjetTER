@@ -17,6 +17,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A Class to connect to the MySQL Database used by Yam to manage users
@@ -25,6 +27,7 @@ import java.util.Properties;
  */
 public class YamDatabaseConnector {
 
+  Connection dbConnection;
   String dbUrl;
   String dbUsername;
   String dbPassword;
@@ -41,11 +44,8 @@ public class YamDatabaseConnector {
     this.dbPassword = prop.getProperty("dbpassword");
     this.workDir = prop.getProperty("workdir");
 
-    //this.driver = "org.gjt.mm.mysql.Driver";
     this.driver = "com.mysql.jdbc.Driver";
-
     Class.forName(this.driver);
-    //Connection conn = DriverManager.getConnection(myUrl, "root", "password");
   }
 
   public String getWorkDir() {
@@ -64,9 +64,8 @@ public class YamDatabaseConnector {
    */
   public YamUser userConnection(String mail, String password) throws SQLException, ClassNotFoundException {
     // create a mysql database connection
-    Class.forName(this.driver);
-    Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername,
-            this.dbPassword);
+    //Class.forName(this.driver);
+    Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
 
     // mysql request
     String query = "SELECT * FROM user WHERE mail= ? AND password = ?";
@@ -106,7 +105,7 @@ public class YamDatabaseConnector {
    */
   public YamUser userCreate(String mail, String username, String affiliation, String password) throws SQLException, ClassNotFoundException {
     // create a mysql database connection
-    Class.forName(this.driver);
+    //Class.forName(this.driver);
     Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
 
     // check if user is in database
@@ -132,7 +131,7 @@ public class YamDatabaseConnector {
     boolean apikeyExists = true;
     while (apikeyExists) {
       apikeyExists = false;
-      apikey = new BigInteger(130, random).toString(32).substring(0,16);
+      apikey = new BigInteger(130, random).toString(32).substring(0, 16);
       String apikeyQuery = "SELECT username FROM user WHERE apikey=?";
 
       // create the mysql insert preparedstatement
@@ -172,13 +171,39 @@ public class YamDatabaseConnector {
       // execute the preparedstatement
       preparedStmt.execute();
 
-    } else { // if user not in database redirect to sign
+    } else {
       System.out.println("In DB");
       return null;
     }
     conn.close();
 
     return new YamUser(apikey, mail, username, affiliation, password, matchCount, canMatch);
+  }
+
+  /**
+   * Return true is given apikey found in the dabatase
+   * @param apikey
+   * @return boolean 
+   */
+  public boolean isValidApikey(String apikey) {
+    try {
+    Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
+    String apikeyQuery = "SELECT username FROM user WHERE apikey=?";
+
+    // create the mysql insert preparedstatement
+    PreparedStatement apikeyPreparedStmt = conn.prepareStatement(apikeyQuery);
+    apikeyPreparedStmt.setString(1, apikey);
+    // execute the prepared statement
+    ResultSet apikeyResult = apikeyPreparedStmt.executeQuery();
+    while (apikeyResult.next()) {
+      conn.close();
+      return true;
+    }
+    conn.close();
+    } catch (SQLException e) {
+       Logger.getLogger (Matcher.class.getName()).log(Level.SEVERE, "Error when checking apikey validity: {0}", e.toString());;
+    }
+    return false;
   }
 
   /**
