@@ -2,7 +2,7 @@
 <%@include file="header.jsp" %>
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
-<%  String apikey = "YOUR_APIKEY";
+<% String apikey = "YOUR_APIKEY";
   if (request.getSession().getAttribute("apikey") != null) {
     apikey = request.getSession().getAttribute("apikey").toString();
   }

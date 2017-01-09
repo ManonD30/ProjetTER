@@ -1,6 +1,10 @@
 <%@include file="header.jsp" %>
 
 <div class="container theme-showcase" role="main">
+  <% if (request.getSession().getAttribute("apikey") == null) { %>
+  <p style="margin: 4%; text-align: center;"><a href="sign">Login or signup</a> to use Yam++ Online ontology matcher</p>
+  <% } else { %>
+
   <h3 class=contentText>Select the ontologies to match</h3>
   <div class=form>
     <form action="result" method="post"
@@ -132,6 +136,7 @@
       </p>
     </div>
   </div>
+  <% }%>
 </div>
 
 <script type="text/javascript">

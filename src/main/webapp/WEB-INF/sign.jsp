@@ -28,8 +28,7 @@
         out.print("<div class=sign>");
       }
     %>
-    <h3 style="margin-bottom: 0">To benefit from YAM++ online, you
-      have to create a (free) account.</h3>
+    <h2 style="margin-top: 2%;">Create an account to use Yam++ matcher</h2>
     <div class=signup>
       <h1>Sign up:</h1>
       <!--form action="signup" method="post" name=signup enctype="multipart/form-data"-->
