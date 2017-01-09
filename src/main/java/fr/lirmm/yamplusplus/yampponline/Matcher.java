@@ -161,7 +161,7 @@ public class Matcher extends HttpServlet {
       YamppOntologyMatcher matcher = new YamppOntologyMatcher();
 
       //Logger myLog = Logger.getLogger (Matcher.class.getName());
-      //myLog.log(Level.WARNING, "hellow!!!" );
+      //myLog.log(Level.WARNING, "hello!" );
       // Set params
       if (request.getParameter("matcherType") != null) {
         matcher.setMatcherType(MatcherType.valueOf(request.getParameter("matcherType")));

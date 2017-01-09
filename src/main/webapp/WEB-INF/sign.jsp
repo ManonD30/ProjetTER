@@ -13,7 +13,7 @@
     if (username != null) {%>
   <br><h2>Connected as <%=username%></h2>
   <p class=contentCenter>Apikey to authenticate yourself to use the RESTful Matcher: <b><%=apikey%></b></p>
-  <p class=contentCenter>You have done <%=matchCount%> matchings.</p>
+  <p class=contentCenter>You have done <%=matchCount%> ontology matching.</p>
   <p class=contentCenter>Affiliate to  <%=isAffiliateTo%>.</p>
   <form action='changePassword' method='get' name=modify enctype='multipart/form-data'>
     <input type='submit' class=btnBig value='Change my password'>
