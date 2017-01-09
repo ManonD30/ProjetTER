@@ -16,7 +16,7 @@ import com.hp.hpl.jena.rdf.model.impl.StatementImpl;
 import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
-import static fr.lirmm.yamplusplus.yampponline.Result.round;
+import static fr.lirmm.yamplusplus.yampponline.MatcherInterface.round;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;

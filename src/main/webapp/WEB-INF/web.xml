@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
   <display-name>yampp-online</display-name>
-  
   <!--servlet>
     <servlet-name>Jersey REST Service</servlet-name>
     <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
@@ -28,7 +27,6 @@
     <servlet-name>Jersey REST Service</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping-->
-    
   <servlet>
     <servlet-name>Index</servlet-name>
     <servlet-class>fr.lirmm.yamplusplus.yampponline.Index</servlet-class>
@@ -42,7 +40,6 @@
     <welcome-file>index</welcome-file>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  
   <!-- Mapping /rest/matcher to the Matcher.java class. For the RESTful service. We don't need to use 
   Jersey  or Spring at the moment, since it is just for a matcher service -->
   <servlet>
@@ -54,7 +51,6 @@
     <servlet-name>REST Matcher</servlet-name>
     <url-pattern>/rest/matcher</url-pattern>
   </servlet-mapping>
-    
   <!-- Mapping /matcher to matcher.jsp file -->
   <servlet>
     <servlet-name>Matcher</servlet-name>
@@ -65,18 +61,16 @@
     <servlet-name>Matcher</servlet-name>
     <url-pattern>/matcher</url-pattern>
   </servlet-mapping>
-    
-  <!-- Mapping /result to Result.java class to get Yam++ matcher results -->
+  <!-- Mapping /result to MatcherInterface.java class to get Yam++ matcher results -->
   <servlet>
-    <servlet-name>Result</servlet-name>
-    <servlet-class>fr.lirmm.yamplusplus.yampponline.Result</servlet-class>
+    <servlet-name>Matcher Interface</servlet-name>
+    <servlet-class>fr.lirmm.yamplusplus.yampponline.MatcherInterface</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Result</servlet-name>
+    <servlet-name>Matcher Interface</servlet-name>
     <url-pattern>/result</url-pattern>
   </servlet-mapping>
-    
   <!-- Mapping /validator to Validator.java class for the validator webpage-->
   <servlet>
     <servlet-name>Validator</servlet-name>
@@ -87,7 +81,6 @@
     <servlet-name>Validator</servlet-name>
     <url-pattern>/validator</url-pattern>
   </servlet-mapping>
-    
   <!-- Mapping /download to Download.java class. When called it forces align file ddl, so the webpage is never really opened -->
   <servlet>
     <servlet-name>Download</servlet-name>
@@ -98,7 +91,6 @@
     <servlet-name>Download</servlet-name>
     <url-pattern>/download</url-pattern>
   </servlet-mapping>
-    
   <!-- Mapping /aboutus and /documentation to their respective jsp files -->
   <servlet>
     <servlet-name>Aboutus</servlet-name>
@@ -118,7 +110,6 @@
     <servlet-name>Documentation</servlet-name>
     <url-pattern>/documentation</url-pattern>
   </servlet-mapping>
-    
   <!-- Servlet mappings for user management -->
   <servlet>
     <servlet-name>Signin</servlet-name>
@@ -129,7 +120,6 @@
     <servlet-name>Signin</servlet-name>
     <url-pattern>/sign</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>Signup</servlet-name>
     <servlet-class>fr.lirmm.yamplusplus.yampponline.Signup</servlet-class>
@@ -139,7 +129,6 @@
     <servlet-name>Signup</servlet-name>
     <url-pattern>/signup</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>ChangePassword</servlet-name>
     <servlet-class>fr.lirmm.yamplusplus.yampponline.ChangePassword</servlet-class>
@@ -149,7 +138,6 @@
     <servlet-name>ChangePassword</servlet-name>
     <url-pattern>/changePassword</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>Disconnect</servlet-name>
     <servlet-class>fr.lirmm.yamplusplus.yampponline.Disconnect</servlet-class>

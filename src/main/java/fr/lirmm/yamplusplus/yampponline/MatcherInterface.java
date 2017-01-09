@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 
-public class Result extends HttpServlet {
+public class MatcherInterface extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
@@ -23,7 +23,7 @@ public class Result extends HttpServlet {
   public static java.util.Map<String, String> Onto2 = new HashMap<>();
 
   /**
-   * Servlet's doPost which run YAM++ and redirect to the .JSP
+   * Called when running Matcher with the UI. Servlet's doPost which run YAM++ and redirect to the .JSP
    *
    * @param request
    * @param response
@@ -54,7 +54,7 @@ public class Result extends HttpServlet {
     try {
       fileHandler = new YamFileHandler();
     } catch (ClassNotFoundException ex) {
-      Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(MatcherInterface.class.getName()).log(Level.SEVERE, null, ex);
     }
     response.setCharacterEncoding("UTF-8");
 

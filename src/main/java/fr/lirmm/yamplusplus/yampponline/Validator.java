@@ -2,7 +2,7 @@ package fr.lirmm.yamplusplus.yampponline;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import fr.lirmm.yamplusplus.yamppls.YamppUtils;
-import static fr.lirmm.yamplusplus.yampponline.Result.liste;
+import static fr.lirmm.yamplusplus.yampponline.MatcherInterface.liste;
 import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -43,14 +43,14 @@ public class Validator extends HttpServlet {
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    //Logger myLog = Logger.getLogger(Result.class.getName());
+    //Logger myLog = Logger.getLogger(MatcherInterface.class.getName());
 
     // Retrieve ontologies String from file or URL
     YamFileHandler fileHandler = null;
     try {
       fileHandler = new YamFileHandler();
     } catch (ClassNotFoundException ex) {
-      Logger.getLogger(Result.class.getName()).log(Level.ERROR, null, ex);
+      Logger.getLogger(MatcherInterface.class.getName()).log(Level.ERROR, null, ex);
     }
 
     // Get string of alignment from file
@@ -69,8 +69,8 @@ public class Validator extends HttpServlet {
     String targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
 
     // Read ontology with Jena and get ontology JSON model for JavaScript
-    Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI(), Logger.getLogger(Result.class.getName()));
-    Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI(), Logger.getLogger(Result.class.getName()));
+    Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI(), Logger.getLogger(MatcherInterface.class.getName()));
+    Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI(), Logger.getLogger(MatcherInterface.class.getName()));
     request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(srcJenaModel));
     request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(tarJenaModel));
 
