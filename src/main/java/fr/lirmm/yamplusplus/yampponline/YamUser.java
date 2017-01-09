@@ -5,6 +5,8 @@
  */
 package fr.lirmm.yamplusplus.yampponline;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Class for Yam Users. With: name, mail, password, matchCount and number of possible matchs
  *
@@ -36,6 +38,35 @@ public class YamUser {
         
         this.asMatched = asMatched;
         this.canMatch = canMatch;
+    }
+    
+    /**
+     * Build YAM from session
+     * @param session 
+     */
+    public YamUser(HttpSession session) {
+      this.mail = (String) session.getAttribute("mail");
+      this.name = (String) session.getAttribute("name");
+      this.isAffiliateTo = (String) session.getAttribute("isAffiliateTo");
+      
+      this.asMatched = (int) session.getAttribute("asMatched");
+      this.canMatch = (int) session.getAttribute("canMatch");
+    }
+    
+    /**
+     * Add the YamUser param to the given session.
+     * 
+     * @param session
+     * @return HttpSession
+     */
+    public HttpSession addUserToSession(HttpSession session) {
+      session.setAttribute("mail", this.mail);
+      session.setAttribute("name", this.name);
+      session.setAttribute("asMatched", this.asMatched);
+      session.setAttribute("canMatch", this.canMatch);
+      session.setAttribute("isAffiliateTo", this.isAffiliateTo);
+      
+      return session;
     }
 
     public String getName() {

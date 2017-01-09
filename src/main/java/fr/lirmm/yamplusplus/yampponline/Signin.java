@@ -2,6 +2,7 @@ package fr.lirmm.yamplusplus.yampponline;
 
 import java.io.IOException;
 import java.security.MessageDigest;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,20 +30,14 @@ public class Signin extends HttpServlet {
     try {
       YamDatabaseConnector dbConnector = new YamDatabaseConnector();
       YamUser user = dbConnector.userConnection(mail, password);
-      name = user.getName();
-      // create session
-      HttpSession session = request.getSession();
-      // add user's key (mail) to session
-      session.setAttribute("mail", mail);
-      // add user's name to session
-      session.setAttribute("name", name);
-      //add number of matching allowed to session
-      session.setAttribute("canMatch", user.getCanMatch());
-      session.setAttribute("asMatched", user.getAsMatched());
+      //name = user.getName();
+      // add the YamUser to the session
+      HttpSession session = user.addUserToSession(request.getSession());
+      
       // send response
       this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
       
-    } catch (Exception e) {
+    } catch (IOException | ClassNotFoundException | SQLException | ServletException e) {
       myLog.log(Level.SEVERE, "Login failed!!!{0}", e.toString());
       
       // error message

@@ -51,15 +51,17 @@ public class Signup extends HttpServlet {
         
       } else {
         myLog.log(Level.INFO, "Creating user... In else");
+        
+        HttpSession session = user.addUserToSession(request.getSession());
         // create session
-        HttpSession session = request.getSession();
+        /*HttpSession session = request.getSession();
         // add user's key (mail) to session
         session.setAttribute("mail", user.getMail());
         // add user's name to session
         session.setAttribute("name", user.getName());
         //add canMatch to session
         session.setAttribute("canMatch", user.getCanMatch());
-        session.setAttribute("asMatched", user.getAsMatched());
+        session.setAttribute("asMatched", user.getAsMatched());*/
         // send response
       }
     } catch (IOException | ClassNotFoundException | SQLException | ServletException e) {
