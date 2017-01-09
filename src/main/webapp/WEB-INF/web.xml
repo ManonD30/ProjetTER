@@ -69,7 +69,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Matcher Interface</servlet-name>
-    <url-pattern>/result</url-pattern>
+    <url-pattern>/matcherinterface</url-pattern>
   </servlet-mapping>
   <!-- Mapping /validator to Validator.java class for the validator webpage-->
   <servlet>

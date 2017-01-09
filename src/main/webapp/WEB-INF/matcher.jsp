@@ -7,7 +7,7 @@
 
   <h3 class=contentText>Select the ontologies to match</h3>
   <div class=form>
-    <form action="result" method="post"
+    <form action="matcherinterface" method="post"
           enctype="multipart/form-data" name=form
           onsubmit="return  validateForm()">
 
