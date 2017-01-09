@@ -83,7 +83,7 @@ public class YamDatabaseConnector {
     YamUser user = null;
     // get user
     while (result.next()) {
-      user = new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("name"), result.getString("password"),
+      user = new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("username"), result.getString("password"),
               result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"));
     }
 
@@ -97,21 +97,21 @@ public class YamDatabaseConnector {
    * corresponding user in the database
    *
    * @param mail
-   * @param name
+   * @param username
    * @param affiliation
    * @param password
    * @return YamUser
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public YamUser userCreate(String mail, String name, String affiliation, String password) throws SQLException, ClassNotFoundException {
+  public YamUser userCreate(String mail, String username, String affiliation, String password) throws SQLException, ClassNotFoundException {
     // create a mysql database connection
     Class.forName(this.driver);
     Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
 
     // check if user is in database
     // the mysql insert statement
-    String query = "SELECT name FROM user WHERE mail=?";
+    String query = "SELECT username FROM user WHERE mail=?";
 
     // create the mysql insert preparedstatement
     PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -123,7 +123,7 @@ public class YamDatabaseConnector {
     // get result
     String inDatabase = null;
     while (result.next()) {
-      inDatabase = result.getString("name");
+      inDatabase = result.getString("username");
     }
 
     // Generate unique random apikey
@@ -133,7 +133,7 @@ public class YamDatabaseConnector {
     while (apikeyExists) {
       apikeyExists = false;
       apikey = new BigInteger(130, random).toString(32).substring(0,16);
-      String apikeyQuery = "SELECT name FROM user WHERE apikey=?";
+      String apikeyQuery = "SELECT username FROM user WHERE apikey=?";
 
       // create the mysql insert preparedstatement
       PreparedStatement apikeyPreparedStmt = conn.prepareStatement(apikeyQuery);
@@ -154,14 +154,14 @@ public class YamDatabaseConnector {
     if (inDatabase == null) {
       // Insert into Database
       // the mysql insert statement
-      query = " insert into user (apikey, mail, name, isAffiliateTo, matchCount, canMatch, password)"
+      query = " insert into user (apikey, mail, username, isAffiliateTo, matchCount, canMatch, password)"
               + " values (?, ?, ?, ?, ?, ?, ?)";
 
       // create the mysql insert preparedstatement
       preparedStmt = conn.prepareStatement(query);
       preparedStmt.setString(1, apikey);
       preparedStmt.setString(2, mail);
-      preparedStmt.setString(3, name);
+      preparedStmt.setString(3, username);
       preparedStmt.setString(4, affiliation);
       preparedStmt.setInt(5, matchCount);
       preparedStmt.setInt(6, canMatch);
@@ -178,7 +178,7 @@ public class YamDatabaseConnector {
     }
     conn.close();
 
-    return new YamUser(apikey, mail, name, affiliation, password, matchCount, canMatch);
+    return new YamUser(apikey, mail, username, affiliation, password, matchCount, canMatch);
   }
 
   /**
@@ -219,7 +219,7 @@ public class YamDatabaseConnector {
 
     YamUser user = null;
     while (result.next()) {
-      user = new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("name"),
+      user = new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("username"),
               result.getString("password"), result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"));
     }
     // close connection to database

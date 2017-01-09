@@ -6,8 +6,8 @@
       matchCount = request.getSession().getAttribute("matchCount").toString();
     }
 
-    if (name != null) {
-      out.println("<br><h2>Connected as " + name + ".</h2>");
+    if (username != null) {
+      out.println("<br><h2>Connected as " + username + ".</h2>");
       out.println("<p class=contentCenter>You have done " + matchCount + " matchings.</p>");
       out.println("<p class=contentCenter>Affiliate to " + request.getSession().getAttribute("isAffiliateTo").toString() + ".</p>");
       out.println("<form action='changePassword'"

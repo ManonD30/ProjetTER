@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 public class YamUser {
 
   String apikey;
-  String name;
+  String username;
   String mail;
   String passwordHash;
   String isAffiliateTo;
@@ -33,10 +33,10 @@ public class YamUser {
    * @param matchCount
    * @param canMatch
    */
-  public YamUser(String apikey, String mail, String name, String passwordHash, String isAffiliateTo, int matchCount, int canMatch) {
+  public YamUser(String apikey, String mail, String username, String passwordHash, String isAffiliateTo, int matchCount, int canMatch) {
     this.apikey = apikey;
     this.mail = mail;
-    this.name = name;
+    this.username = username;
     this.passwordHash = passwordHash;
     this.isAffiliateTo = isAffiliateTo;
 
@@ -52,7 +52,7 @@ public class YamUser {
   public YamUser(HttpSession session) {
     this.apikey = (String) session.getAttribute("apikey");
     this.mail = (String) session.getAttribute("mail");
-    this.name = (String) session.getAttribute("name");
+    this.username = (String) session.getAttribute("username");
     this.isAffiliateTo = (String) session.getAttribute("isAffiliateTo");
 
     this.matchCount = (int) session.getAttribute("matchCount");
@@ -68,7 +68,7 @@ public class YamUser {
   public HttpSession addUserToSession(HttpSession session) {
     session.setAttribute("apikey", this.apikey);
     session.setAttribute("mail", this.mail);
-    session.setAttribute("name", this.name);
+    session.setAttribute("username", this.username);
     session.setAttribute("matchCount", this.matchCount);
     session.setAttribute("canMatch", this.canMatch);
     session.setAttribute("isAffiliateTo", this.isAffiliateTo);
@@ -80,12 +80,12 @@ public class YamUser {
     return apikey;
   }
   
-  public String getName() {
-    return name;
+  public String getUsername() {
+    return username;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public String getMail() {

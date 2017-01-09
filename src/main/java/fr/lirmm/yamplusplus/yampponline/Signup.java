@@ -29,24 +29,24 @@ public class Signup extends HttpServlet {
     //prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
     String mail = request.getParameter("mailUp");
     String password = request.getParameter("passwordUp");
-    String name = request.getParameter("nameUp");
+    String username = request.getParameter("nameUp");
     String affiliation = request.getParameter("affiliationUp");
     
     // write logs to catalina.out
     Logger myLog = Logger.getLogger(Signup.class.getName());
 
-    myLog.log(Level.INFO, "Before try !!!");
+    //myLog.log(Level.INFO, "Creating user...");
     try {
       YamDatabaseConnector dbConnector = new YamDatabaseConnector();
-      YamUser user = dbConnector.userCreate(mail, name, affiliation, password);
+      YamUser user = dbConnector.userCreate(mail, username, affiliation, password);
 
       if (user == null) {
-        myLog.log(Level.INFO, "Already in DB !!! (user == null)");
+        myLog.log(Level.SEVERE, "Already in database!");
         
         this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
         
       } else {
-        myLog.log(Level.INFO, "Creating user... In else");
+        //myLog.log(Level.INFO, "Add user to session...");
         
         HttpSession session = user.addUserToSession(request.getSession());
         // create session

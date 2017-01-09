@@ -14,10 +14,10 @@
   </head>
   <body role="document" style="background-color:#f2f7f9">
     <header>
-      <% String name = (String) request.getSession().getAttribute("name");
+      <% String username = (String) request.getSession().getAttribute("username");
         String signLabel = "Sign in/up";
-        if (name != null) {
-          signLabel = name;
+        if (username != null) {
+          signLabel = username;
         }
       %>
       <div class=nav>
