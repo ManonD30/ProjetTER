@@ -53,6 +53,7 @@ public class YamDatabaseConnector {
   /**
    * To connect as a user. It takes the mail and password. And retrieves the
    * corresponding user in the database
+   *
    * @param mail
    * @param password
    * @return YamUser
@@ -80,8 +81,8 @@ public class YamDatabaseConnector {
     YamUser user = null;
     // get user
     while (result.next()) {
-      user = new YamUser(result.getString("name"), result.getString("mail"),
-              result.getString("password"), result.getString("isAffiliateTo"), result.getString("asMatched"), result.getString("canMatch"));
+      user = new YamUser(result.getString("name"), result.getString("mail"), result.getString("password"), 
+              result.getString("isAffiliateTo"), result.getInt("asMatched"), result.getInt("canMatch"));
     }
 
     // close connection to database
@@ -92,6 +93,7 @@ public class YamDatabaseConnector {
   /**
    * To create a user. It takes the mail and password. And create the
    * corresponding user in the database
+   *
    * @param mail
    * @param name
    * @param affiliation
@@ -119,17 +121,20 @@ public class YamDatabaseConnector {
 
     // get result
     String inDatabase = null;
+    // Set asMatched to 0 at creation
+    int asMatched = 0;
+    // Set canMatch to 10 at creation
+    int canMatch = 10;
     while (result.next()) {
       inDatabase = result.getString("name");
     }
 
     // if user not in database
-    System.out.println(name);
     if (inDatabase == null) {
       // Insert into Database
       // the mysql insert statement
-      query = " insert into user (mail, name, isAffiliateTo, password)"
-              + " values (?, ?, ?, ?)";
+      query = " insert into user (mail, name, isAffiliateTo, asMatched, canMatch, password)"
+              + " values (?, ?, ?, ?, ?)";
 
       // create the mysql insert preparedstatement
       preparedStmt = conn.prepareStatement(query);
@@ -137,7 +142,11 @@ public class YamDatabaseConnector {
       preparedStmt.setString(2, name);
       String hashed = getPasswordHash(password);
       preparedStmt.setString(3, affiliation);
-      preparedStmt.setString(4, hashed);
+      // Set asMatched to 0 at creation
+      preparedStmt.setInt(4, asMatched);
+      // Set canMatch to 10 at creation
+      preparedStmt.setInt(5, canMatch);
+      preparedStmt.setString(6, hashed);
 
       // execute the preparedstatement
       preparedStmt.execute();
@@ -148,14 +157,14 @@ public class YamDatabaseConnector {
     }
     conn.close();
 
-    return new YamUser(name, mail, affiliation, password, "0", "5");
+    return new YamUser(name, mail, affiliation, password, asMatched, canMatch);
   }
 
   /**
    * To update asMatched of a user. It takes the mail. And retrieves the
    * corresponding user in the database
+   *
    * @param mail
-   * @param password
    * @return YamUser
    * @throws SQLException
    * @throws ClassNotFoundException
@@ -163,8 +172,7 @@ public class YamDatabaseConnector {
   public YamUser updateAsMatched(String mail) throws SQLException, ClassNotFoundException {
     // create a mysql database connection
     Class.forName(this.driver);
-    Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername,
-            this.dbPassword);
+    Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
 
     Class.forName(this.driver);
 
@@ -191,7 +199,7 @@ public class YamDatabaseConnector {
     YamUser user = null;
     while (result.next()) {
       user = new YamUser(result.getString("name"), result.getString("mail"),
-              result.getString("password"), result.getString("isAffiliateTo"), result.getString("asMatched"), result.getString("canMatch"));
+              result.getString("password"), result.getString("isAffiliateTo"), result.getInt("asMatched"), result.getInt("canMatch"));
     }
     // close connection to database
     conn.close();

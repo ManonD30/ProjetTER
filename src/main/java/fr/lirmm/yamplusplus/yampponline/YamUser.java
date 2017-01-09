@@ -6,6 +6,7 @@
 package fr.lirmm.yamplusplus.yampponline;
 
 /**
+ * Class for Yam Users. With: name, mail, password, matchCount and number of possible matchs
  *
  * @author emonet
  */
@@ -27,25 +28,14 @@ public class YamUser {
      * @param asMatched 
      * @param canMatch
      */
-    public YamUser(String name, String mail, String passwordHash, String isAffiliateTo, String asMatched, String canMatch) {
+    public YamUser(String name, String mail, String passwordHash, String isAffiliateTo, int asMatched, int canMatch) {
         this.name = name;
         this.mail = mail;
         this.passwordHash = passwordHash;
         this.isAffiliateTo = isAffiliateTo;
         
-        // If asMatch is null we set it to 0 by default
-        if (asMatched == null) {
-            this.asMatched = 0;
-        } else {
-            this.asMatched = Integer.parseInt(asMatched);
-        }
-        
-        // If canMatch is null we set it to 5 by default
-        if (canMatch == null) {
-            this.canMatch = 5;
-        } else {
-            this.canMatch = Integer.parseInt(asMatched);
-        }
+        this.asMatched = asMatched;
+        this.canMatch = canMatch;
     }
 
     public String getName() {
