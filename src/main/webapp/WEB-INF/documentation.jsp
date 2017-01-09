@@ -2,6 +2,14 @@
 <%@include file="header.jsp" %>
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
+<%  String apikey = "YOUR_APIKEY";
+  if (request.getSession().getAttribute("apikey") != null) {
+    apikey = request.getSession().getAttribute("apikey").toString();
+  }
+  String sourceUrl = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl";
+  String targetUrl = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl";
+%>
+
 <div class="container theme-showcase" role="main">
   <div class=textMainBody>
     <h1>Using the REST API</h1>
@@ -9,21 +17,21 @@
     <h3>HTTP GET Request</h3>
 
     <p>
-      You can pass the URL of the ontology with "sourceUrl" and "targetUrl" parameters
+      You can pass the URL of the ontology  and the API Keywith "apikey", "sourceUrl" and "targetUrl" parameters.
     </p>
 
     <h4>Using your browser</h4>
     <p>
-      <a href="rest/matcher?sourceUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl&targetUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl">
-        http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://Conference.owl&targetUrl=https://cmt.owl
+      <a href="rest/matcher?sourceUrl=<%=sourceUrl%>&targetUrl=<%=targetUrl%>&apikey=<%=apikey%>">
+        http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=<%=sourceUrl%>&targetUrl=<%=targetUrl%>&apikey=<%=apikey%>
       </a>
     </p>
     <br/>
 
     <h4>Using cURL command</h4>
 
-    <pre class="prettyprint">curl -X GET http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=http://purl.obolibrary.org/obo/po.owl&targetUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
-curl -X GET http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl&targetUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/cmt.owl
+    <pre class="prettyprint">curl -X GET http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=<%=sourceUrl%>&targetUrl=<%=targetUrl%>&apikey=<%=apikey%>
+curl -X GET http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=<%=sourceUrl%>&targetUrl=<%=targetUrl%>&apikey=<%=apikey%>
     </pre>
 
     <h4>Using Java</h4>
@@ -61,19 +69,20 @@ curl -X GET http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://gite.lirm
     </p>
 
     <pre class="prettyprint">curl -X POST -H \"Content-Type: multipart/form-data\ 
-  -F sourceFile=@/path/to/ontology_file.owl 
-  http://yamplusplus.lirmm.fr/rest/matcher?targetUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl'
+  -F sourceFile=@/path/to/source_ontology_file.owl 
+  http://yamplusplus.lirmm.fr/rest/matcher?targetUrl=<%=targetUrl%>&apikey=<%=apikey%>'
 curl -X POST -H "Content-Type: multipart/form-data" 
-  -F targetFile=@/path/to/ont1.owl 
-  -F sourceFile=@/path/to/ont2.owl 
+  -F sourceFile=@/path/to/source_ont.owl 
+  -F targetFile=@/path/to/target_ont.owl 
+  -d 'apikey=<%=apikey%>'
   http://yamplusplus.lirmm.fr/rest/matcher
 curl -X POST http://localhost:8083/rest/matcher 
-  -d 'sourceUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/Conference.owl'
-  -d 'targetUrl=https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/cmt.owl'
+  -d 'sourceUrl=<%=sourceUrl%>'
+  -d 'targetUrl=<%=targetUrl%>'
+  -d 'apikey=<%=apikey%>'
     </pre>
 
   </div>
-
 </div>
 
 <%@include file="footer.jsp" %>
