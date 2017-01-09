@@ -4,7 +4,7 @@
   <% String matchCount = "0";
   String isAffiliateTo = "null";
   String apikey = "null";
-    if (request.getSession().getAttribute("matchCount") != null) {
+    if (request.getSession().getAttribute("apikey") != null) {
       apikey = request.getSession().getAttribute("apikey").toString();
       matchCount = request.getSession().getAttribute("matchCount").toString();
       isAffiliateTo = request.getSession().getAttribute("isAffiliateTo").toString();

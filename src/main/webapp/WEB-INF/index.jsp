@@ -1,5 +1,12 @@
 <%@include file="header.jsp" %>
 
+<%
+  String apikey = "YOUR_APIKEY";
+    if (request.getSession().getAttribute("apikey") != null) {
+      apikey = request.getSession().getAttribute("apikey").toString();
+    }
+%>
+
 <div class="container theme-showcase" role="main">
   <div class=indexLogoDiv>
     <h2>Online ontology and thesaurus matching, mapping validation 
@@ -21,8 +28,10 @@
       <p>A <a href="http://yamplusplus.lirmm.fr/rest/matcher">RESTful API</a> to get an alignment between 2 ontologies. 
         You can pass the URL of the ontology with "sourceUrl" and "targetUrl" parameters.<br/>
         For example:
-        <a href="rest/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false">
-          http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://mop-iaml.ttl&targetUrl=https://mop-diabolo.ttl&crisscrossConflict=false
+        <a href="rest/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl
+           &targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false
+           &apikey=<%=apikey%>">
+          http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://mop-iaml.ttl&targetUrl=https://mop-diabolo.ttl&crisscrossConflict=false&apikey=<%=apikey%>
         </a>
       </p>
 
