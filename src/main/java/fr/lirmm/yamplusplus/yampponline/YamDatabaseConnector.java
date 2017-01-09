@@ -132,7 +132,7 @@ public class YamDatabaseConnector {
     boolean apikeyExists = true;
     while (apikeyExists) {
       apikeyExists = false;
-      apikey = new BigInteger(130, random).toString(32).substring(0,10).toUpperCase();
+      apikey = new BigInteger(130, random).toString(32).substring(0,16);
       String apikeyQuery = "SELECT name FROM user WHERE apikey=?";
 
       // create the mysql insert preparedstatement
