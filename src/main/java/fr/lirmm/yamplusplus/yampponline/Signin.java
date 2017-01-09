@@ -30,10 +30,8 @@ public class Signin extends HttpServlet {
       YamDatabaseConnector dbConnector = new YamDatabaseConnector();
       YamUser user = dbConnector.userConnection(mail, password);
       name = user.getName();
-
     } catch (Exception e) {
-      myLog.log(Level.INFO, "Login failed!!!");
-      myLog.log(Level.INFO, e.getMessage());
+      myLog.log(Level.SEVERE, "Login failed!!!{0}", e.toString());
     }
 
     // if invalid password or mail
@@ -41,8 +39,7 @@ public class Signin extends HttpServlet {
       // error message
       request.setAttribute("error", "Invalid login or password");
       // send response
-      this.getServletContext().getRequestDispatcher("/WEB-INF/sign.jsp")
-              .forward(request, response);
+      this.getServletContext().getRequestDispatcher("/WEB-INF/sign.jsp").forward(request, response);
 
     } else {
       // create session
@@ -54,8 +51,7 @@ public class Signin extends HttpServlet {
       //add number of matching allowed to session
       session.setAttribute("canMatch", canMatch);
       // send response
-      this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp")
-              .forward(request, response);
+      this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
     }
   }
 

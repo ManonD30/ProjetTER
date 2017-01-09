@@ -1,12 +1,9 @@
 <%@include file="header.jsp" %>
 
 <div class="container theme-showcase" role="main">
-  <%    String canMatch = (String) request.getSession().getAttribute(
-            "canMatch");
+  <%    
     if (name != null) {
       out.println("<br><h2>Connected as " + name + ".</h2>");
-      out.println("<p class=contentCenter>You can do " + canMatch
-              + " matching each day.</p>");
       out.println("<form action='changePassword'"
               + "method='get'name=modify enctype='multipart/form-data'>"
               + "<input type='submit' class=btnBig value='Change my password'>"

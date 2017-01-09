@@ -2,6 +2,7 @@ package fr.lirmm.yamplusplus.yampponline;
 
 import java.io.IOException;
 import java.security.MessageDigest;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -46,9 +47,8 @@ public class Signup extends HttpServlet {
         //URI uri = new URL(prop.getProperty("appurl") + "/sign").toURI();
 
         // TODO: CHANGE IT
-        this.getServletContext()
-                .getRequestDispatcher("/WEB-INF/index.jsp")
-                .forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+        
       } else {
         myLog.log(Level.INFO, "Creating user... In else");
         // create session
@@ -61,14 +61,12 @@ public class Signup extends HttpServlet {
         session.setAttribute("canMatch", user.getCanMatch());
         // send response
       }
-    } catch (Exception e) {
+    } catch (IOException | ClassNotFoundException | SQLException | ServletException e) {
       myLog.log(Level.SEVERE, "Error creating the user: {0}", e.toString());
     }
     //URI uri = new URL(prop.getProperty("appurl") + "/index").toURI();
     // TODO: CHANGE IT
-    this.getServletContext()
-            .getRequestDispatcher("/WEB-INF/index.jsp")
-            .forward(request, response);
+    this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 
   }
 
