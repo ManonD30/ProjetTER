@@ -30,7 +30,7 @@ public class YamUser {
    * @param mail
    * @param passwordHash
    * @param isAffiliateTo
-   * @param asMatched
+   * @param matchCount
    * @param canMatch
    */
   public YamUser(String apikey, String mail, String name, String passwordHash, String isAffiliateTo, int matchCount, int canMatch) {

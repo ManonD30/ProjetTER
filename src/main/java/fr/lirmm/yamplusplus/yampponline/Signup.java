@@ -43,10 +43,6 @@ public class Signup extends HttpServlet {
       if (user == null) {
         myLog.log(Level.INFO, "Already in DB !!! (user == null)");
         
-        //response.sendRedirect("sign")
-        //URI uri = new URL(prop.getProperty("appurl") + "/sign").toURI();
-
-        // TODO: CHANGE IT
         this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
         
       } else {
@@ -54,70 +50,12 @@ public class Signup extends HttpServlet {
         
         HttpSession session = user.addUserToSession(request.getSession());
         // create session
-        /*HttpSession session = request.getSession();
-        // add user's key (mail) to session
-        session.setAttribute("mail", user.getMail());
-        // add user's name to session
-        session.setAttribute("name", user.getName());
-        //add canMatch to session
-        session.setAttribute("canMatch", user.getCanMatch());
-        session.setAttribute("asMatched", user.getAsMatched());*/
-        // send response
       }
     } catch (IOException | ClassNotFoundException | SQLException | ServletException e) {
       myLog.log(Level.SEVERE, "Error creating the user: {0}", e.toString());
     }
-    //URI uri = new URL(prop.getProperty("appurl") + "/index").toURI();
-    // TODO: CHANGE IT
     this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-
   }
-
-  /*@Context
-  private HttpServletRequest request;
-
-  @POST
-  @Path("/signup")
-  @Consumes(MediaType.MULTIPART_FORM_DATA)
-  public Response signup(@FormDataParam("mailUp") String mail,
-          @FormDataParam("nameUp") String name,
-          @FormDataParam("affiliationUp") String affiliation,
-          @FormDataParam("passwordUp") String password)
-          throws MalformedURLException, URISyntaxException, IOException {
-
-    // Load properties file for work directory
-    Properties prop = new Properties();
-    prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
-
-    try {
-      YamDatabaseConnector dbConnector = new YamDatabaseConnector();
-      YamUser user = dbConnector.userCreate(mail, name, affiliation, password);
-
-      if (user == null) {
-        System.out.println("In DB");
-        //response.sendRedirect("sign")
-        URI uri = new URL(prop.getProperty("appurl") + "/sign")
-                .toURI();
-        return Response.seeOther(uri).build();
-      } else {
-        // create session
-        HttpSession session = request.getSession();
-        // add user's key (mail) to session
-        session.setAttribute("mail", user.getMail());
-        // add user's name to session
-        session.setAttribute("name", user.getName());
-        //add canMatch to session
-        session.setAttribute("canMatch", user.getCanMatch());
-        // send response
-      }
-    } catch (Exception e) {
-      System.err.println("Exception catched!");
-      System.err.println(e.getMessage());
-    }
-    URI uri = new URL(prop.getProperty("appurl") + "/index")
-            .toURI();
-    return Response.seeOther(uri).build();
-  }*/
   
   /**
    * Method which hash String with prefix. Prefix have to be the same when user

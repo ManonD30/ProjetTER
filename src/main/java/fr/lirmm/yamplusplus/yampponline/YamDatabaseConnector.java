@@ -197,7 +197,7 @@ public class YamDatabaseConnector {
 
     Class.forName(this.driver);
 
-    // increment asMatched value
+    // increment matchCount value
     String query = "UPDATE user SET matchCount=matchCount+1 WHERE apikey=?";
 
     // create the mysql prepared statement

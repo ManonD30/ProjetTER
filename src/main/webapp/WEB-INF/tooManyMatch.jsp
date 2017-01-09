@@ -3,11 +3,11 @@
 <div class="container theme-showcase" role="main">
   <br>
   <%
-    String asMatched = (String) request.getAttribute("asMatched");
+    String matchCount = (String) request.getAttribute("matchCount");
     String canMatch = (String) request.getAttribute("canMatch");
     out.println("<br><h2>Sorry " + name + ", you are limited to "
             + canMatch + " matchings per day and you tried to do "
-            + asMatched + " today.</h2>");
+            + matchCount + " today.</h2>");
   %>
   <br>
   <p class=contentParagraph>Ontology matching is a heavy task, so to
