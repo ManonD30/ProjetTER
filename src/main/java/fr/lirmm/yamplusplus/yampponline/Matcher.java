@@ -157,7 +157,7 @@ public class Matcher extends HttpServlet {
 
     YamDatabaseConnector dbConnector = new YamDatabaseConnector();
     if (dbConnector.isValidApikey(apikey)) {
-
+      dbConnector.updateMatchCount(apikey);
       YamppOntologyMatcher matcher = new YamppOntologyMatcher();
 
       //Logger myLog = Logger.getLogger (Matcher.class.getName());

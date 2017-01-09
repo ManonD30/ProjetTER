@@ -162,7 +162,7 @@ public class YamDatabaseConnector {
       preparedStmt.execute();
 
     } else {
-      Logger.getLogger (Matcher.class.getName()).log(Level.WARNING, "Already in database");;
+      Logger.getLogger (Matcher.class.getName()).log(Level.WARNING, "Already in database");
       return null;
     }
     conn.close();
@@ -205,12 +205,11 @@ public class YamDatabaseConnector {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public YamUser updateMatchCount(String apikey) throws SQLException, ClassNotFoundException {
-    // create a mysql database connection
-    Class.forName(this.driver);
+  public YamUser updateMatchCount(String apikey) throws ClassNotFoundException {
+    YamUser user = null;
+    try {
+      // create a mysql database connection
     Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
-
-    Class.forName(this.driver);
 
     // increment matchCount value
     String query = "UPDATE user SET matchCount=matchCount+1 WHERE apikey=?";
@@ -232,13 +231,15 @@ public class YamDatabaseConnector {
     // execute the preparedstatement
     ResultSet result = preparedStmt.executeQuery();
 
-    YamUser user = null;
     while (result.next()) {
       user = new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("username"),
               result.getString("password"), result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"));
     }
     // close connection to database
     conn.close();
+    } catch (SQLException e) {
+      Logger.getLogger (Matcher.class.getName()).log(Level.SEVERE, "Error updating matchCount: {0}", e.toString());
+    }
     return user;
   }
 
