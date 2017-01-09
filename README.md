@@ -87,6 +87,22 @@ docker-compose stop
 docker-compose start
 ```
 
+* Run mysql in MySQL container to check tables content
+
+```shell
+docker exec -i -t yam_mysqlDb mysql
+```
+
+```sql
+/* Use database */
+show databases;
+use yam;
+
+/* Get user table content */
+show tables;
+select * from user;
+```
+
 ## Run the yampp-online application
 
 ### Generate war

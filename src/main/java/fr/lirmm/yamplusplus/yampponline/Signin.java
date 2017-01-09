@@ -59,17 +59,28 @@ public class Signin extends HttpServlet {
     }
   }
 
+  /**
+   *
+   * @param request
+   * @param response
+   * @throws ServletException
+   * @throws IOException
+   */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     // error message
     request.setAttribute("error", "");
     // send response
-    this.getServletContext().getRequestDispatcher("/WEB-INF/sign.jsp")
-            .forward(request, response);
+    this.getServletContext().getRequestDispatcher("/WEB-INF/sign.jsp").forward(request, response);
   }
 
-  // method which hash String with prefix
-  // prefix have to be the same when user is registering or connecting
+  /**
+   * method which hash String with prefix prefix have to be the same when user
+   * is registering or connecting
+   *
+   * @param password
+   * @return
+   */
   public String hash(String password) {
     try {
       password = password + "WONh31K5RYaal07";
