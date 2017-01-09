@@ -1,11 +1,16 @@
 <%@include file="header.jsp" %>
 
 <div class="container theme-showcase" role="main">
-  <%    
+  <% String canMatch = "an infinity of";
+    if (request.getSession().getAttribute("canMatch") != null) {
+    canMatch = request.getSession().getAttribute("canMatch").toString();
+  }
+
     if (name != null) {
       out.println("<br><h2>Connected as " + name + ".</h2>");
+      out.println("<p class=contentCenter>You can do " + canMatch + " matching each day.</p>");
       out.println("<form action='changePassword'"
-              + "method='get'name=modify enctype='multipart/form-data'>"
+              + "method='get' name=modify enctype='multipart/form-data'>"
               + "<input type='submit' class=btnBig value='Change my password'>"
               + "</form>"
               + "<form action='disconnect'"
