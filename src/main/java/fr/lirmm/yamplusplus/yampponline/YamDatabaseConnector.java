@@ -162,7 +162,7 @@ public class YamDatabaseConnector {
       preparedStmt.execute();
 
     } else {
-      Logger.getLogger (Matcher.class.getName()).log(Level.WARNING, "Already in database");
+      Logger.getLogger(Matcher.class.getName()).log(Level.WARNING, "Already in database");
       return null;
     }
     conn.close();
@@ -172,26 +172,27 @@ public class YamDatabaseConnector {
 
   /**
    * Return true is given apikey found in the dabatase
+   *
    * @param apikey
-   * @return boolean 
+   * @return boolean
    */
   public boolean isValidApikey(String apikey) {
     try {
-    Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
-    String apikeyQuery = "SELECT username FROM user WHERE apikey=?";
+      Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
+      String apikeyQuery = "SELECT username FROM user WHERE apikey=?";
 
-    // create the mysql insert preparedstatement
-    PreparedStatement apikeyPreparedStmt = conn.prepareStatement(apikeyQuery);
-    apikeyPreparedStmt.setString(1, apikey);
-    // execute the prepared statement
-    ResultSet apikeyResult = apikeyPreparedStmt.executeQuery();
-    while (apikeyResult.next()) {
+      // create the mysql insert preparedstatement
+      PreparedStatement apikeyPreparedStmt = conn.prepareStatement(apikeyQuery);
+      apikeyPreparedStmt.setString(1, apikey);
+      // execute the prepared statement
+      ResultSet apikeyResult = apikeyPreparedStmt.executeQuery();
+      while (apikeyResult.next()) {
+        conn.close();
+        return true;
+      }
       conn.close();
-      return true;
-    }
-    conn.close();
     } catch (SQLException e) {
-       Logger.getLogger (Matcher.class.getName()).log(Level.SEVERE, "Error when checking apikey validity: {0}", e.toString());;
+      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error when checking apikey validity: {0}", e.toString());;
     }
     return false;
   }
@@ -209,38 +210,91 @@ public class YamDatabaseConnector {
     YamUser user = null;
     try {
       // create a mysql database connection
-    Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
+      Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
 
-    // increment matchCount value
-    String query = "UPDATE user SET matchCount=matchCount+1 WHERE apikey=?";
+      // increment matchCount value
+      String query = "UPDATE user SET matchCount=matchCount+1 WHERE apikey=?";
 
-    // create the mysql prepared statement
-    PreparedStatement preparedStmt = conn.prepareStatement(query);
-    preparedStmt.setString(1, apikey);
+      // create the mysql prepared statement
+      PreparedStatement preparedStmt = conn.prepareStatement(query);
+      preparedStmt.setString(1, apikey);
 
-    // execute the preparedstatement
-    preparedStmt.execute();
+      // execute the preparedstatement
+      preparedStmt.execute();
 
-    // check matchCount value
-    query = "SELECT * FROM user WHERE apikey=?";
+      // check matchCount value
+      query = "SELECT * FROM user WHERE apikey=?";
 
-    // create the mysql prepared statement
-    preparedStmt = conn.prepareStatement(query);
-    preparedStmt.setString(1, apikey);
+      // create the mysql prepared statement
+      preparedStmt = conn.prepareStatement(query);
+      preparedStmt.setString(1, apikey);
 
-    // execute the preparedstatement
-    ResultSet result = preparedStmt.executeQuery();
+      // execute the preparedstatement
+      ResultSet result = preparedStmt.executeQuery();
 
-    while (result.next()) {
-      user = new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("username"),
-              result.getString("password"), result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"));
-    }
-    // close connection to database
-    conn.close();
+      while (result.next()) {
+        user = new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("username"),
+                result.getString("password"), result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"));
+      }
+      // close connection to database
+      conn.close();
     } catch (SQLException e) {
-      Logger.getLogger (Matcher.class.getName()).log(Level.SEVERE, "Error updating matchCount: {0}", e.toString());
+      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error updating matchCount: {0}", e.toString());
     }
     return user;
+  }
+
+  /**
+   * Change the password linked to this apikey
+   *
+   * @param apikey
+   * @param oldPassword
+   * @param newPassword
+   * @return boolean
+   * @throws ClassNotFoundException
+   */
+  public boolean updatePassword(String apikey, String oldPassword, String newPassword) throws ClassNotFoundException {
+    boolean isValidPassword = false;
+    try {
+      // create a mysql database connection
+      Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
+
+      String query = "SELECT username FROM user WHERE apikey= ? AND password = ?";
+      // create the mysql prepared statement
+      PreparedStatement preparedStmt = conn.prepareStatement(query);
+      preparedStmt.setString(1, apikey);
+      preparedStmt.setString(2, getPasswordHash(oldPassword));
+      // execute the prepared statement
+      ResultSet result = preparedStmt.executeQuery();
+      while (result.next()) {
+        isValidPassword = true;
+      }
+      // close connection to database
+      conn.close();
+
+    } catch (SQLException e) {
+      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error checking old password: {0}", e.toString());
+    }
+    if (isValidPassword) {
+      try {
+        // create a mysql database connection
+        Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
+
+        String query = "UPDATE user SET password=? WHERE apikey=?";
+        // create the mysql prepared statement
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setString(1, getPasswordHash(newPassword));
+        preparedStmt.setString(2, apikey);
+        // execute the prepared statement
+        preparedStmt.executeUpdate();
+        // close connection to database
+        conn.close();
+        return true;
+      } catch (SQLException e) {
+        Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error changing password: {0}", e.toString());
+      }
+    }
+    return false;
   }
 
   // method which hash String with prefix

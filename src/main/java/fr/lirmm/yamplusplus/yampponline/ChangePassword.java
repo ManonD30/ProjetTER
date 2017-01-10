@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +21,17 @@ public class ChangePassword extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
 
-    String mail = (String) request.getSession().getAttribute("mail");
+    String apikey = (String) request.getSession().getAttribute("apikey");
     String oldPass = request.getParameter("oldPassword");
     String newPass = request.getParameter("newPassword");
+    boolean passwordUpdated = false;
+    try {
+      YamDatabaseConnector dbConnector = new YamDatabaseConnector();
+      passwordUpdated = dbConnector.updatePassword(apikey, oldPass, newPass);
+    } catch (ClassNotFoundException ex) {
+      Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    /*
     String user = null;
 
     try {
@@ -29,8 +39,7 @@ public class ChangePassword extends HttpServlet {
       String myDriver = "org.gjt.mm.mysql.Driver";
       String myUrl = "jdbc:mysql://localhost/yam";
       Class.forName(myDriver);
-      Connection conn = DriverManager.getConnection(myUrl, "root",
-              "lirmmpass");
+      Connection conn = DriverManager.getConnection(myUrl, "root", "lirmmpass");
 
       // mysql request
       String query = "SELECT name FROM user WHERE mail= ? AND password = ?";
@@ -86,14 +95,17 @@ public class ChangePassword extends HttpServlet {
       } catch (Exception e) {
         System.err.println("Exception catched!");
         System.err.println(e.getMessage());
-      }
+      }*/
 
-      request.setAttribute("error", "Password successfully changed.");
-      // send response
-      this.getServletContext()
-              .getRequestDispatcher("/WEB-INF/change.jsp")
-              .forward(request, response);
+    if (passwordUpdated) {
+      request.setAttribute("error", "Password successfully updated.");
+    } else {
+      request.setAttribute("error", "Error updating the password.");
     }
+    // send response
+    this.getServletContext()
+            .getRequestDispatcher("/WEB-INF/change.jsp")
+            .forward(request, response);
   }
 
   public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -106,7 +118,7 @@ public class ChangePassword extends HttpServlet {
 
   // method which hash String with prefix
   // prefix have to be the same when user is registering or connecting
-  public String hash(String password) {
+  /*public String hash(String password) {
     try {
       password = password + "WONh31K5RYaal07";
       MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -125,5 +137,5 @@ public class ChangePassword extends HttpServlet {
     } catch (Exception ex) {
       throw new RuntimeException(ex);
     }
-  }
+  }*/
 }
