@@ -203,7 +203,6 @@ public class YamDatabaseConnector {
    *
    * @param apikey
    * @return YamUser
-   * @throws SQLException
    * @throws ClassNotFoundException
    */
   public YamUser updateMatchCount(String apikey) throws ClassNotFoundException {

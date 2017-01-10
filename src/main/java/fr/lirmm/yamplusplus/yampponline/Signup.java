@@ -41,10 +41,9 @@ public class Signup extends HttpServlet {
       YamUser user = dbConnector.userCreate(mail, username, affiliation, password);
 
       if (user == null) {
-        myLog.log(Level.SEVERE, "Already in database!");
-        
-        this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-        
+        myLog.log(Level.SEVERE, "User already in database!");
+        request.setAttribute("error", "User already registered");
+        this.getServletContext().getRequestDispatcher("/WEB-INF/sign.jsp").forward(request, response);
       } else {
         //myLog.log(Level.INFO, "Add user to session...");
         
@@ -53,6 +52,8 @@ public class Signup extends HttpServlet {
       }
     } catch (IOException | ClassNotFoundException | SQLException | ServletException e) {
       myLog.log(Level.SEVERE, "Error creating the user: {0}", e.toString());
+      request.setAttribute("error", "Error creating the user");
+      this.getServletContext().getRequestDispatcher("/WEB-INF/sign.jsp").forward(request, response);
     }
     this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
   }

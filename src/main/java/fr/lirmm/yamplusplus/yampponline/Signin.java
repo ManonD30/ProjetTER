@@ -28,16 +28,19 @@ public class Signin extends HttpServlet {
     try {
       YamDatabaseConnector dbConnector = new YamDatabaseConnector();
       YamUser user = dbConnector.userConnection(mail, password);
-      //name = user.getName();
-      // add the YamUser to the session
-      HttpSession session = user.addUserToSession(request.getSession());
-      
-      // send response
-      this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-      
+      if (user == null) {
+        request.setAttribute("error", "Invalid login or password");
+        // send response
+        this.getServletContext().getRequestDispatcher("/WEB-INF/sign.jsp").forward(request, response);
+      } else {
+        // add the YamUser to the session
+        HttpSession session = user.addUserToSession(request.getSession());
+        this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+      }
+
     } catch (IOException | ClassNotFoundException | SQLException | ServletException e) {
       myLog.log(Level.SEVERE, "Login failed!!!{0}", e.toString());
-      
+
       // error message
       request.setAttribute("error", "Invalid login or password");
       // send response
