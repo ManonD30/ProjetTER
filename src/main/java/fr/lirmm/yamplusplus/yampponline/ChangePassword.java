@@ -1,11 +1,6 @@
 package fr.lirmm.yamplusplus.yampponline;
 
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
