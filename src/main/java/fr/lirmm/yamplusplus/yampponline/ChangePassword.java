@@ -18,6 +18,14 @@ public class ChangePassword extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Change the password of a user
+   *
+   * @param request
+   * @param response
+   * @throws ServletException
+   * @throws IOException
+   */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
 
@@ -31,71 +39,6 @@ public class ChangePassword extends HttpServlet {
     } catch (ClassNotFoundException ex) {
       Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
     }
-    /*
-    String user = null;
-
-    try {
-      // create a mysql database connection
-      String myDriver = "org.gjt.mm.mysql.Driver";
-      String myUrl = "jdbc:mysql://localhost/yam";
-      Class.forName(myDriver);
-      Connection conn = DriverManager.getConnection(myUrl, "root", "lirmmpass");
-
-      // mysql request
-      String query = "SELECT name FROM user WHERE mail= ? AND password = ?";
-
-      // create the mysql prepared statement
-      PreparedStatement preparedStmt = conn.prepareStatement(query);
-      preparedStmt.setString(1, mail);
-      preparedStmt.setString(2, hash(oldPass));
-
-      // execute the prepared statement
-      ResultSet result = preparedStmt.executeQuery();
-      while (result.next()) {
-        user = result.getString("name");
-      }
-      // close connection to database
-      conn.close();
-
-    } catch (Exception e) {
-      System.err.println("Exception catched!");
-      System.err.println(e.getMessage());
-    }
-
-    // if mail / password not in DB
-    if (user == null) {
-      // error message
-      request.setAttribute("error",
-              "You entered an invalid old password.");
-      // send response
-      this.getServletContext()
-              .getRequestDispatcher("/WEB-INF/change.jsp")
-              .forward(request, response);
-
-    } else {
-      // change password
-      try {
-        // create a mysql database connection
-        String myDriver = "org.gjt.mm.mysql.Driver";
-        String myUrl = "jdbc:mysql://localhost/yam";
-        Class.forName(myDriver);
-        Connection conn = DriverManager.getConnection(myUrl, "root",
-                "lirmmpass");
-
-        // mysql request
-        String query = "UPDATE user SET password=? WHERE mail=?";
-        // create the mysql prepared statement
-        PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setString(1, hash(newPass));
-        preparedStmt.setString(2, mail);
-        // execute the prepared statement
-        preparedStmt.executeUpdate();
-        // close connection to database
-        conn.close();
-      } catch (Exception e) {
-        System.err.println("Exception catched!");
-        System.err.println(e.getMessage());
-      }*/
 
     if (passwordUpdated) {
       request.setAttribute("error", "Password successfully updated.");
@@ -103,11 +46,17 @@ public class ChangePassword extends HttpServlet {
       request.setAttribute("error", "Error updating the password.");
     }
     // send response
-    this.getServletContext()
-            .getRequestDispatcher("/WEB-INF/change.jsp")
-            .forward(request, response);
+    this.getServletContext().getRequestDispatcher("/WEB-INF/change.jsp").forward(request, response);
   }
 
+  /**
+   * Redirect to POST
+   *
+   * @param request
+   * @param response
+   * @throws ServletException
+   * @throws IOException
+   */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
 
@@ -115,27 +64,4 @@ public class ChangePassword extends HttpServlet {
     this.getServletContext().getRequestDispatcher("/WEB-INF/change.jsp")
             .forward(request, response);
   }
-
-  // method which hash String with prefix
-  // prefix have to be the same when user is registering or connecting
-  /*public String hash(String password) {
-    try {
-      password = password + "WONh31K5RYaal07";
-      MessageDigest digest = MessageDigest.getInstance("SHA-256");
-      byte[] hash = digest.digest(password.getBytes("UTF-8"));
-      StringBuffer hexString = new StringBuffer();
-
-      for (int i = 0; i < hash.length; i++) {
-        String hex = Integer.toHexString(0xff & hash[i]);
-        if (hex.length() == 1) {
-          hexString.append('0');
-        }
-        hexString.append(hex);
-      }
-
-      return hexString.toString();
-    } catch (Exception ex) {
-      throw new RuntimeException(ex);
-    }
-  }*/
 }
