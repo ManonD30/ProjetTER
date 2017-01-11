@@ -199,10 +199,6 @@ public class Matcher extends HttpServlet {
       // Soon to be String resultStoragePath = matcher.alignOntologies()
       String resultStoragePath = matcher.alignOntologies(new File(sourceStoragePath).toURI(),
               new File(targetStoragePath).toURI());
-      
-      if (request.getParameter("saveFile") != null) {
-        
-      }
 
       request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel()));
       request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel()));

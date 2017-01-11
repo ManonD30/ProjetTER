@@ -157,9 +157,9 @@ public class YamFileHandler {
     // Store the file in the tmp dir: /tmp/yam-gui/subDir/source.owl for example
     String storagePath = this.tmpDir + subDir + "/" + filename;
     FileUtils.writeStringToFile(new File(storagePath), ontologyString, "UTF-8");
-    if (saveFile == true) {
-      // Save file in workdir/save/subDir
-      FileUtils.writeStringToFile(new File(this.workDir + "/save/" + subDir + "/" + filename), ontologyString, "UTF-8");
+    if (request.getParameter("saveFile") != null) {
+      // Save file in workdir/save/username/subDir
+      FileUtils.writeStringToFile(new File(this.workDir + "/save/" + request.getSession().getAttribute("username") + "/" + subDir + "/" + filename), ontologyString, "UTF-8");
     }
     return storagePath;
   }
