@@ -16,6 +16,9 @@
   <p class=contentCenter>Institut/Affiliate to <%=user.getIsAffiliateTo()%>.</p>
   <p class=contentCenter>Working field: <%=user.getField()%>.</p>
   
+  <form action='userEdition' method='get' enctype='multipart/form-data'>
+    <input type='submit' class=btnBig value='Update user informations'>
+  </form>
   <form action='changePassword' method='get' name=modify enctype='multipart/form-data'>
     <input type='submit' class=btnBig value='Change my password'>
   </form>

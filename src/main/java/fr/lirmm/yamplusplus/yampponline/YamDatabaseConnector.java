@@ -166,7 +166,7 @@ public class YamDatabaseConnector {
 
       String hashed = getPasswordHash(password);
       preparedStmt.setString(9, hashed);
-      
+
       // execute the preparedstatement
       preparedStmt.execute();
     } else {
@@ -320,33 +320,6 @@ public class YamDatabaseConnector {
     }
     return false;
   }
-  
-  /**
-   * Delete user given its apikey
-   *
-   * @param apikey
-   * @return boolean
-   * @throws ClassNotFoundException
-   */
-  public boolean deleteUser(String apikey) throws ClassNotFoundException {
-    try {
-      // create a mysql database connection
-      Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
-
-      String query = "DELETE FROM user WHERE apikey=?";
-      // create the mysql prepared statement
-      PreparedStatement preparedStmt = conn.prepareStatement(query);
-      preparedStmt.setString(1, apikey);
-      // execute the prepared statement
-      preparedStmt.executeUpdate();
-      // close connection to database
-      conn.close();
-      return true;
-    } catch (SQLException e) {
-      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error deleting user: {0}", e.toString());
-    }
-    return false;
-  }
 
   /**
    * Reset password to given new password
@@ -373,6 +346,80 @@ public class YamDatabaseConnector {
       return true;
     } catch (SQLException e) {
       Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error changing password: {0}", e.toString());
+    }
+    return false;
+  }
+
+  /**
+   * Update User informations: isAffiliateTo and field.
+   *
+   * @param apikey
+   * @param affiliation
+   * @param field
+   * @return boolean
+   * @throws ClassNotFoundException
+   */
+  public YamUser editUserInfos(YamUser user, String affiliation, String field) throws ClassNotFoundException {
+    try {
+      // create a mysql database connection
+      Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
+
+      // Update isAffiliateTo
+      if (affiliation != null && !affiliation.equals("")) {
+        String query = "UPDATE user SET isAffiliateTo=? WHERE apikey=?";
+        // create the mysql prepared statement
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setString(1, affiliation);
+        preparedStmt.setString(2, user.getApikey());
+        // execute the prepared statement
+        preparedStmt.executeUpdate();
+        user.setIsAffiliateTo(affiliation);
+      }
+
+      // Update field
+      if (field != null && !field.equals("")) {
+        String query = "UPDATE user SET field=? WHERE apikey=?";
+        // create the mysql prepared statement
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setString(1, field);
+        preparedStmt.setString(2, user.getApikey());
+        // execute the prepared statement
+        preparedStmt.executeUpdate();
+        user.setField(field);
+      }
+
+      // close connection to database
+      conn.close();
+      return user;
+    } catch (SQLException e) {
+      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error updating user infos: {0}", e.toString());
+    }
+    return user;
+  }
+
+  /**
+   * Delete user given its apikey
+   *
+   * @param apikey
+   * @return boolean
+   * @throws ClassNotFoundException
+   */
+  public boolean deleteUser(String apikey) throws ClassNotFoundException {
+    try {
+      // create a mysql database connection
+      Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
+
+      String query = "DELETE FROM user WHERE apikey=?";
+      // create the mysql prepared statement
+      PreparedStatement preparedStmt = conn.prepareStatement(query);
+      preparedStmt.setString(1, apikey);
+      // execute the prepared statement
+      preparedStmt.executeUpdate();
+      // close connection to database
+      conn.close();
+      return true;
+    } catch (SQLException e) {
+      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error deleting user: {0}", e.toString());
     }
     return false;
   }

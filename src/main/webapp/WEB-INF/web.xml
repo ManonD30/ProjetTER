@@ -139,6 +139,15 @@
         <url-pattern>/changePassword</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>UserEdition</servlet-name>
+        <servlet-class>fr.lirmm.yamplusplus.yampponline.UserEdition</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserEdition</servlet-name>
+        <url-pattern>/userEdition</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>AdminControl</servlet-name>
         <servlet-class>fr.lirmm.yamplusplus.yampponline.AdminControl</servlet-class>
         <load-on-startup>1</load-on-startup>
