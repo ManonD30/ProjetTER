@@ -342,7 +342,7 @@ public class YamDatabaseConnector {
       conn.close();
       return true;
     } catch (SQLException e) {
-      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error changing password: {0}", e.toString());
+      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error deleting user: {0}", e.toString());
     }
     return false;
   }

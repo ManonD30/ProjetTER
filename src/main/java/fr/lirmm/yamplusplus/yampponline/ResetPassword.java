@@ -43,7 +43,7 @@ public class ResetPassword extends HttpServlet {
             request.setAttribute("error", "Error resetting the password.");
           }
         } else if (deleteApikey != null) {
-          passwordUpdated = dbConnector.deleteUser(resetApikey);
+          passwordUpdated = dbConnector.deleteUser(deleteApikey);
           if (passwordUpdated) {
             request.setAttribute("error", "User successfully deleted.");
           } else {
