@@ -16,6 +16,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -174,6 +175,39 @@ public class YamDatabaseConnector {
     conn.close();
 
     return new YamUser(apikey, mail, username, affiliation, password, matchCount, canMatch, role);
+  }
+
+  /**
+   * Get all users in database
+   *
+   * @return ArrayList of YamUser
+   */
+  public ArrayList<YamUser> getUserList() {
+    ArrayList<YamUser> userList = new ArrayList<>();
+
+    try {
+      Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
+      // mysql request
+      String query = "SELECT * FROM user";
+
+      // create the mysql prepared statement
+      PreparedStatement preparedStmt = conn.prepareStatement(query);
+
+      // execute the prepared statement
+      ResultSet result = preparedStmt.executeQuery();
+
+      YamUser user = null;
+      // get user
+      while (result.next()) {
+        userList.add(new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("username"), result.getString("password"),
+                result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"), result.getString("role")));
+      }
+      conn.close();
+    } catch (SQLException e) {
+      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error when retrieving all users: {0}", e.toString());;
+    }
+
+    return userList;
   }
 
   /**
