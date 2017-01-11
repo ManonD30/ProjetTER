@@ -17,7 +17,8 @@
     <h3>HTTP GET Request</h3>
 
     <p>
-      You can pass the URL of the ontology  and the API Keywith "apikey", "sourceUrl" and "targetUrl" parameters.
+      You can pass the URL of the ontology  and the API Keywith "apikey", "sourceUrl" and "targetUrl" parameters. 
+      If you are logged in, you don't need to use the apikey.
     </p>
 
     <h4>Using your browser</h4>
