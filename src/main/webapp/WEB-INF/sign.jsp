@@ -3,25 +3,16 @@
 <%@include file="header.jsp" %>
 
 <div class="container theme-showcase" role="main">
-  <% String matchCount = "0";
-    String isAffiliateTo = "null";
-    String apikey = "null";
-    String field = "not communicated";
-    if (request.getSession().getAttribute("apikey") != null) {
-      apikey = request.getSession().getAttribute("apikey").toString();
-      matchCount = request.getSession().getAttribute("matchCount").toString();
-      isAffiliateTo = request.getSession().getAttribute("isAffiliateTo").toString();
-      if (request.getSession().getAttribute("field") != null) {
-        field = request.getSession().getAttribute("field").toString();
-      }
-    }
+  <% 
+    YamUser user = new YamUser(request.getSession());
 
-    if (username != null) {%>
+    if (user != null) {%>
   <br><h2>Connected as <%=username%></h2>
-  <p class=contentCenter>Apikey to authenticate yourself to use the RESTful Matcher: <b><%=apikey%></b></p>
-  <p class=contentCenter>You have done <%=matchCount%> ontology matching.</p>
-  <p class=contentCenter>Institut/Affiliate to  <%=isAffiliateTo%>.</p>
-  <p class=contentCenter>Working field: <%=field%>.</p>
+  <p class=contentCenter>Apikey to authenticate yourself to use the RESTful Matcher: <b><%=user.getApikey()%></b></p>
+  <p class=contentCenter>Email: <b><%=user.getMail()%></b></p>
+  <p class=contentCenter>You have done <%=user.getMatchCount()%> ontology matching.</p>
+  <p class=contentCenter>Institut/Affiliate to <%=user.getIsAffiliateTo()%>.</p>
+  <p class=contentCenter>Working field: <%=user.getField()%>.</p>
   <form action='changePassword' method='get' name=modify enctype='multipart/form-data'>
     <input type='submit' class=btnBig value='Change my password'>
   </form>
@@ -31,7 +22,7 @@
 
   <%
     // Display admin interface if user role is admin
-    if (request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("admin")) {
+    if (user.getRole() != null && user.getRole().equals("admin")) {
   %>
   <hr/>
   <h2>Administration</h2>
@@ -52,24 +43,24 @@
     <tbody>
       <%
         YamDatabaseConnector dbConnector = new YamDatabaseConnector();
-        for (YamUser user : dbConnector.getUserList()) {
+        for (YamUser listUser : dbConnector.getUserList()) {
       %>
 
       <tr>
-        <td><%=user.getApikey()%></td>
-        <td><%=user.getMail()%></td>
-        <td><%=user.getUsername()%></td>
-        <td><%=user.getRole()%></td>
-        <td><%=user.getIsAffiliateTo()%></td>
-        <td><%=user.getField()%></td>
-        <td><%=user.getMatchCount()%></td>
+        <td><%=listUser.getApikey()%></td>
+        <td><%=listUser.getMail()%></td>
+        <td><%=listUser.getUsername()%></td>
+        <td><%=listUser.getRole()%></td>
+        <td><%=listUser.getIsAffiliateTo()%></td>
+        <td><%=listUser.getField()%></td>
+        <td><%=listUser.getMatchCount()%></td>
         <td>
           <form action="adminControl" method='post'>
-            <input type="hidden" name="resetApikey" value="<%=user.getApikey()%>" />
+            <input type="hidden" name="resetApikey" value="<%=listUser.getApikey()%>" />
             <input type="submit" value="Reset" class="btn">
           </form>
             <form action="adminControl" method='post'>
-            <input type="hidden" name="deleteApikey" value="<%=user.getApikey()%>" />
+            <input type="hidden" name="deleteApikey" value="<%=listUser.getApikey()%>" />
             <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete the user?')">
           </form>
         </td>
