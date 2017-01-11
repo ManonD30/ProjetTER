@@ -70,7 +70,7 @@
           </form>
             <form action="resetPassword" method='post'>
             <input type="hidden" name="deleteApikey" value="<%=user.getApikey()%>" />
-            <input type="submit" value="Reset" class="btn">
+            <input type="submit" value="Delete" class="btn btn-danger">
           </form>
         </td>
       </tr>

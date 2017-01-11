@@ -35,7 +35,7 @@ public class Signin extends HttpServlet {
       } else {
         // add the YamUser to the session
         HttpSession session = user.addUserToSession(request.getSession());
-        this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/sign.jsp").forward(request, response);
       }
 
     } catch (IOException | ClassNotFoundException | SQLException | ServletException e) {
