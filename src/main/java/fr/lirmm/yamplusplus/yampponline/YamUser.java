@@ -44,6 +44,7 @@ public class YamUser {
     this.role = role;
     this.passwordHash = passwordHash;
     this.isAffiliateTo = isAffiliateTo;
+    this.field = field;
 
     this.matchCount = matchCount;
     this.canMatch = canMatch;
@@ -84,6 +85,7 @@ public class YamUser {
     session.setAttribute("matchCount", this.matchCount);
     session.setAttribute("canMatch", this.canMatch);
     session.setAttribute("isAffiliateTo", this.isAffiliateTo);
+    session.setAttribute("field", this.field);
 
     return session;
   }
@@ -147,5 +149,4 @@ public class YamUser {
   public void setCanMatch(Integer canMatch) {
     this.canMatch = canMatch;
   }
-
 }
