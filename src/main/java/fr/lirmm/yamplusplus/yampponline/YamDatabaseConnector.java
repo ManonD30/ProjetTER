@@ -84,7 +84,7 @@ public class YamDatabaseConnector {
     // get user
     while (result.next()) {
       user = new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("username"), result.getString("password"),
-              result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"), result.getString("role"));
+              result.getString("isAffiliateTo"), result.getString("field"), result.getInt("matchCount"), result.getInt("canMatch"), result.getString("role"));
     }
 
     // close connection to database
@@ -175,7 +175,7 @@ public class YamDatabaseConnector {
     }
     conn.close();
 
-    return new YamUser(apikey, mail, username, affiliation, password, matchCount, canMatch, role);
+    return new YamUser(apikey, mail, username, password, affiliation, field, matchCount, canMatch, role);
   }
 
   /**
@@ -201,7 +201,7 @@ public class YamDatabaseConnector {
       // get user
       while (result.next()) {
         userList.add(new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("username"), result.getString("password"),
-                result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"), result.getString("role")));
+                result.getString("isAffiliateTo"), result.getString("field"), result.getInt("matchCount"), result.getInt("canMatch"), result.getString("role")));
       }
       conn.close();
     } catch (SQLException e) {
@@ -274,7 +274,7 @@ public class YamDatabaseConnector {
 
       while (result.next()) {
         user = new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("username"),
-                result.getString("password"), result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"), result.getString("role"));
+                result.getString("password"), result.getString("isAffiliateTo"), result.getString("field"), result.getInt("matchCount"), result.getInt("canMatch"), result.getString("role"));
       }
       // close connection to database
       conn.close();

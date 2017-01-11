@@ -37,7 +37,7 @@ public class YamUser {
    * @param canMatch
    * @param role
    */
-  public YamUser(String apikey, String mail, String username, String passwordHash, String isAffiliateTo, int matchCount, int canMatch, String role) {
+  public YamUser(String apikey, String mail, String username, String passwordHash, String isAffiliateTo, String field, int matchCount, int canMatch, String role) {
     this.apikey = apikey;
     this.mail = mail;
     this.username = username;
@@ -60,9 +60,7 @@ public class YamUser {
     this.username = (String) session.getAttribute("username");
     this.role = (String) session.getAttribute("role");
     this.isAffiliateTo = (String) session.getAttribute("isAffiliateTo");
-    if (session.getAttribute("field") != null) {
-      this.field = (String) session.getAttribute("field");
-    }
+    this.field = (String) session.getAttribute("field");
 
     if (session.getAttribute("matchCount") != null) {
       this.matchCount = (int) session.getAttribute("matchCount");
