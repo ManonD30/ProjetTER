@@ -83,7 +83,7 @@ public class YamDatabaseConnector {
     // get user
     while (result.next()) {
       user = new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("username"), result.getString("password"),
-              result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"), result.getString("role");
+              result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"), result.getString("role"));
     }
 
     // close connection to database
@@ -140,7 +140,7 @@ public class YamDatabaseConnector {
     int canMatch = 10;
     String role = "user";
     // Here we set the admin user as an admin when created. We can add other
-    if (username.equals("admin") {
+    if (username.equals("admin")) {
       role = "admin";
     }
 
@@ -159,7 +159,7 @@ public class YamDatabaseConnector {
       preparedStmt.setString(4, affiliation);
       preparedStmt.setInt(5, matchCount);
       preparedStmt.setInt(6, canMatch);
-      preparedStmt.setInt(7, role);
+      preparedStmt.setString(7, role);
 
       String hashed = getPasswordHash(password);
       preparedStmt.setString(8, hashed);
@@ -173,7 +173,7 @@ public class YamDatabaseConnector {
     }
     conn.close();
 
-    return new YamUser(apikey, mail, username, affiliation, password, matchCount, canMatch);
+    return new YamUser(apikey, mail, username, affiliation, password, matchCount, canMatch, role);
   }
 
   /**
@@ -239,7 +239,7 @@ public class YamDatabaseConnector {
 
       while (result.next()) {
         user = new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("username"),
-                result.getString("password"), result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"));
+                result.getString("password"), result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"), result.getString("role"));
       }
       // close connection to database
       conn.close();

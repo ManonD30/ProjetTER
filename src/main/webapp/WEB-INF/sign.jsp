@@ -23,7 +23,13 @@
     <input type='submit' class=btnBig value='Disconnect'>
   </form>
   <div class=sign style='display:none'>
+
     <%
+      if (request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("admin")) {
+    %>
+    <p>You're admin!</p>
+    <%
+        }
       } else {
         out.print("<div class=sign>");
       }
