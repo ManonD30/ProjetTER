@@ -58,8 +58,6 @@ public class Signin extends HttpServlet {
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    // error message
-    request.setAttribute("error", "");
     // send response
     this.getServletContext().getRequestDispatcher("/WEB-INF/sign.jsp").forward(request, response);
   }

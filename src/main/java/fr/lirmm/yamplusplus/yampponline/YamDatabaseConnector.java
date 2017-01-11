@@ -319,6 +319,33 @@ public class YamDatabaseConnector {
     }
     return false;
   }
+  
+  /**
+   * Delete user given its apikey
+   *
+   * @param apikey
+   * @return boolean
+   * @throws ClassNotFoundException
+   */
+  public boolean deleteUser(String apikey) throws ClassNotFoundException {
+    try {
+      // create a mysql database connection
+      Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
+
+      String query = "DELETE FROM user WHERE apikey=?";
+      // create the mysql prepared statement
+      PreparedStatement preparedStmt = conn.prepareStatement(query);
+      preparedStmt.setString(1, apikey);
+      // execute the prepared statement
+      preparedStmt.executeUpdate();
+      // close connection to database
+      conn.close();
+      return true;
+    } catch (SQLException e) {
+      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error changing password: {0}", e.toString());
+    }
+    return false;
+  }
 
   /**
    * Reset password to given new password
@@ -329,7 +356,6 @@ public class YamDatabaseConnector {
    * @throws ClassNotFoundException
    */
   public boolean resetPassword(String apikey, String newPassword) throws ClassNotFoundException {
-
     try {
       // create a mysql database connection
       Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);

@@ -21,28 +21,38 @@ public class ResetPassword extends HttpServlet {
    * @throws ServletException
    * @throws IOException
    */
-  public void doPost(HttpServletRequest request, HttpServletResponse response)
-          throws ServletException, IOException {
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     // Default reset password is "changeme"
     String newPassword = "changeme";
-    
+
     String role = (String) request.getSession().getAttribute("role");
-    String apikey = request.getParameter("resetApikey");
+    String resetApikey = request.getParameter("resetApikey");
+    String deleteApikey = request.getParameter("deleteApikey");
 
     if (role.equals("admin")) {
       boolean passwordUpdated = false;
       try {
         YamDatabaseConnector dbConnector = new YamDatabaseConnector();
-        passwordUpdated = dbConnector.resetPassword(apikey, newPassword);
-      } catch (ClassNotFoundException ex) {
-        Logger.getLogger(ResetPassword.class.getName()).log(Level.SEVERE, null, ex);
-      }
 
-      if (passwordUpdated) {
-        request.setAttribute("error", "Password successfully reset.");
-      } else {
-        request.setAttribute("error", "Error resetting the password.");
+        if (resetApikey != null) {
+          passwordUpdated = dbConnector.resetPassword(resetApikey, newPassword);
+          if (passwordUpdated) {
+            request.setAttribute("error", "Password successfully reset.");
+          } else {
+            request.setAttribute("error", "Error resetting the password.");
+          }
+        } else if (deleteApikey != null) {
+          passwordUpdated = dbConnector.deleteUser(resetApikey);
+          if (passwordUpdated) {
+            request.setAttribute("error", "User successfully deleted.");
+          } else {
+            request.setAttribute("error", "Error deleting the user.");
+          }
+        }
+      } catch (ClassNotFoundException ex) {
+        request.setAttribute("error", "Error processing request.");
+        Logger.getLogger(ResetPassword.class.getName()).log(Level.SEVERE, null, ex);
       }
     }
     // send response

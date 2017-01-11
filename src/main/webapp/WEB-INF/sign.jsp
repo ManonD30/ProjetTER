@@ -6,12 +6,14 @@
   <% String matchCount = "0";
     String isAffiliateTo = "null";
     String apikey = "null";
-    String field = "null";
+    String field = "not communicated";
     if (request.getSession().getAttribute("apikey") != null) {
       apikey = request.getSession().getAttribute("apikey").toString();
       matchCount = request.getSession().getAttribute("matchCount").toString();
       isAffiliateTo = request.getSession().getAttribute("isAffiliateTo").toString();
-      field = request.getSession().getAttribute("field").toString();
+      if (request.getSession().getAttribute("field") != null) {
+        field = request.getSession().getAttribute("field").toString();
+      }
     }
 
     if (username != null) {%>
@@ -64,6 +66,10 @@
         <td>
           <form action="resetPassword" method='post'>
             <input type="hidden" name="resetApikey" value="<%=user.getApikey()%>" />
+            <input type="submit" value="Reset" class="btn">
+          </form>
+            <form action="resetPassword" method='post'>
+            <input type="hidden" name="deleteApikey" value="<%=user.getApikey()%>" />
             <input type="submit" value="Reset" class="btn">
           </form>
         </td>
