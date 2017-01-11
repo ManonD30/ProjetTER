@@ -6,10 +6,12 @@
   <% String matchCount = "0";
     String isAffiliateTo = "null";
     String apikey = "null";
+    String field = "null";
     if (request.getSession().getAttribute("apikey") != null) {
       apikey = request.getSession().getAttribute("apikey").toString();
       matchCount = request.getSession().getAttribute("matchCount").toString();
       isAffiliateTo = request.getSession().getAttribute("isAffiliateTo").toString();
+      field = request.getSession().getAttribute("field").toString();
     }
 
     if (username != null) {%>
@@ -17,6 +19,7 @@
   <p class=contentCenter>Apikey to authenticate yourself to use the RESTful Matcher: <b><%=apikey%></b></p>
   <p class=contentCenter>You have done <%=matchCount%> ontology matching.</p>
   <p class=contentCenter>Institut/Affiliate to  <%=isAffiliateTo%>.</p>
+  <p class=contentCenter>Working field: <%=field%>.</p>
   <form action='changePassword' method='get' name=modify enctype='multipart/form-data'>
     <input type='submit' class=btnBig value='Change my password'>
   </form>
@@ -25,6 +28,7 @@
   </form>
 
   <%
+    // Display admin interface if user role is admin
     if (request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("admin")) {
   %>
   <hr/>
