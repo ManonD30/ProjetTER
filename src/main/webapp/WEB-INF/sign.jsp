@@ -1,3 +1,5 @@
+<%@page import="fr.lirmm.yamplusplus.yampponline.YamUser"%>
+<%@page import="fr.lirmm.yamplusplus.yampponline.YamDatabaseConnector"%>
 <%@include file="header.jsp" %>
 
 <div class="container theme-showcase" role="main">
@@ -26,7 +28,38 @@
   <%
     if (request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("admin")) {
   %>
-  <p>You're admin!</p>
+  <h2>Administration</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Apikey</th>
+        <th>Mail</th>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Affiliation</th>
+        <th>Field</th>
+        <th>Match count</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%
+        YamDatabaseConnector dbConnector = new YamDatabaseConnector();
+        for (YamUser user : dbConnector.getUserList()) {
+      %>
+
+      <tr>
+        <td><%=user.getApikey()%></td>
+        <td><%=user.getMail()%></td>
+        <td><%=user.getUsername()%></td>
+        <td><%=user.getRole()%></td>
+        <td><%=user.getIsAffiliateTo()%></td>
+        <td><%=user.getField()%></td>
+        <td><%=user.getMatchCount()%></td>
+      </tr>
+
+      <% } %>
+    </tbody>
+  </table>
   <% } %>
 
   <div class=sign style='display:none'>

@@ -21,18 +21,21 @@ public class YamUser {
   String role; // can be user or admin
   String passwordHash;
   String isAffiliateTo;
+  String field;
   Integer matchCount;
   Integer canMatch;
 
   /**
    * YamUser constructor
    *
-   * @param name
+   * @param apikey
+   * @param username
    * @param mail
    * @param passwordHash
    * @param isAffiliateTo
    * @param matchCount
    * @param canMatch
+   * @param role
    */
   public YamUser(String apikey, String mail, String username, String passwordHash, String isAffiliateTo, int matchCount, int canMatch, String role) {
     this.apikey = apikey;
@@ -98,6 +101,22 @@ public class YamUser {
 
   public void setMail(String mail) {
     this.mail = mail;
+  }
+  
+  public String getRole() {
+    return role;
+  }
+  
+  public void setRole(String role) {
+    this.role = role;
+  }
+  
+  public String getField() {
+    return field;
+  }
+  
+  public void setField(String field) {
+    this.field = field;
   }
 
   public String getIsAffiliateTo() {
