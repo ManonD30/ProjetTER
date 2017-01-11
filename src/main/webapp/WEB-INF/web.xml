@@ -135,8 +135,8 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AdminControl</servlet-name>
-        <url-pattern>/adminControl</url-pattern>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/changePassword</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>AdminControl</servlet-name>
@@ -144,8 +144,8 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ResetPassword</servlet-name>
-        <url-pattern>/resetPassword</url-pattern>
+        <servlet-name>AdminControl</servlet-name>
+        <url-pattern>/adminControl</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>Disconnect</servlet-name>

@@ -3,8 +3,10 @@
 <%@include file="header.jsp" %>
 
 <div class="container theme-showcase" role="main">
-  <% 
-    YamUser user = new YamUser(request.getSession());
+  <%    YamUser user = null;
+    if (request.getSession().getAttribute("apikey") != null) {
+      user = new YamUser(request.getSession());
+    }
 
     if (user != null) {%>
   <br><h2>Connected as <%=username%></h2>
@@ -59,7 +61,7 @@
             <input type="hidden" name="resetApikey" value="<%=listUser.getApikey()%>" />
             <input type="submit" value="Reset" class="btn">
           </form>
-            <form action="adminControl" method='post'>
+          <form action="adminControl" method='post'>
             <input type="hidden" name="deleteApikey" value="<%=listUser.getApikey()%>" />
             <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete the user?')">
           </form>
@@ -91,17 +93,17 @@
           <input type="text" name="nameUp" placeholder='ex: Joe Smith'
                  maxlength=32 required>
 
-          <p>Affiliation:</p>
-          <input type="text" name="affiliationUp" placeholder='ex: LIRMM'
-                 maxlength=32 required>
+          <p>Affiliation/Institute:</p>
+          <input type="text" name="affiliationUp" placeholder='ex: LIRMM' maxlength=32 required>
+
+          <p>Working field: </p>
+          <input type="text" name="fieldUp" placeholder='ex: Biomedical, music' maxlength=32>
 
           <p>Password:</p>
-          <input type="password" id=password name="passwordUp"
-                 placeholder=******* required>
+          <input type="password" id=password name="passwordUp" placeholder=******* required>
 
           <p>Password confirmation:</p>
-          <input type="password" id=confirmation name="confirmationUp"
-                 placeholder=******* required
+          <input type="password" id=confirmation name="confirmationUp" placeholder=******* required
                  onkeyup="checkPassword(); return false;">
 
           <div id=message></div>
@@ -129,7 +131,7 @@
   <%
     //get the error message
     String error = (String) request.getAttribute("error");
-      if (error != null && !error.equals("")) {%>
+    if (error != null && !error.equals("")) {%>
   <div class="alert alert-danger" role="alert" style="text-align: center; margin: 3% 20%;">
     <%=error%>
   </div>

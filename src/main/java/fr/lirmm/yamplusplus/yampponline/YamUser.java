@@ -50,7 +50,7 @@ public class YamUser {
   }
 
   /**
-   * Build YAM from HTTP session
+   * Build Yam User from HTTP session
    *
    * @param session
    */
@@ -60,9 +60,16 @@ public class YamUser {
     this.username = (String) session.getAttribute("username");
     this.role = (String) session.getAttribute("role");
     this.isAffiliateTo = (String) session.getAttribute("isAffiliateTo");
+    if (session.getAttribute("field") != null) {
+      this.field = (String) session.getAttribute("field");
+    }
 
-    this.matchCount = (int) session.getAttribute("matchCount");
-    this.canMatch = (int) session.getAttribute("canMatch");
+    if (session.getAttribute("matchCount") != null) {
+      this.matchCount = (int) session.getAttribute("matchCount");
+    }
+    if (session.getAttribute("canMatch") != null) {
+      this.canMatch = (int) session.getAttribute("canMatch");
+    }
   }
 
   /**
@@ -86,7 +93,7 @@ public class YamUser {
   public String getApikey() {
     return apikey;
   }
-  
+
   public String getUsername() {
     return username;
   }
@@ -102,19 +109,19 @@ public class YamUser {
   public void setMail(String mail) {
     this.mail = mail;
   }
-  
+
   public String getRole() {
     return role;
   }
-  
+
   public void setRole(String role) {
     this.role = role;
   }
-  
+
   public String getField() {
     return field;
   }
-  
+
   public void setField(String field) {
     this.field = field;
   }

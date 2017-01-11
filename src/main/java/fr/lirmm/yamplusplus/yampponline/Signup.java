@@ -31,6 +31,7 @@ public class Signup extends HttpServlet {
     String password = request.getParameter("passwordUp");
     String username = request.getParameter("nameUp");
     String affiliation = request.getParameter("affiliationUp");
+    String field = request.getParameter("fieldUp");
     
     // write logs to catalina.out
     Logger myLog = Logger.getLogger(Signup.class.getName());
@@ -38,7 +39,7 @@ public class Signup extends HttpServlet {
     //myLog.log(Level.INFO, "Creating user...");
     try {
       YamDatabaseConnector dbConnector = new YamDatabaseConnector();
-      YamUser user = dbConnector.userCreate(mail, username, affiliation, password);
+      YamUser user = dbConnector.userCreate(mail, username, affiliation, field, password);
 
       if (user == null) {
         myLog.log(Level.SEVERE, "User already in database!");

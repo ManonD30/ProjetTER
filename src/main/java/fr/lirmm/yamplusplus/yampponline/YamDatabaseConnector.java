@@ -99,12 +99,13 @@ public class YamDatabaseConnector {
    * @param mail
    * @param username
    * @param affiliation
+   * @param field
    * @param password
    * @return YamUser
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public YamUser userCreate(String mail, String username, String affiliation, String password) throws SQLException, ClassNotFoundException {
+  public YamUser userCreate(String mail, String username, String affiliation, String field, String password) throws SQLException, ClassNotFoundException {
     // create a mysql database connection
     //Class.forName(this.driver);
     Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
@@ -149,8 +150,8 @@ public class YamDatabaseConnector {
     if (inDatabase == null) {
       // Insert into Database
       // the mysql insert statement
-      query = " insert into user (apikey, mail, username, isAffiliateTo, matchCount, canMatch, role, password)"
-              + " values (?, ?, ?, ?, ?, ?, ?, ?)";
+      query = " insert into user (apikey, mail, username, isAffiliateTo, field, matchCount, canMatch, role, password)"
+              + " values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
       // create the mysql insert preparedstatement
       preparedStmt = conn.prepareStatement(query);
@@ -158,16 +159,16 @@ public class YamDatabaseConnector {
       preparedStmt.setString(2, mail);
       preparedStmt.setString(3, username);
       preparedStmt.setString(4, affiliation);
-      preparedStmt.setInt(5, matchCount);
-      preparedStmt.setInt(6, canMatch);
-      preparedStmt.setString(7, role);
+      preparedStmt.setString(5, field);
+      preparedStmt.setInt(6, matchCount);
+      preparedStmt.setInt(7, canMatch);
+      preparedStmt.setString(8, role);
 
       String hashed = getPasswordHash(password);
-      preparedStmt.setString(8, hashed);
-
+      preparedStmt.setString(9, hashed);
+      
       // execute the preparedstatement
       preparedStmt.execute();
-
     } else {
       Logger.getLogger(Matcher.class.getName()).log(Level.WARNING, "Already in database");
       return null;
