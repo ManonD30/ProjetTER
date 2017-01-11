@@ -315,23 +315,37 @@ public class YamDatabaseConnector {
       Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error checking old password: {0}", e.toString());
     }
     if (isValidPassword) {
-      try {
-        // create a mysql database connection
-        Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
+      return resetPassword(apikey, newPassword);
+    }
+    return false;
+  }
 
-        String query = "UPDATE user SET password=? WHERE apikey=?";
-        // create the mysql prepared statement
-        PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setString(1, getPasswordHash(newPassword));
-        preparedStmt.setString(2, apikey);
-        // execute the prepared statement
-        preparedStmt.executeUpdate();
-        // close connection to database
-        conn.close();
-        return true;
-      } catch (SQLException e) {
-        Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error changing password: {0}", e.toString());
-      }
+  /**
+   * Reset password to given new password
+   *
+   * @param apikey
+   * @param newPassword
+   * @return boolean
+   * @throws ClassNotFoundException
+   */
+  public boolean resetPassword(String apikey, String newPassword) throws ClassNotFoundException {
+
+    try {
+      // create a mysql database connection
+      Connection conn = DriverManager.getConnection(this.dbUrl, this.dbUsername, this.dbPassword);
+
+      String query = "UPDATE user SET password=? WHERE apikey=?";
+      // create the mysql prepared statement
+      PreparedStatement preparedStmt = conn.prepareStatement(query);
+      preparedStmt.setString(1, getPasswordHash(newPassword));
+      preparedStmt.setString(2, apikey);
+      // execute the prepared statement
+      preparedStmt.executeUpdate();
+      // close connection to database
+      conn.close();
+      return true;
+    } catch (SQLException e) {
+      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Error changing password: {0}", e.toString());
     }
     return false;
   }

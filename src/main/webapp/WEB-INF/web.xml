@@ -139,6 +139,15 @@
     <url-pattern>/changePassword</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>ResetPassword</servlet-name>
+    <servlet-class>fr.lirmm.yamplusplus.yampponline.ResetPassword</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ResetPassword</servlet-name>
+    <url-pattern>/resetPassword</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>Disconnect</servlet-name>
     <servlet-class>fr.lirmm.yamplusplus.yampponline.Disconnect</servlet-class>
     <load-on-startup>1</load-on-startup>

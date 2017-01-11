@@ -20,15 +20,16 @@
   <form action='changePassword' method='get' name=modify enctype='multipart/form-data'>
     <input type='submit' class=btnBig value='Change my password'>
   </form>
-  <form action='disconnect'
-        method='post'name=disconnect enctype='multipart/form-data'>
+  <form action='disconnect' method='post'name=disconnect enctype='multipart/form-data'>
     <input type='submit' class=btnBig value='Disconnect'>
   </form>
 
   <%
     if (request.getSession().getAttribute("role") != null && request.getSession().getAttribute("role").equals("admin")) {
   %>
+  <hr/>
   <h2>Administration</h2>
+  <p>Resetting a password reset it to "changeme"</p>
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -39,6 +40,7 @@
         <th>Affiliation</th>
         <th>Field</th>
         <th>Match count</th>
+        <th>Reset password</th>
       </tr>
     </thead>
     <tbody>
@@ -55,6 +57,12 @@
         <td><%=user.getIsAffiliateTo()%></td>
         <td><%=user.getField()%></td>
         <td><%=user.getMatchCount()%></td>
+        <td>
+          <form action="resetPassword" method='post'>
+            <input type="hidden" name="resetApikey" value="<%=user.getApikey()%>" />
+            <input type="submit" value="Reset" class="btn">
+          </form>
+        </td>
       </tr>
 
       <% } %>
