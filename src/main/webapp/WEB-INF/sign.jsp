@@ -64,13 +64,13 @@
         <td><%=user.getField()%></td>
         <td><%=user.getMatchCount()%></td>
         <td>
-          <form action="resetPassword" method='post'>
+          <form action="adminControl" method='post'>
             <input type="hidden" name="resetApikey" value="<%=user.getApikey()%>" />
             <input type="submit" value="Reset" class="btn">
           </form>
-            <form action="resetPassword" method='post'>
+            <form action="adminControl" method='post'>
             <input type="hidden" name="deleteApikey" value="<%=user.getApikey()%>" />
-            <input type="submit" value="Delete" class="btn btn-danger">
+            <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete the user?')">
           </form>
         </td>
       </tr>

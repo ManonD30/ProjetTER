@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ResetPassword extends HttpServlet {
+public class AdminControl extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
 
   /**
-   * Reset the password of a user to "changeme". Only works if user is admin
+   * Reset the password of a user to "changeme" or delete the user. Only works if user is admin
    *
    * @param request
    * @param response
@@ -52,7 +52,7 @@ public class ResetPassword extends HttpServlet {
         }
       } catch (ClassNotFoundException ex) {
         request.setAttribute("error", "Error processing request.");
-        Logger.getLogger(ResetPassword.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(AdminControl.class.getName()).log(Level.SEVERE, null, ex);
       }
     }
     // send response
