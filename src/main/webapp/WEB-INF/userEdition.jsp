@@ -9,17 +9,18 @@
     }
 
     if (user != null) {%>
-  <div>
+  <h2>Update user informations</h2>
+  <div style="text-align: center;">
     <form action='userEdition' method='post' enctype='multipart/form-data'>
       <p>Affiliation/Institute:</p>
       <input type="text" name="affiliation" placeholder='ex: LIRMM' maxlength=32>
 
       <p>Working field: </p>
       <input type="text" name="field" placeholder='ex: Biomedical, music' maxlength=32>
-      <br>
+      <br><br>
 
       <div id=submitEdition>
-        <input type="submit" class="btn btn-primary" value="Edit user informations" required>
+        <input type="submit" class="btn btn-info" value="Edit user informations" required>
       </div>
     </form>
   </div>
