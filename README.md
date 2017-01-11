@@ -71,6 +71,12 @@ Using Apache Tomcat 7 and Java 8
 * Put your html and css in that folder and name the html file, which you want to be the starting page for your application, index.html
 * Start tomcat and point your browser to url "http://localhost:8080/javadoc". Your index.html page will pop up in the browser
 
+## User administration
+
+User can be admin. An admin can see the list of user in its account page. An admin can reset any user password to "changeme"
+
+The admin role is automatically given to the user created with the username "admin"
+
 ## Best to run it: using docker-compose
 
 * Install docker (and docker-compose if not packaged with)

@@ -123,16 +123,16 @@
           <input type="submit" class=btn value="Sign in">
         </form>
       </div>
-      <%
-        //get the error message
-        String error = (String) request.getAttribute("error");
-        if (error != null && !error.equals("")) {%>
-      <div class="alert alert-danger" role="alert" style="text-align: center; margin: 3% 20%;">
-        <%=error%>
-      </div>
-      <% }%>
     </div>
   </div>
+  <%
+    //get the error message
+    String error = (String) request.getAttribute("error");
+      if (error != null && !error.equals("")) {%>
+  <div class="alert alert-danger" role="alert" style="text-align: center; margin: 3% 20%;">
+    <%=error%>
+  </div>
+  <% }%>
 </div>
 
 <%@include file="footer.jsp" %>

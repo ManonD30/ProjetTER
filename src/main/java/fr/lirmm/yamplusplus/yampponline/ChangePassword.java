@@ -41,7 +41,7 @@ public class ChangePassword extends HttpServlet {
       request.setAttribute("error", "Error updating the password.");
     }
     // send response
-    this.getServletContext().getRequestDispatcher("/WEB-INF/change.jsp").forward(request, response);
+    this.getServletContext().getRequestDispatcher("/WEB-INF/sign.jsp").forward(request, response);
   }
 
   /**
