@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  */
 public class YamDatabaseConnector {
 
-  Connection dbConnection;
+  Connection dbConnection;// Remove it?
   String dbUrl;
   String dbUsername;
   String dbPassword;
@@ -83,7 +83,7 @@ public class YamDatabaseConnector {
     // get user
     while (result.next()) {
       user = new YamUser(result.getString("apikey"), result.getString("mail"), result.getString("username"), result.getString("password"),
-              result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"));
+              result.getString("isAffiliateTo"), result.getInt("matchCount"), result.getInt("canMatch"), result.getString("role");
     }
 
     // close connection to database
@@ -138,13 +138,18 @@ public class YamDatabaseConnector {
     int matchCount = 0;
     // Set canMatch to 10 at creation
     int canMatch = 10;
+    String role = "user";
+    // Here we set the admin user as an admin when created. We can add other
+    if (username.equals("admin") {
+      role = "admin";
+    }
 
     // if user not in database
     if (inDatabase == null) {
       // Insert into Database
       // the mysql insert statement
-      query = " insert into user (apikey, mail, username, isAffiliateTo, matchCount, canMatch, password)"
-              + " values (?, ?, ?, ?, ?, ?, ?)";
+      query = " insert into user (apikey, mail, username, isAffiliateTo, matchCount, canMatch, role, password)"
+              + " values (?, ?, ?, ?, ?, ?, ?, ?)";
 
       // create the mysql insert preparedstatement
       preparedStmt = conn.prepareStatement(query);
@@ -154,9 +159,10 @@ public class YamDatabaseConnector {
       preparedStmt.setString(4, affiliation);
       preparedStmt.setInt(5, matchCount);
       preparedStmt.setInt(6, canMatch);
+      preparedStmt.setInt(7, role);
 
       String hashed = getPasswordHash(password);
-      preparedStmt.setString(7, hashed);
+      preparedStmt.setString(8, hashed);
 
       // execute the preparedstatement
       preparedStmt.execute();

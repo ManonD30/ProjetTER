@@ -18,6 +18,7 @@ public class YamUser {
   String apikey;
   String username;
   String mail;
+  String role; // can be user or admin
   String passwordHash;
   String isAffiliateTo;
   Integer matchCount;
@@ -33,10 +34,11 @@ public class YamUser {
    * @param matchCount
    * @param canMatch
    */
-  public YamUser(String apikey, String mail, String username, String passwordHash, String isAffiliateTo, int matchCount, int canMatch) {
+  public YamUser(String apikey, String mail, String username, String passwordHash, String isAffiliateTo, int matchCount, int canMatch, String role) {
     this.apikey = apikey;
     this.mail = mail;
     this.username = username;
+    this.role = role;
     this.passwordHash = passwordHash;
     this.isAffiliateTo = isAffiliateTo;
 
@@ -53,6 +55,7 @@ public class YamUser {
     this.apikey = (String) session.getAttribute("apikey");
     this.mail = (String) session.getAttribute("mail");
     this.username = (String) session.getAttribute("username");
+    this.role = (String) session.getAttribute("role");
     this.isAffiliateTo = (String) session.getAttribute("isAffiliateTo");
 
     this.matchCount = (int) session.getAttribute("matchCount");
@@ -69,6 +72,7 @@ public class YamUser {
     session.setAttribute("apikey", this.apikey);
     session.setAttribute("mail", this.mail);
     session.setAttribute("username", this.username);
+    session.setAttribute("role", this.role);
     session.setAttribute("matchCount", this.matchCount);
     session.setAttribute("canMatch", this.canMatch);
     session.setAttribute("isAffiliateTo", this.isAffiliateTo);
