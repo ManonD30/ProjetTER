@@ -6,6 +6,16 @@ Using Apache Tomcat 7 and Java 8
 
 ### Now
 
+* **RDF VIZU**
+http://visjs.org/network_examples.html : javascript vraiment intéressant
+http://visjs.org/examples/network/events/interactionEvents.html
+http://visjs.org/examples/network/labels/labelAlignment.html
+
+http://vowl.visualdataweb.org/webvowl/index.html : trop gros on dirait
+https://github.com/nylen/d3-process-map : pas du rdf direct et php
+https://github.com/VisualDataWeb/WebVOWL : nodeJS
+
+
 * **FORMATS**
   * OAEI XML (format de "sauvegarde des données" qui permet de sauvegarder l'état des mappings et de reprendre)
   * Simple RDF : simple format RDF (à implémenter dans yampp-ls)
