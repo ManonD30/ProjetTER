@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.skos.SKOSCreationException;
 
 /**
  *
@@ -60,7 +59,7 @@ public class TestSkosToOwlConverter {
   // @Test
   // public void hello() {}
   @Test
-  public void testSkosToOwlConverter() throws IOException, ClassNotFoundException, SKOSCreationException, OWLOntologyStorageException {
+  public void testSkosToOwlConverter() throws IOException, ClassNotFoundException, OWLOntologyStorageException {
     FileUtils.forceMkdir(new File("/tmp/yam-gui"));
     String skosRameau = YamFileHandler.convertSkosToOwl(new File("src/test/resources/rameau.ttl"), new File("/tmp/yam-gui/rameau_converted.xml"), "RDF/XML");
     String skosIaml = YamFileHandler.convertSkosToOwl(new File("src/test/resources/iaml.ttl"), new File("/tmp/yam-gui/iaml_converted.xml"), "RDF/XML");
