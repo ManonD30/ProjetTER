@@ -127,7 +127,10 @@
           <input type="email" name="mailIn" placeholder="joesmith@example.com" maxlength=32 required>
           <p>Password:</p>
           <input type="password" name="passwordIn" placeholder=******* required> <br/><br/> 
-          <input type="submit" class=btn value="Sign in">
+          <input type="submit" class="btn  btn-info" value="Sign in">
+          <a href="mailto:vincent.emonet@lirmm.fr" target="_blank">
+            <button type="button" class="btn" style="color: black;">Contact to reset password</button>
+          </a>
         </form>
       </div>
     </div>
