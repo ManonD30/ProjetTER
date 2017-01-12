@@ -28,7 +28,6 @@ import java.util.logging.Logger;
  */
 public class YamDatabaseConnector {
 
-  Connection dbConnection;// Remove it?
   String dbUrl;
   String dbUsername;
   String dbPassword;
