@@ -63,7 +63,7 @@
         <td>
           <form action="adminControl" method='post'>
             <input type="hidden" name="resetApikey" value="<%=listUser.getApikey()%>" />
-            <input type="submit" value="Reset" class="btn">
+            <input type="submit" value="Reset" class="btn" onclick="return confirm('Are you sure you want to reset the user password?')">
           </form>
           <form action="adminControl" method='post'>
             <input type="hidden" name="deleteApikey" value="<%=listUser.getApikey()%>" />
