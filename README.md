@@ -11,6 +11,8 @@ http://visjs.org/network_examples.html : javascript vraiment intéressant
 http://visjs.org/examples/network/events/interactionEvents.html
 http://visjs.org/examples/network/labels/labelAlignment.html
 
+https://github.com/alangrafu/visualRDF : php parse RDF pour affichage relativement simple (mais bordélique)
+
 http://vowl.visualdataweb.org/webvowl/index.html : trop gros on dirait
 https://github.com/nylen/d3-process-map : pas du rdf direct et php
 https://github.com/VisualDataWeb/WebVOWL : nodeJS
