@@ -26,8 +26,7 @@ for the sourceOnt and targetOnt ontology alignment -->
 
 <main>
 
-  <%
-    // Get alignment Array with all aligned entities
+  <%    // Get alignment Array with all aligned entities
     JSONObject alignmentObject = (JSONObject) request.getAttribute("alignment");
 
     // Trying to get ontology loaded using owlapi
