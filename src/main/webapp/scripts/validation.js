@@ -199,8 +199,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
         $scope.lastSelected = this;
       }
       // HERE add change for network
-      buildNetwork("source", this.alignment.entity1);
-      buildNetwork("target", this.alignment.entity2);
+      buildNetwork("source", this.alignment.entity1, $scope.selectedLang);
+      buildNetwork("target", this.alignment.entity2, $scope.selectedLang);
     }
   };
 });
@@ -334,11 +334,32 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
  * @param {type} entity
  * @returns {undefined}
  */
-function buildNetwork(ontology, entity) {
+function buildNetwork(ontology, entity, selectedLang) {
   // create an array with nodes
   console.log("Dans build net");
+  
+  // Get the entity label (using "!=" instead of "!==" allows to avoid null AND undefined)
+  if (entity["label"] != null) {
+    // Select label according to user selection
+    if (entity["label"].hasOwnProperty(selectedLang)) {
+      var label = entity["label"][selectedLang] + " (" + selectedLang + ")";
+    } else {
+      var labelLang = Object.keys(entity["label"])[0];
+      // Take first label in object if selected lang not available (using == to not take account of types)
+      //console.log(labelLang);
+      if (labelLang == null || labelLang == "" || labelLang.toString().toLowerCase() === "n/a") {
+        var label = entity["label"][labelLang];
+      } else {
+        // Add language between parenthesis if not undefined
+        var label = entity["label"][labelLang] + " (" + labelLang + ")";
+      }
+    }
+  } else {
+    var label = id;
+  }
+  
   var nodes = new vis.DataSet([
-    {id: 1, label: entity["label"]}
+    {id: 1, label: label}
   ]);
 
   // create an array with edges
@@ -356,7 +377,7 @@ function buildNetwork(ontology, entity) {
             {id: propertyCount, label: entity[key][valuesObject]["value"]}
           ]);
           edges.add([
-            {from: 1, to: propertyCount, label: key, font: {align: 'horizontal'}}
+            {from: 1, to: propertyCount, label: entity[key][0]["prefixedPredicate"], font: {align: 'horizontal'}}
           ])
           propertyCount++;
           //if (entity[key][valuesObject]["value"].startsWith("http://")) {}
