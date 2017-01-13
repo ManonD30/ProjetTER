@@ -199,8 +199,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
         $scope.lastSelected = this;
       }
       // HERE add change for network
-      buildNetwork("source", this.alignment.entity1, $scope.selectedLang);
-      buildNetwork("target", this.alignment.entity2, $scope.selectedLang);
+      buildNetwork("source", this.alignment.entity1, $scope.selectedLang, $scope.ontologies);
+      buildNetwork("target", this.alignment.entity2, $scope.selectedLang, $scope.ontologies);
     }
   };
 });
@@ -334,7 +334,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
  * @param {type} entity
  * @returns {undefined}
  */
-function buildNetwork(ontology, entity, selectedLang) {
+function buildNetwork(ontology, entity, selectedLang, ontologies) {
   // create an array with nodes
 
   // Get the entity label (using "!=" instead of "!==" allows to avoid null AND undefined)
@@ -363,7 +363,7 @@ function buildNetwork(ontology, entity, selectedLang) {
   // create an array with edges
   var edges = new vis.DataSet();
   var propertyCount = 2; // init at 2 since the entity is 1
-  
+
   var orderedEntities = {};
   // Iterate over the different properties (predicates) of an entity
   // To get properties values grouped by property
@@ -398,27 +398,76 @@ function buildNetwork(ontology, entity, selectedLang) {
         {from: 1, to: propertyCount, label: attr, font: {align: 'horizontal'}}
       ]);
     }
+    var entityCount = propertyCount;
     propertyCount++;
+
+    // If property is an URI we check if it has properties in our ontology
+    if (orderedEntities[attr].startsWith("http")) {
+      if (ontology === "target") {
+        var ontoNumber = "ont2";
+      } else if (ontology === "source") {
+        var ontoNumber = "ont1";
+      }
+      console.log("Ontooo");
+      console.log(ontologies[ontoNumber]['entities'][orderedEntities[attr]]);
+      console.log(ontologies);
+      var linkedEntity = ontologies[ontoNumber]['entities'][orderedEntities[attr]];
+      var linkedEntityProperties = {};
+      // Iterate over the different properties (predicates) of an entity
+      // To get properties values grouped by property
+      if (linkedEntity != null) {
+        Object.keys(linkedEntity).sort().forEach(function (key) {
+          if (key !== "id" && key !== "label") {
+            linkedEntityProperties[key] = null;
+            // Iterate over the different values of the object of a predicate (the same property can point to different objects)
+            for (var valuesObject in linkedEntity[key]) {
+              if (typeof linkedEntity[key][valuesObject]["value"] !== "undefined") {
+                // If it is a literal then we concatenate them
+                if (linkedEntityProperties[key] === null) {
+                  linkedEntityProperties[key] = linkedEntity[key][valuesObject]["value"];
+                } else {
+                  linkedEntityProperties[key] = linkedEntityProperties[key] + " \n" + linkedEntity[key][valuesObject]["value"];
+                }
+              }
+            }
+          }
+        });
+        // Add each property and its value to the network
+        for (var linkedAttr in linkedEntityProperties) {
+          nodes.add([
+            {id: propertyCount, label: linkedEntityProperties[linkedAttr]}
+          ]);
+          if (entity[linkedAttr] != null && entity[linkedAttr][0]["prefixedPredicate"] !== null) {
+            edges.add([
+              {from: entityCount, to: propertyCount, label: entity[linkedAttr][0]["prefixedPredicate"], font: {align: 'horizontal'}}
+            ]);
+          } else {
+            edges.add([
+              {from: entityCount, to: propertyCount, label: linkedAttr, font: {align: 'horizontal'}}
+            ]);
+          }
+          propertyCount++;
+        }
+      }
+    }
+
+    // create a network
+    var container = document.getElementById(ontology + 'Network');
+    // provide the data in the vis format
+    var data = {
+      nodes: nodes,
+      edges: edges
+    };
+    // Get height of div
+    var networkHeight = document.getElementById(ontology + "Section").clientHeight.toString();
+    var options = {
+      height: networkHeight
+    };
+    // initialize your network!
+    console.log(options);
+    var network = new vis.Network(container, data, options);
+    network.fit();
   }
-
-
-
-  // create a network
-  var container = document.getElementById(ontology + 'Network');
-  // provide the data in the vis format
-  var data = {
-    nodes: nodes,
-    edges: edges
-  };
-  // Get height of div
-  var networkHeight = document.getElementById(ontology + "Section").clientHeight.toString();
-  var options = {
-    height: networkHeight
-  };
-  // initialize your network!
-  console.log(options);
-  var network = new vis.Network(container, data, options);
-  network.fit();
 }
 
 /* Remember on how to make a little window that show when mouseover with angularjs
