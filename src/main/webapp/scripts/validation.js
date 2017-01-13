@@ -240,7 +240,6 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
  * @returns {undefined}
  */
 function buildEntityDetailsHtml(entity, entityName, selectedLang) {
-  console.log("dans build entity html");
   // Order the JSON string to have id and label at the beginning
   var orderedEntities = {};
   var id = entity["id"].link(entity["id"]);
@@ -339,7 +338,7 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
   }
 
   var nodes = new vis.DataSet([
-    {id: 1, label: label}
+    {id: 1, label: label, color: '#FB7E81'}
   ]);
   // create an array with edges
   var edges = new vis.DataSet();
@@ -402,7 +401,7 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
       } else if (ontology === "source") {
         var ontoNumber = "ont1";
       }
-      console.log(ontologies);
+      //console.log(ontologies);
 
       // Get the entity linked to the mapped concept from the ontology:
       var linkedEntity = ontologies[ontoNumber]['entities'][orderedEntities[attr]];
@@ -492,7 +491,7 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
   }
   ;
   // initialize your network!
-  console.log(options);
+  //console.log(options);
   var network = new vis.Network(container, data, options);
   network.fit();
 }
