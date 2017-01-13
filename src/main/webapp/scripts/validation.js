@@ -488,10 +488,10 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
         /* Separate the nodes enough to make it readable */
         hierarchicalRepulsion: {
           centralGravity: 0.0,
-          springLength: 500,
-          springConstant: 0.1,
+          springLength: 400,
+          springConstant: 0.01,
           damping: 0.09,
-          nodeDistance: 50
+          nodeDistance: 70
         },
          solver: 'hierarchicalRepulsion'
       }
