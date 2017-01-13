@@ -482,21 +482,6 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
       height: networkHeight,
       physics: {
         enabled: true,
-        /*stabilization: {
-         enabled: true,
-         iterations: 1000,
-         updateInterval: 25
-         },*/
-        /*forceAtlas2Based: {
-         gravitationalConstant: 0,
-         centralGravity: 0.005,
-         springLength: 230,
-         springConstant: 0.18,
-         avoidOverlap: 1.5
-         },
-         maxVelocity: 146,
-         solver: 'forceAtlas2Based',
-         timestep: 0.35,*/
         /*barnesHut: {
          avoidOverlap: 0.5
          },*/
@@ -506,14 +491,10 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
           springLength: 500,
           springConstant: 0.1,
           damping: 0.09,
-          nodeDistance: 70
+          nodeDistance: 50
         },
          solver: 'hierarchicalRepulsion'
-      }/* Make round turn to edges:,
-       "edges": {
-       "smooth": {
-       "forceDirection": "none"
-       }*/
+      }
     };
   }
   // initialize your network!
