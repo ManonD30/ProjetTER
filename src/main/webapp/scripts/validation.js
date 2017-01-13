@@ -491,7 +491,7 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
           springLength: 400,
           springConstant: 0.01,
           damping: 0.09,
-          nodeDistance: 70
+          nodeDistance: 50
         },
          solver: 'hierarchicalRepulsion'
       }
