@@ -372,10 +372,12 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
       edges.add([
         {from: 1, to: nodeIds[orderedEntities[attr]], label: attr, font: {align: 'horizontal'}}
       ]);
+      var getLinkedProperties = false;
     } else {
       nodes.add([
         {id: propertyCount, label: orderedEntities[attr]}
       ]);
+      var getLinkedProperties = true;
       nodeIds[orderedEntities[attr]] = propertyCount;
       if (entity[attr][0]["prefixedPredicate"] !== null) {
         edges.add([
@@ -398,11 +400,13 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
         var ontoNumber = "ont1";
       }
       console.log(ontologies);
+
+      // Get the entity linked to the mapped concept from the ontology:
       var linkedEntity = ontologies[ontoNumber]['entities'][orderedEntities[attr]];
       var linkedEntityProperties = {};
       // Iterate over the different properties (predicates) of an entity
       // To get properties values grouped by property
-      if (linkedEntity != null) {
+      if (linkedEntity != null && getLinkedProperties === true) {
         Object.keys(linkedEntity).sort().forEach(function (key) {
           if (key !== "id" && key !== "label") {
             linkedEntityProperties[key] = null;
@@ -419,29 +423,30 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
             }
           }
         });
-        // Add each property and its value to the network
+        // Add each property and its value to the network 
         for (var linkedAttr in linkedEntityProperties) {
 
           // Don't create a new node if node exist already, just add a new edge
           if (nodeIds[linkedEntityProperties[linkedAttr]] != null) {
-            edges.add([
-              {from: entityCount, to: nodeIds[linkedEntityProperties[linkedAttr]], label: linkedAttr, font: {align: 'horizontal'}}
-            ]);
+            var nodeNumber = nodeIds[linkedEntityProperties[linkedAttr]];
           } else {
+            var nodeNumber = propertyCount;
             nodes.add([
-              {id: propertyCount, label: linkedEntityProperties[linkedAttr]}
+              {id: nodeNumber, label: linkedEntityProperties[linkedAttr]}
             ]);
             nodeIds[linkedEntityProperties[linkedAttr]] = propertyCount;
-            if (entity[linkedAttr] != null && entity[linkedAttr][0]["prefixedPredicate"] !== null) {
-              edges.add([
-                {from: entityCount, to: propertyCount, label: entity[linkedAttr][0]["prefixedPredicate"], font: {align: 'horizontal'}}
-              ]);
-            } else {
-              edges.add([
-                {from: entityCount, to: propertyCount, label: linkedAttr, font: {align: 'horizontal'}}
-              ]);
-            }
             propertyCount++;
+          }
+          
+          // Create edge with prefixed predicate when possible
+          if (entity[linkedAttr] != null && entity[linkedAttr][0]["prefixedPredicate"] !== null) {
+            edges.add([
+              {from: entityCount, to: nodeNumber, label: entity[linkedAttr][0]["prefixedPredicate"], font: {align: 'horizontal'}}
+            ]);
+          } else {
+            edges.add([
+              {from: entityCount, to: nodeNumber, label: linkedAttr, font: {align: 'horizontal'}}
+            ]);
           }
         }
       }
