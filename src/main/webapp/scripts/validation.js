@@ -309,6 +309,17 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
 }
 
 /**
+ * Display the property recursily, giving a depth
+ * @param {type} depth
+ * @param {type} entity
+ * @param {type} ontology
+ * @returns {undefined}
+ */
+function getPropertyRecursive(depth, entity, ontology, nodeIds, networkData) {
+
+}
+
+/**
  * Build the network of properties around an entity
  * @param {type} ontology
  * @param {type} entity
@@ -471,25 +482,40 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
       height: networkHeight,
       physics: {
         enabled: true,
-        barnesHut: {
-          avoidOverlap: 0.5
-        },
+        /*stabilization: {
+         enabled: true,
+         iterations: 1000,
+         updateInterval: 25
+         },*/
+        /*forceAtlas2Based: {
+         gravitationalConstant: 0,
+         centralGravity: 0.005,
+         springLength: 230,
+         springConstant: 0.18,
+         avoidOverlap: 1.5
+         },
+         maxVelocity: 146,
+         solver: 'forceAtlas2Based',
+         timestep: 0.35,*/
+        /*barnesHut: {
+         avoidOverlap: 0.5
+         },*/
+        /* Separate the nodes enough to make it readable */
         hierarchicalRepulsion: {
           centralGravity: 0.0,
-          /*springLength: 500,
-           springConstant: 0.01,
-           damping: 0.09,*/
-          nodeDistance: 250
-        }/*,
-         solver: 'hierarchicalRepulsion'*/
-      }/*,
+          springLength: 500,
+          springConstant: 0.1,
+          damping: 0.09,
+          nodeDistance: 70
+        },
+         solver: 'hierarchicalRepulsion'
+      }/* Make round turn to edges:,
        "edges": {
        "smooth": {
        "forceDirection": "none"
        }*/
-    }
+    };
   }
-  ;
   // initialize your network!
   //console.log(options);
   var network = new vis.Network(container, data, options);
