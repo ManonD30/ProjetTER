@@ -437,7 +437,7 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
             nodeIds[linkedEntityProperties[linkedAttr]] = propertyCount;
             propertyCount++;
           }
-          
+
           // Create edge with prefixed predicate when possible
           if (entity[linkedAttr] != null && entity[linkedAttr][0]["prefixedPredicate"] !== null) {
             edges.add([
@@ -464,9 +464,18 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
     var options = {
       height: networkHeight,
       physics: {
+        enabled: true,
         barnesHut: {
           avoidOverlap: 0.5
-        }
+        },
+        hierarchicalRepulsion: {
+          centralGravity: 0.0,
+          springLength: 500,
+          springConstant: 0.01,
+          nodeDistance: 400,
+          damping: 0.09
+        },
+        solver: 'hierarchicalRepulsion'
       },
       "edges": {
         "smooth": {
