@@ -336,8 +336,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
  */
 function buildNetwork(ontology, entity, selectedLang) {
   // create an array with nodes
-  console.log("Dans build net");
-  
+
   // Get the entity label (using "!=" instead of "!==" allows to avoid null AND undefined)
   if (entity["label"] != null) {
     // Select label according to user selection
@@ -357,34 +356,50 @@ function buildNetwork(ontology, entity, selectedLang) {
   } else {
     var label = id;
   }
-  
+
   var nodes = new vis.DataSet([
     {id: 1, label: label}
   ]);
-
   // create an array with edges
   var edges = new vis.DataSet();
   var propertyCount = 2; // init at 2 since the entity is 1
+  
+  var orderedEntities = {};
   // Iterate over the different properties (predicates) of an entity
+  // To get properties values grouped by property
   Object.keys(entity).sort().forEach(function (key) {
-
-    if (key !== "id") {
+    if (key !== "id" && key !== "label") {
+      orderedEntities[key] = null;
       // Iterate over the different values of the object of a predicate (the same property can point to different objects)
       for (var valuesObject in entity[key]) {
         if (typeof entity[key][valuesObject]["value"] !== "undefined") {
-          // to get the value of the object depending if it's an URI or a literal
-          nodes.add([
-            {id: propertyCount, label: entity[key][valuesObject]["value"]}
-          ]);
-          edges.add([
-            {from: 1, to: propertyCount, label: entity[key][0]["prefixedPredicate"], font: {align: 'horizontal'}}
-          ])
-          propertyCount++;
-          //if (entity[key][valuesObject]["value"].startsWith("http://")) {}
+          // If it is a literal then we concatenate them
+          if (orderedEntities[key] === null) {
+            orderedEntities[key] = entity[key][valuesObject]["value"];
+          } else {
+            orderedEntities[key] = orderedEntities[key] + " \n" + entity[key][valuesObject]["value"];
+          }
         }
       }
     }
   });
+
+  // Add each property and its value to the network
+  for (var attr in orderedEntities) {
+    nodes.add([
+      {id: propertyCount, label: orderedEntities[attr], options: {shape: "square"}}
+    ]);
+    if (entity[attr][0]["prefixedPredicate"] !== null) {
+      edges.add([
+        {from: 1, to: propertyCount, label: entity[attr][0]["prefixedPredicate"], font: {align: 'horizontal'}}
+      ]);
+    } else {
+      edges.add([
+        {from: 1, to: propertyCount, label: attr, font: {align: 'horizontal'}}
+      ]);
+    }
+    propertyCount++;
+  }
 
 
 
