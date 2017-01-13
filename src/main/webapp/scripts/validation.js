@@ -460,7 +460,7 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
       height: networkHeight,
       physics: {
         barnesHut: {
-          avoidOverlap: 1
+          avoidOverlap: 0.5
         }
       },
       "edges": {
