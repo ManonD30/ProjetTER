@@ -338,32 +338,28 @@ function buildNetwork(ontology, entity) {
   // create an array with nodes
   console.log("Dans build net");
   var nodes = new vis.DataSet([
-    {id: 1, label: entity["id"]},
-    {id: 2, label: 'Node 2'},
-    {id: 3, label: 'Node 3'},
-    {id: 4, label: 'Node 4'},
-    {id: 5, label: 'Node 5'}
+    {id: 1, label: entity["label"]}
   ]);
 
   // create an array with edges
-  var edges = new vis.DataSet([
-    {from: 1, to: 3, label: 'horizontal', font: {align: 'horizontal'}},
-    {from: 1, to: 2, label: 'horizontal', font: {align: 'horizontal'}},
-    {from: 2, to: 4, label: 'horizontal', font: {align: 'horizontal'}},
-    {from: 2, to: 5, label: 'horizontal', font: {align: 'horizontal'}}
-  ]);
-
+  var edges = new vis.DataSet();
+  var propertyCount = 2; // init at 2 since the entity is 1
   // Iterate over the different properties (predicates) of an entity
   Object.keys(entity).sort().forEach(function (key) {
-    if (key !== "id" && key !== "label") {
-      orderedEntities[key] = null;
+
+    if (key !== "id") {
       // Iterate over the different values of the object of a predicate (the same property can point to different objects)
       for (var valuesObject in entity[key]) {
         if (typeof entity[key][valuesObject]["value"] !== "undefined") {
           // to get the value of the object depending if it's an URI or a literal
-          if (entity[key][valuesObject]["value"].startsWith("http://")) {
-
-          }
+          nodes.add([
+            {id: propertyCount, label: entity[key][valuesObject]["value"]}
+          ]);
+          edges.add([
+            {from: 1, to: propertyCount, label: key, font: {align: 'horizontal'}}
+          ])
+          propertyCount++;
+          //if (entity[key][valuesObject]["value"].startsWith("http://")) {}
         }
       }
     }
