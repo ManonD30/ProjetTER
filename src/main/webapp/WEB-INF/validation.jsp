@@ -227,25 +227,91 @@ style="{{generateStyleForSelect(alignment)}}" class="form-co                    
     </nav>
 
     <div class="entities">
-      <section class="entity entity-source">
+      <section id="sourceSection" class="entity entity-source">
         <div class="entity-content">
           <div class="entity-inner-content">
             <div id="entityDetail1"  class="entity-view entity-text">
             </div>
             <div class="entity-view entity-graph">
-              <img src="images/placeholder.png" alt="temporaire" />
+              <div id="sourceNetwork"></div>
+              <script type="text/javascript">
+                // create an array with nodes
+                var nodes = new vis.DataSet([
+                {id: 1, label: 'Node 1'},
+                {id: 2, label: 'Node 2'},
+                {id: 3, label: 'Node 3'},
+                {id: 4, label: 'Node 4'},
+                {id: 5, label: 'Node 5'}
+                ]);
+                // create an array with edges
+                var edges = new vis.DataSet([
+                {from: 1, to: 3, label: 'horizontal', font: {align: 'horizontal'}},
+                {from: 1, to: 2, label: 'horizontal', font: {align: 'horizontal'}},
+                {from: 2, to: 4, label: 'horizontal', font: {align: 'horizontal'}},
+                {from: 2, to: 5, label: 'horizontal', font: {align: 'horizontal'}}
+                ]);
+                // create a network
+                var container = document.getElementById('sourceNetwork');
+                // provide the data in the vis format
+                var data = {
+                  nodes: nodes,
+                  edges: edges
+                };
+                // Get height of div
+                var networkHeight = document.getElementById("sourceSection").clientHeight.toString();
+                var options = {
+                  height: networkHeight
+                };
+                // initialize your network!
+                console.log(options);
+                var network = new vis.Network(container, data, options);
+                network.fit();
+              </script>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="entity entity-target">
+      <section id="targetSection" class="entity entity-target">
         <div class="entity-content">
           <div class="entity-inner-content">
             <div id="entityDetail2" class="entity-view entity-text">
             </div>
             <div class="entity-view entity-graph">
-              <img src="images/placeholder.png" alt="temporaire" />
+              <div id="targetNetwork"></div>
+              <script type="text/javascript">
+                // create an array with nodes
+                var nodes = new vis.DataSet([
+                {id: 1, label: 'Node 1'},
+                {id: 2, label: 'Node 2'},
+                {id: 3, label: 'Node 3'},
+                {id: 4, label: 'Node 4'},
+                {id: 5, label: 'Node 5'}
+                ]);
+                // create an array with edges
+                var edges = new vis.DataSet([
+                {from: 1, to: 3, label: 'horizontal', font: {align: 'horizontal'}},
+                {from: 1, to: 2, label: 'horizontal', font: {align: 'horizontal'}},
+                {from: 2, to: 4, label: 'horizontal', font: {align: 'horizontal'}},
+                {from: 2, to: 5, label: 'horizontal', font: {align: 'horizontal'}}
+                ]);
+                // create a network
+                var container = document.getElementById('targetNetwork');
+                // provide the data in the vis format
+                var data = {
+                  nodes: nodes,
+                  edges: edges
+                };
+                // Get height of div
+                var networkHeight = document.getElementById("targetSection").clientHeight.toString();
+                var options = {
+                  height: networkHeight
+                };
+                // initialize your network!
+                console.log(options);
+                var network = new vis.Network(container, data, options);
+                network.fit();
+              </script>
             </div>
           </div>
         </div>

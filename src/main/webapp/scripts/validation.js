@@ -198,6 +198,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
         }
         $scope.lastSelected = this;
       }
+      // HERE add change for network
     }
   };
 });
