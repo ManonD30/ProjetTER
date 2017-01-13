@@ -358,7 +358,10 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
           if (orderedEntities[key] === null) {
             orderedEntities[key] = entity[key][valuesObject]["value"];
           } else {
-            orderedEntities[key] = orderedEntities[key] + " \n" + entity[key][valuesObject]["value"];
+            // Limit the size of the object
+            if (orderedEntities[key].length < 70) {
+              orderedEntities[key] = orderedEntities[key] + " \n" + entity[key][valuesObject]["value"];
+            }
           }
         }
       }
@@ -417,7 +420,10 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
                 if (linkedEntityProperties[key] === null) {
                   linkedEntityProperties[key] = linkedEntity[key][valuesObject]["value"];
                 } else {
-                  linkedEntityProperties[key] = linkedEntityProperties[key] + " \n" + linkedEntity[key][valuesObject]["value"];
+                  // Limit the size of the object
+                  if (linkedEntityProperties[key].length < 70) {
+                    linkedEntityProperties[key] = linkedEntityProperties[key] + " \n" + linkedEntity[key][valuesObject]["value"];
+                  }
                 }
               }
             }
@@ -462,6 +468,7 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
     // Get height of div
     var networkHeight = document.getElementById(ontology + "Section").clientHeight.toString();
     var options = {
+      autoResize: true,
       height: networkHeight,
       physics: {
         enabled: true,
@@ -469,8 +476,8 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
           avoidOverlap: 0.5
         },
         hierarchicalRepulsion: {
-           centralGravity: 0.0,
-           /*springLength: 500,
+          centralGravity: 0.0,
+          /*springLength: 500,
            springConstant: 0.01,
            damping: 0.09,*/
           nodeDistance: 250
