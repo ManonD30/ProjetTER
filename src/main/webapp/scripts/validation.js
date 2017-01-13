@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  // Function to resize navbar, footer and right entity details window depending on screen size
+// Function to resize navbar, footer and right entity details window depending on screen size
   function resizePanels() {
     var contentSourceSize = $(".entity-source .entity-inner-content").height();
     var contentTargetSize = $(".entity-target .entity-inner-content").height();
@@ -13,7 +13,6 @@ $(document).ready(function () {
     //console.log("contentSourceSize", contentSourceSize, "contentTargetSize", contentTargetSize, "totalSize", totalSize)
     $(".entity-source").css({"flexBasis": newSourceSize + "px"});
     $(".entity-target").css({"flexBasis": newTargetSize + "px"});
-
     $("aside").css({"paddingTop": headerHeight + "px", "paddingBottom": footerHeight + "px"})
     $("main").css({"paddingTop": headerHeight + "px", "paddingBottom": footerHeight + "px"})
 
@@ -21,7 +20,7 @@ $(document).ready(function () {
     $(".entity-target .entity-content").css({"height": $(".entity-target").height() + "px", "width": contentWidth + "px"});
   }
 
-  // Button to switch between text and graph entities details
+// Button to switch between text and graph entities details
   $(".switch-nav").on("click", "li", function () {
     $(".entity-view").hide();
     $(this).find("button").addClass("btn-info");
@@ -34,10 +33,8 @@ $(document).ready(function () {
   })
   resizePanels();
 });
-
 // Using rzSlider for 2 sliders range input
 var validationApp = angular.module('validationApp', ['rzModule', 'ui.bootstrap']);
-
 /**
  * ValidationApp controller, define all angular interactions
  */
@@ -61,18 +58,14 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.sourceOnt.namespaces, $window.targetOnt.namespaces);
   $scope.detailsLocked = false;
-
   // init the ng-model used by the relation select dropdown
   $scope.selectRelationModel = {};
   $scope.hideValidatedAlignments = false;
-
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
   $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson.entities, $scope.ontologies);
   alignments = $scope.alignments;
-
   $scope.langSelect = {"en": "en", "fr": "fr"};
-
   // Little function to get the first element of an object (used to get first label if selectedLang not available
   $scope.getEntityLabel = function (entity, selectedLang) {
     if (entity.label !== undefined) {
@@ -84,7 +77,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     }
     return entity.id;
   };
-
   //Range slider config
   $scope.minRangeSlider = {
     minValue: 0,
@@ -95,7 +87,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       step: 1
     }
   };
-
   // Hide all validated alignments when click on hideValidatedAlignments button
   $scope.hideAlignments = function ($event) {
     $scope.hideValidatedAlignments = !$scope.hideValidatedAlignments;
@@ -106,14 +97,12 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       angular.element($event.currentTarget).css('background', 'linear-gradient(to bottom, #5bc0de 0%, #2aabd2 100%)');
     }
   };
-
   // Display all rows before Download to get all alignments. But they all get back as waiting 
   // Je pense que dans le html c'est init sur waiting. Mais dans le $scope.alignment c'est updated
   $scope.displayAllRows = function () {
     $scope.hideValidatedAlignments = false;
     angular.element("#hideAlignmentsButton").css('background', 'linear-gradient(to bottom, #5bc0de 0%, #2aabd2 100%)');
   };
-
   /**
    * Generate the ng if condition to manage which rows will be display
    * @param {type} alignment
@@ -130,7 +119,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     }
     return false;
   };
-
   /**
    * Used to change relation select color when notvalid selected. Generate the style string for the relation select dropdown to change background color
    * @param {type} alignment
@@ -148,7 +136,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     }
     return styleString;
   };
-
   /**
    * Generate the id of an HTML element by concatenating a "relationSelect" with the id
    * @param {int} id
@@ -157,7 +144,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.generateRelationSelectId = function (id) {
     return "relationSelect" + id;
   };
-
   /**
    * Put the new value in the relation select dropdown ng-model and change the value in the alignment object
    * @param {type} $event
@@ -168,7 +154,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     $scope.selectRelationModel[alignment.index] = angular.element($event.currentTarget).val();
     alignment.relation = angular.element($event.currentTarget).val();
   };
-
   /**
    * Change details div to show selected entity details
    * @param {boolean} clickedOn
@@ -179,7 +164,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     if ($scope.detailsLocked === false || clickedOn === true) {
       var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1, "Source", $scope.selectedLang);
       var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2, "Target", $scope.selectedLang);
-
       document.getElementById("entityDetail1").innerHTML = stringDetail1;
       document.getElementById("entityDetail2").innerHTML = stringDetail2;
       if (clickedOn === true) {
@@ -204,7 +188,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     }
   };
 });
-
 /**
  * a function to get the ontology that is linked to an alignment
  * Example of the alignments object:
@@ -216,7 +199,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
  */
 function getAlignmentsWithOntologiesData(alignment, ontologies) {
   var alignments = [];
-
   for (var key in alignment) {
     var alignToAdd = {"entity1": {}, "entity2": {}};
     if (alignment[key]['entity1'] in ontologies["ont1"]["entities"]) {
@@ -313,7 +295,6 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
       }
     }
   });
-
   // Build String to be put in the details div
   var htmlString = "<h1 style='text-align: center; color: #5cb85c'>" + entityName + " entity details</h1><h1 style='padding-top: 10px;'>" + label + "</h1><h2>" + id + "</h2><dl>";
   for (var attr in orderedEntities) {
@@ -383,23 +364,31 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
       }
     }
   });
-
+  var nodeIds = {};
   // Add each property and its value to the network
   for (var attr in orderedEntities) {
-    nodes.add([
-      {id: propertyCount, label: orderedEntities[attr], options: {shape: "square"}}
-    ]);
-    if (entity[attr][0]["prefixedPredicate"] !== null) {
+    // Don't create a new node if node exist already, just add a new edge
+    if (nodeIds[orderedEntities[attr]] != null) {
       edges.add([
-        {from: 1, to: propertyCount, label: entity[attr][0]["prefixedPredicate"], font: {align: 'horizontal'}}
+        {from: 1, to: nodeIds[orderedEntities[attr]], label: attr, font: {align: 'horizontal'}}
       ]);
     } else {
-      edges.add([
-        {from: 1, to: propertyCount, label: attr, font: {align: 'horizontal'}}
+      nodes.add([
+        {id: propertyCount, label: orderedEntities[attr]}
       ]);
+      nodeIds[orderedEntities[attr]] = propertyCount;
+      if (entity[attr][0]["prefixedPredicate"] !== null) {
+        edges.add([
+          {from: 1, to: propertyCount, label: entity[attr][0]["prefixedPredicate"], font: {align: 'horizontal'}}
+        ]);
+      } else {
+        edges.add([
+          {from: 1, to: propertyCount, label: attr, font: {align: 'horizontal'}}
+        ]);
+      }
+      var entityCount = propertyCount;
+      propertyCount++;
     }
-    var entityCount = propertyCount;
-    propertyCount++;
 
     // If property is an URI we check if it has properties in our ontology
     if (orderedEntities[attr].startsWith("http")) {
@@ -408,8 +397,6 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
       } else if (ontology === "source") {
         var ontoNumber = "ont1";
       }
-      console.log("Ontooo");
-      console.log(ontologies[ontoNumber]['entities'][orderedEntities[attr]]);
       console.log(ontologies);
       var linkedEntity = ontologies[ontoNumber]['entities'][orderedEntities[attr]];
       var linkedEntityProperties = {};
@@ -434,19 +421,28 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
         });
         // Add each property and its value to the network
         for (var linkedAttr in linkedEntityProperties) {
-          nodes.add([
-            {id: propertyCount, label: linkedEntityProperties[linkedAttr]}
-          ]);
-          if (entity[linkedAttr] != null && entity[linkedAttr][0]["prefixedPredicate"] !== null) {
+
+          // Don't create a new node if node exist already, just add a new edge
+          if (nodeIds[linkedEntityProperties[linkedAttr]] != null) {
             edges.add([
-              {from: entityCount, to: propertyCount, label: entity[linkedAttr][0]["prefixedPredicate"], font: {align: 'horizontal'}}
+              {from: entityCount, to: nodeIds[linkedEntityProperties[linkedAttr]], label: linkedAttr, font: {align: 'horizontal'}}
             ]);
           } else {
-            edges.add([
-              {from: entityCount, to: propertyCount, label: linkedAttr, font: {align: 'horizontal'}}
+            nodes.add([
+              {id: propertyCount, label: linkedEntityProperties[linkedAttr]}
             ]);
+            nodeIds[linkedEntityProperties[linkedAttr]] = propertyCount;
+            if (entity[linkedAttr] != null && entity[linkedAttr][0]["prefixedPredicate"] !== null) {
+              edges.add([
+                {from: entityCount, to: propertyCount, label: entity[linkedAttr][0]["prefixedPredicate"], font: {align: 'horizontal'}}
+              ]);
+            } else {
+              edges.add([
+                {from: entityCount, to: propertyCount, label: linkedAttr, font: {align: 'horizontal'}}
+              ]);
+            }
+            propertyCount++;
           }
-          propertyCount++;
         }
       }
     }
@@ -461,7 +457,17 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
     // Get height of div
     var networkHeight = document.getElementById(ontology + "Section").clientHeight.toString();
     var options = {
-      height: networkHeight
+      height: networkHeight,
+      physics: {
+        barnesHut: {
+          avoidOverlap: 1
+        }
+      },
+      "edges": {
+        "smooth": {
+          "forceDirection": "none"
+        }
+      }
     };
     // initialize your network!
     console.log(options);
