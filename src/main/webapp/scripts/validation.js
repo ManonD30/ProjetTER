@@ -469,26 +469,27 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
           avoidOverlap: 0.5
         },
         hierarchicalRepulsion: {
-          centralGravity: 0.0,
-          springLength: 500,
-          springConstant: 0.01,
-          nodeDistance: 400,
-          damping: 0.09
-        },
-        solver: 'hierarchicalRepulsion'
-      },
-      "edges": {
-        "smooth": {
-          "forceDirection": "none"
-        }
-      }
-    };
-    // initialize your network!
-    console.log(options);
-    var network = new vis.Network(container, data, options);
-    network.fit();
+           centralGravity: 0.0,
+           /*springLength: 500,
+           springConstant: 0.01,
+           damping: 0.09,*/
+          nodeDistance: 250
+        }/*,
+         solver: 'hierarchicalRepulsion'*/
+      }/*,
+       "edges": {
+       "smooth": {
+       "forceDirection": "none"
+       }*/
+    }
   }
+  ;
+  // initialize your network!
+  console.log(options);
+  var network = new vis.Network(container, data, options);
+  network.fit();
 }
+
 
 /* Remember on how to make a little window that show when mouseover with angularjs
  * Uncomment popover in style.css if you want to use it
