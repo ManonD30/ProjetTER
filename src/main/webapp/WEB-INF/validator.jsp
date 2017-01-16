@@ -9,12 +9,12 @@
 
 <div class="container theme-showcase" role="main">
   
-  <h3 class=contentText>Select the alignment to validate and the ontologies corresponding</h3>
+  <h3 class=contentText>Select the alignment to validate and the corresponding ontologies</h3>
   <p style="text-align: center;">
     The Yam++ Online Validator is an interface for human validation of already generated mappings. 
     It takes as an input an alignment in AlignmentAPI RDF format and the corresponding ontologies file. 
-    Then it displays the concepts details for each mapping to help the user choose the relation between the concepts or unvalidate it
-    The modified alignment can be stored using one of the available format.
+    Then it displays the concepts details for each mapping to help the user choose the relation between the concepts or unvalidate it. 
+    The validated alignment can be stored using one of the available format.
   </p>
 
   <div class=form>
