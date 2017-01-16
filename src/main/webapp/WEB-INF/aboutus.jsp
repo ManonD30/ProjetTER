@@ -62,6 +62,9 @@
     <p>Alla Anohina-Naumeca, Ilze Andersone, Zohra Bellahsene, Remi
       Coletta, Vita Graudina, Janis Grundspenkis, DuyHoa Ngo: Automatic
       Approach for Comparison of Study Programmes. CAiSE Forum 2013: 41-48</p>
+    
+    <hr>
+    <h3>2012</h3>
 
     <p>DuyHoa Ngo, Zohra Bellahsene, Konstantin Todorov: Opening the
       Black Box of Ontology Matching. ESWC 2013: 16-30 2012</p>

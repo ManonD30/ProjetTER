@@ -4,6 +4,28 @@ Using Apache Tomcat 7 and Java 8
 
 ## Improvements to do
 
+Ajouter des détails : comment on gére la visualisation dans le readme (vis js)
+
+Add skos:relatedMatch
+
+Retirer <valid>false</valid> du RDF et "export ou save"
+
+"To reduce the number of mapping faut décocher"
+
+On demande nom et groupe relié à chaque onto (select)
+
+ajouter point d'interrogation pour hover
+
+add la promotion à l'état d'admin dans page d'administration
+
+stocker ontologies et alignements (on demande domaine, noms des ontologies). Onto stockées par paires avec leur alignement
+
+Voir comment on peut augmenter le nombre de mappings en résultats (on fait la restriction au curseur en tout)
+
+Normalement "mop" et "genre" : doit pas y avoir de mappings entre ces 2 là. Apparemment y'a pas beaucoupde mapping avec Genre (de doremus), voir pourquoi
+
+Trouver et/ou Demander  à Hoa comment est calculé le score qu'on voit dans l'alignement final
+
 ### Now
 
 * **RDF VIZU**
@@ -26,11 +48,10 @@ https://github.com/VisualDataWeb/WebVOWL : nodeJS
 
 * Edit les textes de description dans la page index
 
-* **IMPORTANT** ajouter le login
+* Login
   * Le top serait d'être capable d'envoyer des **mails** automatiquement
     * Pour notifier de la création de nouveaux utilisateurs
     * Pour réinitialiser les mots de passes perdus (en donnant un mot de passe au hasard)
-  * En attendant reset mot de passe par envoie d'un mail à l'administrateur
 
 * **RAPIDE:** Faire en sorte que le %age de recouvrement marche pour le validator (c'est fait dans yampp-ls pour l'instant)
 
