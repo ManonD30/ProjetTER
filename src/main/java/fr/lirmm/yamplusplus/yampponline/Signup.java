@@ -34,7 +34,7 @@ public class Signup extends HttpServlet {
     String affiliation = request.getParameter("affiliationUp");
     String field = request.getParameter("fieldUp");
     
-    if (!password.equals("confirmation")) {
+    if (!password.equals(confirmation)) {
       request.setAttribute("error", "Passwords are differents");
       this.getServletContext().getRequestDispatcher("/WEB-INF/sign.jsp").forward(request, response);
     }
