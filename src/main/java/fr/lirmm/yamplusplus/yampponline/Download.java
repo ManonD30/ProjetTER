@@ -108,12 +108,14 @@ public class Download extends HttpServlet {
   /**
    * Generate alignment String retrieved from validation UI to generate the
    * alignment in a simple RDF format (entity1-relation-entity2 triples). Take
-   * an ArrayList of HashMap {entity1, entity2, relation, score}
+   * an ArrayList of HashMap {entity1, entity2, relation, score}. It generates
+   * symmetric mappings if exactMatch or closeMatch
    *
    * @param MapFinal
    * @return String
    */
   public static String generateSimpleRdfAlignment(ArrayList<HashMap> MapFinal) {
+    /* return in nt format
     String rdfAlignmentString = "";
     for (int i = 0; i < MapFinal.size(); i++) {
       HashMap<String, String> hashMapping = null;
@@ -127,7 +129,30 @@ public class Download extends HttpServlet {
         rdfAlignmentString = rdfAlignmentString + "<" + hashMapping.get("entity1") + "> <" + hashMapping.get("relation") + "> <" + hashMapping.get("entity2") + "> .\n";
       }
     }
-    return rdfAlignmentString;
+    return rdfAlignmentString;*/
+
+    // create an empty Model
+    Model model = ModelFactory.createDefaultModel();
+    model.setNsPrefix("skos", "http://www.w3.org/2004/02/skos/core#");
+    
+    for (int i = 0; i < MapFinal.size(); i++) {
+      HashMap<String, String> hashMapping = null;
+      hashMapping = MapFinal.get(i);
+      if (!hashMapping.get("relation").equals("notvalid")) {
+        // Add relation between entities
+        model.createResource(hashMapping.get("entity1"))
+                .addProperty(model.createProperty(hashMapping.get("relation")), hashMapping.get("entity2"));
+        if (hashMapping.get("relation").equals("http://www.w3.org/2004/02/skos/core#exactMatch") || hashMapping.get("relation").equals("http://www.w3.org/2004/02/skos/core#closeMatch")) {
+          // exactMatch and closeMatch are symmetric
+          model.createResource(hashMapping.get("entity2"))
+                  .addProperty(model.createProperty(hashMapping.get("relation")), hashMapping.get("entity1"));
+        }
+      }
+    }
+
+    StringWriter out = new StringWriter();
+    model.write(out);
+    return out.toString();
   }
 
   /**
@@ -140,14 +165,13 @@ public class Download extends HttpServlet {
   public static String generateRdfAlignment(ArrayList<HashMap> MapFinal) {
     // create an empty Model
     Model model = ModelFactory.createDefaultModel();
-    String alignmentUri = null;
+    String alignmentUri = "http://yamplusplus.lirmm.fr/ontology#";
+    model.setNsPrefix("align", alignmentUri);
     for (int i = 0; i < MapFinal.size(); i++) {
       HashMap<String, String> hashMapping = null;
       hashMapping = MapFinal.get(i);
       if (!hashMapping.get("relation").equals("notvalid")) {
         // Add Alignment URI to namespaces with align prefix
-        alignmentUri = "http://yamplusplus.lirmm.fr/ontology#";
-        model.setNsPrefix("align", alignmentUri);
 
         model.createResource(alignmentUri + "mapping/" + Integer.toString(i))
                 .addProperty(model.createProperty(alignmentUri + "entity"), hashMapping.get("entity1"))
