@@ -102,7 +102,7 @@ for the sourceOnt and targetOnt ontology alignment -->
     </div>
 
 
-    <form action='download' method='post' ng-submit="displayAllRows()">
+    <form action='download' method='post'>
       <table id=table class="table table-striped">
         <thead>
           <tr>

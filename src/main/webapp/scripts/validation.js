@@ -97,12 +97,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       angular.element($event.currentTarget).css('background', 'linear-gradient(to bottom, #5bc0de 0%, #2aabd2 100%)');
     }
   };
-  // Display all rows before Download to get all alignments. But they all get back as waiting 
-  // Je pense que dans le html c'est init sur waiting. Mais dans le $scope.alignment c'est updated
-  $scope.displayAllRows = function () {
-    $scope.hideValidatedAlignments = false;
-    angular.element("#hideAlignmentsButton").css('background', 'linear-gradient(to bottom, #5bc0de 0%, #2aabd2 100%)');
-  };
+  
   /**
    * Generate the ng if condition to manage which rows will be display
    * @param {type} alignment
