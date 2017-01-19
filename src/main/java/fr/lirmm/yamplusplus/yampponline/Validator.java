@@ -29,8 +29,7 @@ public class Validator extends HttpServlet {
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    this.getServletContext().getRequestDispatcher("/WEB-INF/validator.jsp")
-            .forward(request, response);
+    this.getServletContext().getRequestDispatcher("/WEB-INF/validator.jsp").forward(request, response);
   }
 
   /**
@@ -43,14 +42,14 @@ public class Validator extends HttpServlet {
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    //Logger myLog = Logger.getLogger(MatcherInterface.class.getName());
+    //Logger myLog = Logger.getLogger(Validator.class.getName());
 
     // Retrieve ontologies String from file or URL
     YamFileHandler fileHandler = null;
     try {
       fileHandler = new YamFileHandler();
     } catch (ClassNotFoundException ex) {
-      Logger.getLogger(MatcherInterface.class.getName()).log(Level.ERROR, null, ex);
+      Logger.getLogger(Validator.class.getName()).log(Level.ERROR, null, ex);
     }
 
     // Get string of alignment from file
@@ -69,14 +68,12 @@ public class Validator extends HttpServlet {
     String targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
 
     // Read ontology with Jena and get ontology JSON model for JavaScript
-    Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI(), Logger.getLogger(MatcherInterface.class.getName()));
-    Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI(), Logger.getLogger(MatcherInterface.class.getName()));
+    Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI(), Logger.getLogger(Validator.class.getName()));
+    Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI(), Logger.getLogger(Validator.class.getName()));
     request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(srcJenaModel));
     request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(tarJenaModel));
 
     // Call validation.jsp to display results in /validator URL path and send the request with sourceOnt, targetOnt and alignment results
-    this.getServletContext()
-            .getRequestDispatcher("/WEB-INF/validation.jsp")
-            .forward(request, response);
+    this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
   }
 }

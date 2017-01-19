@@ -33,6 +33,7 @@ public class MatcherInterface extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
 
+      Logger.getLogger (MatcherInterface.class.getName()).log(Level.INFO, "debut doPost!");
     /* Check user in MySQL, not useful now
     int asMatched = 0;
     int canMatch = 0;

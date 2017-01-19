@@ -13,6 +13,8 @@ import org.apache.commons.lang.RandomStringUtils;
 
 import fr.lirmm.yamplusplus.yamppls.YamppOntologyMatcher;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 
 public class Matcher extends HttpServlet {
@@ -126,6 +128,8 @@ public class Matcher extends HttpServlet {
    */
   static HttpServletRequest processRequest(HttpServletRequest request) throws IOException, ClassNotFoundException, ServletException {
     YamFileHandler fileHandler = new YamFileHandler();
+    Logger myLog = Logger.getLogger (Matcher.class.getName());
+      myLog.log(Level.SEVERE, "debut process request!" );
 
     // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
     String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
@@ -199,6 +203,7 @@ public class Matcher extends HttpServlet {
       // Soon to be String resultStoragePath = matcher.alignOntologies()
       String resultStoragePath = matcher.alignOntologies(new File(sourceStoragePath).toURI(),
               new File(targetStoragePath).toURI());
+      myLog.log(Level.WARNING, "After matching!" );
 
       request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel()));
       request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel()));
