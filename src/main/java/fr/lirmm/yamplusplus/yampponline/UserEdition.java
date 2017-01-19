@@ -53,9 +53,10 @@ public class UserEdition extends HttpServlet {
       YamDatabaseConnector dbConnector = new YamDatabaseConnector();
       user = dbConnector.editUserInfos(user, affiliation, field);
       user.addUserToSession(request.getSession());
-      request.setAttribute("error", "User informations updated.");
+      request.setAttribute("success", "User informations updated.");
       
     } catch (ClassNotFoundException ex) {
+      request.setAttribute("success", "Error updating user informations");
       java.util.logging.Logger.getLogger(UserEdition.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
     

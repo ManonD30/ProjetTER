@@ -15,7 +15,7 @@
   <p class=contentCenter>You have done <%=user.getMatchCount()%> ontology matching.</p>
   <p class=contentCenter>Institut/Affiliate to <%=user.getIsAffiliateTo()%>.</p>
   <p class=contentCenter>Working field: <%=user.getField()%>.</p>
-  
+
   <form action='userEdition' method='get' enctype='multipart/form-data'>
     <input type='submit' class=btnBig value='Update user informations'>
   </form>
@@ -107,13 +107,12 @@
           <input type="password" id=password name="passwordUp" placeholder=******* required>
 
           <p>Password confirmation:</p>
-          <input type="password" id=confirmation name="confirmationUp" placeholder=******* required
-                 onkeyup="checkPassword(); return false;">
+          <input type="password" id=confirmation name="confirmationUp" placeholder=******* required>
 
           <div id=message></div>
           <br>
 
-          <div id=submitSignup style="display: none">
+          <div id=submitSignup>
             <input type="submit" class=btn value="Sign up" required>
           </div>
         </form>
@@ -142,7 +141,16 @@
   <div class="alert alert-danger" role="alert" style="text-align: center; margin: 3% 20%;">
     <%=error%>
   </div>
-  <% }%>
+  <% request.setAttribute("error", null);
+    } String success = (String) request.getAttribute("success");
+    if (success != null && !success.equals("")) {%>
+  <div class="alert alert-success" role="alert" style="text-align: center; margin: 3% 20%;">
+    <%=success%>
+  </div>
+  <%
+    request.setAttribute("success", null);
+    }
+  %>
 </div>
 
 <%@include file="footer.jsp" %>

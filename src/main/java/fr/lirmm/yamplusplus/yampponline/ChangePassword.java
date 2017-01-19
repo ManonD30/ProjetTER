@@ -27,6 +27,11 @@ public class ChangePassword extends HttpServlet {
     String apikey = (String) request.getSession().getAttribute("apikey");
     String oldPass = request.getParameter("oldPassword");
     String newPass = request.getParameter("newPassword");
+    String confirmation = request.getParameter("confirmation");
+    
+    if (!newPass.equals(confirmation)) {
+      request.setAttribute("error", "The new password and the confirmation don't match.");
+    }
     boolean passwordUpdated = false;
     try {
       YamDatabaseConnector dbConnector = new YamDatabaseConnector();
@@ -36,7 +41,7 @@ public class ChangePassword extends HttpServlet {
     }
 
     if (passwordUpdated) {
-      request.setAttribute("error", "Password successfully updated.");
+      request.setAttribute("success", "Password successfully updated.");
     } else {
       request.setAttribute("error", "Error updating the password.");
     }

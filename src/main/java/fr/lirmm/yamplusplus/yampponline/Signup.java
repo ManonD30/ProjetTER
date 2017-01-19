@@ -29,9 +29,15 @@ public class Signup extends HttpServlet {
     //prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("conf.properties"));
     String mail = request.getParameter("mailUp");
     String password = request.getParameter("passwordUp");
+    String confirmation = request.getParameter("confirmationUp");
     String username = request.getParameter("nameUp");
     String affiliation = request.getParameter("affiliationUp");
     String field = request.getParameter("fieldUp");
+    
+    if (!password.equals("confirmation")) {
+      request.setAttribute("error", "Passwords are differents");
+      this.getServletContext().getRequestDispatcher("/WEB-INF/sign.jsp").forward(request, response);
+    }
     
     // write logs to catalina.out
     Logger myLog = Logger.getLogger(Signup.class.getName());
@@ -53,10 +59,11 @@ public class Signup extends HttpServlet {
       }
     } catch (IOException | ClassNotFoundException | SQLException | ServletException e) {
       myLog.log(Level.SEVERE, "Error creating the user: {0}", e.toString());
-      request.setAttribute("error", "Error creating the user");
+      request.setAttribute("error", "Error creating the user. Username is already used");
       this.getServletContext().getRequestDispatcher("/WEB-INF/sign.jsp").forward(request, response);
     }
-    this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+    request.setAttribute("success", "User successfully created.");
+    this.getServletContext().getRequestDispatcher("/WEB-INF/sign.jsp").forward(request, response);
   }
   
   /**

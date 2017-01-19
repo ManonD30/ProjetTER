@@ -17,13 +17,12 @@
 
       <p>Password confirmation:</p>
       <input type="password" id=confirmation name="confirmation"
-             placeholder=******* required
-             onkeyup="checkPassword(); return false;">
+             placeholder=******* required>
 
       <div id=message></div>
       <br>
 
-      <div id=submitSignup style="display: none">
+      <div id=submitSignup>
         <input type="submit" class=btn value="Change Password" required>
       </div>
     </form>

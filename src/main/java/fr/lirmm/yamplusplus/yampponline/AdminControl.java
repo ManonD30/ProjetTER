@@ -38,14 +38,14 @@ public class AdminControl extends HttpServlet {
         if (resetApikey != null) {
           passwordUpdated = dbConnector.resetPassword(resetApikey, newPassword);
           if (passwordUpdated) {
-            request.setAttribute("error", "Password successfully reset.");
+            request.setAttribute("success", "Password successfully reset.");
           } else {
             request.setAttribute("error", "Error resetting the password.");
           }
         } else if (deleteApikey != null) {
           passwordUpdated = dbConnector.deleteUser(deleteApikey);
           if (passwordUpdated) {
-            request.setAttribute("error", "User successfully deleted.");
+            request.setAttribute("success", "User successfully deleted.");
           } else {
             request.setAttribute("error", "Error deleting the user.");
           }
