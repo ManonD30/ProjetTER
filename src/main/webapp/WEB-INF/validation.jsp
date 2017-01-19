@@ -203,6 +203,9 @@ style="{{generateStyleForSelect(alignment)}}" class="form-co                    
         </div>
       </div>
 
+      <input type="hidden" name="sourceUri" value="{{ontologies.srcOntUri}}">
+      <input type="hidden" name="targetUri" value="{{ontologies.tarOntUri}}">
+      <!-- TODO: hidden input for source and target URI -->
       <div class=btnCenter id='download'>
         <input class="btn btnSubmit" type="submit" value="Download mappings"/>
       </div>

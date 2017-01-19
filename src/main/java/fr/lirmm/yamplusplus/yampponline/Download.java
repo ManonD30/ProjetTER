@@ -54,9 +54,14 @@ public class Download extends HttpServlet {
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
+    String sourceUri = (String) request.getParameter("sourceUri");
+    String targetUri = (String) request.getParameter("targetUri");
+    sourceUri = sourceUri.replaceAll("http://", "").replaceAll("https://", "");
+    targetUri = targetUri.replaceAll("http://", "").replaceAll("https://", "");
+    
     // Force to get it as a file to download
     response.setContentType("application/force-download");
-    response.setHeader("content-disposition", "inline; filename=\"yam_alignment_result.rdf\"");
+    response.setHeader("content-disposition", "inline; filename=\"alignment_"+ sourceUri + "_" + targetUri + ".rdf\"");
 
     response.setCharacterEncoding("UTF-8");
     PrintWriter out = response.getWriter();
@@ -87,10 +92,8 @@ public class Download extends HttpServlet {
       String format = request.getParameter("format");
       if (format.equals("simpleRDF")) {
         alignmentString = generateSimpleRdfAlignment(arrayMappings);
-        response.setHeader("content-disposition", "inline; filename=\"yam_alignment_result.nt\"");
       } else if (format.equals("RDF")) {
         alignmentString = generateRdfAlignment(arrayMappings);
-        response.setHeader("content-disposition", "inline; filename=\"yam_alignment_result.rdf\"");
       } else {
         alignmentString = generateAlignment(arrayMappings);
       }
@@ -134,7 +137,7 @@ public class Download extends HttpServlet {
     // create an empty Model
     Model model = ModelFactory.createDefaultModel();
     model.setNsPrefix("skos", "http://www.w3.org/2004/02/skos/core#");
-    
+
     for (int i = 0; i < MapFinal.size(); i++) {
       HashMap<String, String> hashMapping = null;
       hashMapping = MapFinal.get(i);
