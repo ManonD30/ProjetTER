@@ -62,7 +62,7 @@ import org.xml.sax.SAXException;
  *
  * @author emonet
  */
-@MultipartConfig
+//@MultipartConfig
 public class YamFileHandler {
 
   String workDir;
