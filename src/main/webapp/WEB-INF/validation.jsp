@@ -97,34 +97,7 @@ for the sourceOnt and targetOnt ontology alignment -->
       <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
               ng-click="hideAlignments($event)">Hide validated alignments</button>
 
-      <!--label style="margin-left: 3%;">Score range:</label>&nbsp;&nbsp;
-      <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" 
-                rz-slider-options="minRangeSlider.options" style="margin-top: 20px; margin-left: 1%; width: 20%"></rzslider-->
-
-      <!--script>
-        $(function() {
-        $("#slider-range").slider({
-        range: true,
-                min: 0,
-                max: 1,
-                step: 0.01,
-                values: [ 0, 1 ],
-                slide: function(event, ui) {
-                $("#amount").val(ui.values[ 0 ] + " - " + ui.values[ 1 ]);
-                 $('[ng-controller="ValidationCtrl"]').scope().rangeSlider.maxValue = ui.values[ 0 ];
-                 $('[ng-controller="ValidationCtrl"]').scope().rangeSlider.minValue = ui.values[ 1 ];
-
-                //rangeSlider.minValue = ui.values[ 1 ];
-                //rangeSlider.maxValue = ui.values[ 1 ];
-                }
-        });
-        $("#amount").val($("#slider-range").slider("values", 0) +
-                " - " + $("#slider-range").slider("values", 1));
-        });
-      </script-->
-      <label for="amount" style="margin-left: 3%;">Score range:</label>
-      <input type="text" id="amount" readonly style="border:0; font-weight:bold;background-color: inherit;">
-
+      <label for="slider-range" id="rangeLabel" style="margin-left: 3%; margin-right: 1%">Display scores from {{rangeSlider.minValue}} to {{rangeSlider.maxValue}}</label>
       <div id="slider-range" style="width: 20%;display: inline-flex"></div>
 
       <label style="margin-left: 3%;">Language:</label>

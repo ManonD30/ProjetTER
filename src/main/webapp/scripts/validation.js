@@ -49,6 +49,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   var srcOntoUri = $window.alignmentJson.srcOntologyURI;
   var tarOntoUri = $window.alignmentJson.tarOntologyURI;
 
+  // To handle the 2 range slider for Score filtering
   $scope.rangeSlider = {"minValue": 0, "maxValue": 1};
   $(function () {
     $("#slider-range").slider({
@@ -58,14 +59,11 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       step: 0.01,
       values: [0, 1],
       slide: function (event, ui) {
-        $("#amount").val(ui.values[ 0 ] + " - " + ui.values[ 1 ]);
-
         $scope.rangeSlider.minValue = ui.values[ 0 ];
         $scope.rangeSlider.maxValue = ui.values[ 1 ];
+        $scope.$apply();
       }
     });
-    $("#amount").val($("#slider-range").slider("values", 0) +
-            " - " + $("#slider-range").slider("values", 1));
   });
 
   if (!srcOntoUri) {
