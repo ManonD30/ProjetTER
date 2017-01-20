@@ -38,6 +38,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import javax.xml.parsers.DocumentBuilder;
@@ -61,6 +62,7 @@ import org.xml.sax.SAXException;
  *
  * @author emonet
  */
+@MultipartConfig
 public class YamFileHandler {
 
   String workDir;
