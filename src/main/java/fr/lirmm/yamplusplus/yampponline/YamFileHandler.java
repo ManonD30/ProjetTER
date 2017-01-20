@@ -119,11 +119,11 @@ public class YamFileHandler {
     String fileString = null;
     Part filePart = null;
     String filename = null;
-
+    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, "Juste avant request.getPart(fileParam) dans readFileFromRequest");
     try {
       filePart = request.getPart(fileParam); // Retrieves <input type="file" name="file">
-    } catch (Exception e) {
-      fileString = "Could not load provided ontology file";
+    } catch (IOException | ServletException e) {
+      fileString = "error: Could not load provided ontology file: " + e;
     }
     if (filePart != null) {
       filename = filePart.getSubmittedFileName();
@@ -143,7 +143,7 @@ public class YamFileHandler {
    * @param ontName
    * @param subDir
    * @param request
-   * @return
+   * @return file storage path
    * @throws IOException
    */
   public String uploadFile(String ontName, String subDir, HttpServletRequest request) throws IOException {
@@ -155,12 +155,19 @@ public class YamFileHandler {
     }
     String filename = ontName + ".owl";
     // Store the file in the tmp dir: /tmp/yam-gui/subDir/source.owl for example
+    
+    if (ontologyString.startsWith("error:")) {
+      // Return the error if error when loading file
+      return ontologyString;
+    }
+    
     String storagePath = this.tmpDir + subDir + "/" + filename;
     FileUtils.writeStringToFile(new File(storagePath), ontologyString, "UTF-8");
     if (request.getParameter("saveFile") != null) {
       // Save file in workdir/save/username/subDir
       FileUtils.writeStringToFile(new File(this.workDir + "/save/" + request.getSession().getAttribute("username") + "/" + subDir + "/" + filename), ontologyString, "UTF-8");
     }
+    
     return storagePath;
   }
 
@@ -294,13 +301,13 @@ public class YamFileHandler {
   }
 
   /**
-   * Get the Ontology JSON model for javascript by loading ontology in Jena to get class label and other triples. Returns the
-   * following JSON: Returns a JSONArray with class URI in "id" and all other
-   * properties i.e.: { namespaces: {"rdfs": "http://rdfs.org/"}, entities:
-   * {"http://entity1.org/": {"id": "http://entity1.org/", "label": {"fr":
-   * "bonjour", "en": "hello"}, "http://rdfs.org/label": [{"type": "literal",
-   * "value": "bonjour", "lang": "fr"}, {"type": "literal", "value": "hello",
-   * "lang": "en"}]}}}
+   * Get the Ontology JSON model for javascript by loading ontology in Jena to
+   * get class label and other triples. Returns the following JSON: Returns a
+   * JSONArray with class URI in "id" and all other properties i.e.: {
+   * namespaces: {"rdfs": "http://rdfs.org/"}, entities: {"http://entity1.org/":
+   * {"id": "http://entity1.org/", "label": {"fr": "bonjour", "en": "hello"},
+   * "http://rdfs.org/label": [{"type": "literal", "value": "bonjour", "lang":
+   * "fr"}, {"type": "literal", "value": "hello", "lang": "en"}]}}}
    *
    * @param model
    * @return JSONObject
@@ -715,5 +722,4 @@ public class YamFileHandler {
     fullJObject.put("entities", jObject);
     return fullJObject;
   }*/
-
 }

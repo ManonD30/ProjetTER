@@ -134,8 +134,6 @@ public class Matcher extends HttpServlet {
     // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
     String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
 
-    String sourceStoragePath = fileHandler.uploadFile("source", subDirName, request);
-    String targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
 
     /*SKOSManager manager = new SKOSManager();
     // use the manager to load a SKOS vocabulary from a URI (either physical or on the web)
@@ -161,6 +159,22 @@ public class Matcher extends HttpServlet {
 
     YamDatabaseConnector dbConnector = new YamDatabaseConnector();
     if (dbConnector.isValidApikey(apikey)) {
+
+      // TODO:QUICK le problème des BK_onto qui ne matchent pas vient de là. 
+      // Ca stock: "Could not load provided ontology file" dans le fichier... Ca semble venir de OWLAPI
+      String sourceStoragePath = fileHandler.uploadFile("source", subDirName, request);
+      String targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
+      
+      // If error when loading files from request
+      if (sourceStoragePath.startsWith("error:")) {
+        request.setAttribute("errorMessage", sourceStoragePath);
+        return request;
+      }
+      if (targetStoragePath.startsWith("error:")) {
+        request.setAttribute("errorMessage", targetStoragePath);
+        return request;
+      }
+
       YamUser user = dbConnector.updateMatchCount(apikey);
       user.addUserToSession(request.getSession());
       YamppOntologyMatcher matcher = new YamppOntologyMatcher();
