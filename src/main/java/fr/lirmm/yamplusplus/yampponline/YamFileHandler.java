@@ -119,7 +119,7 @@ public class YamFileHandler {
     String fileString = null;
     Part filePart = null;
     String filename = null;
-    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, "Juste avant request.getPart(fileParam) dans readFileFromRequest");
+    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "Juste AVANT request.getPart(fileParam) dans readFileFromRequest");
     try {
       filePart = request.getPart(fileParam); // Retrieves <input type="file" name="file">
     } catch (IOException | ServletException e) {
@@ -130,6 +130,7 @@ public class YamFileHandler {
       InputStream fileContent = filePart.getInputStream();
       fileString = IOUtils.toString(fileContent, "UTF-8");
     }
+    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "Juste APRES request.getPart(fileParam) dans readFileFromRequest");
     return fileString;
   }
 
