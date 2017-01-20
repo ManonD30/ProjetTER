@@ -98,9 +98,7 @@ public class MatcherInterface extends HttpServlet {
     request.setAttribute("alignment", alignmentJson);
 
     // Call validation.jsp to display results in /result URL path and send the request with sourceOnt, targetOnt and alignment results
-    this.getServletContext()
-            .getRequestDispatcher("/WEB-INF/validation.jsp")
-            .forward(request, response);
+    this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
   }
 
   /**
