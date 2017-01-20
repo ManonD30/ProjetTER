@@ -31,6 +31,7 @@ public class ChangePassword extends HttpServlet {
     
     if (!newPass.equals(confirmation)) {
       request.setAttribute("error", "The new password and the confirmation don't match.");
+      this.getServletContext().getRequestDispatcher("/WEB-INF/change.jsp").forward(request, response);
     }
     boolean passwordUpdated = false;
     try {
