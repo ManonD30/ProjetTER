@@ -19,7 +19,11 @@ for the sourceOnt and targetOnt ontology alignment -->
 <script src="scripts/validation.js"></script>
 <!--script src="scripts/jquery.tablesorter.js"></script>
 <script src="scripts/jquery.tablesorter.pager.js"></script-->
-<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!--script src="https://code.jquery.com/jquery-1.12.4.js"></script-->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
 <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
@@ -54,6 +58,7 @@ for the sourceOnt and targetOnt ontology alignment -->
   </script>
 
   <section class="main-section" ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
+
     <p>
       This UI displays the results of the ontology matching and allows the user to validate or not each mapping.
       It shows informations about mapped concepts extracted from the provided ontologies on the right.
@@ -92,9 +97,35 @@ for the sourceOnt and targetOnt ontology alignment -->
       <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
               ng-click="hideAlignments($event)">Hide validated alignments</button>
 
-      <label style="margin-left: 3%;">Score range:</label>&nbsp;&nbsp;
+      <!--label style="margin-left: 3%;">Score range:</label>&nbsp;&nbsp;
       <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" 
-                rz-slider-options="minRangeSlider.options" style="margin-top: 20px; margin-left: 1%; width: 20%"></rzslider>
+                rz-slider-options="minRangeSlider.options" style="margin-top: 20px; margin-left: 1%; width: 20%"></rzslider-->
+
+      <!--script>
+        $(function() {
+        $("#slider-range").slider({
+        range: true,
+                min: 0,
+                max: 1,
+                step: 0.01,
+                values: [ 0, 1 ],
+                slide: function(event, ui) {
+                $("#amount").val(ui.values[ 0 ] + " - " + ui.values[ 1 ]);
+                 $('[ng-controller="ValidationCtrl"]').scope().rangeSlider.maxValue = ui.values[ 0 ];
+                 $('[ng-controller="ValidationCtrl"]').scope().rangeSlider.minValue = ui.values[ 1 ];
+
+                //rangeSlider.minValue = ui.values[ 1 ];
+                //rangeSlider.maxValue = ui.values[ 1 ];
+                }
+        });
+        $("#amount").val($("#slider-range").slider("values", 0) +
+                " - " + $("#slider-range").slider("values", 1));
+        });
+      </script-->
+      <label for="amount" style="margin-left: 3%;">Score range:</label>
+      <input type="text" id="amount" readonly style="border:0; font-weight:bold;background-color: inherit;">
+
+      <div id="slider-range" style="width: 20%;display: inline-flex"></div>
 
       <label style="margin-left: 3%;">Language:</label>
       <select class="form-control"  style="display:inline; margin-left: 1%;" ng-model="selectedLang" 

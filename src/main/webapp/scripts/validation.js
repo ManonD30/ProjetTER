@@ -48,6 +48,26 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   }
   var srcOntoUri = $window.alignmentJson.srcOntologyURI;
   var tarOntoUri = $window.alignmentJson.tarOntologyURI;
+
+  $scope.rangeSlider = {"minValue": 0, "maxValue": 1};
+  $(function () {
+    $("#slider-range").slider({
+      range: true,
+      min: 0,
+      max: 1,
+      step: 0.01,
+      values: [0, 1],
+      slide: function (event, ui) {
+        $("#amount").val(ui.values[ 0 ] + " - " + ui.values[ 1 ]);
+
+        $scope.rangeSlider.minValue = ui.values[ 0 ];
+        $scope.rangeSlider.maxValue = ui.values[ 1 ];
+      }
+    });
+    $("#amount").val($("#slider-range").slider("values", 0) +
+            " - " + $("#slider-range").slider("values", 1));
+  });
+
   if (!srcOntoUri) {
     srcOntoUri = "Source Entities"
   }
@@ -77,16 +97,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     }
     return entity.id;
   };
-  //Range slider config
-  $scope.minRangeSlider = {
-    minValue: 0,
-    maxValue: 100,
-    options: {
-      floor: 0,
-      ceil: 100,
-      step: 1
-    }
-  };
+
   // Hide all validated alignments when click on hideValidatedAlignments button
   $scope.hideAlignments = function ($event) {
     $scope.hideValidatedAlignments = !$scope.hideValidatedAlignments;
@@ -97,15 +108,15 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       angular.element($event.currentTarget).css('background', 'linear-gradient(to bottom, #5bc0de 0%, #2aabd2 100%)');
     }
   };
-  
+
   /**
    * Generate the ng if condition to manage which rows will be display
    * @param {type} alignment
    * @returns {Boolean}
    */
   $scope.generateTableNgIf = function (alignment) {
-    if (alignment.measure >= $scope.minRangeSlider.minValue / 100
-            && alignment.measure <= $scope.minRangeSlider.maxValue / 100) {
+    if (alignment.measure >= $scope.rangeSlider.minValue
+            && alignment.measure <= $scope.rangeSlider.maxValue) {
       if ($scope.hideValidatedAlignments === true && alignment.relation == "notvalid") {
         return false;
       }
@@ -182,6 +193,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       buildNetwork("target", this.alignment.entity2, $scope.selectedLang, $scope.ontologies);
     }
   };
+
 });
 /**
  * a function to get the ontology that is linked to an alignment
@@ -488,7 +500,7 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
           damping: 0.09,
           nodeDistance: 50
         },
-         solver: 'hierarchicalRepulsion'
+        solver: 'hierarchicalRepulsion'
       }
     };
   }
