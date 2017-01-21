@@ -18,6 +18,9 @@ debut doid ma localhost : 21h51
 
 L'upload prend beaucoup de temps
 
+ESSAYER
+http://commons.apache.org/proper/commons-fileupload/streaming.html
+
 ## Improvements to do
 
 Augmenter la vitesse de chargement des ontologies : ne charger que les concepts qui ont matché et leurs proches ? Risque d'être tout aussi long
