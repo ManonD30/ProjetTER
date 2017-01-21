@@ -2,7 +2,25 @@
 
 Using Apache Tomcat 7 and Java 8
 
+## Bug to resolve
+
+Quand on essaie avec des BK_ontologies le fichier direct ddl dans /tmp/yam-gui est mauvais:
+il contient Could not load provided ontology file
+
+Execution de mouse - human : en pratique 1min24s d'attente, mais le matcher prend seulement 15s
+
+iaml diabolo depuis les URL : 17s d'attente mais annonce 14s
+imal diabolo depuis fichiers: 24s contre 10 annonce
+
+doid ma en localhost : plus de 10 min réelles, 39s annoncé. 
+
+debut doid ma localhost : 21h51
+
+L'upload prend beaucoup de temps
+
 ## Improvements to do
+
+Augmenter la vitesse de chargement des ontologies : ne charger que les concepts qui ont matché et leurs proches ? Risque d'être tout aussi long
 
 Ajouter des détails : comment on gére la visualisation dans le readme (vis js)
 
