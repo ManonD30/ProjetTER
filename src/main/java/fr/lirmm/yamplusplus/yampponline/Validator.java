@@ -5,6 +5,7 @@ import fr.lirmm.yamplusplus.yamppls.YamppUtils;
 import static fr.lirmm.yamplusplus.yampponline.MatcherInterface.liste;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import javax.servlet.ServletException;
 
 import javax.servlet.http.HttpServlet;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 //@Path("/matcher")
 public class Validator extends HttpServlet {
@@ -20,7 +23,8 @@ public class Validator extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Redirect to validator.jsp to ask user to provide alignment and ontologies files
+   * Redirect to validator.jsp to ask user to provide alignment and ontologies
+   * files
    *
    * @param request
    * @param response
@@ -33,7 +37,8 @@ public class Validator extends HttpServlet {
   }
 
   /**
-   * Process Post request (from /validator form submission) and redirect to result.jsp
+   * Process Post request (from /validator form submission) and redirect to
+   * result.jsp
    *
    * @param request
    * @param response
@@ -70,8 +75,29 @@ public class Validator extends HttpServlet {
     // Read ontology with Jena and get ontology JSON model for JavaScript
     Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI(), Logger.getLogger(Validator.class.getName()));
     Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI(), Logger.getLogger(Validator.class.getName()));
-    request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(srcJenaModel));
-    request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(tarJenaModel));
+    
+    JSONObject sourceOntJson = YamFileHandler.getOntoJsonFromJena(srcJenaModel);
+    JSONObject targetOntJson = YamFileHandler.getOntoJsonFromJena(tarJenaModel);
+    request.setAttribute("sourceOnt", sourceOntJson);
+    request.setAttribute("targetOnt", targetOntJson);
+
+    
+    //  In percentage the proportion of a mapped ontology. Given the mapping count
+      // Get number of mappings
+      HashSet sourceUniqueMappings = new HashSet<>();
+      HashSet targetUniqueMappings = new HashSet<>();
+      JSONArray alignmentJsonArray = (JSONArray) liste.get("entities");
+      // Get all mapped entities in an hashset to get the number of different concepts that have matched (not the number of match)
+      for (int i = 0; i < alignmentJsonArray.size(); i++) {
+        sourceUniqueMappings.add(((JSONObject) alignmentJsonArray.get(i)).get("entity1").toString());;
+        targetUniqueMappings.add(((JSONObject) alignmentJsonArray.get(i)).get("entity2").toString());;
+      }
+      // number of mapped concept * 100 / number of concept in the ontology
+      int srcOverlappingProportion = sourceUniqueMappings.size() * 100 / ((JSONObject) sourceOntJson.get("entities")).size();
+      int tarOverlappingProportion = targetUniqueMappings.size() * 100 / ((JSONObject) targetOntJson.get("entities")).size();
+      request.setAttribute("srcOverlappingProportion", srcOverlappingProportion);
+      request.setAttribute("tarOverlappingProportion", tarOverlappingProportion);
+    
 
     // Call validation.jsp to display results in /validator URL path and send the request with sourceOnt, targetOnt and alignment results
     this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
