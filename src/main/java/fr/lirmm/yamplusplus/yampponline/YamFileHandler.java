@@ -38,7 +38,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import javax.xml.parsers.DocumentBuilder;
@@ -137,6 +136,86 @@ public class YamFileHandler {
   }
 
   /**
+   * Upload the 2 ontology files from HTTP request using the Streaming API. It
+   * downloads the file if it is an URL or get it from the POST request. It
+   * stores the contentString in a file in the tmp directory. In a subdirectory
+   * /tmp/yam-gui/ + subDir generated + / + filename (source.owl or target.owl).
+   * Usually the sub directory is randomly generated before calling uploadFile
+   * And return the path to the created file
+   *
+   * @param subDir
+   * @param request
+   * @return
+   * @throws IOException
+   */
+  /*public String uploadFiles(String subDir, HttpServletRequest request) throws IOException {
+
+    Logger.getLogger(YamFileHandler.class.getName()).log(Level.INFO, "In uploadFiles");
+    if (ServletFileUpload.isMultipartContent(request) == true) {
+      try {
+        //someone on stack: http://stackoverflow.com/questions/23612381/apache-file-upload-fileitemiterator-is-empty
+        //List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+
+        // Create a new file upload handler
+        ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory());
+        // Parse the request
+        FileItemIterator iter = upload.getItemIterator(request);
+        Logger.getLogger(YamFileHandler.class.getName()).log(Level.INFO, "Before while");
+        while (iter.hasNext()) {
+          FileItemStream item = iter.next();
+          String name = item.getFieldName();
+          Logger.getLogger(YamFileHandler.class.getName()).log(Level.INFO, "In while: " + name);
+          InputStream stream = item.openStream();
+          // Use commons-io Streams to copy from the inputstrea to a brand-new file: http://stackoverflow.com/questions/6204412/commons-file-upload-not-working-in-servlet
+          //Streams.copy(stream, new FileOutputStream(file), true);
+          if (item.isFormField()) {
+            if (name.equals("sourceFile")) {
+              String storagePath = this.tmpDir + subDir + "/source.owl";
+              FileUtils.writeStringToFile(new File(storagePath), Streams.asString(stream), "UTF-8");
+            } else if (name.equals("targetFile")) {
+              String storagePath = this.tmpDir + subDir + "/source.owl";
+              FileUtils.writeStringToFile(new File(storagePath), Streams.asString(stream), "UTF-8");
+            } else {
+              Logger.getLogger(YamFileHandler.class.getName()).log(Level.INFO, "File field {0} with file name {1} detected.", new Object[]{name, item.getName()});
+            }
+            Logger.getLogger(YamFileHandler.class.getName()).log(Level.INFO, "Uploaded: {0}", name);
+          } else { // REMOVE AFTER DEBUG
+            Logger.getLogger(YamFileHandler.class.getName()).log(Level.INFO, "Not form field: {0}", name);
+          }
+        }
+      } catch (FileUploadException ex) {
+        Logger.getLogger(YamFileHandler.class.getName()).log(Level.SEVERE, "error: uploading file: {0}", ex);
+      }
+    } else {
+      Logger.getLogger(YamFileHandler.class.getName()).log(Level.INFO, "isMultipartContent not true...");
+    }
+
+    Logger.getLogger(YamFileHandler.class.getName()).log(Level.INFO, "nothing");
+
+    // Read the file or source URL in the request and returns a String
+    /*String ontologyString = getOntFileFromRequest(ontName, request);
+    boolean saveFile = false;
+    if (request.getParameter("saveFile") != null) {
+      saveFile = true;
+    }
+    String filename = ontName + ".owl";
+    // Store the file in the tmp dir: /tmp/yam-gui/subDir/source.owl for example
+
+    if (ontologyString.startsWith("error:")) {
+      // Return the error if error when loading file
+      return ontologyString;
+    }
+
+    String storagePath = this.tmpDir + subDir + "/" + filename;
+    FileUtils.writeStringToFile(new File(storagePath), ontologyString, "UTF-8");
+    if (request.getParameter("saveFile") != null) {
+      // Save file in workdir/save/username/subDir
+      FileUtils.writeStringToFile(new File(this.workDir + "/save/" + request.getSession().getAttribute("username") + "/" + subDir + "/" + filename), ontologyString, "UTF-8");
+    }*
+    return this.tmpDir + subDir;
+  }*/
+
+  /**
    * Upload a file from HTTP request. It downloads the file if it is an URL or
    * get it from the POST request. It stores the contentString in a file in the
    * tmp directory. In a subdirectory /tmp/yam-gui/ + subDir generated + / +
@@ -158,19 +237,19 @@ public class YamFileHandler {
     }
     String filename = ontName + ".owl";
     // Store the file in the tmp dir: /tmp/yam-gui/subDir/source.owl for example
-    
+
     if (ontologyString.startsWith("error:")) {
       // Return the error if error when loading file
       return ontologyString;
     }
-    
+
     String storagePath = this.tmpDir + subDir + "/" + filename;
     FileUtils.writeStringToFile(new File(storagePath), ontologyString, "UTF-8");
     if (request.getParameter("saveFile") != null) {
       // Save file in workdir/save/username/subDir
       FileUtils.writeStringToFile(new File(this.workDir + "/save/" + request.getSession().getAttribute("username") + "/" + subDir + "/" + filename), ontologyString, "UTF-8");
     }
-    
+
     return storagePath;
   }
 

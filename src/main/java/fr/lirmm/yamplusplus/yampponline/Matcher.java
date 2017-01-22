@@ -162,9 +162,12 @@ public class Matcher extends HttpServlet {
 
       // TODO:QUICK le problème des BK_onto qui ne matchent pas vient de là. 
       // Ca stock: "Could not load provided ontology file" dans le fichier... Ca semble venir de OWLAPI
+      /*String storagePath = fileHandler.uploadFiles(subDirName, request);
+      String sourceStoragePath = storagePath + "/source.owl";
+      String targetStoragePath = storagePath + "/target.owl";*/
       String sourceStoragePath = fileHandler.uploadFile("source", subDirName, request);
       String targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
-      
+
       // If error when loading files from request
       if (sourceStoragePath.startsWith("error:")) {
         request.setAttribute("errorMessage", sourceStoragePath);
