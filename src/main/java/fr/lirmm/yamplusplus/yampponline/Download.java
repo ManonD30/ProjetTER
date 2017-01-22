@@ -249,71 +249,8 @@ public class Download extends HttpServlet {
       return "0";
     }
 
-    // We need to iterate the XML file to add the valid field
-    DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-    DocumentBuilder docBuilder = null;
-    try {
-      docBuilder = docBuilderFactory.newDocumentBuilder();
-    } catch (ParserConfigurationException ex) {
-      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
-    }
-
-    docBuilderFactory.setIgnoringComments(true);
-    DocumentBuilder builder = null;
-    try {
-      builder = docBuilderFactory.newDocumentBuilder();
-    } catch (ParserConfigurationException ex) {
-      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    Document doc = null;
-    Logger.getLogger(Download.class.getName()).log(Level.INFO, validArray.toString());
-    InputSource is = new InputSource(new StringReader(alignmentString));
-
-    try {
-      doc = builder.parse(is);
-    } catch (SAXException ex) {
-      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (IOException ex) {
-      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    // Iterate other the array of valid mappings to add if valid or not to the Cell in the XML
-    for (int i = 0; i < validArray.size(); i++) {
-      String valid = validArray.get(i);
-      NodeList nodes = doc.getElementsByTagName("Cell");
-      Text a = null;
-      if (valid.equals("notvalid")) {
-        a = doc.createTextNode("false");
-      } else {
-        a = doc.createTextNode("true");
-      }
-
-      if (a != null) {
-        // Add the valid element if valid or not (don't add if waiting)
-        Element p = doc.createElement("valid");
-        p.appendChild(a);
-        //nodes.item(i).getParentNode().insertBefore(p, nodes.item(i));
-        nodes.item(i).insertBefore(p, nodes.item(i).getFirstChild());
-      }
-    }
-
-    DOMSource domSource = new DOMSource(doc);
-    StringWriter writer = new StringWriter();
-    StreamResult result = new StreamResult(writer);
-    TransformerFactory tf = TransformerFactory.newInstance();
-    Transformer transformer = null;
-    try {
-      transformer = tf.newTransformer();
-    } catch (TransformerConfigurationException ex) {
-      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    try {
-      transformer.transform(domSource, result);
-    } catch (TransformerException ex) {
-      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
-    }
-
     //return alignmentString;
-    return writer.toString();
+    return alignmentString;
   }
 
 }
