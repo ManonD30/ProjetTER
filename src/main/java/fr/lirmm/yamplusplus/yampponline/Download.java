@@ -18,31 +18,29 @@ import org.semanticweb.owl.align.AlignmentVisitor;
 import fr.inrialpes.exmo.align.impl.BasicParameters;
 import fr.inrialpes.exmo.align.impl.URIAlignment;
 import fr.inrialpes.exmo.align.impl.renderer.RDFRendererVisitor;
-import java.io.StringReader;
+import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
+import org.apache.commons.io.FileUtils;
 
 public class Download extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
+  
+  /**
+   * Redirect to doPost
+   * @param request
+   * @param response
+   * @throws ServletException
+   * @throws IOException 
+   */
+  public void doGet(HttpServletRequest request, HttpServletResponse response)
+          throws ServletException, IOException {
+    doPost(request, response);
+  }
 
   /**
    * Returns validated alignment file to user
@@ -56,53 +54,69 @@ public class Download extends HttpServlet {
           throws ServletException, IOException {
     String sourceUri = (String) request.getParameter("sourceUri");
     String targetUri = (String) request.getParameter("targetUri");
-    
+    String alignmentString = null;
+
     // Force to get it as a file to download
     response.setContentType("application/force-download");
-    response.setHeader("content-disposition", "inline; filename=\"alignment_" + sourceUri.replaceAll("http://", "").replaceAll("https://", "") 
-            + "_" + targetUri.replaceAll("http://", "").replaceAll("https://", "") + ".rdf\"");
-
     response.setCharacterEncoding("UTF-8");
-    PrintWriter out = response.getWriter();
 
-    HashMap<String, String> hashMapping = null;
-    ArrayList<HashMap> arrayMappings = new ArrayList<>();
-    String[] indexArray = request.getParameterValues("index");
-    String[] entity1 = request.getParameterValues("entity1");
-    String[] entity2 = request.getParameterValues("entity2");
-    String[] relation = request.getParameterValues("relation");
-    String[] measure = request.getParameterValues("measure");
-
-    String alignmentString = null;
-    // Put all mappings in an Array of Hashtable
-    if (indexArray != null) {
-      for (String i : indexArray) {
-        // Get the index in param arrays of the validate mappings
-        int paramIndex = Arrays.asList(indexArray).indexOf(i);
-        hashMapping = new HashMap<>();
-        hashMapping.put("entity1", entity1[paramIndex]);
-        hashMapping.put("entity2", entity2[paramIndex]);
-        hashMapping.put("relation", relation[paramIndex]);
-        hashMapping.put("measure", measure[paramIndex]);
-        arrayMappings.add(hashMapping);
-      }
-
-      // Generate the alignment string depending on selected format
-      String format = request.getParameter("format");
-      if (format.equals("simpleRDF")) {
-        alignmentString = generateSimpleRdfAlignment(arrayMappings);
-      } else if (format.equals("RDF")) {
-        alignmentString = generateRdfAlignment(arrayMappings);
-      } else {
-        alignmentString = generateAlignment(arrayMappings, sourceUri, targetUri);
+    if (request.getParameter("ddl") != null) {
+      // If it is called by the admin ontology file download feature (in sign.jsp)
+      YamDatabaseConnector dbConnector;
+      try {
+        dbConnector = new YamDatabaseConnector();
+        if (dbConnector.isValidApikey(request.getSession().getAttribute("apikey").toString())
+                && request.getSession().getAttribute("role").toString().equals("admin")) {
+          alignmentString = FileUtils.readFileToString(new File(request.getParameter("ddl")), "UTF-8");
+          response.setHeader("content-disposition", "inline; filename=\"" + request.getParameter("filename") + "\"");
+        }
+      } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, "error: downloading file " + ex);
       }
 
     } else {
-      // in case no checkbox have been checked
-      alignmentString = "No mappings";
-      response.setContentType("plain/text");
-    }
+      // Returns the alignment file to download
+      response.setHeader("content-disposition", "inline; filename=\"alignment_" + sourceUri.replaceAll("http://", "").replaceAll("https://", "")
+              + "_" + targetUri.replaceAll("http://", "").replaceAll("https://", "") + ".rdf\"");
 
+      HashMap<String, String> hashMapping = null;
+      ArrayList<HashMap> arrayMappings = new ArrayList<>();
+      String[] indexArray = request.getParameterValues("index");
+      String[] entity1 = request.getParameterValues("entity1");
+      String[] entity2 = request.getParameterValues("entity2");
+      String[] relation = request.getParameterValues("relation");
+      String[] measure = request.getParameterValues("measure");
+
+      // Put all mappings in an Array of Hashtable
+      if (indexArray != null) {
+        for (String i : indexArray) {
+          // Get the index in param arrays of the validate mappings
+          int paramIndex = Arrays.asList(indexArray).indexOf(i);
+          hashMapping = new HashMap<>();
+          hashMapping.put("entity1", entity1[paramIndex]);
+          hashMapping.put("entity2", entity2[paramIndex]);
+          hashMapping.put("relation", relation[paramIndex]);
+          hashMapping.put("measure", measure[paramIndex]);
+          arrayMappings.add(hashMapping);
+        }
+
+        // Generate the alignment string depending on selected format
+        String format = request.getParameter("format");
+        if (format.equals("simpleRDF")) {
+          alignmentString = generateSimpleRdfAlignment(arrayMappings);
+        } else if (format.equals("RDF")) {
+          alignmentString = generateRdfAlignment(arrayMappings);
+        } else {
+          alignmentString = generateAlignment(arrayMappings, sourceUri, targetUri);
+        }
+
+      } else {
+        // in case no checkbox have been checked
+        alignmentString = "No mappings";
+        response.setContentType("plain/text");
+      }
+    }
+    PrintWriter out = response.getWriter();
     out.print(alignmentString);
     out.flush();
   }

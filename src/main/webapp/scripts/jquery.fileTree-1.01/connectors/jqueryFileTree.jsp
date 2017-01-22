@@ -38,7 +38,8 @@
         if (!new File(dir, file).isDirectory()) {
           int dotIndex = file.lastIndexOf('.');
           String ext = dotIndex > 0 ? file.substring(dotIndex + 1) : "";
-          out.print("<li class=\"file ext_" + ext + "\"><a href=\"#\" rel=\"" + dir + file + "\">"
+          String downloadUrl = "download?ddl=" + dir + file + "&filename=" + file;
+          out.print("<li class=\"file ext_" + ext + "\"><a href=\"" + downloadUrl + "\" rel=\"" + dir + file + "\">"
                   + file + "</a></li>");
         }
       }
