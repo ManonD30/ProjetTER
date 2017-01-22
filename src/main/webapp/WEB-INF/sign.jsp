@@ -50,6 +50,24 @@
       });
     });
   </script>
+  
+  <h3>Browse tmp directory</h3>
+  <div id="loadTmpFolderTree"></div>
+  <link rel="stylesheet" href="scripts/jquery.fileTree-1.01/jqueryFileTree.css" />
+  <script src="scripts/jquery.fileTree-1.01/jqueryFileTree.js"></script>
+  <script src="scripts/jquery.fileTree-1.01/jquery.easing.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#loadTmpFolderTree').fileTree({
+        root: '/tmp/yamppls',
+        script: '/scripts/jquery.fileTree-1.01/connectors/jqueryFileTree.jsp',
+        multiFolder: false,
+      }, function (file) {
+        var loadPat = document.getElementById("loadPattern");
+        loadPat.value = file.replace("/tmp/yamppls", "");
+      });
+    });
+  </script>
 
   <h3>Manage users</h3>
   <p>Resetting a password reset it to "changeme"</p>

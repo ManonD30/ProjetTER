@@ -68,6 +68,7 @@ public class Download extends HttpServlet {
         if (dbConnector.isValidApikey(request.getSession().getAttribute("apikey").toString())
                 && request.getSession().getAttribute("role").toString().equals("admin")) {
           alignmentString = FileUtils.readFileToString(new File(request.getParameter("ddl")), "UTF-8");
+          response.setContentType("text/plain");
           response.setHeader("content-disposition", "inline; filename=\"" + request.getParameter("filename") + "\"");
         }
       } catch (ClassNotFoundException ex) {
