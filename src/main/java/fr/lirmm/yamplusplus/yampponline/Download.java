@@ -56,12 +56,11 @@ public class Download extends HttpServlet {
           throws ServletException, IOException {
     String sourceUri = (String) request.getParameter("sourceUri");
     String targetUri = (String) request.getParameter("targetUri");
-    sourceUri = sourceUri.replaceAll("http://", "").replaceAll("https://", "");
-    targetUri = targetUri.replaceAll("http://", "").replaceAll("https://", "");
     
     // Force to get it as a file to download
     response.setContentType("application/force-download");
-    response.setHeader("content-disposition", "inline; filename=\"alignment_"+ sourceUri + "_" + targetUri + ".rdf\"");
+    response.setHeader("content-disposition", "inline; filename=\"alignment_" + sourceUri.replaceAll("http://", "").replaceAll("https://", "") 
+            + "_" + targetUri.replaceAll("http://", "").replaceAll("https://", "") + ".rdf\"");
 
     response.setCharacterEncoding("UTF-8");
     PrintWriter out = response.getWriter();
@@ -95,7 +94,7 @@ public class Download extends HttpServlet {
       } else if (format.equals("RDF")) {
         alignmentString = generateRdfAlignment(arrayMappings);
       } else {
-        alignmentString = generateAlignment(arrayMappings);
+        alignmentString = generateAlignment(arrayMappings, sourceUri, targetUri);
       }
 
     } else {
@@ -196,11 +195,11 @@ public class Download extends HttpServlet {
    * @param MapFinal
    * @return String
    */
-  public static String generateAlignment(ArrayList<HashMap> MapFinal) {
+  public static String generateAlignment(ArrayList<HashMap> MapFinal, String sourceUri, String targetUri) {
     Alignment alignments = new URIAlignment();
     String alignmentString = null;
     try {
-      alignments.init(new URI("c"), new URI("c"));
+      alignments.init(new URI(sourceUri), new URI(targetUri));
       alignments.setLevel("0");
       alignments.setType("11");
 
