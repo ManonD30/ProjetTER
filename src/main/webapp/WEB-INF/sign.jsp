@@ -35,6 +35,7 @@
 
   <h3>Browse saved ontologies</h3>
   <p>Files are sorted from the newest to the oldest.</p>
+  <p>You can mouseover a file or directory name to get its last modified date.</p>
   <div id="loadFolderTree"></div>
   <link rel="stylesheet" href="scripts/jquery.fileTree-1.01/jqueryFileTree.css" />
   <script src="scripts/jquery.fileTree-1.01/jqueryFileTree.js"></script>

@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Comparator"%>
 <%@ page
   import="java.io.File,java.io.FilenameFilter,java.util.Arrays"%>
@@ -29,10 +30,11 @@
         }
       });
 
+      SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
       // All dirs
       for (File file : filesArray) {
         if (file.isDirectory()) {
-          out.print("<li class=\"directory collapsed\"><a href=\"#\" rel=\"" + file.getAbsolutePath() + "/\">"
+          out.print("<li class=\"directory collapsed\"><a href=\"#\" rel=\"" + file.getAbsolutePath() + "/\" title='" + sdf.format(file.lastModified()) + "'>"
                   + file.getName() + "</a></li>");
         }
       }
@@ -42,7 +44,7 @@
           int dotIndex = file.getName().lastIndexOf('.');
           String ext = dotIndex > 0 ? file.getName().substring(dotIndex + 1) : "";
           String downloadUrl = "download?ddl=" + file.getAbsolutePath() + "&filename=" + file.getName();
-          out.print("<li class=\"file ext_" + ext + "\"><a href=\"" + downloadUrl + "\" rel=\"" + file.getAbsolutePath() + "\">"
+          out.print("<li class=\"file ext_" + ext + "\"><a href=\"" + downloadUrl + "\" rel=\"" + file.getAbsolutePath() + "\" title='" + sdf.format(file.lastModified()) + "'>"
                   + file.getName() + "</a></li>");
         }
       }
