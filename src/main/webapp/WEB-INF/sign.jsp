@@ -32,6 +32,26 @@
   %>
   <hr/>
   <h2>Administration</h2>
+
+  <h3>Browse saved ontologies</h3>
+  <div id="loadFolderTree"></div>
+  <link rel="stylesheet" href="scripts/jquery.fileTree-1.01/jqueryFileTree.css" />
+  <script src="scripts/jquery.fileTree-1.01/jqueryFileTree.js"></script>
+  <script src="scripts/jquery.fileTree-1.01/jquery.easing.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#loadFolderTree').fileTree({
+        root: '/srv/yam-gui/save',
+        script: '/scripts/jquery.fileTree-1.01/connectors/jqueryFileTree.jsp',
+        multiFolder: false,
+      }, function (file) {
+        var loadPat = document.getElementById("loadPattern");
+        loadPat.value = file.replace("/srv/yam-gui/save", "");
+      });
+    });
+  </script>
+
+  <h3>Manage users</h3>
   <p>Resetting a password reset it to "changeme"</p>
   <table class="table table-bordered">
     <thead>
@@ -63,7 +83,7 @@
         <td>
           <form action="adminControl" method='post'>
             <input type="hidden" name="resetApikey" value="<%=listUser.getApikey()%>" />
-            <input type="submit" value="Reset" class="btn" onclick="return confirm('Are you sure you want to reset the user password?')">
+            <input type="submit" value="Reset" class="btn" onclick="return confirm('Are you sure you want to reset the user password to changeme?')">
           </form>
           <form action="adminControl" method='post'>
             <input type="hidden" name="deleteApikey" value="<%=listUser.getApikey()%>" />
@@ -142,13 +162,14 @@
     <%=error%>
   </div>
   <% request.setAttribute("error", null);
-    } String success = (String) request.getAttribute("success");
+    }
+    String success = (String) request.getAttribute("success");
     if (success != null && !success.equals("")) {%>
   <div class="alert alert-success" role="alert" style="text-align: center; margin: 3% 20%;">
     <%=success%>
   </div>
   <%
-    request.setAttribute("success", null);
+      request.setAttribute("success", null);
     }
   %>
 </div>
