@@ -105,7 +105,7 @@
                 <h3 class="panel-title">Remove conflicts</h3>
               </div>
               <div class="panel-body">
-                <p>Disabling the removal of conflicts increases the number of mappings, but also the likelihood of error (wrong mappings).</p>
+                <p>Enabling the removal of conflicts decreases the number of mappings, but also the likelihood of error (wrong mappings).</p>
                 <div class="checkbox">
                   <label><input type="checkbox" name="explicitConflict" id="explicitConflict">&nbsp;Remove Explicit Disjoint conflicts</label>
                 </div>
