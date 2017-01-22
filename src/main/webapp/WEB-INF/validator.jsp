@@ -8,7 +8,7 @@
 <%@include file="header.jsp" %>
 
 <div class="container theme-showcase" role="main">
-  
+
   <h3 class=contentText>Select the alignment to validate and the corresponding ontologies</h3>
   <p style="text-align: center;">
     The Yam++ Online Validator is an interface for human validation of already generated mappings. 
@@ -35,8 +35,7 @@
       <label id="fileRdfAlignmentFile" style="font-weight: normal;"></label>
 
       <div class="row">
-        <%
-          String acceptFormatTitle = "title='Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml'";
+        <%          String acceptFormatTitle = "title='Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml'";
           String acceptFormatInput = "accept='.owl, .rdf, .nt, .ttl, .jsonld, .json, .xml'";
         %>
         <div class="col-md-6">
@@ -48,7 +47,9 @@
             Choose file
             <input id=sourceFile type="file" name="sourceFile" <%=acceptFormatInput%>
                    onchange="refreshFileUpload('sourceFile', 'sourceFilename');" style="display: none;"/>
-          </label> <br/>
+          </label>
+          <a class="infolink" <%=acceptFormatTitle%> target="_blank"></a>
+          <br/>
           <label id="sourceFilename" style="font-weight: normal;"></label>
         </div>
         <div class="col-md-6">
@@ -60,7 +61,9 @@
             Choose file
             <input id=targetFile type="file" name="targetFile" <%=acceptFormatInput%>
                    onchange="refreshFileUpload('targetFile', 'targetFilename');" style="display: none;" />
-          </label> <br/>
+          </label>
+          <a class="infolink" <%=acceptFormatTitle%> target="_blank"></a>
+          <br/>
           <label id="targetFilename" style="font-weight: normal;"></label>
         </div>
       </div>

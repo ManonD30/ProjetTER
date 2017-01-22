@@ -27,15 +27,16 @@ Augmenter la vitesse de chargement des ontologies : ne charger que les concepts 
 
 Ajouter des détails : comment on gére la visualisation dans le readme (vis js)
 
-Add skos:relatedMatch
+X Add skos:relatedMatch
 
-Retirer <valid>false</valid> du RDF et "export ou save"
+X Retirer <valid>false</valid> du RDF et "export ou save"
+X Vérifier si le Validator reprend bien où il s'était arrêté
 
-"To reduce the number of mapping faut décocher"
+X "To reduce the number of mapping faut décocher"
 
 On demande nom et groupe relié à chaque onto (select)
 
-ajouter point d'interrogation pour hover
+X ajouter point d'interrogation pour hover
 
 add la promotion à l'état d'admin dans page d'administration
 
@@ -48,18 +49,6 @@ Normalement "mop" et "genre" : doit pas y avoir de mappings entre ces 2 là. App
 Trouver et/ou Demander  à Hoa comment est calculé le score qu'on voit dans l'alignement final
 
 ### Now
-
-* **RDF VIZU**
-http://visjs.org/network_examples.html : javascript vraiment intéressant
-http://visjs.org/examples/network/events/interactionEvents.html
-http://visjs.org/examples/network/labels/labelAlignment.html
-
-https://github.com/alangrafu/visualRDF : php parse RDF pour affichage relativement simple (mais bordélique)
-
-http://vowl.visualdataweb.org/webvowl/index.html : trop gros on dirait
-https://github.com/nylen/d3-process-map : pas du rdf direct et php
-https://github.com/VisualDataWeb/WebVOWL : nodeJS
-
 
 * **FORMATS**
   * OAEI XML (format de "sauvegarde des données" qui permet de sauvegarder l'état des mappings et de reprendre)
@@ -74,17 +63,13 @@ https://github.com/VisualDataWeb/WebVOWL : nodeJS
     * Pour notifier de la création de nouveaux utilisateurs
     * Pour réinitialiser les mots de passes perdus (en donnant un mot de passe au hasard)
 
-* **RAPIDE:** Faire en sorte que le %age de recouvrement marche pour le validator (c'est fait dans yampp-ls pour l'instant)
-
-* **RAPIDE** changer le logo pour ajouter "online" (Yam++ Online)
+* **X** Faire en sorte que le %age de recouvrement marche pour le validator (c'est fait dans yampp-ls pour l'instant)
 
 * Stocker les ontologies données en input, par domaine. Par exemple, les ontologies en biomedical devrait être dans le même groupe. L'objectif est de pouvoir les retrouver facilement pour les recommander à des utilisateurs ou pour les utiliser comme connaissance a priori pour l'alignement.
   * Pour faciliter la classification des ontologies on pourrait peut être demander le "domaine" au moment du download.
   * Il faudrait également éviter les doublons (comparer les ontologies, demander un "nom" pour l'ontologie et l'enregistrer avec ce nom comme ID ?)
   * Donc, demander: nom (ID) et domaine?
 
-* **BUG**
-  * Le langage sélectionné n'est pas forcément celui affiché (voir iaml-MIMO sur certains concepts, mais pas tous)
   * Le nom des ontologies n'est pas encore au top.. (mettre une URL file:/ nom du file original si rien dans l'onto)
 
 * A faire aussi dans yampp-ls
@@ -99,8 +84,7 @@ https://github.com/VisualDataWeb/WebVOWL : nodeJS
   * **FAIT ???**
 
 * Graphical visualization 
-  * Afficher tous les concepts à une distance 1 qui sont également dans l'ontologie
-  * Visualisation d'ontologies: http://jowl.ontologyonline.org
+  * X Afficher tous les concepts à une distance 1 qui sont également dans l'ontologie
 
 * Safari
   * La table de results se resize pas super bien quand on la rapetissit trop
@@ -267,6 +251,10 @@ docker exec -i -t yam_tomcat bash
 ```
 
 ## Use d3.js for vizualisation
+
+http://visjs.org/network_examples.html : javascript vraiment intéressant
+http://visjs.org/examples/network/events/interactionEvents.html
+http://visjs.org/examples/network/labels/labelAlignment.html
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 

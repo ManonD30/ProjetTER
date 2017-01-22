@@ -3,7 +3,7 @@
 <div class="container theme-showcase" role="main">
   <% if (request.getSession().getAttribute("apikey") == null) { %>
   <p style="margin: 4%; text-align: center;"><b><a href="sign">Login or signup</a></b> to use Yam++ Online ontology matcher</p>
-  <% } else { %>
+        <% } else { %>
 
   <h3 class=contentText>Select the ontologies to match</h3>
   <div class=form>
@@ -35,7 +35,9 @@
             Choose file
             <input id=sourceFile type="file" name="sourceFile" <%=acceptFormatInput%> 
                    onchange="refreshFileUpload('sourceFile', 'sourceFilename');" style="display: none;"/>
-          </label> <br/>
+          </label> 
+          <a class="infolink" <%=acceptFormatTitle%> target="_blank"></a>
+          <br/>
           <label id="sourceFilename" style="font-weight: normal;"></label>
         </div>
         <div class="col-md-6">
@@ -47,7 +49,9 @@
             Choose file
             <input id=targetFile type="file" name="targetFile" <%=acceptFormatInput%> 
                    onchange="refreshFileUpload('targetFile', 'targetFilename');" style="display: none;" />
-          </label> <br/>
+          </label>
+          <a class="infolink" <%=acceptFormatTitle%> target="_blank"></a>
+          <br/>
           <label id="targetFilename" style="font-weight: normal;"></label>
         </div>
       </div>
