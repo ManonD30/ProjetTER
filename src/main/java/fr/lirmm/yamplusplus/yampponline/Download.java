@@ -117,12 +117,12 @@ public class Download extends HttpServlet {
         }
 
         // Generate the alignment string depending on selected format
-        String format = request.getParameter("format");
-        if (format.equals("simpleRDF")) {
+        String format = request.getParameter("validationSubmit");
+        if (format.equals("Simple RDF format")) {
           downloadString = generateSimpleRdfAlignment(arrayMappings);
-        } else if (format.equals("RDF")) {
+        } else if (format.equals("RDF format")) {
           downloadString = generateRdfAlignment(arrayMappings);
-        } else {
+        } else if (format.equals("AlignmentAPI format")){
           downloadString = generateAlignment(arrayMappings, sourceUri, targetUri);
         }
 

@@ -34,7 +34,7 @@ X Vérifier si le Validator reprend bien où il s'était arrêté
 
 X "To reduce the number of mapping faut décocher"
 
-On demande nom et groupe relié à chaque onto (select)
+X On demande nom et groupe relié à chaque onto (select)
 
 X ajouter point d'interrogation pour hover
 
@@ -42,7 +42,11 @@ add la promotion à l'état d'admin dans page d'administration
 
 X stocker ontologies en utilisant le field des users
 
-Stocker alignements (on demande domaine, noms des ontologies). Onto stockées par paires avec leur alignement
+X Stocker alignements (on demande domaine, noms des ontologies). Onto stockées par paires avec leur alignement
+
+Stocker le dernier alignment enregistrer
+
+Faire difference entre save et export
 
 Voir comment on peut augmenter le nombre de mappings en résultats (on fait la restriction au curseur en tout)
 

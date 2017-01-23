@@ -97,7 +97,7 @@ for the sourceOnt and targetOnt ontology alignment -->
       <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
               ng-click="hideAlignments($event)">Hide validated alignments</button>
 
-      <label for="slider-range" id="rangeLabel" style="margin-left: 3%; margin-right: 1%">Display scores from {{rangeSlider.minValue | number:2}} to {{rangeSlider.maxValue | number:2}}</label>
+      <label for="slider-range" id="rangeLabel" style="margin-left: 3%; margin-right: 1%">Display scores from {{rangeSlider.minValue| number:2}} to {{rangeSlider.maxValue| number:2}}</label>
       <div id="slider-range" style="width: 20%;display: inline-flex"></div>
 
       <label style="margin-left: 3%;">Language:</label>
@@ -188,32 +188,50 @@ style="{{generateStyleForSelect(alignment)}}" class="form-co                    
         </ul>
       </div><br/-->
 
-      <h3 class=contentText>Formats</h3><br/>
-      <div class="row" style="text-align: center;">
-        <!-- Need to change .inputFormatAlignmentAPI:checked in style.css to add a new css reaction for a new button-->
-        <div class="col-sm-4" style="text-align:center;">
-          <input type="radio" name="format" id="simpleRDF" value="simpleRDF" class="inputFormatSimpleRDF" style="display: none;">
-          <label for="simpleRDF" class="btn btn-sm btn-info inputFormatSimpleRDFLabel" 
-                 title="entity1-relation-entity2 triples" data-toggle="tooltip">Simple RDF format</label>
+      <input type="hidden" name="sourceUri" value="{{ontologies.srcOntUri}}">
+      <input type="hidden" name="targetUri" value="{{ontologies.tarOntUri}}">
+
+      <div style="text-align: center;">
+
+        <div class=btnCenter id='download'>
+          <label class="inputFormatSimpleRDFLabel" 
+                 title="OAEI EDOAL format" data-toggle="tooltip">Save to: </label>
+          <input type="submit" name="validationSubmit" value="AlignmentAPI format" class="btn btnSubmit"
+                 title="OAEI EDOAL format" style="margin-bottom: 0;">
         </div>
-        <div class="col-sm-4" style="text-align:center;">
-          <input type="radio" name="format" id="alignmentAPI" value="alignmentAPI" style="display: none;" class="inputFormatAlignmentAPI" checked>
-          <label for="alignmentAPI" class="btn btn-sm btn-info inputFormatAlignmentAPILabel" title="OAEI EDOAL format"
-                 data-toggle="tooltip">AlignmentAPI format</label>
-        </div>
-        <div class="col-sm-4" style="text-align:center;">
-          <input type="radio" name="format" id="RDF" value="RDF" class="inputFormatRDF" style="display: none;">
-          <label for="RDF" class="btn btn-sm btn-info inputFormatRDFLabel" data-toggle="tooltip"
-                 title="RDF format with score (BETA: generated properties not valid)">RDF format</label>
+        <br>
+        <div class=btnCenter id='download' style="margin-bottom: 8em;">
+          <label class="inputFormatSimpleRDFLabel">Export to: </label>
+
+          <input type="submit" name="validationSubmit" value="Simple RDF format" class="btn"
+                 title="entity1-relation-entity2 triples">
+          
+          <input type="submit" name="validationSubmit" value="RDF format" class="btn btn-info"
+                 title="RDF format with score (BETA: generated properties not valid)">
         </div>
       </div>
 
-      <input type="hidden" name="sourceUri" value="{{ontologies.srcOntUri}}">
-      <input type="hidden" name="targetUri" value="{{ontologies.tarOntUri}}">
-      <!-- TODO: hidden input for source and target URI -->
-      <div class=btnCenter id='download'>
-        <input class="btn btnSubmit" type="submit" value="Download mappings"/>
+      <!--div class="row">
+      <!-- Need to change .inputFormatAlignmentAPI:checked in style.css to add a new css reaction for a new button->
+      <div class="col-sm-4" style="text-align:center;">
+        <input type="radio" name="format" id="simpleRDF" value="simpleRDF" class="inputFormatSimpleRDF" style="display: none;">
+        <label for="simpleRDF" class="btn btn-sm btn-info inputFormatSimpleRDFLabel" 
+               title="entity1-relation-entity2 triples" data-toggle="tooltip">Simple RDF format</label>
       </div>
+      <div class="col-sm-4" style="text-align:center;">
+        <input type="radio" name="format" id="alignmentAPI" value="alignmentAPI" style="display: none;" class="inputFormatAlignmentAPI" checked>
+        <label for="alignmentAPI" class="btn btn-sm btn-info inputFormatAlignmentAPILabel" title="OAEI EDOAL format"
+               data-toggle="tooltip">AlignmentAPI format</label>
+      </div>
+      <div class="col-sm-4" style="text-align:center;">
+        <input type="radio" name="format" id="RDF" value="RDF" class="inputFormatRDF" style="display: none;">
+        <label for="RDF" class="btn btn-sm btn-info inputFormatRDFLabel" data-toggle="tooltip"
+               title="RDF format with score (BETA: generated properties not valid)">RDF format</label>
+      </div>
+
+
+    </div-->
+      <!-- TODO: hidden input for source and target URI -->
 
     </form>
 
