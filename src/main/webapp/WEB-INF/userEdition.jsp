@@ -21,6 +21,7 @@
         <option>Agronomy</option>
         <option>Biomedical</option>
         <option>Cinema</option>
+        <option>Engineering</option>
         <option>Geography</option>
         <option>Music</option>
         <option selected>Other</option>
