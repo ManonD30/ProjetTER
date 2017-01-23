@@ -247,6 +247,13 @@ public class YamFileHandler {
     String storagePath = this.tmpDir + subDir + "/" + filename;
     FileUtils.writeStringToFile(new File(storagePath), ontologyString, "UTF-8");
     if (request.getParameter("saveFile") != null) {
+      if (request.getParameter(ontName + "Name") != null) {
+        filename = request.getParameter(ontName + "Name");
+      }
+      if (request.getParameter("sourceName") != null && request.getParameter("targetName") != null) {
+        subDir = request.getParameter("sourceName") + " to " + request.getParameter("targetName");
+      }
+      
       FileUtils.writeStringToFile(new File(this.workDir + "/save/" + request.getSession().getAttribute("field") + "/" 
               + request.getSession().getAttribute("username") + "/" + subDir + "/" + filename), ontologyString, "UTF-8");
     }

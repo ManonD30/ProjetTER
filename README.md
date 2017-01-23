@@ -40,7 +40,9 @@ X ajouter point d'interrogation pour hover
 
 add la promotion à l'état d'admin dans page d'administration
 
-stocker ontologies et alignements (on demande domaine, noms des ontologies). Onto stockées par paires avec leur alignement
+X stocker ontologies en utilisant le field des users
+
+Stocker alignements (on demande domaine, noms des ontologies). Onto stockées par paires avec leur alignement
 
 Voir comment on peut augmenter le nombre de mappings en résultats (on fait la restriction au curseur en tout)
 

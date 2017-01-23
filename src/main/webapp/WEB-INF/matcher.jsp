@@ -126,8 +126,21 @@
         </div>
       </div>
       <br/>
-      <label style="font-weight: normal;"><input type="checkbox" id=saveFile name="saveFile">I agree to let YAM++ save my ontologies</label>
-      <br/><br/>
+      <label style="font-weight: normal;">
+        <input type="checkbox" id=saveFile name="saveFile" onchange="toggleSave()">
+        I agree to let YAM++ save my ontologies
+      </label>
+      <br/>
+      <div id="saveDiv" style="display:none;">
+        <label for="sourceName" style="margin: 2% 1%;">Source ontology name:</label>
+        <input type="text" id="sourceName" name="sourceName" placeholder="Enter a name for the Source ontology"
+               maxlength="32" pattern="[A-Za-z0-9_-]+" title="Only alphanumeric and - or _" /><br>
+        <label for="targetName" style="margin: 2% 1%;">Target ontology name:</label>
+        <input type="text" id="targetName" name="targetName" placeholder="Enter a name for the Target ontology"
+               maxlength="32" pattern="[A-Za-z0-9_-]+" title="Only alphanumeric and - or _" style="width:32ch;"/>
+      </div>
+      
+      <br/>
       <input class="btn btnSubmit" type="submit" value="Match!"/>
     </form>
   </div>
@@ -183,6 +196,21 @@
     } else {
       e.style.display = 'block';
       document.getElementById("paramsBtn").innerText = "Hide matcher parameters";
+    }
+  }
+  
+  /**
+   * To show/hide the save div (for ontologies names)
+   */
+  function toggleSave()
+  {
+    var e = document.getElementById("saveDiv");
+    if (e.style.display == 'block') {
+      e.style.display = 'none';
+      //document.getElementById("paramsBtn").innerText = "Show matcher parameters";
+    } else {
+      e.style.display = 'block';
+      //document.getElementById("paramsBtn").innerText = "Hide matcher parameters";
     }
   }
 
