@@ -35,7 +35,7 @@
   <p>Files are sorted from the newest to the oldest.</p>
   <p>You can mouseover a file or directory name to get its last modified date.</p>
   <div>
-    <div id="loadFolderTreeUser" style="width: 20%;"></div>
+    <div id="loadFolderTreeUser" style="width: 30%;"></div>
   </div>
   <script>
     $(document).ready(function () {
