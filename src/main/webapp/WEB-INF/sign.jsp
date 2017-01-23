@@ -1,3 +1,4 @@
+<%@page import="fr.lirmm.yamplusplus.yampponline.YamFileHandler"%>
 <%@page import="fr.lirmm.yamplusplus.yampponline.YamUser"%>
 <%@page import="fr.lirmm.yamplusplus.yampponline.YamDatabaseConnector"%>
 <%@include file="header.jsp" %>
@@ -6,7 +7,8 @@
 <script src="scripts/jquery.fileTree-1.01/jquery.easing.js"></script>
 
 <div class="container theme-showcase" role="main">
-  <%    YamUser user = null;
+  <% YamFileHandler fileHandler = new YamFileHandler();
+    YamUser user = null;
     if (request.getSession().getAttribute("apikey") != null) {
       user = new YamUser(request.getSession());
     }
@@ -39,16 +41,15 @@
   </div>
   <script>
     $(document).ready(function () {
-      console.log("namee: <%=request.getSession().getAttribute("username").toString()%>");
       $('#loadFolderTreeUser').fileTree({
-        root: '/srv/yam-gui/save/<%=request.getSession().getAttribute("username").toString()%>',
-        script: '/scripts/jquery.fileTree-1.01/connectors/jqueryFileTree.jsp',
-        multiFolder: false,
-      }, function (file) {
-        var loadPat = document.getElementById("loadPattern");
-        loadPat.value = file.replace("/srv/yam-gui/save/<%=request.getSession().getAttribute("username").toString()%>", "");
-      });
-    });
+        root: '<%=fileHandler.getWorkDir()%>/<%=request.getSession().getAttribute("field").toString()%>/<%=request.getSession().getAttribute("username").toString()%>',
+              script: '/scripts/jquery.fileTree-1.01/connectors/jqueryFileTree.jsp',
+              multiFolder: false,
+            }, function (file) {
+              var loadPat = document.getElementById("loadPattern");
+              loadPat.value = file.replace("<%=fileHandler.getWorkDir()%>/<%=request.getSession().getAttribute("field").toString()%>/<%=request.getSession().getAttribute("username").toString()%>", "");
+            });
+          });
   </script>
 
   <%
@@ -65,12 +66,12 @@
   <script>
     $(document).ready(function () {
       $('#loadFolderTree').fileTree({
-        root: '/srv/yam-gui/save',
+        root: '<%=fileHandler.getWorkDir()%>',
         script: '/scripts/jquery.fileTree-1.01/connectors/jqueryFileTree.jsp',
         multiFolder: false,
       }, function (file) {
         var loadPat = document.getElementById("loadPattern");
-        loadPat.value = file.replace("/srv/yam-gui/save", "");
+        loadPat.value = file.replace("<%=fileHandler.getWorkDir()%>", "");
       });
     });
   </script>

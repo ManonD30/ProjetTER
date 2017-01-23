@@ -243,11 +243,12 @@ public class YamFileHandler {
       return ontologyString;
     }
 
+    // Store ontology in workDir if asked (/srv/yam-gui/save/field/username)
     String storagePath = this.tmpDir + subDir + "/" + filename;
     FileUtils.writeStringToFile(new File(storagePath), ontologyString, "UTF-8");
     if (request.getParameter("saveFile") != null) {
-      // Save file in workdir/save/username/subDir
-      FileUtils.writeStringToFile(new File(this.workDir + "/save/" + request.getSession().getAttribute("username") + "/" + subDir + "/" + filename), ontologyString, "UTF-8");
+      FileUtils.writeStringToFile(new File(this.workDir + "/save/" + request.getSession().getAttribute("field") + "/" 
+              + request.getSession().getAttribute("username") + "/" + subDir + "/" + filename), ontologyString, "UTF-8");
     }
 
     return storagePath;
