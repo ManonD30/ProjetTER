@@ -1,6 +1,9 @@
 <%@page import="fr.lirmm.yamplusplus.yampponline.YamUser"%>
 <%@page import="fr.lirmm.yamplusplus.yampponline.YamDatabaseConnector"%>
 <%@include file="header.jsp" %>
+<link rel="stylesheet" href="scripts/jquery.fileTree-1.01/jqueryFileTree.css" />
+<script src="scripts/jquery.fileTree-1.01/jqueryFileTree.js"></script>
+<script src="scripts/jquery.fileTree-1.01/jquery.easing.js"></script>
 
 <div class="container theme-showcase" role="main">
   <%    YamUser user = null;
@@ -26,6 +29,28 @@
     <input type='submit' class=btnBig value='Disconnect'>
   </form>
 
+  <hr/>
+
+  <h3>Browse saved ontologies</h3>
+  <p>Files are sorted from the newest to the oldest.</p>
+  <p>You can mouseover a file or directory name to get its last modified date.</p>
+  <div>
+    <div id="loadFolderTreeUser" style="width: 20%;"></div>
+  </div>
+  <script>
+    $(document).ready(function () {
+      console.log("namee: <%=request.getSession().getAttribute("username").toString() %>");
+      $('#loadFolderTreeUser').fileTree({
+        root: '/srv/yam-gui/save/<%=request.getSession().getAttribute("username").toString()%>',
+        script: '/scripts/jquery.fileTree-1.01/connectors/jqueryFileTree.jsp',
+        multiFolder: false,
+      }, function (file) {
+        var loadPat = document.getElementById("loadPattern");
+        loadPat.value = file.replace("/srv/yam-gui/save/<%=request.getSession().getAttribute("username").toString() %>", "");
+      });
+    });
+  </script>
+
   <%
     // Display admin interface if user role is admin
     if (user.getRole() != null && user.getRole().equals("admin")) {
@@ -37,9 +62,6 @@
   <p>Files are sorted from the newest to the oldest.</p>
   <p>You can mouseover a file or directory name to get its last modified date.</p>
   <div id="loadFolderTree"></div>
-  <link rel="stylesheet" href="scripts/jquery.fileTree-1.01/jqueryFileTree.css" />
-  <script src="scripts/jquery.fileTree-1.01/jqueryFileTree.js"></script>
-  <script src="scripts/jquery.fileTree-1.01/jquery.easing.js"></script>
   <script>
     $(document).ready(function () {
       $('#loadFolderTree').fileTree({
@@ -52,12 +74,9 @@
       });
     });
   </script>
-  
+
   <h3>Browse tmp directory</h3>
   <div id="loadTmpFolderTree"></div>
-  <link rel="stylesheet" href="scripts/jquery.fileTree-1.01/jqueryFileTree.css" />
-  <script src="scripts/jquery.fileTree-1.01/jqueryFileTree.js"></script>
-  <script src="scripts/jquery.fileTree-1.01/jquery.easing.js"></script>
   <script>
     $(document).ready(function () {
       $('#loadTmpFolderTree').fileTree({

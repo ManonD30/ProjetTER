@@ -29,13 +29,14 @@ import org.apache.commons.io.FileUtils;
 public class Download extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * Redirect to doPost
+   *
    * @param request
    * @param response
    * @throws ServletException
-   * @throws IOException 
+   * @throws IOException
    */
   public void doGet(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
@@ -54,7 +55,7 @@ public class Download extends HttpServlet {
           throws ServletException, IOException {
     String sourceUri = (String) request.getParameter("sourceUri");
     String targetUri = (String) request.getParameter("targetUri");
-    String alignmentString = null;
+    String downloadString = null;
 
     // Force to get it as a file to download
     response.setContentType("application/force-download");
@@ -65,11 +66,25 @@ public class Download extends HttpServlet {
       YamDatabaseConnector dbConnector;
       try {
         dbConnector = new YamDatabaseConnector();
-        if (dbConnector.isValidApikey(request.getSession().getAttribute("apikey").toString())
-                && request.getSession().getAttribute("role").toString().equals("admin")) {
-          alignmentString = FileUtils.readFileToString(new File(request.getParameter("ddl")), "UTF-8");
-          response.setContentType("text/plain");
-          response.setHeader("content-disposition", "inline; filename=\"" + request.getParameter("filename") + "\"");
+        if (dbConnector.isValidApikey(request.getSession().getAttribute("apikey").toString())) {
+
+          // Admins can ddl anything
+          if (request.getSession().getAttribute("role").toString().equals("admin")) {
+
+            downloadString = FileUtils.readFileToString(new File(request.getParameter("ddl")), "UTF-8");
+            response.setContentType("text/plain");
+            response.setHeader("content-disposition", "inline; filename=\"" + request.getParameter("filename") + "\"");
+          } else {
+            if (request.getParameter("ddl").startsWith("/srv/yam-gui/save/" + request.getSession().getAttribute("username").toString())) {
+              downloadString = FileUtils.readFileToString(new File(request.getParameter("ddl")), "UTF-8");
+              response.setContentType("text/plain");
+              response.setHeader("content-disposition", "inline; filename=\"" + request.getParameter("filename") + "\"");
+            } else {
+              downloadString = "Access denied";
+              response.setContentType("text/plain");
+            }
+          }
+
         }
       } catch (ClassNotFoundException ex) {
         Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, "error: downloading file " + ex);
@@ -104,21 +119,21 @@ public class Download extends HttpServlet {
         // Generate the alignment string depending on selected format
         String format = request.getParameter("format");
         if (format.equals("simpleRDF")) {
-          alignmentString = generateSimpleRdfAlignment(arrayMappings);
+          downloadString = generateSimpleRdfAlignment(arrayMappings);
         } else if (format.equals("RDF")) {
-          alignmentString = generateRdfAlignment(arrayMappings);
+          downloadString = generateRdfAlignment(arrayMappings);
         } else {
-          alignmentString = generateAlignment(arrayMappings, sourceUri, targetUri);
+          downloadString = generateAlignment(arrayMappings, sourceUri, targetUri);
         }
 
       } else {
         // in case no checkbox have been checked
-        alignmentString = "No mappings";
+        downloadString = "No mappings";
         response.setContentType("plain/text");
       }
     }
     PrintWriter out = response.getWriter();
-    out.print(alignmentString);
+    out.print(downloadString);
     out.flush();
   }
 
