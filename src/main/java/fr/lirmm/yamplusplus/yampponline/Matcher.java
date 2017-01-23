@@ -220,7 +220,7 @@ public class Matcher extends HttpServlet {
       // Soon to be String resultStoragePath = matcher.alignOntologies()
       String resultStoragePath = matcher.alignOntologies(new File(sourceStoragePath).toURI(),
               new File(targetStoragePath).toURI());
-      myLog.log(Level.WARNING, "After matching!");
+      myLog.log(Level.WARNING, "After matching. Result storage path: {0}", resultStoragePath);
 
       request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel()));
       request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel()));
@@ -233,6 +233,31 @@ public class Matcher extends HttpServlet {
       if (resultStoragePath != null) {
         matcherResult = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
       }
+      
+      // Save file if asked
+      FileUtils.writeStringToFile(new File(sourceStoragePath), matcherResult, "UTF-8");
+      if (request.getParameter("saveFile") != null) {
+        String filename = "null";
+        String subDir = "null";
+        if (request.getParameter("sourceName") != null) {
+          filename = request.getParameter("sourceName");
+        }
+        if (request.getParameter("targetName") != null) {
+          filename = request.getParameter("targetName");
+        }
+        if (request.getParameter("sourceName") != null && request.getParameter("targetName") != null) {
+          subDir = request.getParameter("sourceName") + " to " + request.getParameter("targetName");
+        }
+        FileUtils.copyFile(new File(sourceStoragePath), new File(fileHandler.getWorkDir() + "/save/" + request.getSession().getAttribute("field") + "/"
+                + request.getSession().getAttribute("username") + "/" + subDir + "/" + request.getParameter("sourceName") + ".rdf"));
+        FileUtils.copyFile(new File(targetStoragePath), new File(fileHandler.getWorkDir() + "/save/" + request.getSession().getAttribute("field") + "/"
+                + request.getSession().getAttribute("username") + "/" + subDir + "/" + request.getParameter("targetName") + ".rdf"));
+        
+        FileUtils.writeStringToFile(new File(fileHandler.getWorkDir() + "/save/" + request.getSession().getAttribute("field") + "/"
+                + request.getSession().getAttribute("username") + "/" + subDir + "/alignment.rdf"), matcherResult, "UTF-8");
+      }
+      
+      
       if (matcherResult.startsWith("error:")) {
         request.setAttribute("errorMessage", matcherResult.substring(6));
       } else {

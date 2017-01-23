@@ -134,7 +134,7 @@
       <div id="saveDiv" style="display:none;">
         <label for="sourceName" style="margin: 2% 1%;">Source ontology name:</label>
         <input type="text" id="sourceName" name="sourceName" placeholder="Enter a name for the Source ontology"
-               maxlength="32" pattern="[A-Za-z0-9_-]+" title="Only alphanumeric and - or _" /><br>
+               maxlength="32" pattern="[A-Za-z0-9_-]+" title="Only alphanumeric and - or _" style="width:32ch;"/><br>
         <label for="targetName" style="margin: 2% 1%;">Target ontology name:</label>
         <input type="text" id="targetName" name="targetName" placeholder="Enter a name for the Target ontology"
                maxlength="32" pattern="[A-Za-z0-9_-]+" title="Only alphanumeric and - or _" style="width:32ch;"/>

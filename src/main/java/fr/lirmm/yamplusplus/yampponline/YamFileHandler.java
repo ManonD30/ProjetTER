@@ -231,10 +231,7 @@ public class YamFileHandler {
   public String uploadFile(String ontName, String subDir, HttpServletRequest request) throws IOException {
     // Read the file or source URL in the request and returns a String
     String ontologyString = getOntFileFromRequest(ontName, request);
-    boolean saveFile = false;
-    if (request.getParameter("saveFile") != null) {
-      saveFile = true;
-    }
+    
     String filename = ontName + ".owl";
     // Store the file in the tmp dir: /tmp/yam-gui/subDir/source.owl for example
 
@@ -246,17 +243,6 @@ public class YamFileHandler {
     // Store ontology in workDir if asked (/srv/yam-gui/save/field/username)
     String storagePath = this.tmpDir + subDir + "/" + filename;
     FileUtils.writeStringToFile(new File(storagePath), ontologyString, "UTF-8");
-    if (request.getParameter("saveFile") != null) {
-      if (request.getParameter(ontName + "Name") != null) {
-        filename = request.getParameter(ontName + "Name");
-      }
-      if (request.getParameter("sourceName") != null && request.getParameter("targetName") != null) {
-        subDir = request.getParameter("sourceName") + " to " + request.getParameter("targetName");
-      }
-      
-      FileUtils.writeStringToFile(new File(this.workDir + "/save/" + request.getSession().getAttribute("field") + "/" 
-              + request.getSession().getAttribute("username") + "/" + subDir + "/" + filename), ontologyString, "UTF-8");
-    }
 
     return storagePath;
   }
