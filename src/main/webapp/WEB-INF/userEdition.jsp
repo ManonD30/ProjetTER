@@ -16,7 +16,15 @@
       <input type="text" name="affiliation" placeholder='ex: LIRMM' maxlength=32>
 
       <p>Working field: </p>
-      <input type="text" name="field" placeholder='ex: Biomedical, music' maxlength=32>
+      <select class="form-control" id="field" name="field" style="width: auto;display: inline;">
+        <option>Administration</option>
+        <option>Agronomy</option>
+        <option>Biomedical</option>
+        <option>Cinema</option>
+        <option>Geography</option>
+        <option>Music</option>
+        <option selected>Other</option>
+      </select>
       <br><br>
 
       <div id=submitEdition>

@@ -39,14 +39,14 @@
   </div>
   <script>
     $(document).ready(function () {
-      console.log("namee: <%=request.getSession().getAttribute("username").toString() %>");
+      console.log("namee: <%=request.getSession().getAttribute("username").toString()%>");
       $('#loadFolderTreeUser').fileTree({
         root: '/srv/yam-gui/save/<%=request.getSession().getAttribute("username").toString()%>',
         script: '/scripts/jquery.fileTree-1.01/connectors/jqueryFileTree.jsp',
         multiFolder: false,
       }, function (file) {
         var loadPat = document.getElementById("loadPattern");
-        loadPat.value = file.replace("/srv/yam-gui/save/<%=request.getSession().getAttribute("username").toString() %>", "");
+        loadPat.value = file.replace("/srv/yam-gui/save/<%=request.getSession().getAttribute("username").toString()%>", "");
       });
     });
   </script>
@@ -160,7 +160,16 @@
           <input type="text" name="affiliationUp" placeholder='ex: LIRMM' maxlength=32 required>
 
           <p>Working field: </p>
-          <input type="text" name="fieldUp" placeholder='ex: Biomedical, music' maxlength=32>
+          <!--input type="text" name="fieldUp" placeholder='ex: Biomedical, music' maxlength=32-->
+          <select class="form-control" id="fieldUp" name="fieldUp" style="width: auto;">
+            <option>Administration</option>
+            <option>Agronomy</option>
+            <option>Biomedical</option>
+            <option>Cinema</option>
+            <option>Geography</option>
+            <option>Music</option>
+            <option selected>Other</option>
+          </select>
 
           <p>Password:</p>
           <input type="password" id=password name="passwordUp" placeholder=******* required>
