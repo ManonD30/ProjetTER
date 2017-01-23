@@ -42,12 +42,12 @@
   <script>
     $(document).ready(function () {
       $('#loadFolderTreeUser').fileTree({
-        root: '<%=fileHandler.getWorkDir()%>/<%=request.getSession().getAttribute("field").toString()%>/<%=request.getSession().getAttribute("username").toString()%>',
+        root: '<%=fileHandler.getWorkDir()%>/save/<%=request.getSession().getAttribute("field").toString()%>/<%=request.getSession().getAttribute("username").toString()%>',
               script: '/scripts/jquery.fileTree-1.01/connectors/jqueryFileTree.jsp',
               multiFolder: false,
             }, function (file) {
               var loadPat = document.getElementById("loadPattern");
-              loadPat.value = file.replace("<%=fileHandler.getWorkDir()%>/<%=request.getSession().getAttribute("field").toString()%>/<%=request.getSession().getAttribute("username").toString()%>", "");
+              loadPat.value = file.replace("<%=fileHandler.getWorkDir()%>/save/<%=request.getSession().getAttribute("field").toString()%>/<%=request.getSession().getAttribute("username").toString()%>", "");
             });
           });
   </script>
@@ -66,12 +66,12 @@
   <script>
     $(document).ready(function () {
       $('#loadFolderTree').fileTree({
-        root: '<%=fileHandler.getWorkDir()%>',
+        root: '<%=fileHandler.getWorkDir()%>/save',
         script: '/scripts/jquery.fileTree-1.01/connectors/jqueryFileTree.jsp',
         multiFolder: false,
       }, function (file) {
         var loadPat = document.getElementById("loadPattern");
-        loadPat.value = file.replace("<%=fileHandler.getWorkDir()%>", "");
+        loadPat.value = file.replace("<%=fileHandler.getWorkDir()%>/save", "");
       });
     });
   </script>
