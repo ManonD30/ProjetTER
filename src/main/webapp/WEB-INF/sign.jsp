@@ -59,9 +59,7 @@
   <hr/>
   <h2>Administration</h2>
 
-  <h3>Browse saved ontologies</h3>
-  <p>Files are sorted from the newest to the oldest.</p>
-  <p>You can mouseover a file or directory name to get its last modified date.</p>
+  <h3>Browse all saved ontologies</h3>
   <div id="loadFolderTree"></div>
   <script>
     $(document).ready(function () {
