@@ -2,6 +2,31 @@
 
 Using Apache Tomcat 7 and Java 8
 
+## Truc à résoudre pour la dernière semaine
+
+Bug matching (donne des résultats vraiment bizarre) iaml itema3
+Normalement "mop" et "genre" : doit pas y avoir de mappings entre ces 2 là. Apparemment y'a pas beaucoupde mapping avec Genre (de doremus), voir pourquoi
+
+
+Stocker à côté des ontologies les alignements produits et validés
+Ce que veut Zohra : pouvoir facilement chercher des ontologies dans les onto enregistrées (par son nom par exemple)
+
+Faire un affichage des concepts de l'ontologie source/target pour permettre à l'user de trouver des nouveaux mappings pas trouvés
+
+Trouver comment faire pour modifier le seuil des mappings qui sortent en résultat (mettre le seuil des mappings qui sont pris au plus bas)
+
+Nombre de mappings trouvés et nombre de concepts dans l'ontologie (en valeur absolue)
+
+Validation : le fait que clicker les columns permet de trier n'est pas évidentes : ajouter le curseur "main" quand layover et un title
+Il trie seulement en fct de la 1ere column
+
+Quand on clique un mapping donné on highlight pas passé
+
+Ne pas afficher l'URI mais le label dans les détails des concepts
+
+* Permettre de rechercher les packages "onto1 + onto2 + alignement" de manière auto (pas manuelle). Avec text search par exemple ou autre (pas une priorité, vaut mieux faire le reste)
+
+
 ## Bug to resolve
 
 Quand on essaie avec des BK_ontologies le fichier direct ddl dans /tmp/yam-gui est mauvais:
@@ -27,22 +52,7 @@ Augmenter la vitesse de chargement des ontologies : ne charger que les concepts 
 
 Ajouter des détails : comment on gére la visualisation dans le readme (vis js)
 
-X Add skos:relatedMatch
-
-X Retirer <valid>false</valid> du RDF et "export ou save"
-X Vérifier si le Validator reprend bien où il s'était arrêté
-
-X "To reduce the number of mapping faut décocher"
-
-X On demande nom et groupe relié à chaque onto (select)
-
-X ajouter point d'interrogation pour hover
-
 add la promotion à l'état d'admin dans page d'administration
-
-X stocker ontologies en utilisant le field des users
-
-X Stocker alignements (on demande domaine, noms des ontologies). Onto stockées par paires avec leur alignement
 
 Stocker le dernier alignment enregistrer
 
