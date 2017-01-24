@@ -33,23 +33,9 @@ public class MatcherInterface extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
 
-      Logger.getLogger (MatcherInterface.class.getName()).log(Level.INFO, "debut doPost!");
-    /* Check user in MySQL, not useful now
-    int asMatched = 0;
-    int canMatch = 0;
-    try {
-      // get user's mail
-      String mail = (String) request.getSession().getAttribute("mail");
-
-      YamDatabaseConnector dbConnector = new YamDatabaseConnector();
-      YamUser user = dbConnector.updateMatchCount(apikey);
-
-      asMatched = user.getAsMatched();
-      canMatch = user.getCanMatch();
-    } catch (IOException | ClassNotFoundException | SQLException e) {
-      System.err.println("Exception catched for database login!");
-      System.err.println(e.getMessage());
-    }*/
+      Logger.getLogger (MatcherInterface.class.getName()).log(Level.INFO, "debut doPost of MatcherInterface!");
+      response.setCharacterEncoding("UTF-8");
+      
     // Retrieve ontologies String
     YamFileHandler fileHandler = null;
     try {
@@ -57,7 +43,6 @@ public class MatcherInterface extends HttpServlet {
     } catch (ClassNotFoundException ex) {
       Logger.getLogger(MatcherInterface.class.getName()).log(Level.SEVERE, null, ex);
     }
-    response.setCharacterEncoding("UTF-8");
 
     // get time at the matching beginning
     long begin = System.currentTimeMillis();
