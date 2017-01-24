@@ -5,13 +5,11 @@ Using Apache Tomcat 7 and Java 8
 ## Truc à résoudre pour la dernière semaine
 
 Bug matching (donne des résultats vraiment bizarre) iaml itema3
-Normalement "mop" et "genre" : doit pas y avoir de mappings entre ces 2 là. Apparemment y'a pas beaucoupde mapping avec Genre (de doremus), voir pourquoi
-
 
 Stocker à côté des ontologies les alignements produits et validés
 Ce que veut Zohra : pouvoir facilement chercher des ontologies dans les onto enregistrées (par son nom par exemple)
 
-Faire un affichage des concepts de l'ontologie source/target pour permettre à l'user de trouver des nouveaux mappings pas trouvés
+Faire un affichage des concepts de l'ontologie source/target pour permettre à l'user de trouver des nouveaux mappings pas trouvés (voir dessin)
 
 Trouver comment faire pour modifier le seuil des mappings qui sortent en résultat (mettre le seuil des mappings qui sont pris au plus bas)
 
@@ -20,11 +18,15 @@ Nombre de mappings trouvés et nombre de concepts dans l'ontologie (en valeur ab
 Validation : le fait que clicker les columns permet de trier n'est pas évidentes : ajouter le curseur "main" quand layover et un title
 Il trie seulement en fct de la 1ere column
 
-Quand on clique un mapping donné on highlight pas passé
+Quand on clique un mapping donné on highlight pas assez
 
-Ne pas afficher l'URI mais le label dans les détails des concepts
+Ne pas afficher l'URI mais le label dans les détails des concepts (link vers l'URI)
 
 * Permettre de rechercher les packages "onto1 + onto2 + alignement" de manière auto (pas manuelle). Avec text search par exemple ou autre (pas une priorité, vaut mieux faire le reste)
+
+* Search qui cherche aussi dans les détails des concepts
+
+* Pourquoi y'a certaines lignes qui ne sont plus là (genre la 1) quand je match cmt Conference ?
 
 
 ## Bug to resolve

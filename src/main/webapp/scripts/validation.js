@@ -166,8 +166,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.changeDetails = function (clickedOn) {
     //console.log(this.alignment);
     if ($scope.detailsLocked === false || clickedOn === true) {
-      var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1, "Source", $scope.selectedLang);
-      var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2, "Target", $scope.selectedLang);
+      var stringDetail1 = buildEntityDetailsHtml(this.alignment.entity1, "Source", $scope.selectedLang, $scope.ontologies.ont1);
+      var stringDetail2 = buildEntityDetailsHtml(this.alignment.entity2, "Target", $scope.selectedLang, $scope.ontologies.ont2);
       document.getElementById("entityDetail1").innerHTML = stringDetail1;
       document.getElementById("entityDetail2").innerHTML = stringDetail2;
       if (clickedOn === true) {
@@ -233,23 +233,12 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
 }
 
 /**
- * Build the HTML to display entity details (list ul li). 
- * It takes the following objetc as entity:
- * {"http://entity1.org/": {"id": "http://entity1.org/", "label": {"fr":
- * "bonjour", "en": "hello"}, "http://rdfs.org/label": [{"type": "literal",
- * "value": "bonjour", "lang": "fr"}, {"type": "literal", "value": "hello",
- * "lang": "en"}]}}
+ * 
  * @param {type} entity
- * @param {type} entityName
  * @param {type} selectedLang
- * @returns {undefined}
+ * @returns {entity@arr;label|id|String}
  */
-function buildEntityDetailsHtml(entity, entityName, selectedLang) {
-  // Order the JSON string to have id and label at the beginning
-  var orderedEntities = {};
-  var id = entity["id"].link(entity["id"]);
-  //orderedEntities["id"] = entity["id"].link(entity["id"]);
-
+function getEntityLabel(entity, selectedLang) {
   // Get the label (using "!=" instead of "!==" allows to avoid null AND undefined)
   if (entity["label"] != null) {
     // Select label according to user selection
@@ -269,6 +258,28 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
   } else {
     var label = id;
   }
+  return label;
+}
+
+/**
+ * Build the HTML to display entity details (list ul li). 
+ * It takes the following objetc as entity:
+ * {"http://entity1.org/": {"id": "http://entity1.org/", "label": {"fr":
+ * "bonjour", "en": "hello"}, "http://rdfs.org/label": [{"type": "literal",
+ * "value": "bonjour", "lang": "fr"}, {"type": "literal", "value": "hello",
+ * "lang": "en"}]}}
+ * @param {type} entity
+ * @param {type} entityName
+ * @param {type} selectedLang
+ * @returns {undefined}
+ */
+function buildEntityDetailsHtml(entity, entityName, selectedLang, ontologies) {
+  // Order the JSON string to have id and label at the beginning
+  var orderedEntities = {};
+  var id = entity["id"].link(entity["id"]);
+  //orderedEntities["id"] = entity["id"].link(entity["id"]);
+
+  var label = getEntityLabel(entity, selectedLang);
 
   // add each property object linked to each subject
   // Iterate over the different properties (predicates) of an entity
@@ -279,12 +290,24 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang) {
       for (var valuesObject in entity[key]) {
         if (typeof entity[key][valuesObject]["value"] !== "undefined") {
           // to get the value of the object depending if it's an URI or a literal
-          if (entity[key][valuesObject]["value"].startsWith("http://")) {
+          if (entity[key][valuesObject]["value"].startsWith("http://") || entity[key][valuesObject]["value"].startsWith("https://")) {
             // Concatenate URI too ? With <a href>
+
+            // Get label of the URI object if in ontologies to display label that link to the URI
+            //Object.keys(ontologies['entities'][entity[key][valuesObject]["value"]]["label"])[0].link();
             if (orderedEntities[key] === null) {
-              orderedEntities[key] = entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
+              // Here 0 because we take the first language available in labels
+              if (ontologies['entities'][entity[key][valuesObject]["value"]] != null) {
+                orderedEntities[key] = getEntityLabel(ontologies['entities'][entity[key][valuesObject]["value"]]).link(entity[key][valuesObject]["value"]);
+              } else {
+                orderedEntities[key] = entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
+              }
             } else {
-              orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
+              if (ontologies['entities'][entity[key][valuesObject]["value"]] != null && Object.keys(ontologies['entities'][entity[key][valuesObject]["value"]]["label"])[0] != null) {
+                orderedEntities[key] = orderedEntities[key] + "<br/> " + getEntityLabel(ontologies['entities'][entity[key][valuesObject]["value"]]).link(entity[key][valuesObject]["value"]);
+              } else {
+                orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
+              }
             }
             break;
           } else {
