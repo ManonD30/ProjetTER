@@ -76,9 +76,9 @@ public class Download extends HttpServlet {
             response.setHeader("content-disposition", "inline; filename=\"" + request.getParameter("filename") + "\"");
           } else {
             File downloadedFile = new File(request.getParameter("ddl"));
-            // Check if user is downloading a file from its save workspace
-            if (downloadedFile.getAbsolutePath().startsWith("/srv/yam-gui/save/" + request.getSession().getAttribute("field").toString() + "/" + request.getSession().getAttribute("username").toString())) {
-            //if (request.getParameter("ddl").startsWith("/srv/yam-gui/save/" + request.getSession().getAttribute("field").toString() + "/" + request.getSession().getAttribute("username").toString())) {
+            // Check if user is downloading a file from its save workspace.
+            if (downloadedFile.getAbsolutePath().startsWith("/srv/yam-gui/save/" + request.getSession().getAttribute("field").toString() + "/" + request.getSession().getAttribute("username").toString()) 
+                    && !downloadedFile.getAbsolutePath().contains("..")) {
               downloadString = FileUtils.readFileToString(new File(request.getParameter("ddl")), "UTF-8");
               response.setContentType("text/plain");
               response.setHeader("content-disposition", "inline; filename=\"" + request.getParameter("filename") + "\"");
@@ -87,10 +87,9 @@ public class Download extends HttpServlet {
               response.setContentType("text/plain");
             }
           }
-
         }
       } catch (ClassNotFoundException ex) {
-        Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, "error: downloading file " + ex);
+        Logger.getLogger(Download.class.getName()).log(Level.SEVERE, "error: downloading file " + ex);
       }
 
     } else {
