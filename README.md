@@ -18,7 +18,7 @@ Nombre de mappings trouvés et nombre de concepts dans l'ontologie (en valeur ab
 Validation : le fait que clicker les columns permet de trier n'est pas évidentes : ajouter le curseur "main" quand layover et un title
 Il trie seulement en fct de la 1ere column
 
-Quand on clique un mapping donné on highlight pas assez
+X Quand on clique un mapping donné on highlight pas assez
 
 X Ne pas afficher l'URI mais le label dans les détails des concepts (link vers l'URI)
 

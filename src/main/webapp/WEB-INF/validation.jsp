@@ -111,8 +111,8 @@ for the sourceOnt and targetOnt ontology alignment -->
         <thead>
           <tr>
             <th href="#" ng-click="orderByField = 'index'; reverseSort = !reverseSort">Line</th>
-            <th href="#" ng-click="orderByField = 'entity1'; reverseSort = !reverseSort">{{ontologies.srcOntUri}}</th>
-            <th href="#" ng-click="orderByField = 'entity2'; reverseSort = !reverseSort">{{ontologies.tarOntUri}}</th>
+            <th href="#" ng-click="orderByField = 'entity1.id'; reverseSort = !reverseSort">{{ontologies.srcOntUri}}</th>
+            <th href="#" ng-click="orderByField = 'entity2.id'; reverseSort = !reverseSort">{{ontologies.tarOntUri}}</th>
             <th href="#" ng-click="orderByField = 'relation'; reverseSort = !reverseSort"
                 style="width: 11em;">Relation</th>
             <th href="#" ng-click="orderByField = 'measure'; reverseSort = !reverseSort">Score</th>

@@ -238,7 +238,7 @@ function getAlignmentsWithOntologiesData(alignment, ontologies) {
  * @param {type} selectedLang
  * @returns {entity@arr;label|id|String}
  */
-function getEntityLabel(entity, selectedLang) {
+function getEntityLabelLang(entity, selectedLang) {
   // Get the label (using "!=" instead of "!==" allows to avoid null AND undefined)
   if (entity["label"] != null) {
     // Select label according to user selection
@@ -279,7 +279,7 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang, ontologies) {
   var id = entity["id"].link(entity["id"]);
   //orderedEntities["id"] = entity["id"].link(entity["id"]);
 
-  var label = getEntityLabel(entity, selectedLang);
+  var label = getEntityLabelLang(entity, selectedLang);
 
   // add each property object linked to each subject
   // Iterate over the different properties (predicates) of an entity
@@ -298,13 +298,13 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang, ontologies) {
             if (orderedEntities[key] === null) {
               // Here 0 because we take the first language available in labels
               if (ontologies['entities'][entity[key][valuesObject]["value"]] != null) {
-                orderedEntities[key] = getEntityLabel(ontologies['entities'][entity[key][valuesObject]["value"]]).link(entity[key][valuesObject]["value"]);
+                orderedEntities[key] = getEntityLabelLang(ontologies['entities'][entity[key][valuesObject]["value"]]).link(entity[key][valuesObject]["value"]);
               } else {
                 orderedEntities[key] = entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
               }
             } else {
               if (ontologies['entities'][entity[key][valuesObject]["value"]] != null && Object.keys(ontologies['entities'][entity[key][valuesObject]["value"]]["label"])[0] != null) {
-                orderedEntities[key] = orderedEntities[key] + "<br/> " + getEntityLabel(ontologies['entities'][entity[key][valuesObject]["value"]]).link(entity[key][valuesObject]["value"]);
+                orderedEntities[key] = orderedEntities[key] + "<br/> " + getEntityLabelLang(ontologies['entities'][entity[key][valuesObject]["value"]]).link(entity[key][valuesObject]["value"]);
               } else {
                 orderedEntities[key] = orderedEntities[key] + "<br/> " + entity[key][valuesObject]["value"].link(entity[key][valuesObject]["value"]);
               }
@@ -355,26 +355,7 @@ function getPropertyRecursive(depth, entity, ontology, nodeIds, networkData) {
  */
 function buildNetwork(ontology, entity, selectedLang, ontologies) {
   // create an array with nodes
-
-  // Get the entity label (using "!=" instead of "!==" allows to avoid null AND undefined)
-  if (entity["label"] != null) {
-    // Select label according to user selection
-    if (entity["label"].hasOwnProperty(selectedLang)) {
-      var label = entity["label"][selectedLang] + " (" + selectedLang + ")";
-    } else {
-      var labelLang = Object.keys(entity["label"])[0];
-      // Take first label in object if selected lang not available (using == to not take account of types)
-      //console.log(labelLang);
-      if (labelLang == null || labelLang == "" || labelLang.toString().toLowerCase() === "n/a") {
-        var label = entity["label"][labelLang];
-      } else {
-        // Add language between parenthesis if not undefined
-        var label = entity["label"][labelLang] + " (" + labelLang + ")";
-      }
-    }
-  } else {
-    var label = id;
-  }
+  var label = getEntityLabelLang(entity, selectedLang);
 
   var nodes = new vis.DataSet([
     {id: 1, label: label, color: '#FB7E81'}
