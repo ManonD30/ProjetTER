@@ -356,7 +356,7 @@ function getPropertyRecursive(depth, entity, ontology, nodeIds, networkData) {
 function buildNetwork(ontology, entity, selectedLang, ontologies) {
   // create an array with nodes
   var label = getEntityLabelLang(entity, selectedLang);
-
+  console.log("label::: " + label);
   var nodes = new vis.DataSet([
     {id: 1, label: label, color: '#FB7E81'}
   ]);
@@ -476,38 +476,38 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
         }
       }
     }
-
-    // create a network
-    var container = document.getElementById(ontology + 'Network');
-    // provide the data in the vis format
-    var data = {
-      nodes: nodes,
-      edges: edges
-    };
-    // Get height of div
-    var networkHeight = document.getElementById(ontology + "Section").clientHeight.toString();
-    var options = {
-      autoResize: true,
-      height: networkHeight,
-      physics: {
-        enabled: true,
-        /*barnesHut: {
-         avoidOverlap: 0.5
-         },*/
-        /* Separate the nodes enough to make it readable */
-        hierarchicalRepulsion: {
-          centralGravity: 0.0,
-          springLength: 400,
-          springConstant: 0.01,
-          damping: 0.09,
-          nodeDistance: 50
-        },
-        solver: 'hierarchicalRepulsion'
-      }
-    };
   }
+  // create a network
+  var container = document.getElementById(ontology + 'Network');
+  // provide the data in the vis format
+  var data = {
+    nodes: nodes,
+    edges: edges
+  };
+  // Get height of div
+  var networkHeight = document.getElementById(ontology + "Section").clientHeight.toString();
+  var options = {
+    autoResize: true,
+    height: networkHeight,
+    physics: {
+      enabled: true,
+      /*barnesHut: {
+       avoidOverlap: 0.5
+       },*/
+      /* Separate the nodes enough to make it readable */
+      hierarchicalRepulsion: {
+        centralGravity: 0.0,
+        springLength: 400,
+        springConstant: 0.01,
+        damping: 0.09,
+        nodeDistance: 50
+      },
+      solver: 'hierarchicalRepulsion'
+    }
+  };
+
   // initialize your network!
-  //console.log(options);
+  //console.log(data);
   var network = new vis.Network(container, data, options);
   network.fit();
 }
