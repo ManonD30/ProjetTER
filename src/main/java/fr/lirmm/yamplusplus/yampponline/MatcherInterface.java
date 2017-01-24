@@ -23,7 +23,8 @@ public class MatcherInterface extends HttpServlet {
   public static java.util.Map<String, String> Onto2 = new HashMap<>();
 
   /**
-   * Called when running Matcher with the UI. Servlet's doPost which run YAM++ and redirect to the .JSP
+   * Called when running Matcher with the UI. Servlet's doPost which run YAM++
+   * and redirect to the .JSP
    *
    * @param request
    * @param response
@@ -33,9 +34,9 @@ public class MatcherInterface extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
 
-      Logger.getLogger (MatcherInterface.class.getName()).log(Level.INFO, "debut doPost of MatcherInterface!");
-      response.setCharacterEncoding("UTF-8");
-      
+    Logger.getLogger(MatcherInterface.class.getName()).log(Level.INFO, "Start of doPost of MatcherInterface...");
+    response.setCharacterEncoding("UTF-8");
+
     // Retrieve ontologies String
     YamFileHandler fileHandler = null;
     try {
@@ -51,6 +52,7 @@ public class MatcherInterface extends HttpServlet {
     String matcherResult = null;
     try {
       // Processing the request (running YamppOntologyMatcher)
+      Logger.getLogger(MatcherInterface.class.getName()).log(Level.INFO, "Run processRequest...");
       request = processRequest(request);
       if (request.getAttribute("errorMessage") == null) {
         matcherResult = (String) request.getAttribute("matcherResult");

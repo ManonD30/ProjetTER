@@ -129,11 +129,10 @@ public class Matcher extends HttpServlet {
   static HttpServletRequest processRequest(HttpServletRequest request) throws IOException, ClassNotFoundException, ServletException {
     YamFileHandler fileHandler = new YamFileHandler();
     Logger myLog = Logger.getLogger(Matcher.class.getName());
-    myLog.log(Level.SEVERE, "debut process request!");
+    myLog.log(Level.SEVERE, "Start processRequest...");
 
     // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
     String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
-
 
     /*SKOSManager manager = new SKOSManager();
     // use the manager to load a SKOS vocabulary from a URI (either physical or on the web)
@@ -141,13 +140,14 @@ public class Matcher extends HttpServlet {
     SKOStoOWLConverter skosConverter = new SKOStoOWLConverter();
     OWLOntology convertedOwlOnto = skosConverter.getAsOWLOntology(skosDataset);
     OWLOntologyManager owlManager = OWLManager.createOWLOntologyManager();
-    owlManager.saveOntology(convertedOwlOnto, new FileOutputStream("/tmp/yam-gui/teeest1.owl"));*/
+    owlManager.saveOntology(convertedOwlOnto, new FileOutputStream("/tmp/yam-gui/teeest1.owl"));
     // Check if file is bigger than 4MB
-    /*int maxFileSize = 4;
+    int maxFileSize = 4;
     if (fileHandler.getFileSize(sourceStoragePath) >= maxFileSize || fileHandler.getFileSize(targetStoragePath) >= maxFileSize) {
       System.out.println("File too big");
       throw new FileNotFoundException("File too big: its size should be less than " + maxFileSize + "MB");
     }*/
+    
     String apikey = null;
     if (request.getParameter("apikey") != null) {
       // First get ApiKey from URL parameters
@@ -160,7 +160,7 @@ public class Matcher extends HttpServlet {
     YamDatabaseConnector dbConnector = new YamDatabaseConnector();
     if (dbConnector.isValidApikey(apikey)) {
 
-      // TODO:QUICK le problème des BK_onto qui ne matchent pas vient de là. 
+      // TODO:QUICK le problème des BK_onto qui ne matchent pas vient de là?
       // Ca stock: "Could not load provided ontology file" dans le fichier... Ca semble venir de OWLAPI
       /*String storagePath = fileHandler.uploadFiles(subDirName, request);
       String sourceStoragePath = storagePath + "/source.owl";
@@ -182,13 +182,11 @@ public class Matcher extends HttpServlet {
       user.addUserToSession(request.getSession());
       YamppOntologyMatcher matcher = new YamppOntologyMatcher();
 
-      //Logger myLog = Logger.getLogger (Matcher.class.getName());
-      //myLog.log(Level.WARNING, "hello!" );
       // Set params
       if (request.getParameter("matcherType") != null) {
         matcher.setMatcherType(MatcherType.valueOf(request.getParameter("matcherType")));
       }
-      // Conflicts true by default
+      // Remove conflicts true by default
       if (request.getParameter("explicitConflict") == null || request.getParameter("explicitConflict").equals("false")) {
         matcher.setVlsExplicitDisjoint(false);
       } else {
@@ -218,9 +216,10 @@ public class Matcher extends HttpServlet {
 
       // Execute YAM to get the mappings in RDF/XML
       // Soon to be String resultStoragePath = matcher.alignOntologies()
+      myLog.log(Level.WARNING, "After matcher.alignOntologies...");
       String resultStoragePath = matcher.alignOntologies(new File(sourceStoragePath).toURI(),
               new File(targetStoragePath).toURI());
-      myLog.log(Level.WARNING, "After matching. Result storage path: {0}", resultStoragePath);
+      myLog.log(Level.WARNING, "After matcher.alignOntologies. Result storage path: {0}", resultStoragePath);
 
       request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel()));
       request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel()));
@@ -257,7 +256,7 @@ public class Matcher extends HttpServlet {
                 + request.getSession().getAttribute("username") + "/" + subDir + "/alignment.rdf"), matcherResult, "UTF-8");
       }
       
-      
+      // If error we return it in errorMessage (removing error: at the start of the String)
       if (matcherResult.startsWith("error:")) {
         request.setAttribute("errorMessage", matcherResult.substring(6));
       } else {
