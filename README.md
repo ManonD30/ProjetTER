@@ -15,8 +15,8 @@ Trouver comment faire pour modifier le seuil des mappings qui sortent en résult
 
 Nombre de mappings trouvés et nombre de concepts dans l'ontologie (en valeur absolue)
 
-Validation : le fait que clicker les columns permet de trier n'est pas évidentes : ajouter le curseur "main" quand layover et un title
-Il trie seulement en fct de la 1ere column
+X Validation : le fait que clicker les columns permet de trier n'est pas évidentes : ajouter le curseur "main" quand layover et un title
+X Il trie seulement en fct de la 1ere column: en fct de l'id now
 
 X Quand on clique un mapping donné on highlight pas assez
 
