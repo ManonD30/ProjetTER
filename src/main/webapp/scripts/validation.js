@@ -256,7 +256,7 @@ function getEntityLabel(entity, selectedLang) {
       }
     }
   } else {
-    var label = id;
+    var label = entity["id"];
   }
   return label;
 }

@@ -543,5 +543,6 @@ tr.grey {
 }
 
 .selected {
-  color: #8ab7d1;
+  color: #fcfcfc;
+  background-color: #8ab7d1  !important;
 }

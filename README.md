@@ -20,7 +20,7 @@ Il trie seulement en fct de la 1ere column
 
 Quand on clique un mapping donné on highlight pas assez
 
-Ne pas afficher l'URI mais le label dans les détails des concepts (link vers l'URI)
+X Ne pas afficher l'URI mais le label dans les détails des concepts (link vers l'URI)
 
 * Permettre de rechercher les packages "onto1 + onto2 + alignement" de manière auto (pas manuelle). Avec text search par exemple ou autre (pas une priorité, vaut mieux faire le reste)
 
