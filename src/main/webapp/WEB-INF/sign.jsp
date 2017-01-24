@@ -1,3 +1,6 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
 <%@page import="fr.lirmm.yamplusplus.yampponline.YamFileHandler"%>
 <%@page import="fr.lirmm.yamplusplus.yampponline.YamUser"%>
 <%@page import="fr.lirmm.yamplusplus.yampponline.YamDatabaseConnector"%>
@@ -48,8 +51,8 @@
             }, function (file) {
               var loadPat = document.getElementById("loadPattern");
               loadPat.value = file.replace("<%=fileHandler.getWorkDir()%>/save/<%=request.getSession().getAttribute("field").toString()%>/<%=request.getSession().getAttribute("username").toString()%>", "");
-            });
-          });
+                  });
+                });
   </script>
 
   <%
@@ -58,6 +61,16 @@
   %>
   <hr/>
   <h2>Administration</h2>
+
+  <h3>Get Tomcat log file</h3>
+  <%
+    // To easily download tomcat catalina log file
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    Date date = new Date();
+    String catalinaFilepath = "/usr/local/tomcat/logs/catalina." + dateFormat.format(date) + ".log";
+    String downloadUrl = "download?ddl=" + catalinaFilepath + "&filename=catalina.log";
+  %>
+  <a href="<%=downloadUrl%>">Download latest Tomcat catalina log file</a>
 
   <h3>Browse all saved ontologies</h3>
   <div id="loadFolderTree"></div>

@@ -31,7 +31,7 @@ X Ne pas afficher l'URI mais le label dans les détails des concepts (link vers 
 
 ## Bug to resolve
 
-Quand on essaie avec des BK_ontologies le fichier direct ddl dans /tmp/yam-gui est mauvais:
+Quand on essaie avec des BK_ontologies le fichier direct ddl dans /tmp/yam-gui parfois est mauvais:
 il contient Could not load provided ontology file
 
 Execution de mouse - human : en pratique 1min24s d'attente, mais le matcher prend seulement 15s

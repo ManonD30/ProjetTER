@@ -75,7 +75,10 @@ public class Download extends HttpServlet {
             response.setContentType("text/plain");
             response.setHeader("content-disposition", "inline; filename=\"" + request.getParameter("filename") + "\"");
           } else {
-            if (request.getParameter("ddl").startsWith("/srv/yam-gui/save/" + request.getSession().getAttribute("username").toString())) {
+            File downloadedFile = new File(request.getParameter("ddl"));
+            // Check if user is downloading a file from its save workspace
+            if (downloadedFile.getAbsolutePath().startsWith("/srv/yam-gui/save/" + request.getSession().getAttribute("field").toString() + "/" + request.getSession().getAttribute("username").toString())) {
+            //if (request.getParameter("ddl").startsWith("/srv/yam-gui/save/" + request.getSession().getAttribute("field").toString() + "/" + request.getSession().getAttribute("username").toString())) {
               downloadString = FileUtils.readFileToString(new File(request.getParameter("ddl")), "UTF-8");
               response.setContentType("text/plain");
               response.setHeader("content-disposition", "inline; filename=\"" + request.getParameter("filename") + "\"");
