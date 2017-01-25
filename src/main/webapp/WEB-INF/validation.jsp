@@ -241,11 +241,11 @@ for the sourceOnt and targetOnt ontology alignment -->
           <tbody>
             <!--tr ng-repeat="entity1 in ontologies.ont1.entities|orderBy:orderByField:reverseSort|filter:searchText"
                 class="{{selected}}"-->
-            <tr ng-repeat="entity1 in ontologies.ont1.entities" class="{{selected}}">
+            <tr ng-repeat="entity in ontologies.ont1.entities" class="{{selected}}">
 
               <!-- Change details div with selected entities details when mouseover or click -->
-              <td ng-mouseenter="changeDetailsExtended()" ng-click="changeDetailsExtended(true)" style="cursor: pointer; cursor: hand;">
-                <input type="text" name="index" value="{{entity1.id}}" style="display: none;" readonly>{{getEntityLabel(entity1, "en")}}</input>
+              <td ng-mouseenter="changeDetailsExtended('Source')" ng-click="changeDetailsExtended('Source', true)" style="cursor: pointer; cursor: hand;">
+                <input type="text" name="index" value="{{entity.id}}" style="display: none;" readonly>{{getEntityLabel(entity, "en")}}</input>
               </td>
             </tr>
           </tbody>
@@ -254,20 +254,25 @@ for the sourceOnt and targetOnt ontology alignment -->
 
 
       <div class="col-sm-6">
-        <div class="list-group">
-          <a href="#" class="list-group-item active">
-            <h4 class="list-group-item-heading">List group item heading</h4>
-            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-          </a>
-          <a href="#" class="list-group-item">
-            <h4 class="list-group-item-heading">List group item heading</h4>
-            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-          </a>
-          <a href="#" class="list-group-item">
-            <h4 class="list-group-item-heading">List group item heading</h4>
-            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-          </a>
-        </div>
+        <table id=table class="table table-striped">
+          <thead>
+            <tr style="cursor: pointer;">                                                                                 
+              <!--th href="#" ng-click="orderByField = 'ontologies.ont1.entities.entity1.id'; reverseSort = !reverseSort" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th-->
+              <th href="#" title="Sort by Source entity URI">{{ontologies.tarOntUri}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--tr ng-repeat="entity1 in ontologies.ont1.entities|orderBy:orderByField:reverseSort|filter:searchText"
+                class="{{selected}}"-->
+            <tr ng-repeat="entity in ontologies.ont2.entities" class="{{selected}}">
+
+              <!-- Change details div with selected entities details when mouseover or click -->
+              <td ng-mouseenter="changeDetailsExtended('Target')" ng-click="changeDetailsExtended('Target', true)" style="cursor: pointer; cursor: hand;">
+                <input type="text" name="index" value="{{entity.id}}" style="display: none;" readonly>{{getEntityLabel(entity, "en")}}</input>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 

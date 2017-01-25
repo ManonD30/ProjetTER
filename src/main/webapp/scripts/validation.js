@@ -195,19 +195,23 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   };
   
   /**
-   * Change details div to show selected entity details
+   * Change details div to show selected entity details for the extended UI (add new mappings)
    * @param {boolean} clickedOn
    * @returns {undefined}
    */
-  $scope.changeDetailsExtended = function (clickedOn) {
-    //console.log(this.alignment);
+  $scope.changeDetailsExtended = function (ontologyName, clickedOn) {
     if ($scope.detailsLocked === false || clickedOn === true) {
       // Set selected lang to en by default (see $scope.selectedLang to change it dynamically)
       var selectedLang = "en";
-      var stringDetail1 = buildEntityDetailsHtml(this.entity1, "Source", selectedLang, $scope.ontologies.ont1);
-      //var stringDetail2 = buildEntityDetailsHtml(this.entity2, "Target", selectedLang, $scope.ontologies.ont2);
-      document.getElementById("entityDetail1").innerHTML = stringDetail1;
-      //document.getElementById("entityDetail2").innerHTML = stringDetail2;
+      if (ontologyName == 'Source') {
+        var elementId = "entityDetail1";
+        var ontology = $scope.ontologies.ont1;
+      } else if (ontologyName == 'Target') {
+        var elementId = "entityDetail2";
+        var ontology = $scope.ontologies.ont2;
+      }
+      var stringDetail = buildEntityDetailsHtml(this.entity, ontologyName, selectedLang, ontology);
+      document.getElementById(elementId).innerHTML = stringDetail;
       if (clickedOn === true) {
         $scope.detailsLocked = true;
         if ($scope.lastSelected) {
@@ -224,9 +228,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
         }
         $scope.lastSelected = this;
       }
-      // HERE add change for network
-      buildNetwork("source", this.entity1, selectedLang, $scope.ontologies);
-      //buildNetwork("target", this.entity2, selectedLang, $scope.ontologies);
+      buildNetwork("source", this.entity, selectedLang, $scope.ontologies);
     }
   };
 });
