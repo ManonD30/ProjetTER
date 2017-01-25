@@ -5,6 +5,7 @@ import fr.lirmm.yamplusplus.yamppls.YamppUtils;
 import static fr.lirmm.yamplusplus.yampponline.MatcherInterface.liste;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.HashSet;
 import javax.servlet.ServletException;
@@ -12,6 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -59,10 +62,25 @@ public class Validator extends HttpServlet {
     }
 
     // Get string of alignment from file
-    String stringAlignmentFile = fileHandler.readFileFromRequest("rdfAlignmentFile", request);
+    //String stringAlignmentFile = fileHandler.uploadFile("rdfAlignmentFile", request);
+    // Read alignmentAPI file to a String 
+    Part filePart = null;
 
+    String alignmentString = "error: loading alignment file";
+    // Retrieve file from input where name is sourceFile or targetFile
+    filePart = request.getPart("rdfAlignmentFile");
+    if (filePart != null) {
+      String filename = filePart.getSubmittedFileName();
+      InputStream fileStream = filePart.getInputStream();
+      alignmentString = IOUtils.toString(fileStream, "UTF-8");
+    }
+
+    if (alignmentString.startsWith("error:")) {
+      request.setAttribute("errorMessage", "Error uploading alignment file");
+      this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
+    }
     // Parse the alignment file to put its data in an Array of Map
-    liste = fileHandler.parseOaeiAlignmentFormat(stringAlignmentFile);
+    liste = fileHandler.parseOaeiAlignmentFormat(alignmentString);
     // add cell data list to response
     // TODO: Change liste variable name?
     request.setAttribute("alignment", liste);
@@ -70,7 +88,7 @@ public class Validator extends HttpServlet {
     // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
     String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
     // Store ontology from URI or file in /tmp/yampponline/SCENARIO_HASH/source.rdf
-    
+
     String sourceStoragePath = "error: loading source file";
     String targetStoragePath = "error: loading target file";
     try {
@@ -79,35 +97,33 @@ public class Validator extends HttpServlet {
     } catch (URISyntaxException ex) {
       Logger.getLogger(Validator.class.getName()).log(Level.ERROR, "error: uploading ontology file on server. " + ex);
       request.setAttribute("errorMessage", "Error uploading ontologies");
-        this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
+      this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
     }
 
     // Read ontology with Jena and get ontology JSON model for JavaScript
     Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI(), Logger.getLogger(Validator.class.getName()));
     Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI(), Logger.getLogger(Validator.class.getName()));
-    
+
     JSONObject sourceOntJson = YamFileHandler.getOntoJsonFromJena(srcJenaModel);
     JSONObject targetOntJson = YamFileHandler.getOntoJsonFromJena(tarJenaModel);
     request.setAttribute("sourceOnt", sourceOntJson);
     request.setAttribute("targetOnt", targetOntJson);
 
-    
     //  In percentage the proportion of a mapped ontology. Given the mapping count
-      // Get number of mappings
-      HashSet sourceUniqueMappings = new HashSet<>();
-      HashSet targetUniqueMappings = new HashSet<>();
-      JSONArray alignmentJsonArray = (JSONArray) liste.get("entities");
-      // Get all mapped entities in an hashset to get the number of different concepts that have matched (not the number of match)
-      for (int i = 0; i < alignmentJsonArray.size(); i++) {
-        sourceUniqueMappings.add(((JSONObject) alignmentJsonArray.get(i)).get("entity1").toString());;
-        targetUniqueMappings.add(((JSONObject) alignmentJsonArray.get(i)).get("entity2").toString());;
-      }
-      // number of mapped concept * 100 / number of concept in the ontology
-      int srcOverlappingProportion = sourceUniqueMappings.size() * 100 / ((JSONObject) sourceOntJson.get("entities")).size();
-      int tarOverlappingProportion = targetUniqueMappings.size() * 100 / ((JSONObject) targetOntJson.get("entities")).size();
-      request.setAttribute("srcOverlappingProportion", srcOverlappingProportion);
-      request.setAttribute("tarOverlappingProportion", tarOverlappingProportion);
-    
+    // Get number of mappings
+    HashSet sourceUniqueMappings = new HashSet<>();
+    HashSet targetUniqueMappings = new HashSet<>();
+    JSONArray alignmentJsonArray = (JSONArray) liste.get("entities");
+    // Get all mapped entities in an hashset to get the number of different concepts that have matched (not the number of match)
+    for (int i = 0; i < alignmentJsonArray.size(); i++) {
+      sourceUniqueMappings.add(((JSONObject) alignmentJsonArray.get(i)).get("entity1").toString());;
+      targetUniqueMappings.add(((JSONObject) alignmentJsonArray.get(i)).get("entity2").toString());;
+    }
+    // number of mapped concept * 100 / number of concept in the ontology
+    int srcOverlappingProportion = sourceUniqueMappings.size() * 100 / ((JSONObject) sourceOntJson.get("entities")).size();
+    int tarOverlappingProportion = targetUniqueMappings.size() * 100 / ((JSONObject) targetOntJson.get("entities")).size();
+    request.setAttribute("srcOverlappingProportion", srcOverlappingProportion);
+    request.setAttribute("tarOverlappingProportion", tarOverlappingProportion);
 
     // Call validation.jsp to display results in /validator URL path and send the request with sourceOnt, targetOnt and alignment results
     this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
