@@ -53,6 +53,12 @@ public class Download extends HttpServlet {
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
+    String format = request.getParameter("validationSubmit");
+
+    if (format.equals("Extended validation")) {
+      this.getServletContext().getRequestDispatcher("/WEB-INF/extendedValidation.jsp").forward(request, response);
+    }
+
     String sourceUri = (String) request.getParameter("sourceUri");
     String targetUri = (String) request.getParameter("targetUri");
     String downloadString = null;
@@ -77,7 +83,7 @@ public class Download extends HttpServlet {
           } else {
             File downloadedFile = new File(request.getParameter("ddl"));
             // Check if user is downloading a file from its save workspace.
-            if (downloadedFile.getAbsolutePath().startsWith("/srv/yam-gui/save/" + request.getSession().getAttribute("field").toString() + "/" + request.getSession().getAttribute("username").toString()) 
+            if (downloadedFile.getAbsolutePath().startsWith("/srv/yam-gui/save/" + request.getSession().getAttribute("field").toString() + "/" + request.getSession().getAttribute("username").toString())
                     && !downloadedFile.getAbsolutePath().contains("..")) {
               downloadString = FileUtils.readFileToString(new File(request.getParameter("ddl")), "UTF-8");
               response.setContentType("text/plain");
@@ -119,12 +125,11 @@ public class Download extends HttpServlet {
         }
 
         // Generate the alignment string depending on selected format
-        String format = request.getParameter("validationSubmit");
         if (format.equals("Simple RDF format")) {
           downloadString = generateSimpleRdfAlignment(arrayMappings);
         } else if (format.equals("RDF format")) {
           downloadString = generateRdfAlignment(arrayMappings);
-        } else if (format.equals("AlignmentAPI format")){
+        } else if (format.equals("AlignmentAPI format")) {
           downloadString = generateAlignment(arrayMappings, sourceUri, targetUri);
         }
 

@@ -1,3 +1,5 @@
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="java.util.Hashtable"%>
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="org.json.simple.JSONObject"%>
@@ -31,9 +33,29 @@ for the sourceOnt and targetOnt ontology alignment -->
 <main>
 
   <%    // Get alignment Array with all aligned entities
-    JSONObject alignmentObject = (JSONObject) request.getAttribute("alignment");
-    request.setAttribute("srcOntologyURI", (String) alignmentObject.get("srcOntologyURI"));
-    request.setAttribute("tarOntologyURI", (String) alignmentObject.get("tarOntologyURI"));
+    JSONObject alignmentObject = new JSONObject();
+    JSONArray jArray = new JSONArray();
+    String[] indexArray = request.getParameterValues("index");
+    String[] entity1 = request.getParameterValues("entity1");
+    String[] entity2 = request.getParameterValues("entity2");
+    String[] relation = request.getParameterValues("relation");
+    String[] measure = request.getParameterValues("measure");
+    // Put all mappings in an Array of Hashtable
+    if (indexArray != null) {
+      for (String i : indexArray) {
+        // Get the index in param arrays of the validate mappings
+        int paramIndex = Arrays.asList(indexArray).indexOf(i);
+        JSONObject jObject = new JSONObject();
+        jObject.put("entity1", entity1[paramIndex]);
+        jObject.put("entity2", entity2[paramIndex]);
+        jObject.put("relation", relation[paramIndex]);
+        jObject.put("measure", measure[paramIndex]);
+        jArray.add(jObject);
+      }
+    }
+    alignmentObject.put("srcOntologyURI", (String) request.getAttribute("srcOntologyURI"));
+    alignmentObject.put("tarOntologyURI", (String) request.getAttribute("tarOntologyURI"));
+    alignmentObject.put("entities", jArray);
 
     // Trying to get ontology loaded using owlapi
     JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
@@ -48,7 +70,7 @@ for the sourceOnt and targetOnt ontology alignment -->
       tarOverlappingProportion = request.getAttribute("tarOverlappingProportion").toString();
     }
 
-    if (request.getAttribute("errorMessage") == null && request.getAttribute("alignment") != null) {
+    if (request.getAttribute("errorMessage") == null && alignmentObject != null) {
       //get the execution time from response
       String time = (String) request.getAttribute("time");
   %>
@@ -60,6 +82,29 @@ for the sourceOnt and targetOnt ontology alignment -->
   </script>
 
   <section class="main-section" ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
+
+    <div class="row">
+      <div class="col-sm-6">
+        <ul class="list-group">
+          <li class="list-group-item">Cras justo odio</li>
+          <li class="list-group-item">Dapibus ac facilisis in</li>
+          <li class="list-group-item">Morbi leo risus</li>
+          <li class="list-group-item">Porta ac consectetur ac</li>
+          <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
+      </div>
+      <div class="col-sm-6">
+        <div class="list-group">
+          <a href="#" class="list-group-item active">
+            Cras justo odio
+          </a>
+          <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+          <a href="#" class="list-group-item">Morbi leo risus</a>
+          <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+          <a href="#" class="list-group-item">Vestibulum at eros</a>
+        </div>
+      </div>
+    </div>
 
     <p>
       This UI displays the results of the ontology matching and allows the user to validate or not each mapping.
@@ -195,14 +240,6 @@ style="{{generateStyleForSelect(alignment)}}" class="form-co                    
 
       <div style="text-align: center;">
 
-        <div class=btnCenter id='extendedValidation'>
-          <label class="inputFormatSimpleRDFLabel" 
-                 title="Extended validation" data-toggle="tooltip">Add new mappings between ontologies concepts: </label>
-          <input type="submit" name="validationSubmit" value="Extended validation" class="btn btn-default"
-                 title="Extended validation" style="margin-bottom: 0;">
-        </div>
-        <br>
-        
         <div class=btnCenter id='download'>
           <label class="inputFormatSimpleRDFLabel" 
                  title="OAEI EDOAL format" data-toggle="tooltip">Save to: </label>
@@ -220,7 +257,31 @@ style="{{generateStyleForSelect(alignment)}}" class="form-co                    
                  title="RDF format with score">
         </div>
       </div>
+
+      <!--div class="row">
+      <!-- Need to change .inputFormatAlignmentAPI:checked in style.css to add a new css reaction for a new button->
+      <div class="col-sm-4" style="text-align:center;">
+        <input type="radio" name="format" id="simpleRDF" value="simpleRDF" class="inputFormatSimpleRDF" style="display: none;">
+        <label for="simpleRDF" class="btn btn-sm btn-info inputFormatSimpleRDFLabel" 
+               title="entity1-relation-entity2 triples" data-toggle="tooltip">Simple RDF format</label>
+      </div>
+      <div class="col-sm-4" style="text-align:center;">
+        <input type="radio" name="format" id="alignmentAPI" value="alignmentAPI" style="display: none;" class="inputFormatAlignmentAPI" checked>
+        <label for="alignmentAPI" class="btn btn-sm btn-info inputFormatAlignmentAPILabel" title="OAEI EDOAL format"
+               data-toggle="tooltip">AlignmentAPI format</label>
+      </div>
+      <div class="col-sm-4" style="text-align:center;">
+        <input type="radio" name="format" id="RDF" value="RDF" class="inputFormatRDF" style="display: none;">
+        <label for="RDF" class="btn btn-sm btn-info inputFormatRDFLabel" data-toggle="tooltip"
+               title="RDF format with score (BETA: generated properties not valid)">RDF format</label>
+      </div>
+
+
+    </div-->
+      <!-- TODO: hidden input for source and target URI -->
+
     </form>
+
   </section>
 
 
