@@ -299,16 +299,6 @@ public class YamFileHandler {
       jObject.put("relation", cellElem.getElementsByTagName("relation").item(0).getTextContent());
       jObject.put("measure", round(Double.parseDouble(cellElem.getElementsByTagName("measure").item(0).getTextContent())));
 
-      // If no valid field found then waiting by default
-      if (cellElem.getElementsByTagName("valid").getLength() > 0) {
-        if (cellElem.getElementsByTagName("valid").item(0).getTextContent().equals("true")) {
-          jObject.put("valid", "valid");
-        } else if (cellElem.getElementsByTagName("valid").item(0).getTextContent().equals("false")) {
-          jObject.put("valid", "notvalid");
-        }
-      } else {
-        jObject.put("valid", "waiting");
-      }
       index += 1;
       jArray.add(jObject);
     }
