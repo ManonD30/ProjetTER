@@ -116,120 +116,166 @@ for the sourceOnt and targetOnt ontology alignment -->
       %>
     </div>
 
-    <!-- Input to filter mappings table -->
-    <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">
-      <label>Search: <input type="search" ng-model="searchText"></label>
-      <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
-              ng-click="hideAlignments($event)">Hide unvalid mappings</button>
+    <!-- Contains table to validate mappings. Hided when adding new mappings -->
+    <div id="validationForm">
 
-      <label for="slider-range" id="rangeLabel" style="margin-left: 3%; margin-right: 1%">Display scores from {{rangeSlider.minValue| number:2}} to {{rangeSlider.maxValue| number:2}}</label>
-      <div id="slider-range" style="width: 20%;display: inline-flex"></div>
+      <!-- Input to filter mapping table -->
+      <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">
+        <label>Search: <input type="search" ng-model="searchText"></label>
+        <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
+                ng-click="hideAlignments($event)">Hide unvalid mappings</button>
 
-      <label style="margin-left: 3%;">Language:</label>
-      <select class="form-control"  style="display:inline; margin-left: 1%;" ng-model="selectedLang" 
-              ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
+        <label for="slider-range" id="rangeLabel" style="margin-left: 3%; margin-right: 1%">Display scores from {{rangeSlider.minValue| number:2}} to {{rangeSlider.maxValue| number:2}}</label>
+        <div id="slider-range" style="width: 20%;display: inline-flex"></div>
+
+        <label style="margin-left: 3%;">Language:</label>
+        <select class="form-control"  style="display:inline; margin-left: 1%;" ng-model="selectedLang" 
+                ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
+      </div>
+
+      <form action='download' method='post'>
+        <table id=table class="table table-striped">
+          <thead>
+            <tr style="cursor: pointer;">
+              <th href="#" ng-click="orderByField = 'index'; reverseSort = !reverseSort" title="Sort by index">Line</th>
+              <th href="#" ng-click="orderByField = 'entity1.id'; reverseSort = !reverseSort" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th>
+              <th href="#" ng-click="orderByField = 'entity2.id'; reverseSort = !reverseSort" title="Sort by Target entity URI">{{ontologies.tarOntUri}}</th>
+              <th href="#" ng-click="orderByField = 'relation'; reverseSort = !reverseSort" style="width: 11em;"
+                  title="Sort by relatiion">Relation</th>
+              <th href="#" ng-click="orderByField = 'measure'; reverseSort = !reverseSort" title="Sort by score">Score</th>
+              <!--th href="#" style="word-wrap: break-word;">Validity</th-->
+              <!--th href="#" style="width: 8em;">Validity</th-->
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText"
+                class="{{selected}}" ng-if="generateTableNgIf(alignment)">
+
+              <!-- Change details div with selected entities details when mouseover or click -->
+              <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
+                <input type="text" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input>
+              </td>
+
+              <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
+                <!-- Remember on how to make a little window that show when mouseover
+                <div title="Source Entity details" data-toggle="popover" data-html="true" data-placement="right"
+                     data-trigger="hover" data-entity="{{alignment.entity1}}"-->
+                <input type="text" id="{{alignment.entity1.id}}" name="entity1" value="{{alignment.entity1.id}}" 
+                       style="display: none;" readonly>{{getEntityLabel(alignment.entity1, selectedLang)}}</input>
+                <!-- Display selectedLang, if not available take the first label in the list, then the id -->
+                <!--/div-->
+              </td>
+
+              <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
+                <input type="text" id="{{alignment.entity2.id}}" name="entity2" value="{{alignment.entity2.id}}" 
+                       style="display: none;" readonly>{{getEntityLabel(alignment.entity2, selectedLang)}}</input>
+              </td>
+
+              <td>
+                <select id="{{generateRelationSelectId(alignment.index)}}" name="relation" class="form-control"
+                        style="{{generateStyleForSelect(alignment)}}" ng-model="selectRelationModel[alignment.index]" 
+                        ng-click="updateSelectRelationModels($event, alignment)" ng-init="selectRelationModel[alignment.index] = alignment.relation || 'http://www.w3.org/2004/02/skos/core#exactMatch'">
+                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#exactMatch">skos:exactMatch</option>
+                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#closeMatch">skos:closeMatch</option>
+                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#broadMatch">skos:broadMatch</option>
+                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
+                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#relatedMatch">skos:relatedMatch</option>
+                  <option style="background: #d9534f;" value="notvalid">Not valid</option>
+                </select>
+              </td>
+              <td>
+                <input ty              pe="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" 
+                       style="display: none;" readonly>{{alignment.measure}}</input>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br/>
+
+        <!-- List the different prefixes/namespaces used by the 2 ontologies (not used anymore)
+   h3 class=contentText>Namespaces</h3><br/>
+        <div class="row" style="text-align: center;">
+          <ul class="list-group" style="margin: 0 auto; max-width: 65%">
+            <li class="list-group-item" ng-repeat="(prefix, namespace) in namespaces">
+              <b>{{prefix}}</b> {{namespace}}
+            </li>
+          </ul>
+        </div><br/-->
+
+        <!-- Pass ontologies URI to the form to be able to name the files when ddl -->
+        <input type="hidden" name="sourceUri" value="{{ontologies.srcOntUri}}">
+        <input type="hidden" name="targetUri" value="{{ontologies.tarOntUri}}">
+
+        <div style="text-align: center;">
+
+          <div class=btnCenter id='download'>
+            <label class="inputFormatSimpleRDFLabel" 
+                   title="OAEI EDOAL format" data-toggle="tooltip">Save to: </label>
+            <input type="submit" name="validationSubmit" value="AlignmentAPI format" class="btn btnSubmit"
+                   title="OAEI EDOAL format" style="margin-bottom: 0;">
+          </div>
+          <br>
+          <div class=btnCenter id='export' style="margin-bottom: 8em;">
+            <label class="inputFormatSimpleRDFLabel">Export to: </label>
+
+            <input type="submit" name="validationSubmit" value="Simple RDF format" class="btn"
+                   title="entity1-relation-entity2 triples">
+
+            <input type="submit" name="validationSubmit" value="RDF format" class="btn btn-info"
+                   title="RDF format with score">
+          </div>
+        </div>
+      </form>
     </div>
 
+    <!-- The UI to add new mappings (alternate with validate existing mappings when click on last button) -->
+    <div id="extendedValidationDiv" class="row" style="display: none;">
+      <div class="col-sm-6">
+        <table id=table class="table table-striped">
+          <thead>
+            <tr style="cursor: pointer;">                                                                                 
+              <!--th href="#" ng-click="orderByField = 'ontologies.ont1.entities.entity1.id'; reverseSort = !reverseSort" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th-->
+              <th href="#" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--tr ng-repeat="entity1 in ontologies.ont1.entities|orderBy:orderByField:reverseSort|filter:searchText"
+                class="{{selected}}"-->
+            <tr ng-repeat="entity1 in ontologies.ont1.entities"
+                class="{{selected}}">
 
-    <form action='download' method='post' id="validationForm">
-      <table id=table class="table table-striped">
-        <thead>
-          <tr style="cursor: pointer;">
-            <th href="#" ng-click="orderByField = 'index'; reverseSort = !reverseSort" title="Sort by index">Line</th>
-            <th href="#" ng-click="orderByField = 'entity1.id'; reverseSort = !reverseSort" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th>
-            <th href="#" ng-click="orderByField = 'entity2.id'; reverseSort = !reverseSort" title="Sort by Target entity URI">{{ontologies.tarOntUri}}</th>
-            <th href="#" ng-click="orderByField = 'relation'; reverseSort = !reverseSort" style="width: 11em;"
-                title="Sort by relatiion">Relation</th>
-            <th href="#" ng-click="orderByField = 'measure'; reverseSort = !reverseSort" title="Sort by score">Score</th>
-            <!--th href="#" style="word-wrap: break-word;">Validity</th-->
-            <!--th href="#" style="width: 8em;">Validity</th-->
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText"
-              class="{{selected}}" ng-if="generateTableNgIf(alignment)">
+              <!-- Change details div with selected entities details when mouseover or click -->
+              <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
+                <input type="text" name="index" value="{{entity1.id}}" style="display: none;" readonly>{{entity1.id}}</input>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-            <!-- Change details div with selected entities details when mouseover or click -->
-            <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
-              <input type="text" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input>
-            </td>
 
-            <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
-              <!-- Remember on how to make a little window that show when mouseover
-              <div title="Source Entity details" data-toggle="popover" data-html="true" data-placement="right"
-                   data-trigger="hover" data-entity="{{alignment.entity1}}"-->
-              <input type="text" id="{{alignment.entity1.id}}" name="entity1" value="{{alignment.entity1.id}}" 
-                     style="display: none;" readonly>{{getEntityLabel(alignment.entity1, selectedLang)}}</input>
-              <!-- Display selectedLang, if not available take the first label in the list, then the id -->
-              <!--/div-->
-            </td>
-
-            <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
-              <input type="text" id="{{alignment.entity2.id}}" name="entity2" value="{{alignment.entity2.id}}" 
-                     style="display: none;" readonly>{{getEntityLabel(alignment.entity2, selectedLang)}}</input>
-            </td>
-
-            <td>
-              <select id="{{generateRelationSelectId(alignment.index)}}" name="relation" class="form-control"
-                      style="{{generateStyleForSelect(alignment)}}" ng-model="selectRelationModel[alignment.index]" 
-                      ng-click="updateSelectRelationModels($event, alignment)" ng-init="selectRelationModel[alignment.index] = alignment.relation || 'http://www.w3.org/2004/02/skos/core#exactMatch'">
-                <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#exactMatch">skos:exactMatch</option>
-                <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#closeMatch">skos:closeMatch</option>
-                <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#broadMatch">skos:broadMatch</option>
-                <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
-                <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#relatedMatch">skos:relatedMatch</option>
-                <option style="background: #d9534f;" value="notvalid">Not valid</option>
-              </select>
-            </td>
-            <td>
-              <input ty              pe="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" 
-                     style="display: none;" readonly>{{alignment.measure}}</input>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <br/>
-
-      <!-- List the different prefixes/namespaces used by the 2 ontologies (not used anymore)
- h3 class=contentText>Namespaces</h3><br/>
-      <div class="row" style="text-align: center;">
-        <ul class="list-group" style="margin: 0 auto; max-width: 65%">
-          <li class="list-group-item" ng-repeat="(prefix, namespace) in namespaces">
-            <b>{{prefix}}</b> {{namespace}}
-          </li>
-        </ul>
-      </div><br/-->
-      
-      <input type="hidden" name="ontologies" value="{{JSON.stringify(ontologies)}}">
-
-      <div style="text-align: center;">
-
-        <div class=btnCenter>
-          <label class="inputFormatSimpleRDFLabel" 
-                 title="Extended validation" data-toggle="tooltip">Add new mappings between ontologies concepts: </label>
-          <input type="submit" name="validationSubmit" value="Extended validation" class="btn btn-default"
-                 title="Extended validation" style="margin-bottom: 0;">
-        </div>
-        <br>
-
-        <div class=btnCenter id='download'>
-          <label class="inputFormatSimpleRDFLabel" 
-                 title="OAEI EDOAL format" data-toggle="tooltip">Save to: </label>
-          <input type="submit" name="validationSubmit" value="AlignmentAPI format" class="btn btnSubmit"
-                 title="OAEI EDOAL format" style="margin-bottom: 0;">
-        </div>
-        <br>
-        <div class=btnCenter id='download' style="margin-bottom: 8em;">
-          <label class="inputFormatSimpleRDFLabel">Export to: </label>
-
-          <input type="submit" name="validationSubmit" value="Simple RDF format" class="btn"
-                 title="entity1-relation-entity2 triples">
-
-          <input type="submit" name="validationSubmit" value="RDF format" class="btn btn-info"
-                 title="RDF format with score">
+      <div class="col-sm-6">
+        <div class="list-group">
+          <a href="#" class="list-group-item active">
+            <h4 class="list-group-item-heading">List group item heading</h4>
+            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+          </a>
+          <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">List group item heading</h4>
+            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+          </a>
+          <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">List group item heading</h4>
+            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+          </a>
         </div>
       </div>
-    </form>
+    </div>
+
+    <div style="text-align: center;">
+      <button type="button" id="extendedBtn" class="btn btn-default" onclick="toggleExtended()" 
+              style="margin-bottom: 3%;">Add new mappings to alignment</button>
+    </div>
   </section>
 
 

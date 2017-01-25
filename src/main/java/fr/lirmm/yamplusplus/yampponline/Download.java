@@ -56,16 +56,14 @@ public class Download extends HttpServlet {
           throws ServletException, IOException {
     String format = request.getParameter("validationSubmit");
 
-    if (format.equals("Extended validation")) {
+    /*if (format.equals("Extended validation")) {
       this.getServletContext().getRequestDispatcher("/WEB-INF/extendedValidation.jsp").forward(request, response);
     }
 
-    JSONObject ontologies = (JSONObject) request.getAttribute("ontologies");
-    
-    String sourceUri = "source";
-    //String sourceUri = (String) ontologies.get("srcOntologyURI");
-    String targetUri = "target";
-    //String targetUri = (String) ontologies.get("tarOntologyURI");
+    JSONObject ontologies = (JSONObject) request.getAttribute("ontologies");*/
+
+    String sourceUri = (String) request.getParameter("sourceUri");
+    String targetUri = (String) request.getParameter("targetUri");
     String downloadString = null;
 
     // Force to get it as a file to download

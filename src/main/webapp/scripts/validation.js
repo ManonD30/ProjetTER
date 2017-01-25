@@ -72,8 +72,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   if (!tarOntoUri) {
     tarOntoUri = "Target Entities"
   }
-  console.log($window.sourceOnt);
   $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": srcOntoUri, "tarOntUri": tarOntoUri};
+  console.log($scope.ontologies);
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.sourceOnt.namespaces, $window.targetOnt.namespaces);
   $scope.detailsLocked = false;
@@ -512,6 +512,23 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
   network.fit();
 }
 
+/**
+ * To switch the UI between normal validation and extended validation (to add new mappings manually)
+ */
+function toggleExtended()
+{
+  var validationDiv = document.getElementById("validationForm");
+  var extendedDiv = document.getElementById("extendedValidationDiv");
+  if (extendedDiv.style.display == 'block') {
+    extendedDiv.style.display = 'none';
+    validationDiv.style.display = 'block';
+    document.getElementById("extendedBtn").innerText = "Add new mappings to the alignment";
+  } else {
+    extendedDiv.style.display = 'block';
+    validationDiv.style.display = 'none';
+    document.getElementById("extendedBtn").innerText = "Validate existing mappings";
+  }
+}
 
 /* Remember on how to make a little window that show when mouseover with angularjs
  * Uncomment popover in style.css if you want to use it
