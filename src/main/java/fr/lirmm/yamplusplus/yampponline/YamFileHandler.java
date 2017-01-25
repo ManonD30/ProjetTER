@@ -88,57 +88,6 @@ public class YamFileHandler {
   }
 
   /**
-   * Used by matcher to get an ontology file from a request. Read the ontology
-   * file or source URL from the request and returns a String. We are using
-   * ontName to get ontology either from uploaded file "sourceFile" or URL
-   * "targetUrl".
-   *
-   * @param ontName
-   * @param request
-   * @return String
-   * @throws IOException
-   */
-  public String getOntFileFromRequest(String ontName, HttpServletRequest request) throws IOException {
-    String ontologyString = null;
-    String ontologyUrl = request.getParameter(ontName + "Url");
-    // Use URL in priority. If not, then get the uploaded file
-    if (ontologyUrl != null && !ontologyUrl.isEmpty()) {
-      ontologyString = getUrlContent(ontologyUrl);
-    } else {
-      ontologyString = readFileFromRequest(ontName + "File", request);
-    }
-    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "End of getOntFileFromRequest: " + ontologyString.substring(100));
-    return ontologyString;
-  }
-
-  /**
-   * Read the file passed in params in the HTTP request
-   *
-   * @param fileParam
-   * @param request
-   * @return String
-   * @throws IOException
-   */
-  public String readFileFromRequest(String fileParam, HttpServletRequest request) throws IOException {
-    String fileString = null;
-    Part filePart = null;
-    String filename = null;
-    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "Juste AVANT request.getPart(fileParam) dans readFileFromRequest");
-    try {
-      filePart = request.getPart(fileParam); // Retrieves <input type="file" name="file">
-    } catch (IOException | ServletException e) {
-      fileString = "error: Could not load provided ontology file: " + e;
-    }
-    if (filePart != null) {
-      filename = filePart.getSubmittedFileName();
-      InputStream fileContent = filePart.getInputStream();
-      fileString = IOUtils.toString(fileContent, "UTF-8");
-    }
-    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "Juste APRES request.getPart(fileParam) dans readFileFromRequest");
-    return fileString;
-  }
-
-  /**
    * Upload the 2 ontology files from HTTP request using the Streaming API. It
    * downloads the file if it is an URL or get it from the POST request. It
    * stores the contentString in a file in the tmp directory. In a subdirectory
@@ -237,8 +186,6 @@ public class YamFileHandler {
     // Store given ontology in /tmp/yam-gui/SUBDIR/source.owl
     String storagePath = this.tmpDir + subDir + "/" + ontName + ".owl";
 
-    // Read the file or source URL in the request and returns a String
-    //String ontologyString = getOntFileFromRequest(ontName, request); TO REMOVE
     // Check if an URL have been provided
     String ontologyUrl = request.getParameter(ontName + "Url");
 
@@ -250,10 +197,9 @@ public class YamFileHandler {
 
     } else {
       // Get file from uploaded file in form
-      //ontologyString = readFileFromRequest(ontName + "File", request);
-
       Part filePart = null;
       Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "Juste AVANT request.getPart(fileParam) dans readFileFromRequest");
+      
       // Retrieve file from input where name is sourceFile or targetFile
       filePart = request.getPart(ontName + "File");
       if (filePart != null) {
@@ -272,65 +218,10 @@ public class YamFileHandler {
       }
     }
 
-    // TODO:QUICK: ici on ddl tout direct. If URL : SystemUtils.copyFileFromURL(sourceUri, originalSourcePath);
-    // If file: filePart = request.getPart(fileParam); 
-    /*
-      request.getPart(fileParam); 
-      filename = filePart.getSubmittedFileName();
-      InputStream fileContent = filePart.getInputStream();
-      fileString = IOUtils.toString(fileContent, "UTF-8");
-     
-    // Store the file in the tmp dir: /tmp/yam-gui/subDir/source.owl for example
-    if (ontologyString.startsWith("error:")) {
-      // Return the error if error when loading file
-      return ontologyString;
-    }*/
     Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "End uploadFile");
     // Store ontology in workDir if asked (/srv/yam-gui/save/field/username)
 
     return storagePath;
-  }
-
-  /**
-   * TODO:QUICK Use "SystemUtils.copyFileFromURL(sourceUri,
-   * originalSourcePath);" like in yampp-ls ?. Get the content of a URL page (to
-   * get ontologies from the URL)
-   *
-   * @param sourceUrl
-   * @return String
-   * @throws IOException
-   */
-  public String getUrlContent(String sourceUrl) throws IOException {
-    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Begin getUrlContent(): " + sourceUrl);
-    CloseableHttpClient client = HttpClientBuilder.create().build();
-    HttpResponse httpResponse = null;
-    try {
-      URI uri = new URI(sourceUrl);
-      httpResponse = client.execute(new HttpGet(uri));
-    } catch (IOException e) {
-      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
-    } catch (URISyntaxException ex) {
-      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
-    }
-
-    // process response
-    BufferedReader reader = null;
-    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Before reader");
-    try {
-      reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), Charset.forName("UTF-8")));
-    } catch (IOException e) {
-      Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
-    }
-    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "After reader");
-
-    String contentString = "";
-    String line;
-    while ((line = reader.readLine()) != null) {
-      contentString += line + "\n";
-    }
-    reader.close();
-    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "After reader.close");
-    return contentString;
   }
 
   /**
