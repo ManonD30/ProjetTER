@@ -76,10 +76,23 @@ for the sourceOnt and targetOnt ontology alignment -->
           /* out.println("<label style='margin-left: 2%; margin-bottom: 1%;'>Source ontology mapped: </label>&nbsp;&nbsp;<div class='progress' style='width: 40%; display: inline-block; margin-bottom: 0px;'>"
                   + "<div class='progress-bar' role='progressbar' aria-valuenow='" + srcOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
                   + srcOverlappingProportion + "%;'><b>" + srcOverlappingProportion + "%</b></div></div>");*/
-          out.println("<div class='col-sm-4'><div class='panel panel-primary'><div class='panel-heading' style='text-align: center;'><h3 class='panel-title'>Source ontology mapped</h3></div><div class='panel-body' style='padding-bottom: 0px;'>"
-                  + "<div class='progress'><div class='progress-bar' role='progressbar' aria-valuenow='" + srcOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
-                  + srcOverlappingProportion + "%;'><b>" + srcOverlappingProportion + "%</b></div></div>"
-                  + "</div></div></div>");
+          %>
+          <div class='col-sm-4'>
+            <div class='panel panel-primary'>
+              <div class='panel-heading' style='text-align: center;'>
+                <h3 class='panel-title'>Source ontology mapped</h3>
+              </div>
+              <div class='panel-body' style='padding-bottom: 0px; text-align: center;'>
+                <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> / <%=((JSONObject) sourceOnt.get("entities")).size()%> entities</span>
+                <div class='progress'>
+                  <div class='progress-bar' role='progressbar' aria-valuenow='<%=srcOverlappingProportion%>' aria-valuemin='0' aria-valuemax='100' 
+                       style='width: <%=srcOverlappingProportion%>%;'><b><%=srcOverlappingProportion%>%</b>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%
         }
         if (!tarOverlappingProportion.equals("0")) {
           /*out.println("<br/><label style='margin-left: 2%; margin-bottom: 2%;'>Target ontology mapped: </label>&nbsp;&nbsp;<div class='progress' style='width: 40%; display: inline-block; margin-bottom: 0px;'>"
