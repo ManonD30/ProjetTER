@@ -35,6 +35,7 @@ public class MatcherInterface extends HttpServlet {
           throws ServletException, IOException {
 
     Logger.getLogger(MatcherInterface.class.getName()).log(Level.INFO, "Start of doPost of MatcherInterface...");
+    
     response.setCharacterEncoding("UTF-8");
 
     // Retrieve ontologies String

@@ -29,6 +29,7 @@ import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -56,6 +57,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import yamVLS.tools.SystemUtils;
 
 /**
  *
@@ -105,6 +107,7 @@ public class YamFileHandler {
     } else {
       ontologyString = readFileFromRequest(ontName + "File", request);
     }
+    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "End of getOntFileFromRequest: " + ontologyString.substring(100));
     return ontologyString;
   }
 
@@ -214,47 +217,91 @@ public class YamFileHandler {
     }*
     return this.tmpDir + subDir;
   }*/
-
   /**
    * Upload a file from HTTP request. It downloads the file if it is an URL or
    * get it from the POST request. It stores the contentString in a file in the
    * tmp directory. In a subdirectory /tmp/yam-gui/ + subDir generated + / +
    * filename (source.owl or target.owl). Usually the sub directory is randomly
-   * generated before calling uploadFile And return the path to the created file
+   * generated before calling uploadFile And return the path to the created
+   * file. OntName can be "source" or "target"
    *
    * @param ontName
    * @param subDir
    * @param request
    * @return file storage path
    * @throws IOException
+   * @throws java.net.URISyntaxException
+   * @throws javax.servlet.ServletException
    */
-  public String uploadFile(String ontName, String subDir, HttpServletRequest request) throws IOException {
-    // Read the file or source URL in the request and returns a String
-    String ontologyString = getOntFileFromRequest(ontName, request);
-    
-    String filename = ontName + ".owl";
-    // Store the file in the tmp dir: /tmp/yam-gui/subDir/source.owl for example
+  public String uploadFile(String ontName, String subDir, HttpServletRequest request) throws IOException, URISyntaxException, ServletException {
+    // Store given ontology in /tmp/yam-gui/SUBDIR/source.owl
+    String storagePath = this.tmpDir + subDir + "/" + ontName + ".owl";
 
+    // Read the file or source URL in the request and returns a String
+    //String ontologyString = getOntFileFromRequest(ontName, request); TO REMOVE
+    // Check if an URL have been provided
+    String ontologyUrl = request.getParameter(ontName + "Url");
+
+    // Use URL in priority. If not, then get the uploaded file from the form
+    if (ontologyUrl != null && !ontologyUrl.isEmpty()) {
+      //ontologyString = getUrlContent(ontologyUrl); TO REMOVE
+      // Copy file from remote URL
+      SystemUtils.copyFileFromURL(new URI(ontologyUrl), storagePath);
+
+    } else {
+      // Get file from uploaded file in form
+      //ontologyString = readFileFromRequest(ontName + "File", request);
+
+      Part filePart = null;
+      Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "Juste AVANT request.getPart(fileParam) dans readFileFromRequest");
+      // Retrieve file from input where name is sourceFile or targetFile
+      filePart = request.getPart(ontName + "File");
+      if (filePart != null) {
+        String filename = filePart.getSubmittedFileName();
+        InputStream fileStream = filePart.getInputStream();
+
+        // Write InputStream to file
+        File storageFile = new File(storagePath);
+        storageFile.getParentFile().mkdirs(); 
+
+        java.nio.file.Files.copy(
+                fileStream,
+                storageFile.toPath(),
+                StandardCopyOption.REPLACE_EXISTING);
+        IOUtils.closeQuietly(fileStream);
+      }
+    }
+
+    // TODO:QUICK: ici on ddl tout direct. If URL : SystemUtils.copyFileFromURL(sourceUri, originalSourcePath);
+    // If file: filePart = request.getPart(fileParam); 
+    /*
+      request.getPart(fileParam); 
+      filename = filePart.getSubmittedFileName();
+      InputStream fileContent = filePart.getInputStream();
+      fileString = IOUtils.toString(fileContent, "UTF-8");
+     
+    // Store the file in the tmp dir: /tmp/yam-gui/subDir/source.owl for example
     if (ontologyString.startsWith("error:")) {
       // Return the error if error when loading file
       return ontologyString;
-    }
-
+    }*/
+    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "End uploadFile");
     // Store ontology in workDir if asked (/srv/yam-gui/save/field/username)
-    String storagePath = this.tmpDir + subDir + "/" + filename;
-    FileUtils.writeStringToFile(new File(storagePath), ontologyString, "UTF-8");
 
     return storagePath;
   }
 
   /**
-   * Get the content of a URL page (to get ontologies from the URL)
+   * TODO:QUICK Use "SystemUtils.copyFileFromURL(sourceUri,
+   * originalSourcePath);" like in yampp-ls ?. Get the content of a URL page (to
+   * get ontologies from the URL)
    *
    * @param sourceUrl
    * @return String
    * @throws IOException
    */
   public String getUrlContent(String sourceUrl) throws IOException {
+    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Begin getUrlContent(): " + sourceUrl);
     CloseableHttpClient client = HttpClientBuilder.create().build();
     HttpResponse httpResponse = null;
     try {
@@ -268,11 +315,13 @@ public class YamFileHandler {
 
     // process response
     BufferedReader reader = null;
+    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "Before reader");
     try {
       reader = new BufferedReader(new InputStreamReader(httpResponse.getEntity().getContent(), Charset.forName("UTF-8")));
     } catch (IOException e) {
       Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, e);
     }
+    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "After reader");
 
     String contentString = "";
     String line;
@@ -280,6 +329,7 @@ public class YamFileHandler {
       contentString += line + "\n";
     }
     reader.close();
+    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "After reader.close");
     return contentString;
   }
 

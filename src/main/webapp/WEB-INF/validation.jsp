@@ -207,7 +207,7 @@ style="{{generateStyleForSelect(alignment)}}" class="form-co                    
                  title="entity1-relation-entity2 triples">
           
           <input type="submit" name="validationSubmit" value="RDF format" class="btn btn-info"
-                 title="RDF format with score (BETA: generated properties not valid)">
+                 title="RDF format with score">
         </div>
       </div>
 

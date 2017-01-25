@@ -5,6 +5,7 @@ import fr.lirmm.yamplusplus.yamppls.YamppUtils;
 import static fr.lirmm.yamplusplus.yampponline.MatcherInterface.liste;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashSet;
 import javax.servlet.ServletException;
 
@@ -69,8 +70,17 @@ public class Validator extends HttpServlet {
     // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
     String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
     // Store ontology from URI or file in /tmp/yampponline/SCENARIO_HASH/source.rdf
-    String sourceStoragePath = fileHandler.uploadFile("source", subDirName, request);
-    String targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
+    
+    String sourceStoragePath = "error: loading source file";
+    String targetStoragePath = "error: loading target file";
+    try {
+      sourceStoragePath = fileHandler.uploadFile("source", subDirName, request);
+      targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
+    } catch (URISyntaxException ex) {
+      Logger.getLogger(Validator.class.getName()).log(Level.ERROR, "error: uploading ontology file on server. " + ex);
+      request.setAttribute("errorMessage", "Error uploading ontologies");
+        this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
+    }
 
     // Read ontology with Jena and get ontology JSON model for JavaScript
     Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI(), Logger.getLogger(Validator.class.getName()));

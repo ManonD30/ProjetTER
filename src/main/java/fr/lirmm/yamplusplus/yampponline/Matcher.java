@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.RandomStringUtils;
 
 import fr.lirmm.yamplusplus.yamppls.YamppOntologyMatcher;
+import java.net.URISyntaxException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -165,8 +166,14 @@ public class Matcher extends HttpServlet {
       /*String storagePath = fileHandler.uploadFiles(subDirName, request);
       String sourceStoragePath = storagePath + "/source.owl";
       String targetStoragePath = storagePath + "/target.owl";*/
-      String sourceStoragePath = fileHandler.uploadFile("source", subDirName, request);
-      String targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
+      String sourceStoragePath = "error: loading source file";
+      String targetStoragePath = "error: loading target  file";
+      try {
+        sourceStoragePath = fileHandler.uploadFile("source", subDirName, request);
+        targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
+      } catch (URISyntaxException ex) {
+        Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, "error: uploading ontology file on server. " + ex);
+      }
 
       // If error when loading files from request
       if (sourceStoragePath.startsWith("error:")) {
@@ -216,7 +223,7 @@ public class Matcher extends HttpServlet {
 
       // Execute YAM to get the mappings in RDF/XML
       // Soon to be String resultStoragePath = matcher.alignOntologies()
-      myLog.log(Level.WARNING, "After matcher.alignOntologies...");
+      myLog.log(Level.WARNING, "Before matcher.alignOntologies...");
       String resultStoragePath = matcher.alignOntologies(new File(sourceStoragePath).toURI(),
               new File(targetStoragePath).toURI());
       myLog.log(Level.WARNING, "After matcher.alignOntologies. Result storage path: {0}", resultStoragePath);
@@ -265,6 +272,7 @@ public class Matcher extends HttpServlet {
     } else {
       request.setAttribute("errorMessage", "Provide a valid apikey to match ontologies (get it by logging in)");
     }
+    myLog.log(Level.WARNING, "End of processRequest");
 
     return request;
   }
