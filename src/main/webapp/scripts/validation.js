@@ -72,6 +72,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   if (!tarOntoUri) {
     tarOntoUri = "Target Entities"
   }
+  console.log($window.sourceOnt);
   $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": srcOntoUri, "tarOntUri": tarOntoUri};
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.sourceOnt.namespaces, $window.targetOnt.namespaces);

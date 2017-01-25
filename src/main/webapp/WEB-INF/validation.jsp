@@ -68,41 +68,43 @@ for the sourceOnt and targetOnt ontology alignment -->
     <div style="width: 100%; display: inline-block;">
       <%
         if (time != null) {
-          //out.println("<p> Calculated with YAM++ Large Scale in " + time + " seconds</p>");
           out.println("<div class='col-sm-4'><div class='panel panel-info'><div class='panel-heading' style='text-align: center;'><h3 class='panel-title'>Running time</h3></div><div class='panel-body' style='text-align: center;'>"
                   + time + " seconds</div></div></div>");
         }
         if (!srcOverlappingProportion.equals("0")) {
-          /* out.println("<label style='margin-left: 2%; margin-bottom: 1%;'>Source ontology mapped: </label>&nbsp;&nbsp;<div class='progress' style='width: 40%; display: inline-block; margin-bottom: 0px;'>"
-                  + "<div class='progress-bar' role='progressbar' aria-valuenow='" + srcOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
-                  + srcOverlappingProportion + "%;'><b>" + srcOverlappingProportion + "%</b></div></div>");*/
-          %>
-          <div class='col-sm-4'>
-            <div class='panel panel-primary'>
-              <div class='panel-heading' style='text-align: center;'>
-                <h3 class='panel-title'>Source ontology mapped</h3>
-              </div>
-              <div class='panel-body' style='padding-bottom: 0px; text-align: center;'>
-                <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> / <%=((JSONObject) sourceOnt.get("entities")).size()%> entities</span>
-                <div class='progress'>
-                  <div class='progress-bar' role='progressbar' aria-valuenow='<%=srcOverlappingProportion%>' aria-valuemin='0' aria-valuemax='100' 
-                       style='width: <%=srcOverlappingProportion%>%;'><b><%=srcOverlappingProportion%>%</b>
-                  </div>
-                </div>
+      %>
+      <div class='col-sm-4'>
+        <div class='panel panel-primary'>
+          <div class='panel-heading' style='text-align: center;'>
+            <h3 class='panel-title'>Source ontology mapped</h3>
+          </div>
+          <div class='panel-body' style='padding-bottom: 0px; text-align: center;'>
+            <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> on <%=((JSONObject) sourceOnt.get("entities")).size()%> entities</span>
+            <div class='progress'>
+              <div class='progress-bar' role='progressbar' aria-valuenow='<%=srcOverlappingProportion%>' aria-valuemin='0' aria-valuemax='100' 
+                   style='width: <%=srcOverlappingProportion%>%;'><b><%=srcOverlappingProportion%>%</b>
               </div>
             </div>
           </div>
-          <%
+        </div>
+      </div>
+      <%
         }
-        if (!tarOverlappingProportion.equals("0")) {
-          /*out.println("<br/><label style='margin-left: 2%; margin-bottom: 2%;'>Target ontology mapped: </label>&nbsp;&nbsp;<div class='progress' style='width: 40%; display: inline-block; margin-bottom: 0px;'>"
-                  + "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='" + tarOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
-                  + tarOverlappingProportion + "%;'><b>" + tarOverlappingProportion + "%</b></div></div>");*/
-          out.println("<div class='col-md-4'><div class='panel panel-success'><div class='panel-heading' style='text-align: center;'><h3 class='panel-title'>Target ontology mapped</h3></div><div class='panel-body' style='padding-bottom: 0px;'>"
-                  + "<div class='progress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='" + tarOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
-                  + tarOverlappingProportion + "%;'><b>" + tarOverlappingProportion + "%</b></div></div>"
-                  + "</div></div></div>");
-        }
+        if (!tarOverlappingProportion.equals("0")) {%>
+      <div class='col-md-4'>
+        <div class='panel panel-success'>
+          <div class='panel-heading' style='text-align: center;'>
+            <h3 class='panel-title'>Target ontology mapped</h3>
+          </div>
+          <div class='panel-body' style='padding-bottom: 0px; text-align: center;'>
+            <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> on <%=((JSONObject) targetOnt.get("entities")).size()%> entities</span>
+            <div class='progress'>
+              <div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='<%=tarOverlappingProportion%>' 
+                   aria-valuemin='0' aria-valuemax='100' style='width: <%=tarOverlappingProportion%>%;'><b><%=tarOverlappingProportion%>%</b></div></div>"
+          </div>
+        </div>
+      </div>
+      <%}
       %>
     </div>
 
@@ -110,7 +112,7 @@ for the sourceOnt and targetOnt ontology alignment -->
     <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">
       <label>Search: <input type="search" ng-model="searchText"></label>
       <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
-              ng-click="hideAlignments($event)">Hide validated alignments</button>
+              ng-click="hideAlignments($event)">Hide unvalid mappings</button>
 
       <label for="slider-range" id="rangeLabel" style="margin-left: 3%; margin-right: 1%">Display scores from {{rangeSlider.minValue| number:2}} to {{rangeSlider.maxValue| number:2}}</label>
       <div id="slider-range" style="width: 20%;display: inline-flex"></div>
@@ -215,7 +217,7 @@ style="{{generateStyleForSelect(alignment)}}" class="form-co                    
                  title="Extended validation" style="margin-bottom: 0;">
         </div>
         <br>
-        
+
         <div class=btnCenter id='download'>
           <label class="inputFormatSimpleRDFLabel" 
                  title="OAEI EDOAL format" data-toggle="tooltip">Save to: </label>

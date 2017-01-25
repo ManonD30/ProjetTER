@@ -60,6 +60,8 @@ for the sourceOnt and targetOnt ontology alignment -->
     // Trying to get ontology loaded using owlapi
     JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
     JSONObject targetOnt = (JSONObject) request.getAttribute("targetOnt");
+    System.out.println("source onto: ");
+    System.out.println(sourceOnt);
 
     String srcOverlappingProportion = "0";
     String tarOverlappingProportion = "0";
@@ -82,206 +84,114 @@ for the sourceOnt and targetOnt ontology alignment -->
   </script>
 
   <section class="main-section" ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
-
-    <div class="row">
-      <div class="col-sm-6">
-        <ul class="list-group">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Morbi leo risus</li>
-          <li class="list-group-item">Porta ac consectetur ac</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-      </div>
-      <div class="col-sm-6">
-        <div class="list-group">
-          <a href="#" class="list-group-item active">
-            Cras justo odio
-          </a>
-          <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-          <a href="#" class="list-group-item">Morbi leo risus</a>
-          <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-          <a href="#" class="list-group-item">Vestibulum at eros</a>
-        </div>
-      </div>
-    </div>
-
-    <p>
-      This UI displays the results of the ontology matching and allows the user to validate or not each mapping.
-      It shows informations about mapped concepts extracted from the provided ontologies on the right.
-    </p>
-    <div style="width: 100%; display: inline-block;">
-      <%
-        if (time != null) {
-          //out.println("<p> Calculated with YAM++ Large Scale in " + time + " seconds</p>");
-          out.println("<div class='col-sm-4'><div class='panel panel-info'><div class='panel-heading' style='text-align: center;'><h3 class='panel-title'>Running time</h3></div><div class='panel-body' style='text-align: center;'>"
-                  + time + " seconds</div></div></div>");
-        }
-        if (!srcOverlappingProportion.equals("0")) {
-          /* out.println("<label style='margin-left: 2%; margin-bottom: 1%;'>Source ontology mapped: </label>&nbsp;&nbsp;<div class='progress' style='width: 40%; display: inline-block; margin-bottom: 0px;'>"
-                  + "<div class='progress-bar' role='progressbar' aria-valuenow='" + srcOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
-                  + srcOverlappingProportion + "%;'><b>" + srcOverlappingProportion + "%</b></div></div>");*/
-          out.println("<div class='col-sm-4'><div class='panel panel-primary'><div class='panel-heading' style='text-align: center;'><h3 class='panel-title'>Source ontology mapped</h3></div><div class='panel-body' style='padding-bottom: 0px;'>"
-                  + "<div class='progress'><div class='progress-bar' role='progressbar' aria-valuenow='" + srcOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
-                  + srcOverlappingProportion + "%;'><b>" + srcOverlappingProportion + "%</b></div></div>"
-                  + "</div></div></div>");
-        }
-        if (!tarOverlappingProportion.equals("0")) {
-          /*out.println("<br/><label style='margin-left: 2%; margin-bottom: 2%;'>Target ontology mapped: </label>&nbsp;&nbsp;<div class='progress' style='width: 40%; display: inline-block; margin-bottom: 0px;'>"
-                  + "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='" + tarOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
-                  + tarOverlappingProportion + "%;'><b>" + tarOverlappingProportion + "%</b></div></div>");*/
-          out.println("<div class='col-md-4'><div class='panel panel-success'><div class='panel-heading' style='text-align: center;'><h3 class='panel-title'>Target ontology mapped</h3></div><div class='panel-body' style='padding-bottom: 0px;'>"
-                  + "<div class='progress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='" + tarOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
-                  + tarOverlappingProportion + "%;'><b>" + tarOverlappingProportion + "%</b></div></div>"
-                  + "</div></div></div>");
-        }
-      %>
-    </div>
-
-    <!-- Input to filter mappings table -->
-    <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">
-      <label>Search: <input type="search" ng-model="searchText"></label>
-      <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
-              ng-click="hideAlignments($event)">Hide validated alignments</button>
-
-      <label for="slider-range" id="rangeLabel" style="margin-left: 3%; margin-right: 1%">Display scores from {{rangeSlider.minValue| number:2}} to {{rangeSlider.maxValue| number:2}}</label>
-      <div id="slider-range" style="width: 20%;display: inline-flex"></div>
-
-      <label style="margin-left: 3%;">Language:</label>
-      <select class="form-control"  style="display:inline; margin-left: 1%;" ng-model="selectedLang" 
-              ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
-    </div>
-
-
     <form action='download' method='post'>
-      <table id=table class="table table-striped">
-        <thead>
-          <tr style="cursor: pointer;">
-            <th href="#" ng-click="orderByField = 'index'; reverseSort = !reverseSort" title="Sort by index">Line</th>
-            <th href="#" ng-click="orderByField = 'entity1.id'; reverseSort = !reverseSort" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th>
-            <th href="#" ng-click="orderByField = 'entity2.id'; reverseSort = !reverseSort" title="Sort by Target entity URI">{{ontologies.tarOntUri}}</th>
-            <th href="#" ng-click="orderByField = 'relation'; reverseSort = !reverseSort" style="width: 11em;"
-                title="Sort by relatiion">Relation</th>
-            <th href="#" ng-click="orderByField = 'measure'; reverseSort = !reverseSort" title="Sort by score">Score</th>
-            <!--th href="#" style="word-wrap: break-word;">Validity</th-->
-            <!--th href="#" style="width: 8em;">Validity</th-->
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText"
-              class="{{selected}}" ng-if="generateTableNgIf(alignment)">
+      <div class="row">
+        <div class="col-sm-6">
+          <table id=table class="table table-striped">
+            <thead>
+              <tr style="cursor: pointer;">                                                                                 
+                <th href="#" ng-click="orderByField = 'entity1.id'; reverseSort = !reverseSort" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="entity1 in ontologies.ont1|orderBy:orderByField:reverseSort|filter:searchText"
+                  class="{{selected}}">
 
-            <!-- Change details div with selected entities details when mouseover or click -->
-            <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
-              <input type="text" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input>
-            </td>
-
-            <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
-              <!-- Remember on how to make a little window that show when mouseover
-              <div title="Source Entity details" data-toggle="popover" data-html="true" data-placement="right"
-                   data-trigger="hover" data-entity="{{alignment.entity1}}"-->
-              <input type="text" id="{{alignment.entity1.id}}" name="entity1" value="{{alignment.entity1.id}}" 
-                     style="display: none;" readonly>{{getEntityLabel(alignment.entity1, selectedLang)}}</input>
-              <!-- Display selectedLang, if not available take the first label in the list, then the id -->
-              <!--/div-->
-            </td>
-
-            <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
-              <input type="text" id="{{alignment.entity2.id}}" name="entity2" value="{{alignment.entity2.id}}" 
-                     style="display: none;" readonly>{{getEntityLabel(alignment.entity2, selectedLang)}}</input>
-            </td>
-
-            <td>
-              <select id="{{generateRelationSelectId(alignment.index)}}" name="relation" class="form-control"
-                      style="{{generateStyleForSelect(alignment)}}" ng-model="selectRelationModel[alignment.index]" 
-                      ng-click="updateSelectRelationModels($event, alignment)" ng-init="selectRelationModel[alignment.index] = alignment.relation || 'http://www.w3.org/2004/02/skos/core#exactMatch'">
-                <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#exactMatch">skos:exactMatch</option>
-                <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#closeMatch">skos:closeMatch</option>
-                <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#broadMatch">skos:broadMatch</option>
-                <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
-                <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#relatedMatch">skos:relatedMatch</option>
-                <option style="background: #d9534f;" value="notvalid">Not valid</option>
-              </select>
-            </td>
-            <td>
-              <input ty              pe="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" 
-                     style="display: none;" readonly>{{alignment.measure}}</input>
-            </td>
-            <!--td>
-            <!-- We are changing the color of the select when a valid option is se            lected ->
-            <select id="{{generateValidSelectId(alignment.index)}}" name="valid" 
-style="{{generateStyleForSelect(alignment)}}" class="form-co                      ntrol" 
-                        ng-model="selectValidModel[alignment.index]" ng-click="upd                        ateSelectValidMo                    dels($event, alignment)"
-                    ng-init="selectValidModel[alignment.index] = alignment.valid">                    
-                             <option style="background: #f0ad4e;" value="waiting">                             Waiting...</option>
-                   <option style="background: #5cb85c;" value="valid">Valid</optio                   n>
-                          <option style="background: #d9534f;" value="notvalid">No                          t valid</option>
-                   </select>
-</          td-->
-          </tr>
-        </tbody>
-      </table>
-
-      <!--div id="pager" cl          ass="pager" style="top: 687px; position: absolute;">      </div-->
-      <br/>
-
-      <!-- List the different prefixes/namespaces used by the 2 ontologies (not used anymore)
- h3 class=contentText>Namespaces</h3><br/>
-      <div class="row" style="text-align: center;">
-        <ul class="list-group" style="margin: 0 auto; max-width: 65%">
-          <li class="list-group-item" ng-repeat="(prefix, namespace) in namespaces">
-            <b>{{prefix}}</b> {{namespace}}
-          </li>
-        </ul>
-      </div><br/-->
-
-      <input type="hidden" name="sourceUri" value="{{ontologies.srcOntUri}}">
-      <input type="hidden" name="targetUri" value="{{ontologies.tarOntUri}}">
-
-      <div style="text-align: center;">
-
-        <div class=btnCenter id='download'>
-          <label class="inputFormatSimpleRDFLabel" 
-                 title="OAEI EDOAL format" data-toggle="tooltip">Save to: </label>
-          <input type="submit" name="validationSubmit" value="AlignmentAPI format" class="btn btnSubmit"
-                 title="OAEI EDOAL format" style="margin-bottom: 0;">
+                <!-- Change details div with selected entities details when mouseover or click -->
+                <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
+                  <input type="text" name="index" value="{{entity1.id}}" style="display: none;" readonly>{{entity1.id}}</input>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <br>
-        <div class=btnCenter id='download' style="margin-bottom: 8em;">
-          <label class="inputFormatSimpleRDFLabel">Export to: </label>
 
-          <input type="submit" name="validationSubmit" value="Simple RDF format" class="btn"
-                 title="entity1-relation-entity2 triples">
 
-          <input type="submit" name="validationSubmit" value="RDF format" class="btn btn-info"
-                 title="RDF format with score">
+        <div class="col-sm-6">
+          <div class="list-group">
+            <a href="#" class="list-group-item active">
+              <h4 class="list-group-item-heading">List group item heading</h4>
+              <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+            </a>
+            <a href="#" class="list-group-item">
+              <h4 class="list-group-item-heading">List group item heading</h4>
+              <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+            </a>
+            <a href="#" class="list-group-item">
+              <h4 class="list-group-item-heading">List group item heading</h4>
+              <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+            </a>
+          </div>
         </div>
-      </div>
 
-      <!--div class="row">
-      <!-- Need to change .inputFormatAlignmentAPI:checked in style.css to add a new css reaction for a new button->
-      <div class="col-sm-4" style="text-align:center;">
-        <input type="radio" name="format" id="simpleRDF" value="simpleRDF" class="inputFormatSimpleRDF" style="display: none;">
-        <label for="simpleRDF" class="btn btn-sm btn-info inputFormatSimpleRDFLabel" 
-               title="entity1-relation-entity2 triples" data-toggle="tooltip">Simple RDF format</label>
-      </div>
-      <div class="col-sm-4" style="text-align:center;">
-        <input type="radio" name="format" id="alignmentAPI" value="alignmentAPI" style="display: none;" class="inputFormatAlignmentAPI" checked>
-        <label for="alignmentAPI" class="btn btn-sm btn-info inputFormatAlignmentAPILabel" title="OAEI EDOAL format"
-               data-toggle="tooltip">AlignmentAPI format</label>
-      </div>
-      <div class="col-sm-4" style="text-align:center;">
-        <input type="radio" name="format" id="RDF" value="RDF" class="inputFormatRDF" style="display: none;">
-        <label for="RDF" class="btn btn-sm btn-info inputFormatRDFLabel" data-toggle="tooltip"
-               title="RDF format with score (BETA: generated properties not valid)">RDF format</label>
-      </div>
+        <input type="hidden" name="sourceUri" value="{{ontologies.srcOntUri}}">
+        <input type="hidden" name="targetUri" value="{{ontologies.tarOntUri}}">
 
+        <div style="text-align: center;">
+          <div class=btnCenter id='download'>
+            <label class="inputFormatSimpleRDFLabel" 
+                   title="OAEI EDOAL format" data-toggle="tooltip">Save to: </label>
+            <input type="submit" name="validationSubmit" value="AlignmentAPI format" class="btn btnSubmit"
+                   title="OAEI EDOAL format" style="margin-bottom: 0;">
+          </div>
+          <br>
+          <div class=btnCenter id='download' style="margin-bottom: 8em;">
+            <label class="inputFormatSimpleRDFLabel">Export to: </label>
 
-    </div-->
-      <!-- TODO: hidden input for source and target URI -->
+            <input type="submit" name="validationSubmit" value="Simple RDF format" class="btn"
+                   title="entity1-relation-entity2 triples">
 
+            <input type="submit" name="validationSubmit" value="RDF format" class="btn btn-info"
+                   title="RDF format with score">
+          </div>
+        </div>
+
+        <p>
+          This UI displays the results of the ontology matching and allows the user to validate or not each mapping.
+          It shows informations about mapped concepts extracted from the provided ontologies on the right.
+        </p>
+        <div style="width: 100%; display: inline-block;">
+          <%
+            if (time != null) {
+              //out.println("<p> Calculated with YAM++ Large Scale in " + time + " seconds</p>");
+              out.println("<div class='col-sm-4'><div class='panel panel-info'><div class='panel-heading' style='text-align: center;'><h3 class='panel-title'>Running time</h3></div><div class='panel-body' style='text-align: center;'>"
+                      + time + " seconds</div></div></div>");
+            }
+            if (!srcOverlappingProportion.equals("0")) {
+              /* out.println("<label style='margin-left: 2%; margin-bottom: 1%;'>Source ontology mapped: </label>&nbsp;&nbsp;<div class='progress' style='width: 40%; display: inline-block; margin-bottom: 0px;'>"
+                      + "<div class='progress-bar' role='progressbar' aria-valuenow='" + srcOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
+                      + srcOverlappingProportion + "%;'><b>" + srcOverlappingProportion + "%</b></div></div>");*/
+              out.println("<div class='col-sm-4'><div class='panel panel-primary'><div class='panel-heading' style='text-align: center;'><h3 class='panel-title'>Source ontology mapped</h3></div><div class='panel-body' style='padding-bottom: 0px;'>"
+                      + "<div class='progress'><div class='progress-bar' role='progressbar' aria-valuenow='" + srcOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
+                      + srcOverlappingProportion + "%;'><b>" + srcOverlappingProportion + "%</b></div></div>"
+                      + "</div></div></div>");
+            }
+            if (!tarOverlappingProportion.equals("0")) {
+              /*out.println("<br/><label style='margin-left: 2%; margin-bottom: 2%;'>Target ontology mapped: </label>&nbsp;&nbsp;<div class='progress' style='width: 40%; display: inline-block; margin-bottom: 0px;'>"
+                      + "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='" + tarOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
+                      + tarOverlappingProportion + "%;'><b>" + tarOverlappingProportion + "%</b></div></div>");*/
+              out.println("<div class='col-md-4'><div class='panel panel-success'><div class='panel-heading' style='text-align: center;'><h3 class='panel-title'>Target ontology mapped</h3></div><div class='panel-body' style='padding-bottom: 0px;'>"
+                      + "<div class='progress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='" + tarOverlappingProportion + "' aria-valuemin='0' aria-valuemax='100' style='width: "
+                      + tarOverlappingProportion + "%;'><b>" + tarOverlappingProportion + "%</b></div></div>"
+                      + "</div></div></div>");
+            }
+          %>
+        </div>
+
+        <!-- Input to filter mappings table -->
+        <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">
+          <label>Search: <input type="search" ng-model="searchText"></label>
+          <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
+                  ng-click="hideAlignments($event)">Hide validated alignments</button>
+
+          <label for="slider-range" id="rangeLabel" style="margin-left: 3%; margin-right: 1%">Display scores from {{rangeSlider.minValue| number:2}} to {{rangeSlider.maxValue| number:2}}</label>
+          <div id="slider-range" style="width: 20%;display: inline-flex"></div>
+
+          <label style="margin-left: 3%;">Language:</label>
+          <select class="form-control"  style="display:inline; margin-left: 1%;" ng-model="selectedLang" 
+                  ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
+        </div>
     </form>
-
   </section>
 
 
