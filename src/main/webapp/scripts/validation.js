@@ -357,7 +357,6 @@ function getPropertyRecursive(depth, entity, ontology, nodeIds, networkData) {
 function buildNetwork(ontology, entity, selectedLang, ontologies) {
   // create an array with nodes
   var label = getEntityLabelLang(entity, selectedLang);
-  console.log("label::: " + label);
   var nodes = new vis.DataSet([
     {id: 1, label: label, color: '#FB7E81'}
   ]);

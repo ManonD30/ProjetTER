@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONObject;
 
 public class Download extends HttpServlet {
 
@@ -59,8 +60,12 @@ public class Download extends HttpServlet {
       this.getServletContext().getRequestDispatcher("/WEB-INF/extendedValidation.jsp").forward(request, response);
     }
 
-    String sourceUri = (String) request.getParameter("sourceUri");
-    String targetUri = (String) request.getParameter("targetUri");
+    JSONObject ontologies = (JSONObject) request.getAttribute("ontologies");
+    
+    String sourceUri = "source";
+    //String sourceUri = (String) ontologies.get("srcOntologyURI");
+    String targetUri = "target";
+    //String targetUri = (String) ontologies.get("tarOntologyURI");
     String downloadString = null;
 
     // Force to get it as a file to download

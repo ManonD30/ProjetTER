@@ -87,7 +87,7 @@ for the sourceOnt and targetOnt ontology alignment -->
             <h3 class='panel-title'>Source ontology mapped</h3>
           </div>
           <div class='panel-body' style='padding-bottom: 0px; text-align: center;'>
-            <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> on <%=((JSONObject) sourceOnt.get("entities")).size()%> entities</span>
+            <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> entities on <%=((JSONObject) sourceOnt.get("entities")).size()%></span>
             <div class='progress'>
               <div class='progress-bar' role='progressbar' aria-valuenow='<%=srcOverlappingProportion%>' aria-valuemin='0' aria-valuemax='100' 
                    style='width: <%=srcOverlappingProportion%>%;'><b><%=srcOverlappingProportion%>%</b>
@@ -105,7 +105,7 @@ for the sourceOnt and targetOnt ontology alignment -->
             <h3 class='panel-title'>Target ontology mapped</h3>
           </div>
           <div class='panel-body' style='padding-bottom: 0px; text-align: center;'>
-            <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> on <%=((JSONObject) targetOnt.get("entities")).size()%> entities</span>
+            <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> entities on <%=((JSONObject) targetOnt.get("entities")).size()%></span>
             <div class='progress'>
               <div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='<%=tarOverlappingProportion%>' 
                    aria-valuemin='0' aria-valuemax='100' style='width: <%=tarOverlappingProportion%>%;'><b><%=tarOverlappingProportion%>%</b></div></div>"
@@ -131,7 +131,7 @@ for the sourceOnt and targetOnt ontology alignment -->
     </div>
 
 
-    <form action='download' method='post'>
+    <form action='download' method='post' id="validationForm">
       <table id=table class="table table-striped">
         <thead>
           <tr style="cursor: pointer;">
@@ -185,22 +185,9 @@ for the sourceOnt and targetOnt ontology alignment -->
               <input ty              pe="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" 
                      style="display: none;" readonly>{{alignment.measure}}</input>
             </td>
-            <!--td>
-            <!-- We are changing the color of the select when a valid option is se            lected ->
-            <select id="{{generateValidSelectId(alignment.index)}}" name="valid" 
-style="{{generateStyleForSelect(alignment)}}" class="form-co                      ntrol" 
-                        ng-model="selectValidModel[alignment.index]" ng-click="upd                        ateSelectValidMo                    dels($event, alignment)"
-                    ng-init="selectValidModel[alignment.index] = alignment.valid">                    
-                             <option style="background: #f0ad4e;" value="waiting">                             Waiting...</option>
-                   <option style="background: #5cb85c;" value="valid">Valid</optio                   n>
-                          <option style="background: #d9534f;" value="notvalid">No                          t valid</option>
-                   </select>
-</          td-->
           </tr>
         </tbody>
       </table>
-
-      <!--div id="pager" cl          ass="pager" style="top: 687px; position: absolute;">      </div-->
       <br/>
 
       <!-- List the different prefixes/namespaces used by the 2 ontologies (not used anymore)
@@ -212,13 +199,12 @@ style="{{generateStyleForSelect(alignment)}}" class="form-co                    
           </li>
         </ul>
       </div><br/-->
-
-      <input type="hidden" name="sourceUri" value="{{ontologies.srcOntUri}}">
-      <input type="hidden" name="targetUri" value="{{ontologies.tarOntUri}}">
+      
+      <input type="hidden" name="ontologies" value="{{JSON.stringify(ontologies)}}">
 
       <div style="text-align: center;">
 
-        <div class=btnCenter id='extendedValidation'>
+        <div class=btnCenter>
           <label class="inputFormatSimpleRDFLabel" 
                  title="Extended validation" data-toggle="tooltip">Add new mappings between ontologies concepts: </label>
           <input type="submit" name="validationSubmit" value="Extended validation" class="btn btn-default"

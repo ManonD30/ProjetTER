@@ -53,15 +53,19 @@ for the sourceOnt and targetOnt ontology alignment -->
         jArray.add(jObject);
       }
     }
-    alignmentObject.put("srcOntologyURI", (String) request.getAttribute("srcOntologyURI"));
-    alignmentObject.put("tarOntologyURI", (String) request.getAttribute("tarOntologyURI"));
+    
+    // Post JSON to form : http://stackoverflow.com/questions/23355017/how-do-i-send-a-complex-json-object-from-an-html-form-using-synchronous-page-pos
+    //JSONObject ontologies = (JSONObject) request.getParameter("ontologies");
+    String testOnto = request.getParameter("ontologies");
+    JSONObject ontologies = (JSONObject) request.getAttribute("ontologies");
+    //JSONObject sourceOnt = (JSONObject) ontologies.get("ont1");
+    //JSONObject targetOnt = (JSONObject) ontologies.get("ont2");
+    JSONObject sourceOnt = null;
+    JSONObject targetOnt = null;
+    
+    //alignmentObject.put("srcOntologyURI", (String) ontologies.get("srcOntologyURI"));
+    //alignmentObject.put("tarOntologyURI", (String) ontologies.get("tarOntologyURI"));
     alignmentObject.put("entities", jArray);
-
-    // Trying to get ontology loaded using owlapi
-    JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
-    JSONObject targetOnt = (JSONObject) request.getAttribute("targetOnt");
-    System.out.println("source onto: ");
-    System.out.println(sourceOnt);
 
     String srcOverlappingProportion = "0";
     String tarOverlappingProportion = "0";
@@ -80,6 +84,9 @@ for the sourceOnt and targetOnt ontology alignment -->
     // Put params to javascript to use it with angularjs
     var alignmentJson = <%=alignmentObject%>;
     var sourceOnt = <%=sourceOnt%>;
+    console.log("Source in script: " + sourceOnt);
+    console.log("overlap: " + <%=srcOverlappingProportion%>);
+    console.log("onto in string " + <%=testOnto%>);
     var targetOnt = <%=targetOnt%>;
   </script>
 
