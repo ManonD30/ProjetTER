@@ -77,7 +77,7 @@ for the sourceOnt and targetOnt ontology alignment -->
             <%=time%> seconds
           </div>
         </div>
-      </div>");
+      </div>
       <%}
         if (!srcOverlappingProportion.equals("0")) {
       %>
