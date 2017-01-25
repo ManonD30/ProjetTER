@@ -67,10 +67,18 @@ for the sourceOnt and targetOnt ontology alignment -->
     </p>
     <div style="width: 100%; display: inline-block;">
       <%
-        if (time != null) {
-          out.println("<div class='col-sm-4'><div class='panel panel-info'><div class='panel-heading' style='text-align: center;'><h3 class='panel-title'>Running time</h3></div><div class='panel-body' style='text-align: center;'>"
-                  + time + " seconds</div></div></div>");
-        }
+        if (time != null) {%>
+      <div class='col-sm-4'>
+        <div class='panel panel-info'>
+          <div class='panel-heading' style='text-align: center;'>
+            <h3 class='panel-title'>Running time</h3>
+          </div>
+          <div class='panel-body' style='text-align: center;'>
+            <%=time%> seconds
+          </div>
+        </div>
+      </div>");
+      <%}
         if (!srcOverlappingProportion.equals("0")) {
       %>
       <div class='col-sm-4'>
