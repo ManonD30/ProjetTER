@@ -83,6 +83,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
   $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson.entities, $scope.ontologies);
+  console.log($scope.alignments);
   alignments = $scope.alignments;
   $scope.langSelect = {"en": "en", "fr": "fr"};
   // Little function to get the first element of an object (used to get first label if selectedLang not available
@@ -192,8 +193,44 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       buildNetwork("target", this.alignment.entity2, $scope.selectedLang, $scope.ontologies);
     }
   };
+  
+  /**
+   * Change details div to show selected entity details
+   * @param {boolean} clickedOn
+   * @returns {undefined}
+   */
+  $scope.changeDetailsExtended = function (clickedOn) {
+    //console.log(this.alignment);
+    if ($scope.detailsLocked === false || clickedOn === true) {
+      // Set selected lang to en by default (see $scope.selectedLang to change it dynamically)
+      var selectedLang = "en";
+      var stringDetail1 = buildEntityDetailsHtml(this.entity1, "Source", selectedLang, $scope.ontologies.ont1);
+      //var stringDetail2 = buildEntityDetailsHtml(this.entity2, "Target", selectedLang, $scope.ontologies.ont2);
+      document.getElementById("entityDetail1").innerHTML = stringDetail1;
+      //document.getElementById("entityDetail2").innerHTML = stringDetail2;
+      if (clickedOn === true) {
+        $scope.detailsLocked = true;
+        if ($scope.lastSelected) {
+          var selected = this.selected;
+          $scope.lastSelected.selected = "";
+        }
 
+        // Remove selected if click again on selected row
+        if (selected === "selected") {
+          this.selected = "";
+          $scope.detailsLocked = false;
+        } else {
+          this.selected = "selected";
+        }
+        $scope.lastSelected = this;
+      }
+      // HERE add change for network
+      buildNetwork("source", this.entity1, selectedLang, $scope.ontologies);
+      //buildNetwork("target", this.entity2, selectedLang, $scope.ontologies);
+    }
+  };
 });
+
 /**
  * a function to get the ontology that is linked to an alignment
  * Example of the alignments object:

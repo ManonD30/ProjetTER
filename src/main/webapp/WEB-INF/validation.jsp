@@ -241,12 +241,11 @@ for the sourceOnt and targetOnt ontology alignment -->
           <tbody>
             <!--tr ng-repeat="entity1 in ontologies.ont1.entities|orderBy:orderByField:reverseSort|filter:searchText"
                 class="{{selected}}"-->
-            <tr ng-repeat="entity1 in ontologies.ont1.entities"
-                class="{{selected}}">
+            <tr ng-repeat="entity1 in ontologies.ont1.entities" class="{{selected}}">
 
               <!-- Change details div with selected entities details when mouseover or click -->
-              <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
-                <input type="text" name="index" value="{{entity1.id}}" style="display: none;" readonly>{{entity1.id}}</input>
+              <td ng-mouseenter="changeDetailsExtended()" ng-click="changeDetailsExtended(true)" style="cursor: pointer; cursor: hand;">
+                <input type="text" name="index" value="{{entity1.id}}" style="display: none;" readonly>{{getEntityLabel(entity1, "en")}}</input>
               </td>
             </tr>
           </tbody>
