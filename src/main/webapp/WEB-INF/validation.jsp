@@ -70,7 +70,7 @@ for the sourceOnt and targetOnt ontology alignment -->
       </p>
       <div style="width: 100%; display: inline-block;">
         <%
-        if (time != null) {%>
+          if (time != null) {%>
         <div class='col-sm-4'>
           <div class='panel panel-info'>
             <div class='panel-heading' style='text-align: center;'>
@@ -231,6 +231,28 @@ for the sourceOnt and targetOnt ontology alignment -->
     <!-- The UI to add new mappings (alternate with validate existing mappings when click on last button) -->
     <div id="extendedValidationDiv" class="row" style="display: none;">
 
+      <!-- To save a new mapping -->
+      <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">
+
+        <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
+                ng-click="hideAlignments($event)">Add mapping</button>
+        
+        <select id="addMappingSelect" name="addMappingSelect" class="form-control"
+                         <!--ng-model="selectRelationModel[alignment.index]" 
+                        ng-click="updateSelectRelationModels($event, alignment)" ng-init="selectRelationModel[alignment.index] = alignment.relation || 'http://www.w3.org/2004/02/skos/core#exactMatch'"-->>
+                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#exactMatch"selected >skos:exactMatch</option>
+                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#closeMatch">skos:closeMatch</option>
+                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#broadMatch">skos:broadMatch</option>
+                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
+                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#relatedMatch">skos:relatedMatch</option>
+                  <option style="background: #d9534f;" value="notvalid">Not valid</option>
+                </select>
+
+        <label style="margin-left: 3%;">Language:</label>
+        <select class="form-control"  style="display:inline; margin-left: 1%;" ng-model="selectedLang" 
+                ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
+      </div>
+
       <!-- Source ontology concepts tables -->
       <div class="col-sm-6">
         <table id=table class="table table-striped">
@@ -246,7 +268,7 @@ for the sourceOnt and targetOnt ontology alignment -->
             <tr ng-repeat="entity in ontologies.ont1.entities" class="{{selected}}">
 
               <!-- Change details div with selected entities details when mouseover or click -->
-              <td ng-mouseenter="changeDetailsExtended('Source', srcDetailsLocked, srcLastSelected)" ng-click="changeDetailsExtended('Source', srcDetailsLocked, srcLastSelected, true)" style="cursor: pointer; cursor: hand;">
+              <td ng-mouseenter="changeDetailsExtended('Source')" ng-click="changeDetailsExtended('Source', true)" style="cursor: pointer; cursor: hand;">
                 <input type="text" name="index" value="{{entity.id}}" style="display: none;" readonly>{{getEntityLabel(entity, "en")}}</input>
               </td>
             </tr>

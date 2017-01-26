@@ -79,7 +79,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.detailsLocked = false;
   $scope.tarDetailsLocked = false;
   $scope.srcDetailsLocked = false;
-  
+
   // init the ng-model used by the relation select dropdown
   $scope.selectRelationModel = {};
   $scope.hideValidatedAlignments = false;
@@ -184,7 +184,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
         }
 
         // Remove selected if click again on selected row
-        if (selected === "selected") {
+        if (this.selected === "selected") {
           this.selected = "";
           $scope.detailsLocked = false;
         } else {
@@ -219,15 +219,16 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
             var selected = this.selected;
             $scope.srcLastSelected.selected = "";
           }
+
+          // Remove selected if click again on selected row
+          if (selected === "selected") {
+            this.selected = "";
+            $scope.srcDetailsLocked = false;
+          } else {
+            this.selected = "selected";
+          }
+          $scope.srcLastSelected = this;
         }
-        // Remove selected if click again on selected row
-        if (selected === "selected") {
-          this.selected = "";
-          $scope.srcDetailsLocked = false;
-        } else {
-          this.selected = "selected";
-        }
-        $scope.srcLastSelected = this;
 
         var stringDetail = buildEntityDetailsHtml(this.entity, ontologyName, selectedLang, ontology);
         document.getElementById(elementId).innerHTML = stringDetail;
@@ -246,15 +247,16 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
             var selected = this.selected;
             $scope.tarLastSelected.selected = "";
           }
+
+          // Remove selected if click again on selected row
+          if (selected === "selected") {
+            this.selected = "";
+            $scope.tarDetailsLocked = false;
+          } else {
+            this.selected = "selected";
+          }
+          $scope.tarLastSelected = this;
         }
-        // Remove selected if click again on selected row
-        if (selected === "selected") {
-          this.selected = "";
-          $scope.tarDetailsLocked = false;
-        } else {
-          this.selected = "selected";
-        }
-        $scope.tarLastSelected = this;
 
         var stringDetail = buildEntityDetailsHtml(this.entity, ontologyName, selectedLang, ontology);
         document.getElementById(elementId).innerHTML = stringDetail;
