@@ -235,9 +235,10 @@ for the sourceOnt and targetOnt ontology alignment -->
       <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">
 
         <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
+                ng-disabled="srcDetailsLocked == false || tarDetailsLocked == false"
                 ng-click="hideAlignments($event)">Add mapping</button>
         
-        <select id="addMappingSelect" name="addMappingSelect" class="form-control"
+        <select id="addMappingSelect" name="addMappingSelect" class="form-control" style="display: inline-block;"
                          <!--ng-model="selectRelationModel[alignment.index]" 
                         ng-click="updateSelectRelationModels($event, alignment)" ng-init="selectRelationModel[alignment.index] = alignment.relation || 'http://www.w3.org/2004/02/skos/core#exactMatch'"-->>
                   <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#exactMatch"selected >skos:exactMatch</option>
@@ -249,7 +250,7 @@ for the sourceOnt and targetOnt ontology alignment -->
                 </select>
 
         <label style="margin-left: 3%;">Language:</label>
-        <select class="form-control"  style="display:inline; margin-left: 1%;" ng-model="selectedLang" 
+        <select class="form-control"  style="display:inline-block; margin-left: 1%;" ng-model="selectedLang" 
                 ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
       </div>
 
