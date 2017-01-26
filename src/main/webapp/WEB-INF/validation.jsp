@@ -230,6 +230,8 @@ for the sourceOnt and targetOnt ontology alignment -->
 
     <!-- The UI to add new mappings (alternate with validate existing mappings when click on last button) -->
     <div id="extendedValidationDiv" class="row" style="display: none;">
+      
+      <!-- Source ontology concepts tables -->
       <div class="col-sm-6">
         <table id=table class="table table-striped">
           <thead>
@@ -244,7 +246,7 @@ for the sourceOnt and targetOnt ontology alignment -->
             <tr ng-repeat="entity in ontologies.ont1.entities" class="{{selected}}">
 
               <!-- Change details div with selected entities details when mouseover or click -->
-              <td ng-mouseenter="changeDetailsExtended('Source')" ng-click="changeDetailsExtended('Source', true)" style="cursor: pointer; cursor: hand;">
+              <td ng-mouseenter="changeDetailsExtended('Source', srcDetailsLocked, srcLastSelected)" ng-click="changeDetailsExtended('Source', srcDetailsLocked, srcLastSelected, true)" style="cursor: pointer; cursor: hand;">
                 <input type="text" name="index" value="{{entity.id}}" style="display: none;" readonly>{{getEntityLabel(entity, "en")}}</input>
               </td>
             </tr>
@@ -252,7 +254,7 @@ for the sourceOnt and targetOnt ontology alignment -->
         </table>
       </div>
 
-
+      <!-- Target ontology concepts tables -->
       <div class="col-sm-6">
         <table id=table class="table table-striped">
           <thead>
@@ -278,7 +280,7 @@ for the sourceOnt and targetOnt ontology alignment -->
 
     <div style="text-align: center;">
       <button type="button" id="extendedBtn" class="btn btn-default" onclick="toggleExtended()" 
-              style="margin-bottom: 3%;">Add new mappings to alignment</button>
+              style="margin-bottom: 3%;">Add new mappings to alignment (beta)</button>
     </div>
   </section>
 

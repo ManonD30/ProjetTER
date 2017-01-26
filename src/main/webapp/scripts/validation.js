@@ -77,6 +77,9 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.sourceOnt.namespaces, $window.targetOnt.namespaces);
   $scope.detailsLocked = false;
+  $scope.tarDetailsLocked = false;
+  $scope.srcDetailsLocked = false;
+  
   // init the ng-model used by the relation select dropdown
   $scope.selectRelationModel = {};
   $scope.hideValidatedAlignments = false;
@@ -86,6 +89,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   console.log($scope.alignments);
   alignments = $scope.alignments;
   $scope.langSelect = {"en": "en", "fr": "fr"};
+
   // Little function to get the first element of an object (used to get first label if selectedLang not available
   $scope.getEntityLabel = function (entity, selectedLang) {
     if (entity.label !== undefined) {
@@ -193,42 +197,70 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       buildNetwork("target", this.alignment.entity2, $scope.selectedLang, $scope.ontologies);
     }
   };
-  
+
   /**
    * Change details div to show selected entity details for the extended UI (add new mappings)
    * @param {boolean} clickedOn
    * @returns {undefined}
    */
   $scope.changeDetailsExtended = function (ontologyName, clickedOn) {
-    if ($scope.detailsLocked === false || clickedOn === true) {
-      // Set selected lang to en by default (see $scope.selectedLang to change it dynamically)
-      var selectedLang = "en";
-      if (ontologyName == 'Source') {
+    // Set selected lang to en by default (see $scope.selectedLang to change it dynamically)
+    var selectedLang = "en";
+    if (ontologyName == 'Source') {
+      if ($scope.srcDetailsLocked === false || clickedOn === true) {
+
         var elementId = "entityDetail1";
         var ontology = $scope.ontologies.ont1;
-      } else if (ontologyName == 'Target') {
-        var elementId = "entityDetail2";
-        var ontology = $scope.ontologies.ont2;
-      }
-      var stringDetail = buildEntityDetailsHtml(this.entity, ontologyName, selectedLang, ontology);
-      document.getElementById(elementId).innerHTML = stringDetail;
-      if (clickedOn === true) {
-        $scope.detailsLocked = true;
-        if ($scope.lastSelected) {
-          var selected = this.selected;
-          $scope.lastSelected.selected = "";
-        }
 
+        // Handle if we need to lock the change of concept details if click
+        if (clickedOn === true) {
+          $scope.srcDetailsLocked = true;
+          if ($scope.srcLastSelected) {
+            var selected = this.selected;
+            $scope.srcLastSelected.selected = "";
+          }
+        }
         // Remove selected if click again on selected row
         if (selected === "selected") {
           this.selected = "";
-          $scope.detailsLocked = false;
+          $scope.srcDetailsLocked = false;
         } else {
           this.selected = "selected";
         }
-        $scope.lastSelected = this;
+        $scope.srcLastSelected = this;
+
+        var stringDetail = buildEntityDetailsHtml(this.entity, ontologyName, selectedLang, ontology);
+        document.getElementById(elementId).innerHTML = stringDetail;
+
+        buildNetwork("source", this.entity, selectedLang, $scope.ontologies);
       }
-      buildNetwork("source", this.entity, selectedLang, $scope.ontologies);
+    } else if (ontologyName == 'Target') {
+      if ($scope.tarDetailsLocked === false || clickedOn === true) {
+        var elementId = "entityDetail2";
+        var ontology = $scope.ontologies.ont2;
+
+        // Handle if we need to lock the change of concept details if click
+        if (clickedOn === true) {
+          $scope.tarDetailsLocked = true;
+          if ($scope.tarLastSelected) {
+            var selected = this.selected;
+            $scope.tarLastSelected.selected = "";
+          }
+        }
+        // Remove selected if click again on selected row
+        if (selected === "selected") {
+          this.selected = "";
+          $scope.tarDetailsLocked = false;
+        } else {
+          this.selected = "selected";
+        }
+        $scope.tarLastSelected = this;
+
+        var stringDetail = buildEntityDetailsHtml(this.entity, ontologyName, selectedLang, ontology);
+        document.getElementById(elementId).innerHTML = stringDetail;
+
+        buildNetwork("target", this.entity, selectedLang, $scope.ontologies);
+      }
     }
   };
 });
