@@ -96,6 +96,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
   $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson.entities, $scope.ontologies);
+  console.log("alignments:");
   console.log($scope.alignments);
   alignments = $scope.alignments;
   $scope.langSelect = {"en": "en", "fr": "fr"};
@@ -511,7 +512,7 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
     }
 
     // If property is an URI we check if it has properties in our ontology
-    if (orderedEntities[attr].startsWith("http")) {
+    if (orderedEntities[attr] != null && orderedEntities[attr].startsWith("http")) {
       if (ontology === "target") {
         var ontoNumber = "ont2";
       } else if (ontology === "source") {

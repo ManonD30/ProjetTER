@@ -305,7 +305,7 @@ for the sourceOnt and targetOnt ontology alignment -->
           <tbody>
             <!--tr ng-repeat="entity1 in ontologies.ont1.entities|orderBy:orderByField:reverseSort|filter:searchTar"
                 class="{{selected}}"-->
-            <tr ng-repeat="entity in ontologies.ont2.entities" class="{{selected}}">
+            <tr ng-repeat="entity in tarOntArray | filter:searchTar" class="{{selected}}">
 
               <!-- Change details div with selected entities details when mouseover or click -->
               <td ng-mouseenter="changeDetailsExtended('Target', entity)" ng-click="changeDetailsExtended('Target', entity, true)" style="cursor: pointer; cursor: hand;">
