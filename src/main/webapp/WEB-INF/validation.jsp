@@ -269,14 +269,14 @@ for the sourceOnt and targetOnt ontology alignment -->
         <table id=table class="table table-striped" style="margin-top: 40px;">
           <thead>
             <tr style="cursor: pointer;">                                                                                 
-              <!--th href="#" ng-click="orderByField = 'ontologies.ont1.entities.entity1.id'; reverseSort = !reverseSort" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th-->
-              <th href="#" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th>
+              <th href="#" ng-click="orderByField = 'entity.id'; reverseSort = !reverseSort" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th>
+              <!--th href="#" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th-->
             </tr>
           </thead>
           <tbody>
             <!--tr ng-repeat="entity1 in ontologies.ont1.entities|orderBy:orderByField:reverseSort|filter:searchSrc"
                 class="{{selected}}"-->
-            <tr ng-repeat="entity in srcOntArray | filter:searchSrc" class="{{selected}}">
+            <tr ng-repeat="entity in srcOntArray | orderBy:orderByField:reverseSort | filter:searchSrc" class="{{selected}}">
 
               <!-- Change details div with selected entities details when mouseover or click -->
               <td ng-mouseenter="changeDetailsExtended('Source', entity)" ng-click="changeDetailsExtended('Source', entity, true)" style="cursor: pointer; cursor: hand;">
@@ -294,14 +294,11 @@ for the sourceOnt and targetOnt ontology alignment -->
         <table id=table class="table table-striped" style="margin-top: 40px;">
           <thead>
             <tr style="cursor: pointer;">                                                                                 
-              <!--th href="#" ng-click="orderByField = 'ontologies.ont1.entities.entity1.id'; reverseSort = !reverseSort" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th-->
-              <th href="#" title="Sort by Source entity URI">{{ontologies.tarOntUri}}</th>
+              <th href="#" ng-click="orderByField = 'entity.id'; reverseSort = !reverseSort" title="Sort by Target entity URI">{{ontologies.tarOntUri}}</th>
             </tr>
           </thead>
           <tbody>
-            <!--tr ng-repeat="entity1 in ontologies.ont1.entities|orderBy:orderByField:reverseSort|filter:searchTar"
-                class="{{selected}}"-->
-            <tr ng-repeat="entity in tarOntArray | filter:searchTar" class="{{selected}}">
+            <tr ng-repeat="entity in tarOntArray | orderBy:orderByField:reverseSort | filter:searchTar" class="{{selected}}">
 
               <!-- Change details div with selected entities details when mouseover or click -->
               <td ng-mouseenter="changeDetailsExtended('Target', entity)" ng-click="changeDetailsExtended('Target', entity, true)" style="cursor: pointer; cursor: hand;">
