@@ -195,7 +195,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
         }
 
         // Remove selected if click again on selected row
-        if (this.selected === "selected") {
+        if (selected === "selected") {
           this.selected = "";
           $scope.detailsLocked = false;
         } else {
