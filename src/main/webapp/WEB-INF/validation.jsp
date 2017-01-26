@@ -253,21 +253,17 @@ for the sourceOnt and targetOnt ontology alignment -->
     <!-- The UI to add new mappings (alternate with validate existing mappings when click on last button) -->
     <div id="extendedValidationDiv" class="row" style="display: none;">
 
-      <!-- To save a new mapping -->
-      <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">
+      <!-- Params to display concepts (lang here) -->
+      <!--div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">
         <label style="margin-left: 3%;">Language:</label>
         <select class="form-control"  style="display:inline-block; margin-left: 1%;" ng-model="selectedLang" 
                 ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
-      </div>
+      </div-->
 
       <!-- Source ontology concepts tables -->
       <div class="col-sm-6">
 
-        <!-- CREATE CUSTOM FILTER to filter properties too: https://docs.angularjs.org/error/filter/notarray 
-        The problems comes from that this is not an array of entities, but a JSON object (convert it?)
-        var array = $.map(myObj, function(value, index) {
-          return [value];
-        });-->
+        <!-- CREATE CUSTOM FILTER to filter properties too: https://docs.angularjs.org/error/filter/notarray -->
         <label>Search: <input type="search" ng-model="searchSrc"></label>
 
         <table id=table class="table table-striped">
