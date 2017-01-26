@@ -170,3 +170,10 @@ MAIN : RESULTS
 .main-section .relation .btn {
   min-width: 115px;
 }
+
+#fixDiv {
+  position: fixed;
+  bottom: 8%;
+  left: 2%;
+  z-index: 1;
+}

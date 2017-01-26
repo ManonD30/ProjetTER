@@ -12,8 +12,6 @@ for the sourceOnt and targetOnt ontology alignment -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.css">
 <link rel="stylesheet" href="css/vis.min.css" />
-<!-- Custom CSS for validation: -->
-<link href="css/validation.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 <script type="text/javascript" src="scripts/vis.min.js"></script>
 <script src="scripts/validation.js"></script>
@@ -22,9 +20,10 @@ for the sourceOnt and targetOnt ontology alignment -->
 
 
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!--script src="https://code.jquery.com/jquery-1.12.4.js"></script-->
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- Custom CSS for validation: -->
+<link href="css/validation.css" rel="stylesheet">
 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
 <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
 
@@ -60,6 +59,28 @@ for the sourceOnt and targetOnt ontology alignment -->
   </script>
 
   <section class="main-section" ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
+
+    <div id="fixDiv">
+      <div id="fixAddMapping" style="display: none;">
+        <button type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
+                ng-disabled="srcDetailsLocked == false || tarDetailsLocked == false"
+                ng-click="addMapping($event)">Add mapping</button>
+
+        <select id="addMappingSelect" name="addMappingSelect" class="form-control" style="display: inline-block;"
+                ng-model="addRelation" ng-init="addRelation = 'http://www.w3.org/2004/02/skos/core#exactMatch'">
+          <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#exactMatch"selected >skos:exactMatch</option>
+          <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#closeMatch">skos:closeMatch</option>
+          <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#broadMatch">skos:broadMatch</option>
+          <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
+          <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#relatedMatch">skos:relatedMatch</option>
+        </select>
+      </div>
+
+      <div style="text-align: center;">
+        <button type="button" id="extendedBtn" class="btn btn-default" onclick="toggleExtended()" 
+                style="margin-bottom: 3%;">Add new mappings to alignment (beta)</button>
+      </div>
+    </div>
 
     <!-- Contains table to validate mappings. Hided when adding new mappings -->
     <div id="validationForm">
@@ -233,20 +254,6 @@ for the sourceOnt and targetOnt ontology alignment -->
 
       <!-- To save a new mapping -->
       <div class="alert alert-success" style="text-align: center;     padding-top: 20px; padding-bottom: 20px;">
-
-        <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
-                ng-disabled="srcDetailsLocked == false || tarDetailsLocked == false"
-                ng-click="addMapping($event)">Add mapping</button>
-        
-        <select id="addMappingSelect" name="addMappingSelect" class="form-control" style="display: inline-block;"
-                         ng-model="addRelation" ng-init="addRelation = 'http://www.w3.org/2004/02/skos/core#exactMatch'">
-                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#exactMatch"selected >skos:exactMatch</option>
-                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#closeMatch">skos:closeMatch</option>
-                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#broadMatch">skos:broadMatch</option>
-                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
-                  <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#relatedMatch">skos:relatedMatch</option>
-                </select>
-
         <label style="margin-left: 3%;">Language:</label>
         <select class="form-control"  style="display:inline-block; margin-left: 1%;" ng-model="selectedLang" 
                 ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
@@ -297,11 +304,6 @@ for the sourceOnt and targetOnt ontology alignment -->
           </tbody>
         </table>
       </div>
-    </div>
-
-    <div style="text-align: center;">
-      <button type="button" id="extendedBtn" class="btn btn-default" onclick="toggleExtended()" 
-              style="margin-bottom: 3%;">Add new mappings to alignment (beta)</button>
     </div>
   </section>
 

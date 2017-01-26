@@ -605,13 +605,17 @@ function toggleExtended()
 {
   var validationDiv = document.getElementById("validationForm");
   var extendedDiv = document.getElementById("extendedValidationDiv");
+  var fixAddMapping = document.getElementById("fixAddMapping");
   if (extendedDiv.style.display == 'block') {
+    // If add new mapping UI already on we change to align validation
     extendedDiv.style.display = 'none';
     validationDiv.style.display = 'block';
+    fixAddMapping.style.display = 'none';
     document.getElementById("extendedBtn").innerText = "Add new mappings to the alignment";
   } else {
     extendedDiv.style.display = 'block';
     validationDiv.style.display = 'none';
+    fixAddMapping.style.display = 'inline-block';
     document.getElementById("extendedBtn").innerText = "Validate existing mappings";
   }
 }
