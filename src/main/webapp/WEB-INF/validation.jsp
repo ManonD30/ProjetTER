@@ -61,12 +61,9 @@ for the sourceOnt and targetOnt ontology alignment -->
   <section class="main-section" ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
 
     <div id="fixDiv">
-      <div id="fixAddMapping" style="display: none;">
-        <button type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
-                ng-disabled="srcDetailsLocked == false || tarDetailsLocked == false"
-                ng-click="addMapping($event)">Add mapping</button>
+      <div id="fixAddMapping" style="display: none; margin-bottom: 20px;">
 
-        <select id="addMappingSelect" name="addMappingSelect" class="form-control" style="display: inline-block;"
+        <select id="addMappingSelect" name="addMappingSelect" class="form-control" style="margin-right: 20px;"
                 ng-model="addRelation" ng-init="addRelation = 'http://www.w3.org/2004/02/skos/core#exactMatch'">
           <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#exactMatch"selected >skos:exactMatch</option>
           <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#closeMatch">skos:closeMatch</option>
@@ -74,9 +71,13 @@ for the sourceOnt and targetOnt ontology alignment -->
           <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
           <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#relatedMatch">skos:relatedMatch</option>
         </select>
+        
+        <button type="button" class="btn btn-sm btn-info"
+                ng-disabled="srcDetailsLocked == false || tarDetailsLocked == false"
+                ng-click="addMapping($event)">Add mapping</button>
       </div>
 
-      <div style="text-align: center;">
+      <div>
         <button type="button" id="extendedBtn" class="btn btn-default" onclick="toggleExtended()" 
                 style="margin-bottom: 3%;">Add new mappings to alignment (beta)</button>
       </div>

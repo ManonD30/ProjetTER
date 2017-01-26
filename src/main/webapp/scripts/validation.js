@@ -615,7 +615,7 @@ function toggleExtended()
   } else {
     extendedDiv.style.display = 'block';
     validationDiv.style.display = 'none';
-    fixAddMapping.style.display = 'inline-block';
+    fixAddMapping.style.display = 'flex';
     document.getElementById("extendedBtn").innerText = "Validate existing mappings";
   }
 }
