@@ -264,9 +264,9 @@ for the sourceOnt and targetOnt ontology alignment -->
       <div class="col-sm-6">
 
         <!-- CREATE CUSTOM FILTER to filter properties too: https://docs.angularjs.org/error/filter/notarray -->
-        <label>Search: <input type="search" ng-model="searchSrc"></label>
+        <label style="position: fixed;">Search: <input type="search" ng-model="searchSrc"></label>
 
-        <table id=table class="table table-striped">
+        <table id=table class="table table-striped" style="margin-top: 40px;">
           <thead>
             <tr style="cursor: pointer;">                                                                                 
               <!--th href="#" ng-click="orderByField = 'ontologies.ont1.entities.entity1.id'; reverseSort = !reverseSort" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th-->
@@ -289,9 +289,9 @@ for the sourceOnt and targetOnt ontology alignment -->
 
       <!-- Target ontology concepts tables -->
       <div class="col-sm-6">
-        <label>Search: <input type="search" ng-model="searchTar"></label>
+        <label style="position: fixed;">Search: <input type="search" ng-model="searchTar"></label>
 
-        <table id=table class="table table-striped">
+        <table id=table class="table table-striped" style="margin-top: 40px;">
           <thead>
             <tr style="cursor: pointer;">                                                                                 
               <!--th href="#" ng-click="orderByField = 'ontologies.ont1.entities.entity1.id'; reverseSort = !reverseSort" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th-->
