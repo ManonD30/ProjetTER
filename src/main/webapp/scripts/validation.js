@@ -102,7 +102,11 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     return entity.id;
   };
 
-  // Hide all validated alignments when click on hideValidatedAlignments button
+  /**
+   * Hide all validated alignments when click on hideValidatedAlignments button
+   * @param {type} $event
+   * @returns {undefined}
+   */
   $scope.hideAlignments = function ($event) {
     $scope.hideValidatedAlignments = !$scope.hideValidatedAlignments;
     // Change button color
@@ -111,6 +115,13 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     } else {
       angular.element($event.currentTarget).css('background', 'linear-gradient(to bottom, #5bc0de 0%, #2aabd2 100%)');
     }
+  };
+  
+  $scope.addMapping = function ($event) {
+    // add it to $scope.alignments
+    var newMapping = {index:$scope.alignments.length, relation: "http://www.w3.org/2004/02/skos/core#exactMatch", measure: 1,
+      entity1:$scope.selectedSrcEntity, entity2: $scope.selectedTarEntity};
+    $scope.alignments.push(newMapping);
   };
 
   /**
@@ -203,7 +214,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
    * @param {boolean} clickedOn
    * @returns {undefined}
    */
-  $scope.changeDetailsExtended = function (ontologyName, clickedOn) {
+  $scope.changeDetailsExtended = function (ontologyName, selectedEntity, clickedOn) {
     // Set selected lang to en by default (see $scope.selectedLang to change it dynamically)
     var selectedLang = "en";
     if (ontologyName == 'Source') {
@@ -225,6 +236,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
             this.selected = "";
             $scope.srcDetailsLocked = false;
           } else {
+            $scope.selectedSrcEntity = selectedEntity;
             this.selected = "selected";
           }
           $scope.srcLastSelected = this;
@@ -253,6 +265,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
             this.selected = "";
             $scope.tarDetailsLocked = false;
           } else {
+            $scope.selectedTarEntity = selectedEntity;
             this.selected = "selected";
           }
           $scope.tarLastSelected = this;

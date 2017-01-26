@@ -236,7 +236,7 @@ for the sourceOnt and targetOnt ontology alignment -->
 
         <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
                 ng-disabled="srcDetailsLocked == false || tarDetailsLocked == false"
-                ng-click="hideAlignments($event)">Add mapping</button>
+                ng-click="addMapping($event)">Add mapping</button>
         
         <select id="addMappingSelect" name="addMappingSelect" class="form-control" style="display: inline-block;"
                          <!--ng-model="selectRelationModel[alignment.index]" 
@@ -269,7 +269,7 @@ for the sourceOnt and targetOnt ontology alignment -->
             <tr ng-repeat="entity in ontologies.ont1.entities" class="{{selected}}">
 
               <!-- Change details div with selected entities details when mouseover or click -->
-              <td ng-mouseenter="changeDetailsExtended('Source')" ng-click="changeDetailsExtended('Source', true)" style="cursor: pointer; cursor: hand;">
+              <td ng-mouseenter="changeDetailsExtended('Source', entity)" ng-click="changeDetailsExtended('Source', entity, true)" style="cursor: pointer; cursor: hand;">
                 <input type="text" name="index" value="{{entity.id}}" style="display: none;" readonly>{{getEntityLabel(entity, "en")}}</input>
               </td>
             </tr>
@@ -292,7 +292,7 @@ for the sourceOnt and targetOnt ontology alignment -->
             <tr ng-repeat="entity in ontologies.ont2.entities" class="{{selected}}">
 
               <!-- Change details div with selected entities details when mouseover or click -->
-              <td ng-mouseenter="changeDetailsExtended('Target')" ng-click="changeDetailsExtended('Target', true)" style="cursor: pointer; cursor: hand;">
+              <td ng-mouseenter="changeDetailsExtended('Target', entity)" ng-click="changeDetailsExtended('Target', entity, true)" style="cursor: pointer; cursor: hand;">
                 <input type="text" name="index" value="{{entity.id}}" style="display: none;" readonly>{{getEntityLabel(entity, "en")}}</input>
               </td>
             </tr>
