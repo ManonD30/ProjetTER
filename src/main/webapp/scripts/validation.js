@@ -74,6 +74,16 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   }
   $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": srcOntoUri, "tarOntUri": tarOntoUri};
   console.log($scope.ontologies);
+  // Convert ontologies entity object to an array for filter
+  $scope.srcOntArray = $.map($scope.ontologies.ont1.entities, function (value, index) {
+    return [value];
+  });
+  $scope.tarOntArray = $.map($scope.ontologies.ont2.entities, function (value, index) {
+    return [value];
+  });
+  console.log("srcOntArray:");
+  console.log($scope.srcOntArray);
+
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.sourceOnt.namespaces, $window.targetOnt.namespaces);
   $scope.detailsLocked = false;
@@ -116,11 +126,11 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       angular.element($event.currentTarget).css('background', 'linear-gradient(to bottom, #5bc0de 0%, #2aabd2 100%)');
     }
   };
-  
+
   $scope.addMapping = function ($event) {
     // add it to $scope.alignments
-    var newMapping = {index:$scope.alignments.length, relation: $scope.addRelation, measure: 1,
-      entity1:$scope.selectedSrcEntity, entity2: $scope.selectedTarEntity};
+    var newMapping = {index: $scope.alignments.length, relation: $scope.addRelation, measure: 1,
+      entity1: $scope.selectedSrcEntity, entity2: $scope.selectedTarEntity};
     $scope.alignments.push(newMapping);
   };
 

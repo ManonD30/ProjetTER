@@ -71,7 +71,7 @@ for the sourceOnt and targetOnt ontology alignment -->
           <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#narrowMatch">skos:narrowMatch</option>
           <option style="background: #fff;" value="http://www.w3.org/2004/02/skos/core#relatedMatch">skos:relatedMatch</option>
         </select>
-        
+
         <button type="button" class="btn btn-sm btn-info"
                 ng-disabled="srcDetailsLocked == false || tarDetailsLocked == false"
                 ng-click="addMapping($event)">Add mapping</button>
@@ -262,6 +262,14 @@ for the sourceOnt and targetOnt ontology alignment -->
 
       <!-- Source ontology concepts tables -->
       <div class="col-sm-6">
+
+        <!-- CREATE CUSTOM FILTER to filter properties too: https://docs.angularjs.org/error/filter/notarray 
+        The problems comes from that this is not an array of entities, but a JSON object (convert it?)
+        var array = $.map(myObj, function(value, index) {
+          return [value];
+        });-->
+        <label>Search: <input type="search" ng-model="searchSrc"></label>
+
         <table id=table class="table table-striped">
           <thead>
             <tr style="cursor: pointer;">                                                                                 
@@ -270,9 +278,9 @@ for the sourceOnt and targetOnt ontology alignment -->
             </tr>
           </thead>
           <tbody>
-            <!--tr ng-repeat="entity1 in ontologies.ont1.entities|orderBy:orderByField:reverseSort|filter:searchText"
+            <!--tr ng-repeat="entity1 in ontologies.ont1.entities|orderBy:orderByField:reverseSort|filter:searchSrc"
                 class="{{selected}}"-->
-            <tr ng-repeat="entity in ontologies.ont1.entities" class="{{selected}}">
+            <tr ng-repeat="entity in srcOntArray | filter:searchSrc" class="{{selected}}">
 
               <!-- Change details div with selected entities details when mouseover or click -->
               <td ng-mouseenter="changeDetailsExtended('Source', entity)" ng-click="changeDetailsExtended('Source', entity, true)" style="cursor: pointer; cursor: hand;">
@@ -285,6 +293,8 @@ for the sourceOnt and targetOnt ontology alignment -->
 
       <!-- Target ontology concepts tables -->
       <div class="col-sm-6">
+        <label>Search: <input type="search" ng-model="searchTar"></label>
+
         <table id=table class="table table-striped">
           <thead>
             <tr style="cursor: pointer;">                                                                                 
@@ -293,7 +303,7 @@ for the sourceOnt and targetOnt ontology alignment -->
             </tr>
           </thead>
           <tbody>
-            <!--tr ng-repeat="entity1 in ontologies.ont1.entities|orderBy:orderByField:reverseSort|filter:searchText"
+            <!--tr ng-repeat="entity1 in ontologies.ont1.entities|orderBy:orderByField:reverseSort|filter:searchTar"
                 class="{{selected}}"-->
             <tr ng-repeat="entity in ontologies.ont2.entities" class="{{selected}}">
 
