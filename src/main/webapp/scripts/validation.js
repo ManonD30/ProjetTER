@@ -119,7 +119,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   
   $scope.addMapping = function ($event) {
     // add it to $scope.alignments
-    var newMapping = {index:$scope.alignments.length, relation: "http://www.w3.org/2004/02/skos/core#exactMatch", measure: 1,
+    var newMapping = {index:$scope.alignments.length, relation: $scope.addRelation, measure: 1,
       entity1:$scope.selectedSrcEntity, entity2: $scope.selectedTarEntity};
     $scope.alignments.push(newMapping);
   };
