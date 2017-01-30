@@ -133,7 +133,9 @@ for the sourceOnt and targetOnt ontology alignment -->
               <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> entities on <%=((JSONObject) targetOnt.get("entities")).size()%></span>
               <div class='progress'>
                 <div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='<%=tarOverlappingProportion%>' 
-                     aria-valuemin='0' aria-valuemax='100' style='width: <%=tarOverlappingProportion%>%;'><b><%=tarOverlappingProportion%>%</b></div></div>"
+                     aria-valuemin='0' aria-valuemax='100' style='width: <%=tarOverlappingProportion%>%;'><b><%=tarOverlappingProportion%>%</b>
+                </div>
+              </div>
             </div>
           </div>
         </div>

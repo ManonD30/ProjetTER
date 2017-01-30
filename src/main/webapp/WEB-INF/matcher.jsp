@@ -15,7 +15,7 @@
 
       <div class="alert alert-warning" role="alert">
         <b>SKOS</b> scheme are converted to OWL (currently supported by YAM++), so mind that the semantics may be slightly altered (skos:broader and skos:narrower to owl:subClassOf). <br/>
-        <b>OBO</b> format are currently  <b>not supported</b>
+        <b>OBO</b> format is currently  <b>not supported</b>
       </div>
 
       <!-- The user can provide ontologies from URL or by uploading a file -->
@@ -89,15 +89,9 @@
                 <h3 class="panel-title">Matcher parameters</h3>
               </div>
               <div class="panel-body">
-                <label style="cursor: pointer;"><input type="checkbox" name="subLabel2subLabel" id="subLabel2subLabel" checked>&nbsp;Match skos:altLabel to skos:altLabel</label>
-                <p>By default Yam++ matches skos:prefLabel to skos:prefLabel and skos:prefLabel to skos:altLabel. Enabling this option allows to perform label matching between skos:altLabel and skos:altLabel.</p>
-                <hr/><br/>
-                <label for="labelSimWeight">Label similarity informative word weight threshold:</label>
-                <input id="labelSimWeight" name="labelSimWeight" type="number" step="0.01" min="0" max="1" value="0.34">
-                <p>YAM++ relies on the notion of word informativeness in order to assign weights to tokens. 
-                  If two labels differ by a highly informative word in the label similarity score computation (if the weight of the word that differ is superior to this threshold), 
-                  the mapping is considered as wrong, even if the similarity score is high. 
-                  Higher threshold could potentially increase the number of mappings (since it makes it harder to get to the threshold to be labeled as an informative word).</p>
+                <label style="cursor: pointer;"><input type="checkbox" name="subLabel2subLabel" id="subLabel2subLabel" checked>&nbsp;Match synonyms to synonyms</label>
+                <p>By default Yam++ matches the preferred label (e.g.: skos:prefLabel) to the preferred label, and the synonyms (e.g.: skos:altLabel) to the preferred label of the 2 ontologies. 
+                  Enabling this option allows to perform label matching between synonyms and synonyms.</p>
               </div>
             </div>
           </div>
