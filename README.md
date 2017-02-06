@@ -28,6 +28,45 @@ X Ne pas afficher l'URI mais le label dans les détails des concepts (link vers 
 
 * Pourquoi y'a certaines lignes qui ne sont plus là (genre la 1) quand je match cmt Conference ?
 
+**IMPORTANT**
+
+Permettre à l'admin de supprimer des ontologies (remplacer args ddl par delete?). Il manque sudo : demander à Joël.
+
+Faire en sorte de pouvoir récupérer mieux les différentes onto et alignments saved : une REST API ?
+
+Mail stack pour problème
+
+Séparer page user et admin ?
+Add des commentaires pour rendre admin page plus lisible
+
+Nommer admin direct dans la page admin
+Admin peut ajouter un field. Si j'y arrive pas : on fait en sorte qu'il faille changer seulement une liste quelque part et on documente dans README
+
+Remettre les timeouts : 10 min
+
+results iaml / diabolo : j'ai un undefined pour chaque mapping
+
+Faire en sorte de parfaitement récupérer le nom
+
+Ajouter mouseover pour le range des scores
+
+Sur 1ere page: mettre REST API à la fin (plus logique, on l'utilise moins)
+
+
+Retirer la colonne Line dans validation
+
+* Yampp online publi: 
+  * Screenshot des trucs importants
+  * Petit paragraphe en anglais sur l'API REST (à quoi ça sert)
+
+* Dans la liste des concepts pour une onto marquer les concepts qui ont déjà matchés
+
+
+Parser le suivant:
+http://liris.cnrs.fr/~fduchate/research/tools/xbenchmatch/#datasets
+
+Donc on utilise un convertisseur qui convertit XSD to OWL (COMA++, http://xml2owl.sourceforge.net/index.php)
+
 
 ## Bug to resolve
 
