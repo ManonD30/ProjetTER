@@ -199,16 +199,17 @@ public class YamFileHandler {
       // Get file from uploaded file in form
       Part filePart = null;
       Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "Juste AVANT request.getPart(fileParam) dans readFileFromRequest");
-      
+
       // Retrieve file from input where name is sourceFile or targetFile
       filePart = request.getPart(ontName + "File");
       if (filePart != null) {
-        String filename = filePart.getSubmittedFileName();
+        //String uploadedFilename = filePart.getSubmittedFileName();
+        //storagePath = this.tmpDir + subDir + "/" + uploadedFilename;
         InputStream fileStream = filePart.getInputStream();
 
         // Write InputStream to file
         File storageFile = new File(storagePath);
-        storageFile.getParentFile().mkdirs(); 
+        storageFile.getParentFile().mkdirs();
 
         java.nio.file.Files.copy(
                 fileStream,

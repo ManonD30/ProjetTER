@@ -21,10 +21,15 @@
       <!-- The user can provide ontologies from URL or by uploading a file -->
       <div class="row">
         <%
-          String acceptFormatTitle = "title='Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml'";
-          String acceptFormatInput = "accept='.owl, .rdf, .nt, .ttl, .jsonld, .json, .xml'";
+          String acceptFormatTitle = "title='Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml, .xsd'";
+          String acceptFormatInput = "accept='.owl, .rdf, .nt, .ttl, .jsonld, .json, .xml, .xsd'";
         %>
         <div class="col-md-6">
+          <select name="sourceType" id="sourceType" class="form-control"  style="width: auto; display:block;">
+            <option value="ONTOLOGY" selected>Ontology</option>
+            <option value="SCHEME">Database scheme (xsd)</option>
+          </select>
+
           <label for=firstFile>Source Ontology</label> <br/>
           <input type="url" class='ontologyUrl' id="sourceUrl" name="sourceUrl" placeholder="Enter ontology URL"/>
 
@@ -40,6 +45,11 @@
           <label id="sourceFilename" style="font-weight: normal;"></label>
         </div>
         <div class="col-md-6">
+          <select name="targetType" id="targetType" class="form-control"  style="width: auto; display:block;">
+            <option value="ONTOLOGY" selected>Ontology</option>
+            <option value="SCHEME">Database scheme (xsd)</option>
+          </select>
+
           <label for=secondFile>Target Ontology</label> <br/>
           <input type="url" class='ontologyUrl' id="targetUrl" name="targetUrl" placeholder="Enter ontology URL"/>
           <br/>
@@ -132,7 +142,7 @@
         <input type="text" id="targetName" name="targetName" placeholder="Enter a name for the Target ontology"
                maxlength="32" pattern="[A-Za-z0-9_-]+" title="Only alphanumeric and - or _" style="width:32ch;"/>
       </div>
-      
+
       <br/>
       <input class="btn btnSubmit" type="submit" value="Match!"/>
     </form>
@@ -191,7 +201,7 @@
       document.getElementById("paramsBtn").innerText = "Hide matcher parameters";
     }
   }
-  
+
   /**
    * To show/hide the save div (for ontologies names)
    */

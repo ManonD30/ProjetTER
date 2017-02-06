@@ -1,5 +1,6 @@
 package fr.lirmm.yamplusplus.yampponline;
 
+import fr.lirmm.yamplusplus.yamppls.InputType;
 import fr.lirmm.yamplusplus.yamppls.MatcherType;
 import java.io.File;
 import java.io.IOException;
@@ -192,6 +193,12 @@ public class Matcher extends HttpServlet {
       // Set params
       if (request.getParameter("matcherType") != null) {
         matcher.setMatcherType(MatcherType.valueOf(request.getParameter("matcherType")));
+      }
+      if (request.getParameter("sourceType") != null) {
+        matcher.setSourceType(InputType.valueOf(request.getParameter("sourceType")));
+      }
+      if (request.getParameter("targetType") != null) {
+        matcher.setTargetType(InputType.valueOf(request.getParameter("targetType")));
       }
       // Remove conflicts true by default
       if (request.getParameter("explicitConflict") == null || request.getParameter("explicitConflict").equals("false")) {
