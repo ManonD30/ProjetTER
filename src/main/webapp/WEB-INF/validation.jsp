@@ -161,7 +161,6 @@ for the sourceOnt and targetOnt ontology alignment -->
         <table id=table class="table table-striped">
           <thead>
             <tr style="cursor: pointer;">
-              <th href="#" ng-click="orderByField = 'index'; reverseSort = !reverseSort" title="Sort by index">Line</th>
               <th href="#" ng-click="orderByField = 'entity1.id'; reverseSort = !reverseSort" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th>
               <th href="#" ng-click="orderByField = 'entity2.id'; reverseSort = !reverseSort" title="Sort by Target entity URI">{{ontologies.tarOntUri}}</th>
               <th href="#" ng-click="orderByField = 'relation'; reverseSort = !reverseSort" style="width: 11em;"
@@ -174,11 +173,6 @@ for the sourceOnt and targetOnt ontology alignment -->
           <tbody>
             <tr ng-repeat="alignment in alignments|orderBy:orderByField:reverseSort|filter:searchText"
                 class="{{selected}}" ng-if="generateTableNgIf(alignment)">
-
-              <!-- Change details div with selected entities details when mouseover or click -->
-              <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
-                <input type="text" name="index" value="{{alignment.index}}" style="display: none;" readonly>{{alignment.index}}</input>
-              </td>
 
               <td ng-mouseenter="changeDetails()" ng-click="changeDetails(true)" style="cursor: pointer; cursor: hand;">
                 <!-- Remember on how to make a little window that show when mouseover
@@ -265,7 +259,6 @@ for the sourceOnt and targetOnt ontology alignment -->
       <!-- Source ontology concepts tables -->
       <div class="col-sm-6">
 
-        <!-- CREATE CUSTOM FILTER to filter properties too: https://docs.angularjs.org/error/filter/notarray -->
         <label style="position: fixed;">Search: <input type="search" ng-model="searchSrc"></label>
 
         <table id=table class="table table-striped" style="margin-top: 40px;">

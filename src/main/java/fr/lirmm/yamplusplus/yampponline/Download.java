@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
-import org.json.simple.JSONObject;
 
 public class Download extends HttpServlet {
 
@@ -108,22 +107,20 @@ public class Download extends HttpServlet {
 
       HashMap<String, String> hashMapping = null;
       ArrayList<HashMap> arrayMappings = new ArrayList<>();
-      String[] indexArray = request.getParameterValues("index");
       String[] entity1 = request.getParameterValues("entity1");
       String[] entity2 = request.getParameterValues("entity2");
       String[] relation = request.getParameterValues("relation");
       String[] measure = request.getParameterValues("measure");
 
       // Put all mappings in an Array of Hashtable
-      if (indexArray != null) {
-        for (String i : indexArray) {
-          // Get the index in param arrays of the validate mappings
-          int paramIndex = Arrays.asList(indexArray).indexOf(i);
+      if (entity1 != null) {
+        for (int i = 0; i < entity1.length; i++) {
+          // Iterate over the validated mappings to add them to an array of hash
           hashMapping = new HashMap<>();
-          hashMapping.put("entity1", entity1[paramIndex]);
-          hashMapping.put("entity2", entity2[paramIndex]);
-          hashMapping.put("relation", relation[paramIndex]);
-          hashMapping.put("measure", measure[paramIndex]);
+          hashMapping.put("entity1", entity1[i]);
+          hashMapping.put("entity2", entity2[i]);
+          hashMapping.put("relation", relation[i]);
+          hashMapping.put("measure", measure[i]);
           arrayMappings.add(hashMapping);
         }
 
