@@ -31,7 +31,7 @@
           <label for="sourceType">Scheme type</label>
           <select name="sourceType" id="sourceType" class="form-control"  style="display:block; margin-bottom: 5%;">
             <option value="ONTOLOGY" selected>Ontology</option>
-            <option value="SCHEME">Database scheme (xsd)</option>
+            <option value="SCHEME">BETA: Database scheme (xsd)</option>
           </select>
 
           <label for=sourceUrl>Source file</label> <br/>
@@ -55,7 +55,7 @@
           <label for="targetType">Scheme type</label>
           <select name="targetType" id="targetType" class="form-control"  style="display:block; margin-bottom: 5%;">
             <option value="ONTOLOGY" selected>Ontology</option>
-            <option value="SCHEME">Database scheme (xsd)</option>
+            <option value="SCHEME">BETA: Database scheme (xsd)</option>
           </select>
 
           <label for=targetUrl>Target file</label> <br/>
