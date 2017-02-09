@@ -38,7 +38,7 @@
         <%          String acceptFormatTitle = "title='Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml'";
           String acceptFormatInput = "accept='.owl, .rdf, .nt, .ttl, .jsonld, .json, .xml'";
         %>
-        <div class="col-md-6">
+        <div class="col-md-6" style="border-right: 1px solid #ccc;">
           <label for=sourceUrl>Source Ontology</label> <br/>
           <input type="url" class='ontologyUrl' id="sourceUrl" name="sourceUrl" placeholder="Enter ontology URL"/>
           <br/>

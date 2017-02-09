@@ -24,13 +24,17 @@
           String acceptFormatTitle = "title='Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml, .xsd'";
           String acceptFormatInput = "accept='.owl, .rdf, .nt, .ttl, .jsonld, .json, .xml, .xsd'";
         %>
-        <div class="col-md-6">
-          <select name="sourceType" id="sourceType" class="form-control"  style="width: auto; display:block;">
+        <div class="col-md-6" style="border-right: 1px solid #ccc;">
+          
+          <h3>Source</h3>
+          
+          <label for="sourceType">Scheme type</label>
+          <select name="sourceType" id="sourceType" class="form-control"  style="display:block; margin-bottom: 5%;">
             <option value="ONTOLOGY" selected>Ontology</option>
             <option value="SCHEME">Database scheme (xsd)</option>
           </select>
 
-          <label for=firstFile>Source Ontology</label> <br/>
+          <label for=sourceUrl>Source file</label> <br/>
           <input type="url" class='ontologyUrl' id="sourceUrl" name="sourceUrl" placeholder="Enter ontology URL"/>
 
           <br/><span style="text-align: center">or</span><br/>
@@ -45,12 +49,16 @@
           <label id="sourceFilename" style="font-weight: normal;"></label>
         </div>
         <div class="col-md-6">
-          <select name="targetType" id="targetType" class="form-control"  style="width: auto; display:block;">
+          
+          <h3>Target</h3>
+          
+          <label for="targetType">Scheme type</label>
+          <select name="targetType" id="targetType" class="form-control"  style="display:block; margin-bottom: 5%;">
             <option value="ONTOLOGY" selected>Ontology</option>
             <option value="SCHEME">Database scheme (xsd)</option>
           </select>
 
-          <label for=secondFile>Target Ontology</label> <br/>
+          <label for=targetUrl>Target file</label> <br/>
           <input type="url" class='ontologyUrl' id="targetUrl" name="targetUrl" placeholder="Enter ontology URL"/>
           <br/>
           <span style="text-align: center">or</span> <br/>
