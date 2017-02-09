@@ -166,6 +166,41 @@ Trouver et/ou Demander  à Hoa comment est calculé le score qu'on voit dans l'a
 * Put your html and css in that folder and name the html file, which you want to be the starting page for your application, index.html
 * Start tomcat and point your browser to url "http://localhost:8080/javadoc". Your index.html page will pop up in the browser
 
+
+
+## How to change yampp-online code
+
+In case of problem contact Vincent Emonet or Joël Maizi
+
+```shell
+# Retrieve the yampp-online project (careful you need to be connected to gite.lirmm.fr to make modifications)
+git clone https://gite.lirmm.fr/opendata/yampp-online.git
+# If project already on your machine, you just need to get the latest version
+git pull
+
+# Now modify the text you want to modify. Exemple for the about page:
+# https://gite.lirmm.fr/opendata/yampp-online/blob/master/src/main/webapp/WEB-INF/aboutus.jsp
+
+# git add, commit and push the modifications to gite.lirmm.fr
+git add .
+git commit -m "my modifications"
+git push
+
+# Connect to info-demo.lirmm.fr server
+ssh -A info-demo.lirmm.fr
+
+# Pull the latest version of yampp-online (either pull or clone, if you already cloned the project)
+git clone https://gite.lirmm.fr/opendata/yampp-online.git
+git pull
+
+# Compile the project (it will compile the newly modificated project and put it in docker). Careful you need the right to copy files into docker
+./compile.sh
+```
+
+
+
+
+
 ## User administration
 
 User can be admin. An admin can see the list of user in its account page. An admin can reset any user password to "changeme"
@@ -177,7 +212,7 @@ The admin role is automatically given to the user created with the username "adm
 * Install docker (and docker-compose if not packaged with)
 
 ```shell
-git pull https://gite.lirmm.fr/opendata/docker-compose-yam
+git clone https://gite.lirmm.fr/opendata/docker-compose-yam
 docker-compose build
 docker-compose up -d
 
@@ -212,7 +247,6 @@ select * from user;
 
 # mvn package and copy to yam_tomcat docker container
 ./compile.sh
-
 
 # Install maven local dependencies, then generate war and upload to docker yam_tomcat
 ./compile.sh -i
