@@ -30,24 +30,24 @@ for the sourceOnt and targetOnt ontology alignment -->
 <main>
 
   <%    // Get alignment Array with all aligned entities
-    JSONObject alignmentObject = (JSONObject) request.getAttribute("alignment");
-    request.setAttribute("srcOntologyURI", (String) alignmentObject.get("srcOntologyURI"));
-    request.setAttribute("tarOntologyURI", (String) alignmentObject.get("tarOntologyURI"));
-
-    // Trying to get ontology loaded using owlapi
-    JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
-    JSONObject targetOnt = (JSONObject) request.getAttribute("targetOnt");
-
-    String srcOverlappingProportion = "0";
-    String tarOverlappingProportion = "0";
-    if (request.getAttribute("srcOverlappingProportion") != null) {
-      srcOverlappingProportion = request.getAttribute("srcOverlappingProportion").toString();
-    }
-    if (request.getAttribute("tarOverlappingProportion") != null) {
-      tarOverlappingProportion = request.getAttribute("tarOverlappingProportion").toString();
-    }
-
     if (request.getAttribute("errorMessage") == null && request.getAttribute("alignment") != null) {
+      JSONObject alignmentObject = (JSONObject) request.getAttribute("alignment");
+      request.setAttribute("srcOntologyURI", (String) alignmentObject.get("srcOntologyURI"));
+      request.setAttribute("tarOntologyURI", (String) alignmentObject.get("tarOntologyURI"));
+
+      // Trying to get ontology loaded using owlapi
+      JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
+      JSONObject targetOnt = (JSONObject) request.getAttribute("targetOnt");
+
+      String srcOverlappingProportion = "0";
+      String tarOverlappingProportion = "0";
+      if (request.getAttribute("srcOverlappingProportion") != null) {
+        srcOverlappingProportion = request.getAttribute("srcOverlappingProportion").toString();
+      }
+      if (request.getAttribute("tarOverlappingProportion") != null) {
+        tarOverlappingProportion = request.getAttribute("tarOverlappingProportion").toString();
+      }
+
       //get the execution time from response
       String time = (String) request.getAttribute("time");
   %>
@@ -278,7 +278,7 @@ for the sourceOnt and targetOnt ontology alignment -->
           <tbody>
             <!--tr ng-repeat="entity1 in ontologies.ont1.entities|orderBy:orderByField:reverseSort|filter:searchSrc"
                 class="{{selected}}"-->
-            <tr ng-repeat="entity in srcOntArray | orderBy:orderByField:reverseSort | filter:searchSrc" class="{{selected}}">
+            <tr ng-repeat="entity in srcOntArray| orderBy:orderByField:reverseSort | filter:searchSrc" class="{{selected}}">
 
               <!-- Change details div with selected entities details when mouseover or click -->
               <td ng-mouseenter="changeDetailsExtended('Source', entity)" ng-click="changeDetailsExtended('Source', entity, true)" style="cursor: pointer; cursor: hand;">
@@ -300,7 +300,7 @@ for the sourceOnt and targetOnt ontology alignment -->
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="entity in tarOntArray | orderBy:orderByField:reverseSort | filter:searchTar" class="{{selected}}">
+            <tr ng-repeat="entity in tarOntArray| orderBy:orderByField:reverseSort | filter:searchTar" class="{{selected}}">
 
               <!-- Change details div with selected entities details when mouseover or click -->
               <td ng-mouseenter="changeDetailsExtended('Target', entity)" ng-click="changeDetailsExtended('Target', entity, true)" style="cursor: pointer; cursor: hand;">

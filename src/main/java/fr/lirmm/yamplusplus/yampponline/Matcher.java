@@ -234,6 +234,11 @@ public class Matcher extends HttpServlet {
       String resultStoragePath = matcher.alignOntologies(new File(sourceStoragePath).toURI(),
               new File(targetStoragePath).toURI());
       myLog.log(Level.WARNING, "After matcher.alignOntologies. Result storage path: {0}", resultStoragePath);
+      
+      if (resultStoragePath.startsWith("error:")) {
+        request.setAttribute("errorMessage", resultStoragePath.substring(6));
+        return request;
+      }
 
       request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel()));
       request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel()));
