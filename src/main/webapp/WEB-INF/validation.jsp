@@ -149,8 +149,9 @@ for the sourceOnt and targetOnt ontology alignment -->
         <button id="hideAlignmentsButton" type="button" class="btn btn-sm btn-info" style="margin-left: 1%;" 
                 ng-click="hideAlignments($event)">Hide unvalid mappings</button>
 
-        <label for="slider-range" id="rangeLabel" style="margin-left: 3%; margin-right: 1%">Display scores from {{rangeSlider.minValue| number:2}} to {{rangeSlider.maxValue| number:2}}</label>
-        <div id="slider-range" style="width: 20%;display: inline-flex"></div>
+        <label for="slider-range" id="rangeLabel" style="margin-left: 3%; margin-right: 1%" title="Show mappings with a score in the selected range">
+          Display scores from {{rangeSlider.minValue| number:2}} to {{rangeSlider.maxValue| number:2}}</label>
+        <div id="slider-range" style="width: 20%;display: inline-flex" title="Show mappings with a score in the selected range"></div>
 
         <label style="margin-left: 3%;">Language:</label>
         <select class="form-control"  style="display:inline; margin-left: 1%;" ng-model="selectedLang" 
