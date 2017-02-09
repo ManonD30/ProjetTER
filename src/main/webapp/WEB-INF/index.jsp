@@ -21,10 +21,28 @@
       <!--a href="http://search.maven.org/#artifactdetails%7Cfr.lirmm.yamplusplus%7Cyampp-ls%7C0.1.1%7Cjar"--><b>Yam++ Large Scale library</b><!--/a--> 
       to perform the matching.
 
+      <h1 style='margin-top: 0;'>
+        <a href=matcher>Matcher</a>
+      </h1>
+      <p>
+        Takes as an input ontologies in different formats (owl, skos, and various serializations of rdf, 
+        such as ttl) and produces alignments in a format of the user's choice.
+      </p>
+      <hr>
+
+      <h1>
+        <a href=validator>Validator</a>
+      </h1>
+      <p>
+        Takes as an input an alignment in AlignmentAPI RDF format, visualises it together with the 
+        degree of confidence of each mapping and lets the user confirm, reject or mark as uncertain each 
+        of the produced mappings. The modified alignment can be stored in one of the possible alignment formats.
+      </p>
+      <hr>
+      
       <h1>
         <a href=rest/matcher>Matcher REST API</a>
       </h1>
-
       <p>A <a href="rest/matcher">RESTful API</a> to get an alignment between 2 ontologies. 
         You can pass the URL of the ontology with "sourceUrl" and "targetUrl" parameters.<br/>
         <b>Example:</b><br/>
@@ -32,23 +50,6 @@
           http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=https://mop-iaml.ttl&targetUrl=https://mop-diabolo.ttl&crisscrossConflict=false&apikey=<%=apikey%>
         </a>
       </p>
-
-      <hr>
-
-      <h1 style='margin-top: 0;'>
-        <a href=matcher>Matcher</a>
-      </h1>
-      <p>Takes as an input ontologies in different formats (owl, skos, and various serializations of rdf, 
-        such as ttl) and produces alignments in a format of the user's choice.</p>
-      <hr>
-
-      <h1>
-        <a href=validator>Validator</a>
-      </h1>
-
-      <p>Takes as an input an alignment in AlignmentAPI RDF format, visualises it together with the 
-        degree of confidence of each mapping and lets the user confirm, reject or mark as uncertain each 
-        of the produced mappings. The modified alignment can be stored in one of the possible alignment formats.</p>
 
     </div>
   </div>

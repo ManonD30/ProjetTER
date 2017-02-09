@@ -37,11 +37,6 @@ Faire en sorte de parfaitement récupérer le nom
 
 Ajouter mouseover pour le range des scores
 
-Sur 1ere page: mettre REST API à la fin (plus logique, on l'utilise moins)
-
-
-Retirer la colonne Line dans validation
-
 * Yampp online publi: 
   * Screenshot des trucs importants
   * Petit paragraphe en anglais sur l'API REST (à quoi ça sert)
