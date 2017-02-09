@@ -95,11 +95,13 @@ Ajouter des détails : comment on gére la visualisation dans le readme (vis js)
 
 add la promotion à l'état d'admin dans page d'administration
 
-Stocker le dernier alignment enregistrer
+Stocker le dernier alignment enregistré
 
-Faire difference entre save et export
+Voir comment on peut augmenter le nombre de mappings en résultats (on fait la restriction au curseur en tout)a
 
-Voir comment on peut augmenter le nombre de mappings en résultats (on fait la restriction au curseur en tout)
+Ajouter le spin quand on lance le validator
+
+Il semble que ça plante (au niveau du CandidateCombination) parfois et reste planté jusqu'à re exec du war (dû à trop de soumission ?)
 
 Normalement "mop" et "genre" : doit pas y avoir de mappings entre ces 2 là. Apparemment y'a pas beaucoupde mapping avec Genre (de doremus), voir pourquoi
 
@@ -119,8 +121,6 @@ Trouver et/ou Demander  à Hoa comment est calculé le score qu'on voit dans l'a
   * Le top serait d'être capable d'envoyer des **mails** automatiquement
     * Pour notifier de la création de nouveaux utilisateurs
     * Pour réinitialiser les mots de passes perdus (en donnant un mot de passe au hasard)
-
-* **X** Faire en sorte que le %age de recouvrement marche pour le validator (c'est fait dans yampp-ls pour l'instant)
 
 * Stocker les ontologies données en input, par domaine. Par exemple, les ontologies en biomedical devrait être dans le même groupe. L'objectif est de pouvoir les retrouver facilement pour les recommander à des utilisateurs ou pour les utiliser comme connaissance a priori pour l'alignement.
   * Pour faciliter la classification des ontologies on pourrait peut être demander le "domaine" au moment du download.
