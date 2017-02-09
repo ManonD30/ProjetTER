@@ -13,20 +13,7 @@ Faire un affichage des concepts de l'ontologie source/target pour permettre à l
 
 Trouver comment faire pour modifier le seuil des mappings qui sortent en résultat (mettre le seuil des mappings qui sont pris au plus bas)
 
-Nombre de mappings trouvés et nombre de concepts dans l'ontologie (en valeur absolue)
-
-X Validation : le fait que clicker les columns permet de trier n'est pas évidentes : ajouter le curseur "main" quand layover et un title
-X Il trie seulement en fct de la 1ere column: en fct de l'id now
-
-X Quand on clique un mapping donné on highlight pas assez
-
-X Ne pas afficher l'URI mais le label dans les détails des concepts (link vers l'URI)
-
 * Permettre de rechercher les packages "onto1 + onto2 + alignement" de manière auto (pas manuelle). Avec text search par exemple ou autre (pas une priorité, vaut mieux faire le reste)
-
-* Search qui cherche aussi dans les détails des concepts
-
-* Pourquoi y'a certaines lignes qui ne sont plus là (genre la 1) quand je match cmt Conference ?
 
 **IMPORTANT**
 
