@@ -43,7 +43,7 @@
     <hr>
     <h3>2015</h3>
     <p>DuyHoa Ngo, Zohra Bellahsene. Efficient Semantic Verification
-      of Ontology Alignment, ACM IEEE WI 2015, to appear.</p>
+      of Ontology Alignment, ACM IEEE WI 2015</p>
 
     <hr>
     <h3>2013</h3>
