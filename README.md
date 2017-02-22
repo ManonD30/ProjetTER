@@ -52,7 +52,26 @@ http://liris.cnrs.fr/~fduchate/research/tools/xbenchmatch/#datasets
 Donc on utilise un convertisseur qui convertit XSD to OWL (COMA++, http://xml2owl.sourceforge.net/index.php)
 
 
-## Bug to resolve
+## Bug SLOW UPLOAD
+
+#### Test using DOID - MA
+
+* Files in yampp-ls
+* URL:
+
+https://gite.lirmm.fr/opendata/yampp-ls/raw/develop/src/test/resources/BK_ontologies/uberon/doid.owl
+
+https://gite.lirmm.fr/opendata/yampp-ls/raw/develop/src/test/resources/BK_ontologies/uberon/ma.owl
+
+* Résultats :
+  * Sur localhost : 
+    * URL: Start of doPost of MatcherInterface proc direct. 25s de traitement (pour arriver jusqu'à "end processRequest"). Mais 1min30s en tout (alors que peu de mappings). Je pense que c'est le load des ontologies pour add mappings qui prend du temps. Et les %age plantent
+    * File : ça semblait assez rapide (à retester)
+  * Sur yamplusplus.lirmm.fr : **TESTER** !!!
+
+
+
+
 
 Quand on essaie avec des BK_ontologies le fichier direct ddl dans /tmp/yam-gui parfois est mauvais:
 il contient Could not load provided ontology file
@@ -88,8 +107,6 @@ Ajouter le spin quand on lance le validator
 Il semble que ça plante (au niveau du CandidateCombination) parfois et reste planté jusqu'à re exec du war (dû à trop de soumission ?)
 
 Normalement "mop" et "genre" : doit pas y avoir de mappings entre ces 2 là. Apparemment y'a pas beaucoupde mapping avec Genre (de doremus), voir pourquoi
-
-Trouver et/ou Demander  à Hoa comment est calculé le score qu'on voit dans l'alignement final
 
 ### Now
 
