@@ -4,6 +4,8 @@ Using Apache Tomcat 7 and Java 8
 
 ## Truc à résoudre pour la dernière semaine
 
+**save auto les ontologies (directement coché)**
+
 Bug matching (donne des résultats vraiment bizarre) iaml itema3
 
 Stocker à côté des ontologies les alignements produits et validés
