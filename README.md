@@ -65,10 +65,17 @@ https://gite.lirmm.fr/opendata/yampp-ls/raw/develop/src/test/resources/BK_ontolo
 
 * Résultats :
   * Sur localhost : 
-    * URL: Start of doPost of MatcherInterface proc direct. 25s de traitement (pour arriver jusqu'à "end processRequest"). Mais 1min30s en tout (alors que peu de mappings). Je pense que c'est le load des ontologies pour add mappings qui prend du temps. Et les %age plantent
-    * File : ça semblait assez rapide (à retester)
-  * Sur yamplusplus.lirmm.fr : **TESTER** !!!
+    * URL: Start of doPost of MatcherInterface proc direct. 25s de traitement (pour arriver jusqu'à "end processRequest"). Mais 1min30s en tout (alors que peu de mappings). Je pense que c'est le load des ontologies pour add mappings qui prend du temps. Et les %age plantent. Virer les load des ontologies pour voir
+    * File : 1min42
+  * Sur yamplusplus.lirmm.fr : 
+    * URL: 3min13 (60s de traitement réel). Beaucoup de temps passe après "End of processRequest". Beaucoup plus de résultats qu'en local....
 
+
+
+
+#### Tester avec les ontologies large Bio
+
+Ca a planté. Faire un run de test sur infodemo pour voir combiend e temps ça prend
 
 
 
