@@ -19,7 +19,6 @@ import fr.inrialpes.exmo.align.impl.BasicParameters;
 import fr.inrialpes.exmo.align.impl.URIAlignment;
 import fr.inrialpes.exmo.align.impl.renderer.RDFRendererVisitor;
 import java.io.File;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -61,8 +60,6 @@ public class Download extends HttpServlet {
 
     JSONObject ontologies = (JSONObject) request.getAttribute("ontologies");*/
 
-    String sourceUri = (String) request.getParameter("sourceUri");
-    String targetUri = (String) request.getParameter("targetUri");
     String downloadString = null;
 
     // Force to get it as a file to download
@@ -102,8 +99,21 @@ public class Download extends HttpServlet {
 
     } else {
       // Returns the alignment file to download
-      response.setHeader("content-disposition", "inline; filename=\"alignment_" + sourceUri.replaceAll("http://", "").replaceAll("https://", "")
-              + "_" + targetUri.replaceAll("http://", "").replaceAll("https://", "") + ".rdf\"");
+      
+      // Use source and target onto Name to name alignment file. Or URI if names not provided
+      String sourceName = (String) request.getParameter("sourceName");
+      String targetName = (String) request.getParameter("targetName");
+      if (sourceName == null) {
+        sourceName = (String) request.getParameter("sourceUri");
+        sourceName = sourceName.replaceAll("http://", "").replaceAll("https://", "").replaceAll("/", "_");
+      }
+      if (targetName == null) {
+        targetName = (String) request.getParameter("targetUri");
+        targetName = targetName.replaceAll("http://", "").replaceAll("https://", "").replaceAll("/", "_");
+      }
+      
+      response.setHeader("content-disposition", "inline; filename=\"alignment_" + sourceName
+              + "_" + targetName + ".rdf\"");
 
       HashMap<String, String> hashMapping = null;
       ArrayList<HashMap> arrayMappings = new ArrayList<>();
