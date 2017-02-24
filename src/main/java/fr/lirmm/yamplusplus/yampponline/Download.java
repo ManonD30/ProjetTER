@@ -100,16 +100,17 @@ public class Download extends HttpServlet {
     } else {
       // Returns the alignment file to download
       
+      String sourceUri = (String) request.getParameter("sourceUri");
+      String targetUri = (String) request.getParameter("targetUri");
+      
       // Use source and target onto Name to name alignment file. Or URI if names not provided
       String sourceName = (String) request.getParameter("sourceName");
       String targetName = (String) request.getParameter("targetName");
       if (sourceName == null) {
-        sourceName = (String) request.getParameter("sourceUri");
-        sourceName = sourceName.replaceAll("http://", "").replaceAll("https://", "").replaceAll("/", "_");
+        sourceName = sourceUri.replaceAll("http://", "").replaceAll("https://", "").replaceAll("/", "_");
       }
       if (targetName == null) {
-        targetName = (String) request.getParameter("targetUri");
-        targetName = targetName.replaceAll("http://", "").replaceAll("https://", "").replaceAll("/", "_");
+        targetName = targetUri.replaceAll("http://", "").replaceAll("https://", "").replaceAll("/", "_");
       }
       
       response.setHeader("content-disposition", "inline; filename=\"alignment_" + sourceName
