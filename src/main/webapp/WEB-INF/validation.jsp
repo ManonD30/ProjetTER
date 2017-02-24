@@ -230,7 +230,7 @@ for the sourceOnt and targetOnt ontology alignment -->
         <!-- Pass ontologies URI to the form to be able to name the files when ddl -->
         <input type="hidden" name="sourceUri" value="{{ontologies.srcOntUri}}">
         <input type="hidden" name="targetUri" value="{{ontologies.tarOntUri}}">
-        <input type="hidden" name="sourceNamei" value="{{sourceName}}">
+        <input type="hidden" name="sourceName" value="{{sourceName}}">
         <input type="hidden" name="targetName" value="{{targetName}}">
 
         <div style="text-align: center;">
