@@ -47,7 +47,6 @@
           <a class="infolink" <%=acceptFormatTitle%> target="_blank"></a>
           <br/>
           <label id="sourceFilename" style="font-weight: normal;"></label>
-          <hr>
           <div class="saveDiv" style="display:block;">
             <hr>
             <label for="sourceName" style="margin: 2% 1%;">Source ontology name:</label>
