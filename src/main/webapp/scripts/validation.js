@@ -46,8 +46,24 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   if ($window.alignmentJson.tarOntologyURI === undefined) {
     $window.alignmentJson.tarOntologyURI = "Target entities";
   }
+  
+  // Get ontologies URI (and name if saved)
   var srcOntoUri = $window.alignmentJson.srcOntologyURI;
   var tarOntoUri = $window.alignmentJson.tarOntologyURI;
+  if (!srcOntoUri) {
+    srcOntoUri = "Source Entities"
+  }
+  if (!tarOntoUri) {
+    tarOntoUri = "Target Entities"
+  }
+  $scope.sourceName = $window.sourceName.replace(new RegExp("\/|:", 'g'), "_");
+  $scope.targetName = $window.targetName.replace(new RegExp("\/|:", 'g'), "_");
+  if ($scope.sourceName === "null") {
+    $scope.sourceName = srcOntoUri.replace(new RegExp("\/|:", 'g'), "_");
+  }
+  if ($scope.targetName === "null") {
+    $scope.targetName = tarOntoUri.replace(new RegExp("\/|:", 'g'), "_");
+  }
 
   // To handle the 2 range slider for Score filtering
   $scope.rangeSlider = {"minValue": 0, "maxValue": 1};
@@ -66,12 +82,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     });
   });
 
-  if (!srcOntoUri) {
-    srcOntoUri = "Source Entities"
-  }
-  if (!tarOntoUri) {
-    tarOntoUri = "Target Entities"
-  }
   $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": srcOntoUri, "tarOntUri": tarOntoUri};
   console.log($scope.ontologies);
   // Convert ontologies entity object to an array for filter

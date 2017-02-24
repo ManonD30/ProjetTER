@@ -260,14 +260,13 @@ public class Matcher extends HttpServlet {
         // Get ontologies name provided by user (source or target by default)
         if (request.getParameter("sourceName") != null) {
           sourceName = request.getParameter("sourceName");
-        } else {
-          request.setAttribute("sourceName", sourceName);
         }
         if (request.getParameter("targetName") != null) {
           targetName = request.getParameter("targetName");
-        } else {
-          request.setAttribute("targetName", targetName);
         }
+        request.setAttribute("sourceName", sourceName);
+        request.setAttribute("targetName", targetName);
+        
         String subDir = sourceName + " to " + targetName;
         FileUtils.copyFile(new File(sourceStoragePath), new File(fileHandler.getWorkDir() + "/save/" + request.getSession().getAttribute("field") + "/"
                 + request.getSession().getAttribute("username") + "/" + subDir + "/" + sourceName + ".rdf"));

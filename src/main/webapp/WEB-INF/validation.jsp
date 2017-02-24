@@ -39,6 +39,9 @@ for the sourceOnt and targetOnt ontology alignment -->
       // Trying to get ontology loaded using owlapi
       JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
       JSONObject targetOnt = (JSONObject) request.getAttribute("targetOnt");
+      
+      String sourceName = (String) request.getAttribute("sourceName");
+      String targetName = (String) request.getAttribute("targetName");
 
       String srcOverlappingProportion = "0";
       String tarOverlappingProportion = "0";
@@ -57,6 +60,8 @@ for the sourceOnt and targetOnt ontology alignment -->
     var alignmentJson = <%=alignmentObject%>;
     var sourceOnt = <%=sourceOnt%>;
     var targetOnt = <%=targetOnt%>;
+    var sourceName = "<%=sourceName%>";
+    var targetName = "<%=targetName%>";
   </script>
 
   <section class="main-section" ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
@@ -163,8 +168,8 @@ for the sourceOnt and targetOnt ontology alignment -->
         <table id=table class="table table-striped">
           <thead>
             <tr style="cursor: pointer;">
-              <th href="#" ng-click="orderByField = 'entity1.id'; reverseSort = !reverseSort" title="Sort by Source entity URI">{{ontologies.srcOntUri}}</th>
-              <th href="#" ng-click="orderByField = 'entity2.id'; reverseSort = !reverseSort" title="Sort by Target entity URI">{{ontologies.tarOntUri}}</th>
+              <th href="#" ng-click="orderByField = 'entity1.id'; reverseSort = !reverseSort" title="Sort by Source entity URI">{{sourceName}}</th>
+              <th href="#" ng-click="orderByField = 'entity2.id'; reverseSort = !reverseSort" title="Sort by Target entity URI">{{targetName}}</th>
               <th href="#" ng-click="orderByField = 'relation'; reverseSort = !reverseSort" style="width: 11em;"
                   title="Sort by relatiion">Relation</th>
               <th href="#" ng-click="orderByField = 'measure'; reverseSort = !reverseSort" title="Sort by score">Score</th>
