@@ -47,11 +47,12 @@
           <a class="infolink" <%=acceptFormatTitle%> target="_blank"></a>
           <br/>
           <label id="sourceFilename" style="font-weight: normal;"></label>
-
+          <hr>
           <div class="saveDiv" style="display:block;">
+            <hr>
             <label for="sourceName" style="margin: 2% 1%;">Source ontology name:</label>
             <input type="text" id="sourceName" name="sourceName" placeholder="Enter a name for the Source ontology"
-                   maxlength="32" pattern="[A-Za-z0-9_-]+" title="Only alphanumeric and - or _" style="width:32ch;"/><br>
+                   maxlength="32" pattern="[A-Za-z0-9_-]+" title="Only alphanumeric and - or _" style="width:32ch;" required/><br>
           </div>
         </div>
 
@@ -78,9 +79,10 @@
           <label id="targetFilename" style="font-weight: normal;"></label>
 
           <div class="saveDiv" style="display:block;">
+            <hr>
             <label for="targetName" style="margin: 2% 1%;">Target ontology name:</label>
             <input type="text" id="targetName" name="targetName" placeholder="Enter a name for the Target ontology"
-                   maxlength="32" pattern="[A-Za-z0-9_-]+" title="Only alphanumeric and - or _" style="width:32ch;"/>
+                   maxlength="32" pattern="[A-Za-z0-9_-]+" title="Only alphanumeric and - or _" style="width:32ch;" required/>
           </div>
 
         </div>
@@ -224,8 +226,12 @@
     {
       if (elems.item(i).style.display == 'block') {
         elems.item(i).style.display = 'none';
+        document.getElementById('sourceName').required = false;
+        document.getElementById('targetName').required = false;
       } else {
         elems.item(i).style.display = 'block';
+        document.getElementById('sourceName').required = true;
+        document.getElementById('targetName').required = true;
       }
     }
 

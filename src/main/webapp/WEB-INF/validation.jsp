@@ -34,6 +34,7 @@ for the sourceOnt and targetOnt ontology alignment -->
       JSONObject alignmentObject = (JSONObject) request.getAttribute("alignment");
       request.setAttribute("srcOntologyURI", (String) alignmentObject.get("srcOntologyURI"));
       request.setAttribute("tarOntologyURI", (String) alignmentObject.get("tarOntologyURI"));
+      
 
       // Trying to get ontology loaded using owlapi
       JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
