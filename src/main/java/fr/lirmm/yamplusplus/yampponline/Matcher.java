@@ -255,21 +255,24 @@ public class Matcher extends HttpServlet {
       // Save file if asked
       FileUtils.writeStringToFile(new File(sourceStoragePath), matcherResult, "UTF-8");
       if (request.getParameter("saveFile") != null) {
-        String filename = "null";
-        String subDir = "null";
+        String sourceName = "source";
+        String targetName = "target";
+        // Get ontologies name provided by user (source or target by default)
         if (request.getParameter("sourceName") != null) {
-          filename = request.getParameter("sourceName");
+          sourceName = request.getParameter("sourceName");
+        } else {
+          request.setAttribute("sourceName", sourceName);
         }
         if (request.getParameter("targetName") != null) {
-          filename = request.getParameter("targetName");
+          targetName = request.getParameter("targetName");
+        } else {
+          request.setAttribute("targetName", targetName);
         }
-        if (request.getParameter("sourceName") != null && request.getParameter("targetName") != null) {
-          subDir = request.getParameter("sourceName") + " to " + request.getParameter("targetName");
-        }
+        String subDir = sourceName + " to " + targetName;
         FileUtils.copyFile(new File(sourceStoragePath), new File(fileHandler.getWorkDir() + "/save/" + request.getSession().getAttribute("field") + "/"
-                + request.getSession().getAttribute("username") + "/" + subDir + "/" + request.getParameter("sourceName") + ".rdf"));
+                + request.getSession().getAttribute("username") + "/" + subDir + "/" + sourceName + ".rdf"));
         FileUtils.copyFile(new File(targetStoragePath), new File(fileHandler.getWorkDir() + "/save/" + request.getSession().getAttribute("field") + "/"
-                + request.getSession().getAttribute("username") + "/" + subDir + "/" + request.getParameter("targetName") + ".rdf"));
+                + request.getSession().getAttribute("username") + "/" + subDir + "/" + targetName + ".rdf"));
         
         FileUtils.writeStringToFile(new File(fileHandler.getWorkDir() + "/save/" + request.getSession().getAttribute("field") + "/"
                 + request.getSession().getAttribute("username") + "/" + subDir + "/alignment.rdf"), matcherResult, "UTF-8");

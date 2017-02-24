@@ -25,9 +25,9 @@
           String acceptFormatInput = "accept='.owl, .rdf, .nt, .ttl, .jsonld, .json, .xml, .xsd'";
         %>
         <div class="col-md-6" style="border-right: 1px solid #ccc;">
-          
+
           <h3>Source</h3>
-          
+
           <label for="sourceType">Scheme type</label>
           <select name="sourceType" id="sourceType" class="form-control"  style="display:block; margin-bottom: 5%;">
             <option value="ONTOLOGY" selected>Ontology</option>
@@ -47,11 +47,17 @@
           <a class="infolink" <%=acceptFormatTitle%> target="_blank"></a>
           <br/>
           <label id="sourceFilename" style="font-weight: normal;"></label>
+
+          <div class="saveDiv" style="display:block;">
+            <label for="sourceName" style="margin: 2% 1%;">Source ontology name:</label>
+            <input type="text" id="sourceName" name="sourceName" placeholder="Enter a name for the Source ontology"
+                   maxlength="32" pattern="[A-Za-z0-9_-]+" title="Only alphanumeric and - or _" style="width:32ch;"/><br>
+          </div>
         </div>
+
         <div class="col-md-6">
-          
           <h3>Target</h3>
-          
+
           <label for="targetType">Scheme type</label>
           <select name="targetType" id="targetType" class="form-control"  style="display:block; margin-bottom: 5%;">
             <option value="ONTOLOGY" selected>Ontology</option>
@@ -70,6 +76,13 @@
           <a class="infolink" <%=acceptFormatTitle%> target="_blank"></a>
           <br/>
           <label id="targetFilename" style="font-weight: normal;"></label>
+
+          <div class="saveDiv" style="display:block;">
+            <label for="targetName" style="margin: 2% 1%;">Target ontology name:</label>
+            <input type="text" id="targetName" name="targetName" placeholder="Enter a name for the Target ontology"
+                   maxlength="32" pattern="[A-Za-z0-9_-]+" title="Only alphanumeric and - or _" style="width:32ch;"/>
+          </div>
+
         </div>
       </div>
       <br/>
@@ -138,18 +151,9 @@
       </div>
       <br/>
       <label style="font-weight: normal;">
-        <input type="checkbox" id=saveFile name="saveFile" onchange="toggleSave()">
+        <input type="checkbox" id=saveFile name="saveFile" onchange="toggleSave()" checked>
         I agree to let YAM++ save my ontologies
       </label>
-      <br/>
-      <div id="saveDiv" style="display:none;">
-        <label for="sourceName" style="margin: 2% 1%;">Source ontology name:</label>
-        <input type="text" id="sourceName" name="sourceName" placeholder="Enter a name for the Source ontology"
-               maxlength="32" pattern="[A-Za-z0-9_-]+" title="Only alphanumeric and - or _" style="width:32ch;"/><br>
-        <label for="targetName" style="margin: 2% 1%;">Target ontology name:</label>
-        <input type="text" id="targetName" name="targetName" placeholder="Enter a name for the Target ontology"
-               maxlength="32" pattern="[A-Za-z0-9_-]+" title="Only alphanumeric and - or _" style="width:32ch;"/>
-      </div>
 
       <br/>
       <input class="btn btnSubmit" type="submit" value="Match!"/>
@@ -215,14 +219,24 @@
    */
   function toggleSave()
   {
-    var e = document.getElementById("saveDiv");
-    if (e.style.display == 'block') {
-      e.style.display = 'none';
-      //document.getElementById("paramsBtn").innerText = "Show matcher parameters";
-    } else {
-      e.style.display = 'block';
-      //document.getElementById("paramsBtn").innerText = "Hide matcher parameters";
+    var elems = document.getElementsByClassName('saveDiv');
+    for (var i = 0; i < elems.length; i++)
+    {
+      if (elems.item(i).style.display == 'block') {
+        elems.item(i).style.display = 'none';
+      } else {
+        elems.item(i).style.display = 'block';
+      }
     }
+
+    /*var e = document.getElementById("saveDiv");
+     if (e.style.display == 'block') {
+     e.style.display = 'none';
+     //document.getElementById("paramsBtn").innerText = "Show matcher parameters";
+     } else {
+     e.style.display = 'block';
+     //document.getElementById("paramsBtn").innerText = "Hide matcher parameters";
+     }*/
   }
 
   /**
