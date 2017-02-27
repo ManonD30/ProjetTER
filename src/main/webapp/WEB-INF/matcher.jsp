@@ -28,11 +28,11 @@
 
           <h3>Source</h3>
 
-          <label for="sourceType">Scheme type</label>
+          <!--label for="sourceType">Scheme type</label>
           <select name="sourceType" id="sourceType" class="form-control"  style="display:block; margin-bottom: 5%;">
             <option value="ONTOLOGY" selected>Ontology</option>
             <option value="SCHEME">BETA: Database scheme (xsd)</option>
-          </select>
+          </select-->
 
           <label for=sourceUrl>Source file</label> <br/>
           <input type="url" class='ontologyUrl' id="sourceUrl" name="sourceUrl" placeholder="Enter ontology URL"/>
@@ -58,11 +58,11 @@
         <div class="col-md-6">
           <h3>Target</h3>
 
-          <label for="targetType">Scheme type</label>
+          <!--label for="targetType">Scheme type</label>
           <select name="targetType" id="targetType" class="form-control"  style="display:block; margin-bottom: 5%;">
             <option value="ONTOLOGY" selected>Ontology</option>
             <option value="SCHEME">BETA: Database scheme (xsd)</option>
-          </select>
+          </select-->
 
           <label for=targetUrl>Target file</label> <br/>
           <input type="url" class='ontologyUrl' id="targetUrl" name="targetUrl" placeholder="Enter ontology URL"/>
