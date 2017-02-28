@@ -77,6 +77,14 @@ https://gite.lirmm.fr/opendata/yampp-ls/raw/develop/src/test/resources/BK_ontolo
 
 Ca a planté. Faire un run de test sur infodemo pour voir combiend e temps ça prend
 
+Tests avec NCI/FMA:
+
+* Run test direct (mvn -Dtest=TestMatchOntologies#testMatchOAEI test -Dmaven.test.skip=false)
+  * Sur mon PC : 200s
+  * Sur infodemo : 5min
+
+
+
 
 
 
