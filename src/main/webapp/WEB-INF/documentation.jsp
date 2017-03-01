@@ -12,7 +12,7 @@
 
 <div class="container theme-showcase" role="main">
   <div class=textMainBody>
-    <h1>Using the REST API</h1>
+    <h1>Using the HTTP API</h1>
 
     <h3>HTTP GET Request</h3>
 
