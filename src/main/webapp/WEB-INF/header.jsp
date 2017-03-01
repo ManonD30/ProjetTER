@@ -27,7 +27,7 @@
             </a></li>
           <li><a href=matcher>Matcher</a></li>
           <li><a href=validator>Validator</a></li>
-          <li><a href=documentation>REST API</a></li>
+          <li><a href=documentation>API</a></li>
           <li><a href=aboutus>About us</a></li>
           <li><a href=sign><%=signLabel%></a></li>
         </ul>
@@ -43,7 +43,7 @@
         <li><a href="#"><img alt="Home" src="images/yam_top.png"></a></li>
         <li><a href="#">Matcher</a></li>
         <li><a href="#">Validator</a></li>
-        <li><a href="#">REST API</a></li>
+        <li><a href="#">API</a></li>
         <li><a href="#">About us</a></li>
       </ul>
     </nav>
