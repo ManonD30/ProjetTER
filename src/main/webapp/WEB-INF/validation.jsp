@@ -164,7 +164,7 @@ for the sourceOnt and targetOnt ontology alignment -->
                 ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
       </div>
 
-      <form action='download' method='post'>
+      <form action='download' method='post' style="overflow-x: scroll;">
         <table id=table class="table table-striped">
           <thead>
             <tr style="cursor: pointer;">
