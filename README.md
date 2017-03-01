@@ -4,9 +4,15 @@ Using Apache Tomcat 7 and Java 8
 
 ## Truc à résoudre pour la dernière semaine
 
-**save auto les ontologies (directement coché)**
+**Sur écran 4:3 le validation.jsp ne resize pas correctement la table**: table-layout: fixed; permet de le résoudre mais, la taille des cells ne s'adaptent pas au contenu
 
-Bug matching (donne des résultats vraiment bizarre) iaml itema3
+Enlever les 3 box (mettre le recouvrement proche de la table). Et running time dans le texte
+
+**Permettre de choisir plus d'exemples ! (différents couples)**
+
+**On vire le choix de plusieurs matchers : seulement Very Large Scale**
+
+
 
 Stocker à côté des ontologies les alignements produits et validés
 Ce que veut Zohra : pouvoir facilement chercher des ontologies dans les onto enregistrées (par son nom par exemple)
@@ -91,6 +97,34 @@ Stack question: http://stackoverflow.com/questions/42507697/passing-java-to-java
 **Solution:**
 
 Paging the data via AJAX seems like an ideal approach then. It's a bit broad, but overall the idea is that you wouldn't send any data to the page when it initially loads, but the page itself would contain JavaScript code to fetch data from the server. So the page would load quickly, and would then start fetching the data after it loads
+
+
+
+**SOLUTION:**
+
+Afficher à chaque fois le nombre de concepts et de classes pour chaque onto !
+
+Checker le nombre de concepts par ontologies. Quand ça passe ou pas ? A partir de combien ça bug
+
+IF ontologies > qu'une certaine taille : on ne prends que les concepts qui ont été alignés qu'on met dans les objets ontologies
+
+
+
+*Nombre de concepts*
+
+SNOMED: 120 454
+
+FMA: 78 989
+
+NCI: 66 724
+
+MOUSE (mouse anatomy, ma.owl): 2744
+
+NCIT: 3 404
+
+
+
+Doremus : 
 
 
 
