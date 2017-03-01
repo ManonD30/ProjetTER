@@ -88,6 +88,11 @@
   </script>
 
   <h3>Browse tmp directory</h3>
+  <p>
+    Directory with all the files from the latest Very Large Scale matching. This directory is flushed everyday at 2a.m.
+    <br>
+    Look at the parsing.log file to get the matcher log if a matching has gone wrong.
+  </p>
   <div id="loadTmpFolderTree"></div>
   <script>
     $(document).ready(function () {
