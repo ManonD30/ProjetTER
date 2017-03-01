@@ -73,7 +73,7 @@ https://gite.lirmm.fr/opendata/yampp-ls/raw/develop/src/test/resources/BK_ontolo
 
 
 
-#### Tester avec les ontologies large Bio
+#### Tests NCI - FMA (Large Bio)
 
 Ca a planté. Faire un run de test sur infodemo pour voir combiend e temps ça prend
 
@@ -82,8 +82,15 @@ Tests avec NCI/FMA:
 * Run test direct (mvn -Dtest=TestMatchOntologies#testMatchOAEI test -Dmaven.test.skip=false)
   * Sur mon PC : 200s
   * Sur infodemo : 5min
+* Run Validator (pour voir si c'est juste le load de l'onto le problème)
+  * Jena loading: 1 minute or less
+  * Crash caused by passing ontologies from Java to Javascript : https://gite.lirmm.fr/opendata/yampp-online/blob/master/src/main/webapp/WEB-INF/validation.jsp#L58
 
+Stack question: http://stackoverflow.com/questions/42507697/passing-java-to-javascript-takes-a-long-time
 
+**Solution:**
+
+Paging the data via AJAX seems like an ideal approach then. It's a bit broad, but overall the idea is that you wouldn't send any data to the page when it initially loads, but the page itself would contain JavaScript code to fetch data from the server. So the page would load quickly, and would then start fetching the data after it loads
 
 
 
