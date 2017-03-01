@@ -149,7 +149,6 @@ public class Matcher extends HttpServlet {
       System.out.println("File too big");
       throw new FileNotFoundException("File too big: its size should be less than " + maxFileSize + "MB");
     }*/
-    
     String apikey = null;
     if (request.getParameter("apikey") != null) {
       // First get ApiKey from URL parameters
@@ -232,10 +231,20 @@ public class Matcher extends HttpServlet {
       // Execute YAM to get the mappings in RDF/XML
       // Soon to be String resultStoragePath = matcher.alignOntologies()
       myLog.log(Level.WARNING, "Before matcher.alignOntologies...");
-      String resultStoragePath = matcher.alignOntologies(new File(sourceStoragePath).toURI(),
-              new File(targetStoragePath).toURI());
-      myLog.log(Level.WARNING, "After matcher.alignOntologies. Result storage path: {0}", resultStoragePath);
+
+      String resultStoragePath = "error:Error while performing the matching";
+      try {
+        resultStoragePath = matcher.alignOntologies(new File(sourceStoragePath).toURI(),
+                new File(targetStoragePath).toURI());
+        myLog.log(Level.WARNING, "After matcher.alignOntologies. Result storage path: {0}", resultStoragePath);
+      } catch (Exception e) {
+        myLog.log(Level.SEVERE, "Error while running matcher.alignOntologies: ", e);
+      }
       
+      if (resultStoragePath == null) {
+        request.setAttribute("errorMessage", "Matching process returned nothing");
+        return request;
+      }
       if (resultStoragePath.startsWith("error:")) {
         request.setAttribute("errorMessage", resultStoragePath.substring(6));
         return request;
@@ -252,7 +261,7 @@ public class Matcher extends HttpServlet {
       if (resultStoragePath != null) {
         matcherResult = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
       }
-      
+
       // Save file if asked
       FileUtils.writeStringToFile(new File(sourceStoragePath), matcherResult, "UTF-8");
       if (request.getParameter("saveFile") != null) {
@@ -267,17 +276,17 @@ public class Matcher extends HttpServlet {
         }
         request.setAttribute("sourceName", sourceName);
         request.setAttribute("targetName", targetName);
-        
+
         String subDir = sourceName + " to " + targetName;
         FileUtils.copyFile(new File(sourceStoragePath), new File(fileHandler.getWorkDir() + "/save/" + request.getSession().getAttribute("field") + "/"
                 + request.getSession().getAttribute("username") + "/" + subDir + "/" + sourceName + ".rdf"));
         FileUtils.copyFile(new File(targetStoragePath), new File(fileHandler.getWorkDir() + "/save/" + request.getSession().getAttribute("field") + "/"
                 + request.getSession().getAttribute("username") + "/" + subDir + "/" + targetName + ".rdf"));
-        
+
         FileUtils.writeStringToFile(new File(fileHandler.getWorkDir() + "/save/" + request.getSession().getAttribute("field") + "/"
                 + request.getSession().getAttribute("username") + "/" + subDir + "/alignment.rdf"), matcherResult, "UTF-8");
       }
-      
+
       // If error we return it in errorMessage (removing error: at the start of the String)
       if (matcherResult.startsWith("error:")) {
         request.setAttribute("errorMessage", matcherResult.substring(6));
