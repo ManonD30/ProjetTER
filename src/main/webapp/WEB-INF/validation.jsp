@@ -18,6 +18,9 @@ for the sourceOnt and targetOnt ontology alignment -->
 <!--script src="scripts/jquery.tablesorter.js"></script>
 <script src="scripts/jquery.tablesorter.pager.js"></script-->
 
+<!-- To remove if jQuery floatingScroll don't work -->
+<link rel="stylesheet" href="css/jquery.floatingscroll.css" />
+<script src="scripts/jquery.floatingscroll.min.js"></script>
 
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- Custom CSS for validation: -->
@@ -90,7 +93,7 @@ for the sourceOnt and targetOnt ontology alignment -->
     </div>
 
     <!-- Contains table to validate mappings. Hided when adding new mappings -->
-    <div id="validationForm">
+    <div id="validationForm" class="validationForm" style="overflow-x: scroll;">
 
       <p>
         This UI displays the results of the ontology matching and allows the user to validate or not each mapping.

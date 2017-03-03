@@ -1,4 +1,10 @@
 $(document).ready(function () {
+  
+  // This line SHOULD allow the scrollBar to stay fixed at the bottom of the screen. But not working
+  // https://github.com/gromo/jquery.scrollbar. 
+  // If not used: remove src/main/webapp/css/jquery.floatingscroll.css and src/main/webapp/scripts/jquery.floatingscroll.min.js
+  $(".validationForm").floatingScroll();
+  
 // Function to resize navbar, footer and right entity details window depending on screen size
   function resizePanels() {
     var contentSourceSize = $(".entity-source .entity-inner-content").height();
