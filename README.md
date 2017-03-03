@@ -4,7 +4,7 @@ Using Apache Tomcat 7 and Java 8
 
 ## Truc à résoudre pour la dernière semaine
 
-fzeiuzdgdczgcxsuvcusy
+f
 
 **Sur écran 4:3 le validation.jsp ne resize pas correctement la table**: table-layout: fixed; permet de le résoudre mais, la taille des cells ne s'adaptent pas au contenu
 
