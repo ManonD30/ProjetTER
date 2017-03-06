@@ -11,9 +11,11 @@ Enlever les 3 box (mettre le recouvrement proche de la table). Et running time d
 **Permettre de choisir plus d'exemples ! (différents couples)**
 2 Doremus, Anatomy, 2 Large Bio (FMA, NCI, SNOMED; utiliser une URL BioPortal ? Elles sont sur NCBO normalement)
 
-**On vire le choix de plusieurs matchers : seulement Very Large Scale**
+X **On vire le choix de plusieurs matchers : seulement Very Large Scale**
 
-**On vire la propriété "undefined"**
+X **On vire la propriété "undefined"**
+
+**Bug nullPointer quand on ddl l'alignement parfois** (avec largeBio par ex)
 
 * Save la dernière version de l'alignment téléchargée
 

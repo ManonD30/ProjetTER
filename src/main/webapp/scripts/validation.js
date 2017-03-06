@@ -488,7 +488,7 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
   // Iterate over the different properties (predicates) of an entity
   // To get properties values grouped by property
   Object.keys(entity).sort().forEach(function (key) {
-    if (key !== "id" && key !== "label") {
+    if (key !== "id" && key !== "label" && key !== "$$hashKey") {
       orderedEntities[key] = null;
       // Iterate over the different values of the object of a predicate (the same property can point to different objects)
       for (var valuesObject in entity[key]) {
@@ -550,7 +550,7 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
       // To get properties values grouped by property
       if (linkedEntity != null && getLinkedProperties === true) {
         Object.keys(linkedEntity).sort().forEach(function (key) {
-          if (key !== "id" && key !== "label") {
+          if (key !== "id" && key !== "label" && key !== "$$hashKey") {
             linkedEntityProperties[key] = null;
             // Iterate over the different values of the object of a predicate (the same property can point to different objects)
             for (var valuesObject in linkedEntity[key]) {
