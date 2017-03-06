@@ -402,7 +402,10 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang, ontologies) {
   // add each property object linked to each subject
   // Iterate over the different properties (predicates) of an entity
   Object.keys(entity).sort().forEach(function (key) {
-    if (key !== "id" && key !== "label") {
+    
+    if (key !== "id" && key !== "label" && key !== "$$hashKey") {
+      // Don't display if id, label or $$hashKey (used by angularJs)
+      
       orderedEntities[key] = null;
       // Iterate over the different values of the object of a predicate (the same property can point to different objects)
       for (var valuesObject in entity[key]) {
