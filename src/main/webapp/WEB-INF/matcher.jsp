@@ -92,22 +92,7 @@
 
       <div id="paramsDiv" style="display:none;">
         <br/>
-
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title" style="font-weight: bold;">Matcher type</h3>
-          </div>
-          <div class="panel-body">
-            <p>Changing the matcher type can change the matching results. Use the Very Large Scale matcher for ontologies bigger than 4 000 concepts</p>
-            <select name="matcherType" id="matcherType" class="form-control"  style="width: auto; display:inline; margin-left: 1%;">
-              <option value="VERYLARGE" selected>Very Large Scale (for big ontologies)</option>
-              <option value="LARGE">Large Scale</option>
-              <option value="SCALABILITY">Scalability versionning (for ontologies containing less than 4000 concepts)</option>
-              <option value="SMALL">Small Scale (for ontologies containing less than 500 concepts)</option>
-            </select>
-          </div>
-        </div>
-        <br/>
+        
         <div id="veryLargeParams" class="row" style="width: 150%; margin-left: -25%;">
 
           <p>More details on the matcher used and its parameters in 
