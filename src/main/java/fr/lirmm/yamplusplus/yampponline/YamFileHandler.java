@@ -28,6 +28,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -302,6 +303,33 @@ public class YamFileHandler {
   }
 
   /**
+   * Return a HashMap with 2 keys : to store source and target ArrayList of
+   * concept URL. It contains all aligned concepts URL. To retrieve from the
+   * ontologies only concepts that are aligned, for big ontologies
+   *
+   * @param alignmentJson
+   * @return HashMap containing 2 ArrayLists
+   */
+  public static HashMap<String, List<String>> getAlignedConceptsArray(JSONObject alignmentJson) {
+
+    HashMap<String, List<String>> map = new HashMap<String, List<String>>();
+
+    List<String> sourceArray = new ArrayList<String>();
+    List<String> targetArray = new ArrayList<String>();
+
+    JSONArray entitiesArray = (JSONArray) alignmentJson.get("entities");
+    for (int i = 0; i < entitiesArray.size(); i++) {
+      JSONObject entityJson = (JSONObject) entitiesArray.get(i);
+      sourceArray.add(entityJson.get("entity1").toString());
+      targetArray.add(entityJson.get("entity2").toString());
+    }
+
+    map.put("source", sourceArray);
+    map.put("target", targetArray);
+    return map;
+  }
+
+  /**
    * Get the Ontology JSON model for javascript by loading ontology in Jena to
    * get class label and other triples. Returns the following JSON: Returns a
    * JSONArray with class URI in "id" and all other properties i.e.: {
@@ -311,11 +339,12 @@ public class YamFileHandler {
    * "fr"}, {"type": "literal", "value": "hello", "lang": "en"}]}}}
    *
    * @param model
+   * @param alignmentArray
    * @return JSONObject
    * @throws IOException
    * @throws javax.servlet.ServletException
    */
-  public static JSONObject getOntoJsonFromJena(Model model) throws IOException, ServletException {
+  public static JSONObject getOntoJsonFromJena(Model model, List<String> alignmentArray) throws IOException, ServletException {
     // Get prefix namespaces used in the ontology
     JSONObject jPrefix = new JSONObject();
     Iterator prefixes = model.getNsPrefixMap().entrySet().iterator();
@@ -323,6 +352,9 @@ public class YamFileHandler {
       Map.Entry thisEntry = (Map.Entry) prefixes.next();
       jPrefix.put(thisEntry.getKey(), thisEntry.getValue());
     }
+
+    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "Onto Size !!! {0}", model.size());
+    int entityCount = 0;
 
     JSONObject entitiesJObject = new JSONObject();
     ArrayList<Resource> classTypes = new ArrayList<>();
@@ -338,63 +370,70 @@ public class YamFileHandler {
         JSONObject clsJObject = new JSONObject();
         Resource cls = owlClasses.next();
         JSONObject clsLabel = new JSONObject();
-        if (cls != null) {
-          StmtIterator stmts = cls.listProperties();
-          clsJObject.put("id", cls.getURI());
-          while (stmts.hasNext()) {
-            // the iterator returns statements: [subject, predicate, object]
-            StatementImpl tripleArray = (StatementImpl) stmts.next();
+        
+        entityCount++;
 
-            // Generate a set with prefixes used in this ontology
-            java.util.Map<String, String> prefixMap = model.getNsPrefixMap();
-            Set<String> prefixKeys = prefixMap.keySet();
+        if (alignmentArray.contains(cls.getURI())) {
+          // Only get classes that have been aligned for big ontologies
 
-            String predicateString = tripleArray.getPredicate().toString();
-            String prefixedPredicate = getUriWithPrefix(predicateString, prefixMap);
+          if (cls != null) {
+            StmtIterator stmts = cls.listProperties();
+            clsJObject.put("id", cls.getURI());
+            while (stmts.hasNext()) {
+              // the iterator returns statements: [subject, predicate, object]
+              StatementImpl tripleArray = (StatementImpl) stmts.next();
 
-            // Get label for skos:prefLabel or rdfs:label
-            if (tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
-              clsLabel.put(tripleArray.getLiteral().getLanguage(), tripleArray.getLiteral().getLexicalForm());
-              //clsLabel = tripleArray.getLiteral().getLexicalForm(); To get without the lang
-            } else if (tripleArray.getPredicate().toString().equals("http://www.w3.org/2000/01/rdf-schema#label") && !clsLabel.containsKey(tripleArray.getLiteral().getLanguage())) {
-              clsLabel.put(tripleArray.getLiteral().getLanguage(), tripleArray.getLiteral().getLexicalForm());
+              // Generate a set with prefixes used in this ontology
+              java.util.Map<String, String> prefixMap = model.getNsPrefixMap();
+              Set<String> prefixKeys = prefixMap.keySet();
+
+              String predicateString = tripleArray.getPredicate().toString();
+              String prefixedPredicate = getUriWithPrefix(predicateString, prefixMap);
+
+              // Get label for skos:prefLabel or rdfs:label
+              if (tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
+                clsLabel.put(tripleArray.getLiteral().getLanguage(), tripleArray.getLiteral().getLexicalForm());
+                //clsLabel = tripleArray.getLiteral().getLexicalForm(); To get without the lang
+              } else if (tripleArray.getPredicate().toString().equals("http://www.w3.org/2000/01/rdf-schema#label") && !clsLabel.containsKey(tripleArray.getLiteral().getLanguage())) {
+                clsLabel.put(tripleArray.getLiteral().getLanguage(), tripleArray.getLiteral().getLexicalForm());
+              }
+
+              //String objectString = tripleArray.getObject().toString();
+              String objectString = "No object";
+              String objectType = "No object";
+              JSONObject resourceJObject = new JSONObject();
+
+              if (tripleArray.getObject().isLiteral()) {
+                objectString = tripleArray.getLiteral().toString();
+                objectType = "literal";
+                resourceJObject.put("type", objectType);
+                resourceJObject.put("value", objectString);
+                resourceJObject.put("lang", tripleArray.getLiteral().getLanguage());
+                // We add the prefixed predicates as triple attributes, to avoid having to calculate on the fly in javascript afterwards
+                resourceJObject.put("prefixedPredicate", prefixedPredicate);
+              } else {
+                objectString = tripleArray.getObject().toString();
+                objectType = "uri";
+                resourceJObject.put("type", objectType);
+                resourceJObject.put("value", objectString);
+                resourceJObject.put("prefixedPredicate", prefixedPredicate);
+              }
+
+              JSONArray objectsJArray = new JSONArray();
+              if (clsJObject.containsKey(predicateString)) {
+                objectsJArray = (JSONArray) clsJObject.get(predicateString);
+              }
+              // Add predicate and object to class JSON object
+              objectsJArray.add(resourceJObject);
+              clsJObject.put(predicateString, objectsJArray);
             }
-
-            //String objectString = tripleArray.getObject().toString();
-            String objectString = "No object";
-            String objectType = "No object";
-            JSONObject resourceJObject = new JSONObject();
-
-            if (tripleArray.getObject().isLiteral()) {
-              objectString = tripleArray.getLiteral().toString();
-              objectType = "literal";
-              resourceJObject.put("type", objectType);
-              resourceJObject.put("value", objectString);
-              resourceJObject.put("lang", tripleArray.getLiteral().getLanguage());
-              // We add the prefixed predicates as triple attributes, to avoid having to calculate on the fly in javascript afterwards
-              resourceJObject.put("prefixedPredicate", prefixedPredicate);
-            } else {
-              objectString = tripleArray.getObject().toString();
-              objectType = "uri";
-              resourceJObject.put("type", objectType);
-              resourceJObject.put("value", objectString);
-              resourceJObject.put("prefixedPredicate", prefixedPredicate);
+            if (clsLabel.isEmpty()) {
+              clsLabel.put("n/a", getLabelFromUri(cls.getURI()));
             }
+            clsJObject.put("label", clsLabel);
+            entitiesJObject.put(cls.getURI(), clsJObject);
 
-            JSONArray objectsJArray = new JSONArray();
-            if (clsJObject.containsKey(predicateString)) {
-              objectsJArray = (JSONArray) clsJObject.get(predicateString);
-            }
-            // Add predicate and object to class JSON object
-            objectsJArray.add(resourceJObject);
-            clsJObject.put(predicateString, objectsJArray);
           }
-          if (clsLabel.isEmpty()) {
-            clsLabel.put("n/a", getLabelFromUri(cls.getURI()));
-          }
-          clsJObject.put("label", clsLabel);
-          entitiesJObject.put(cls.getURI(), clsJObject);
-
         }
       }
     }
@@ -402,6 +441,7 @@ public class YamFileHandler {
     JSONObject fullJObject = new JSONObject();
     fullJObject.put("namespaces", jPrefix);
     fullJObject.put("entities", entitiesJObject);
+    fullJObject.put("entityCount", entityCount);
 
     return fullJObject;
   }

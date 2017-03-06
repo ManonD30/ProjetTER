@@ -7,7 +7,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import javax.servlet.ServletException;
 
 import javax.servlet.http.HttpServlet;
@@ -108,8 +110,10 @@ public class Validator extends HttpServlet {
     Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "AFTER JENA");
     java.util.logging.Logger.getLogger(Matcher.class.getName()).log(java.util.logging.Level.INFO, "AFTER JENA java util log");
 
-    JSONObject sourceOntJson = YamFileHandler.getOntoJsonFromJena(srcJenaModel);
-    JSONObject targetOntJson = YamFileHandler.getOntoJsonFromJena(tarJenaModel);
+    HashMap<String, List<String>> alignmentConceptsArrays = YamFileHandler.getAlignedConceptsArray(liste);
+    JSONObject sourceOntJson = YamFileHandler.getOntoJsonFromJena(srcJenaModel, (List<String>) alignmentConceptsArrays.get("source"));
+    JSONObject targetOntJson = YamFileHandler.getOntoJsonFromJena(tarJenaModel, (List<String>) alignmentConceptsArrays.get("target"));
+    
     request.setAttribute("sourceOnt", sourceOntJson);
     request.setAttribute("targetOnt", targetOntJson);
     java.util.logging.Logger.getLogger(Matcher.class.getName()).log(java.util.logging.Level.INFO, "setAttribute ontologies DONE");

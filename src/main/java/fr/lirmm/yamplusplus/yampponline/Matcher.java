@@ -14,10 +14,13 @@ import org.apache.commons.lang.RandomStringUtils;
 
 import fr.lirmm.yamplusplus.yamppls.YamppOntologyMatcher;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONObject;
 
 public class Matcher extends HttpServlet {
 
@@ -240,7 +243,7 @@ public class Matcher extends HttpServlet {
       } catch (Exception e) {
         myLog.log(Level.SEVERE, "Error while running matcher.alignOntologies: ", e);
       }
-      
+
       if (resultStoragePath == null) {
         request.setAttribute("errorMessage", "Matching process returned nothing");
         return request;
@@ -249,9 +252,6 @@ public class Matcher extends HttpServlet {
         request.setAttribute("errorMessage", resultStoragePath.substring(6));
         return request;
       }
-
-      request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel()));
-      request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel()));
 
       request.setAttribute("srcOverlappingProportion", matcher.getSrcOverlappingProportion());
       request.setAttribute("tarOverlappingProportion", matcher.getTarOverlappingProportion());
@@ -293,6 +293,20 @@ public class Matcher extends HttpServlet {
       } else {
         request.setAttribute("matcherResult", matcherResult);
       }
+
+      //String sourceString = fileHandler.getOntFileFromRequest("source", request);
+      //String targetString = fileHandler.getOntFileFromRequest("target", request);
+      JSONObject alignmentJson = null;
+      // Parse OAEI alignment format to get the matcher results
+      alignmentJson = fileHandler.parseOaeiAlignmentFormat(matcherResult);
+      // add cell data list of matcher results to response
+      request.setAttribute("alignment", alignmentJson);
+      
+      HashMap<String, List<String>> alignmentConceptsArrays = YamFileHandler.getAlignedConceptsArray(alignmentJson);
+      
+      request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel(), (List<String>) alignmentConceptsArrays.get("source")));
+      request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel(), (List<String>) alignmentConceptsArrays.get("target")));
+
     } else {
       request.setAttribute("errorMessage", "Provide a valid apikey to match ontologies (get it by logging in)");
     }
