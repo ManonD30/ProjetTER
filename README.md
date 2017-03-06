@@ -13,6 +13,10 @@ Enlever les 3 box (mettre le recouvrement proche de la table). Et running time d
 
 **On vire le choix de plusieurs matchers : seulement Very Large Scale**
 
+**On vire la propriété "undefined"**
+
+* Save la dernière version de l'alignment téléchargée
+
 
 
 Stocker à côté des ontologies les alignements produits et validés

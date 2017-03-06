@@ -17,18 +17,15 @@ import com.hp.hpl.jena.vocabulary.OWL;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 import static fr.lirmm.yamplusplus.yampponline.MatcherInterface.round;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.Charset;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -46,10 +43,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.w3c.dom.Document;
@@ -198,7 +191,7 @@ public class YamFileHandler {
     } else {
       // Get file from uploaded file in form
       Part filePart = null;
-      Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "Juste AVANT request.getPart(fileParam) dans readFileFromRequest");
+      Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "Justeeee AVANT request.getPart(fileParam) dans readFileFromRequest");
 
       // Retrieve file from input where name is sourceFile or targetFile
       filePart = request.getPart(ontName + "File");
@@ -219,7 +212,7 @@ public class YamFileHandler {
       }
     }
 
-    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "End uploadFile");
+    Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, "End uploadFileee");
     // Store ontology in workDir if asked (/srv/yam-gui/save/field/username)
 
     return storagePath;

@@ -51,7 +51,7 @@ public class Validator extends HttpServlet {
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    //Logger myLog = Logger.getLogger(Validator.class.getName());
+    java.util.logging.Logger.getLogger(Matcher.class.getName()).log(java.util.logging.Level.INFO, "Start doPost Validator");
 
     // Retrieve ontologies String from file or URL
     YamFileHandler fileHandler = null;
@@ -100,14 +100,19 @@ public class Validator extends HttpServlet {
       this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
     }
 
+    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "BEFORE JENA apache");
+    java.util.logging.Logger.getLogger(Matcher.class.getName()).log(java.util.logging.Level.INFO, "BEFORE JENA java util log");
     // Read ontology with Jena and get ontology JSON model for JavaScript
     Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI(), Logger.getLogger(Validator.class.getName()));
     Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI(), Logger.getLogger(Validator.class.getName()));
+    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "AFTER JENA");
+    java.util.logging.Logger.getLogger(Matcher.class.getName()).log(java.util.logging.Level.INFO, "AFTER JENA java util log");
 
     JSONObject sourceOntJson = YamFileHandler.getOntoJsonFromJena(srcJenaModel);
     JSONObject targetOntJson = YamFileHandler.getOntoJsonFromJena(tarJenaModel);
     request.setAttribute("sourceOnt", sourceOntJson);
     request.setAttribute("targetOnt", targetOntJson);
+    java.util.logging.Logger.getLogger(Matcher.class.getName()).log(java.util.logging.Level.INFO, "setAttribute ontologies DONE");
 
     //  In percentage the proportion of a mapped ontology. Given the mapping count
     // Get number of mappings
@@ -125,6 +130,8 @@ public class Validator extends HttpServlet {
     request.setAttribute("srcOverlappingProportion", srcOverlappingProportion);
     request.setAttribute("tarOverlappingProportion", tarOverlappingProportion);
 
+    java.util.logging.Logger.getLogger(Matcher.class.getName()).log(java.util.logging.Level.INFO, "just before dispatcher");
+    
     // Call validation.jsp to display results in /validator URL path and send the request with sourceOnt, targetOnt and alignment results
     this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
   }

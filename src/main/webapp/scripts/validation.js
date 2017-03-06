@@ -1,9 +1,11 @@
-$(document).ready(function () {
+console.log("begiiin validation.js!!!");
+$(document).ready(function () {  
+  console.log("document ready!");
   
   // This line SHOULD allow the scrollBar to stay fixed at the bottom of the screen. But not working
   // https://github.com/gromo/jquery.scrollbar. 
   // If not used: remove src/main/webapp/css/jquery.floatingscroll.css and src/main/webapp/scripts/jquery.floatingscroll.min.js
-  $(".validationForm").floatingScroll();
+  //$(".validationForm").floatingScroll();
   
 // Function to resize navbar, footer and right entity details window depending on screen size
   function resizePanels() {
@@ -45,6 +47,7 @@ var validationApp = angular.module('validationApp', ['rzModule', 'ui.bootstrap']
  * ValidationApp controller, define all angular interactions
  */
 validationApp.controller('ValidationCtrl', function ($scope, $window) {
+  console.log("begiiin");
   // Get the 2 ont in an object
   if ($window.alignmentJson.srcOntologyURI === undefined) {
     $window.alignmentJson.srcOntologyURI = "Source entities";
@@ -87,6 +90,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       }
     });
   });
+  console.log("before $scope onto");
 
   $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": srcOntoUri, "tarOntUri": tarOntoUri};
   console.log($scope.ontologies);
@@ -203,7 +207,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     alignment.relation = angular.element($event.currentTarget).val();
   };
   /**
-   * Change details div to show selected entity details
+   * Change details div to show selected entity details. Getting details from $scope.ontologies
    * @param {boolean} clickedOn
    * @returns {undefined}
    */

@@ -31,21 +31,28 @@ for the sourceOnt and targetOnt ontology alignment -->
 <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
 
 <main>
+  <script>
+    console.log("begiiin!!!");
+  </script>
 
   <%    // Get alignment Array with all aligned entities
     if (request.getAttribute("errorMessage") == null && request.getAttribute("alignment") != null) {
+      java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "START validation.jsp");
       JSONObject alignmentObject = (JSONObject) request.getAttribute("alignment");
       request.setAttribute("srcOntologyURI", (String) alignmentObject.get("srcOntologyURI"));
       request.setAttribute("tarOntologyURI", (String) alignmentObject.get("tarOntologyURI"));
-      
+
+      java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "get alignment (jsp)");
 
       // Trying to get ontology loaded using owlapi
       JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
+      java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "get sourceOnt (jsp)");
       JSONObject targetOnt = (JSONObject) request.getAttribute("targetOnt");
-      
+      java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "get targetOnt (jsp)");
       String sourceName = (String) request.getAttribute("sourceName");
       String targetName = (String) request.getAttribute("targetName");
 
+      //java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, sourceOnt.toJSONString().substring(0, 100));
       String srcOverlappingProportion = "0";
       String tarOverlappingProportion = "0";
       if (request.getAttribute("srcOverlappingProportion") != null) {
@@ -54,17 +61,23 @@ for the sourceOnt and targetOnt ontology alignment -->
       if (request.getAttribute("tarOverlappingProportion") != null) {
         tarOverlappingProportion = request.getAttribute("tarOverlappingProportion").toString();
       }
-
+      java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "get time (jsp)");
       //get the execution time from response
       String time = (String) request.getAttribute("time");
+      java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "end get java (jsp)");
   %>
-  <script type="text/javascript">
-    // Put params to javascript to use it with angularjs
+  <script>
+    console.log("afffftezeer!!!");
+  </script>
+  <script>
+    console.log("after Java !");
+    // Put params to javascript to use it with angularjs    
     var alignmentJson = <%=alignmentObject%>;
     var sourceOnt = <%=sourceOnt%>;
     var targetOnt = <%=targetOnt%>;
     var sourceName = "<%=sourceName%>";
     var targetName = "<%=targetName%>";
+    console.log("after Javascript get Java !");
   </script>
 
   <section class="main-section" ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
@@ -167,7 +180,7 @@ for the sourceOnt and targetOnt ontology alignment -->
                 ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
       </div>
 
-      <form action='download' method='post' style="overflow-x: scroll;">
+      <form action='download' method='post'>
         <table id=table class="table table-striped">
           <thead>
             <tr style="cursor: pointer;">
@@ -321,7 +334,7 @@ for the sourceOnt and targetOnt ontology alignment -->
 
   <!-- Createwindow at the right of the screen (to display entities details) -->
   <aside>
-    <nav class="    switch-nav">
+    <nav class="switch-nav">
       <ul>
         <!-- the 2 glyphicons to choose between list a    nd graph view -->
         <li class="text"><button type="button" class="btn btn-default btn-info" aria-label="Left Align">
