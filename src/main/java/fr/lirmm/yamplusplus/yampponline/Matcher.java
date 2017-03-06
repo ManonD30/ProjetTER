@@ -1,7 +1,5 @@
 package fr.lirmm.yamplusplus.yampponline;
 
-import fr.lirmm.yamplusplus.yamppls.InputType;
-import fr.lirmm.yamplusplus.yamppls.MatcherType;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -115,7 +113,7 @@ public class Matcher extends HttpServlet {
       // Print 2 examples to show how to use the REST matcher
       responseString = "<b>Using the REST API:</b><li><a href='" + prop.getProperty("appurl") + "rest/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false'>"
               + prop.getProperty("appurl") + "rest/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false</a></li>"
-              + "<li><b>Parameters available:</b> matcherType (VERYLARGE, LARGE, SCALABILITY, SMALL), explicitConflict (default: true), relativeConflict (default: true), crisscrossConflict (default: true), altLabel2altLabel (default: false), labelSimWeight (default: 0.34)</li>"
+              + "<li><b>Parameters available:</b> explicitConflict (default: true), relativeConflict (default: true), crisscrossConflict (default: true), altLabel2altLabel (default: false), labelSimWeight (default: 0.34)</li>"
               + "<li><b>cURL POST request:</b> curl -X POST -H \"Content-Type: multipart/form-data\" -F sourceFile=@/path/to/ontology_file.owl " + prop.getProperty("appurl") + "rest/matcher?targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl </li></ul>";
       response.setContentType("text/html");
     }
@@ -193,9 +191,11 @@ public class Matcher extends HttpServlet {
       YamppOntologyMatcher matcher = new YamppOntologyMatcher();
 
       // Set params
-      if (request.getParameter("matcherType") != null) {
+      
+      // To set matcherType
+      /*if (request.getParameter("matcherType") != null) {
         matcher.setMatcherType(MatcherType.valueOf(request.getParameter("matcherType")));
-      }
+      }*/
       // To retrieve sourceType (to enable XSD parsing)
       /*if (request.getParameter("sourceType") != null) {
         matcher.setSourceType(InputType.valueOf(request.getParameter("sourceType")));

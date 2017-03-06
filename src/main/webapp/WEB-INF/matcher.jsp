@@ -243,20 +243,6 @@
      //document.getElementById("paramsBtn").innerText = "Hide matcher parameters";
      }*/
   }
-
-  /**
-   * To show/hide the VeryLargeScale matcher params (when selected in dropdown)
-   */
-  $(function () {
-    $('#matcherType').change(function () {
-      var i = $('#matcherType').val();
-      if (i == "VERYLARGE") {
-        $('#veryLargeParams').show();
-      } else {
-        $('#veryLargeParams').hide();
-      }
-    });
-  });
 </script>
 
 <%@include file="footer.jsp" %>
