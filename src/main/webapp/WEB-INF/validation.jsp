@@ -227,7 +227,7 @@ for the sourceOnt and targetOnt ontology alignment -->
                 </select>
               </td>
               <td>
-                <input ty              pe="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" 
+                <input type="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" 
                        style="display: none;" readonly>{{alignment.measure}}</input>
               </td>
             </tr>
