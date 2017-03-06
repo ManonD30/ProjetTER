@@ -331,12 +331,15 @@ public class YamFileHandler {
 
   /**
    * Get the Ontology JSON model for javascript by loading ontology in Jena to
-   * get class label and other triples. Returns the following JSON: Returns a
-   * JSONArray with class URI in "id" and all other properties i.e.: {
-   * namespaces: {"rdfs": "http://rdfs.org/"}, entities: {"http://entity1.org/":
-   * {"id": "http://entity1.org/", "label": {"fr": "bonjour", "en": "hello"},
+   * get class label and other triples. Get only the aligned concepts if
+   * ontologies with more than 20 000 statments, because javascript can't such
+   * big ontologies. Returns the following JSON: Returns a JSONArray with class
+   * URI in "id" and all other properties i.e.: { namespaces: {"rdfs":
+   * "http://rdfs.org/"}, entities: {"http://entity1.org/": {"id":
+   * "http://entity1.org/", "label": {"fr": "bonjour", "en": "hello"},
    * "http://rdfs.org/label": [{"type": "literal", "value": "bonjour", "lang":
-   * "fr"}, {"type": "literal", "value": "hello", "lang": "en"}]}}}
+   * "fr"}, {"type": "literal", "value": "hello", "lang": "en"}]}}, entityCount:
+   * 3042}
    *
    * @param model
    * @param alignmentArray
@@ -370,11 +373,11 @@ public class YamFileHandler {
         JSONObject clsJObject = new JSONObject();
         Resource cls = owlClasses.next();
         JSONObject clsLabel = new JSONObject();
-        
+
         entityCount++;
 
         if (alignmentArray.contains(cls.getURI())) {
-          // Only get classes that have been aligned for big ontologies
+          // Only get classes that have been aligned for ontologies with more than 20 000 statments
 
           if (cls != null) {
             StmtIterator stmts = cls.listProperties();

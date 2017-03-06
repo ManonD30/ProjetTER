@@ -134,7 +134,7 @@ for the sourceOnt and targetOnt ontology alignment -->
               <h3 class='panel-title'>Source ontology mapped</h3>
             </div>
             <div class='panel-body' style='padding-bottom: 0px; text-align: center;'>
-              <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> entities on <%=((JSONObject) sourceOnt.get("entities")).size()%></span>
+              <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> entities on <%=sourceOnt.get("entityCount")%></span>
               <div class='progress'>
                 <div class='progress-bar' role='progressbar' aria-valuenow='<%=srcOverlappingProportion%>' aria-valuemin='0' aria-valuemax='100' 
                      style='width: <%=srcOverlappingProportion%>%;'><b><%=srcOverlappingProportion%>%</b>
@@ -152,7 +152,7 @@ for the sourceOnt and targetOnt ontology alignment -->
               <h3 class='panel-title'>Target ontology mapped</h3>
             </div>
             <div class='panel-body' style='padding-bottom: 0px; text-align: center;'>
-              <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> entities on <%=((JSONObject) targetOnt.get("entities")).size()%></span>
+              <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> entities on <%=targetOnt.get("entityCount")%></span>
               <div class='progress'>
                 <div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='<%=tarOverlappingProportion%>' 
                      aria-valuemin='0' aria-valuemax='100' style='width: <%=tarOverlappingProportion%>%;'><b><%=tarOverlappingProportion%>%</b>
