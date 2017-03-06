@@ -110,7 +110,9 @@ for the sourceOnt and targetOnt ontology alignment -->
 
       <p>
         This UI displays the results of the ontology matching and allows the user to validate or not each mapping.
-        It shows informations about mapped concepts extracted from the provided ontologies on the right.
+        It shows informations about mapped concepts extracted from the provided ontologies on the right.<br>
+        The user can also add new mappings that have not been found by the Yam++ Matcher (note that 
+        for performance reason only the aligned concepts are retrieved for ontologies with more than 30 000 statements)
       </p>
       <div style="width: 100%; display: inline-block;">
         <%

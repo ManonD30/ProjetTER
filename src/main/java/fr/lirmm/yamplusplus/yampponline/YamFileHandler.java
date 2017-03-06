@@ -332,7 +332,7 @@ public class YamFileHandler {
   /**
    * Get the Ontology JSON model for javascript by loading ontology in Jena to
    * get class label and other triples. Get only the aligned concepts if
-   * ontologies with more than 20 000 statments, because javascript can't such
+   * ontologies with more than 30 000 statements, because javascript can't such
    * big ontologies. Returns the following JSON: Returns a JSONArray with class
    * URI in "id" and all other properties i.e.: { namespaces: {"rdfs":
    * "http://rdfs.org/"}, entities: {"http://entity1.org/": {"id":
@@ -376,67 +376,68 @@ public class YamFileHandler {
 
         entityCount++;
 
-        if (alignmentArray.contains(cls.getURI())) {
-          // Only get classes that have been aligned for ontologies with more than 20 000 statments
+        if (model.size() > 30000 && !alignmentArray.contains(cls.getURI())) {
+          // Only get classes that have been aligned for ontologies with more than 30 000 statements
+          continue;
+        }
 
-          if (cls != null) {
-            StmtIterator stmts = cls.listProperties();
-            clsJObject.put("id", cls.getURI());
-            while (stmts.hasNext()) {
-              // the iterator returns statements: [subject, predicate, object]
-              StatementImpl tripleArray = (StatementImpl) stmts.next();
+        if (cls != null) {
+          StmtIterator stmts = cls.listProperties();
+          clsJObject.put("id", cls.getURI());
+          while (stmts.hasNext()) {
+            // the iterator returns statements: [subject, predicate, object]
+            StatementImpl tripleArray = (StatementImpl) stmts.next();
 
-              // Generate a set with prefixes used in this ontology
-              java.util.Map<String, String> prefixMap = model.getNsPrefixMap();
-              Set<String> prefixKeys = prefixMap.keySet();
+            // Generate a set with prefixes used in this ontology
+            java.util.Map<String, String> prefixMap = model.getNsPrefixMap();
+            Set<String> prefixKeys = prefixMap.keySet();
 
-              String predicateString = tripleArray.getPredicate().toString();
-              String prefixedPredicate = getUriWithPrefix(predicateString, prefixMap);
+            String predicateString = tripleArray.getPredicate().toString();
+            String prefixedPredicate = getUriWithPrefix(predicateString, prefixMap);
 
-              // Get label for skos:prefLabel or rdfs:label
-              if (tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
-                clsLabel.put(tripleArray.getLiteral().getLanguage(), tripleArray.getLiteral().getLexicalForm());
-                //clsLabel = tripleArray.getLiteral().getLexicalForm(); To get without the lang
-              } else if (tripleArray.getPredicate().toString().equals("http://www.w3.org/2000/01/rdf-schema#label") && !clsLabel.containsKey(tripleArray.getLiteral().getLanguage())) {
-                clsLabel.put(tripleArray.getLiteral().getLanguage(), tripleArray.getLiteral().getLexicalForm());
-              }
-
-              //String objectString = tripleArray.getObject().toString();
-              String objectString = "No object";
-              String objectType = "No object";
-              JSONObject resourceJObject = new JSONObject();
-
-              if (tripleArray.getObject().isLiteral()) {
-                objectString = tripleArray.getLiteral().toString();
-                objectType = "literal";
-                resourceJObject.put("type", objectType);
-                resourceJObject.put("value", objectString);
-                resourceJObject.put("lang", tripleArray.getLiteral().getLanguage());
-                // We add the prefixed predicates as triple attributes, to avoid having to calculate on the fly in javascript afterwards
-                resourceJObject.put("prefixedPredicate", prefixedPredicate);
-              } else {
-                objectString = tripleArray.getObject().toString();
-                objectType = "uri";
-                resourceJObject.put("type", objectType);
-                resourceJObject.put("value", objectString);
-                resourceJObject.put("prefixedPredicate", prefixedPredicate);
-              }
-
-              JSONArray objectsJArray = new JSONArray();
-              if (clsJObject.containsKey(predicateString)) {
-                objectsJArray = (JSONArray) clsJObject.get(predicateString);
-              }
-              // Add predicate and object to class JSON object
-              objectsJArray.add(resourceJObject);
-              clsJObject.put(predicateString, objectsJArray);
+            // Get label for skos:prefLabel or rdfs:label
+            if (tripleArray.getPredicate().toString().equals("http://www.w3.org/2004/02/skos/core#prefLabel")) {
+              clsLabel.put(tripleArray.getLiteral().getLanguage(), tripleArray.getLiteral().getLexicalForm());
+              //clsLabel = tripleArray.getLiteral().getLexicalForm(); To get without the lang
+            } else if (tripleArray.getPredicate().toString().equals("http://www.w3.org/2000/01/rdf-schema#label") && !clsLabel.containsKey(tripleArray.getLiteral().getLanguage())) {
+              clsLabel.put(tripleArray.getLiteral().getLanguage(), tripleArray.getLiteral().getLexicalForm());
             }
-            if (clsLabel.isEmpty()) {
-              clsLabel.put("n/a", getLabelFromUri(cls.getURI()));
-            }
-            clsJObject.put("label", clsLabel);
-            entitiesJObject.put(cls.getURI(), clsJObject);
 
+            //String objectString = tripleArray.getObject().toString();
+            String objectString = "No object";
+            String objectType = "No object";
+            JSONObject resourceJObject = new JSONObject();
+
+            if (tripleArray.getObject().isLiteral()) {
+              objectString = tripleArray.getLiteral().toString();
+              objectType = "literal";
+              resourceJObject.put("type", objectType);
+              resourceJObject.put("value", objectString);
+              resourceJObject.put("lang", tripleArray.getLiteral().getLanguage());
+              // We add the prefixed predicates as triple attributes, to avoid having to calculate on the fly in javascript afterwards
+              resourceJObject.put("prefixedPredicate", prefixedPredicate);
+            } else {
+              objectString = tripleArray.getObject().toString();
+              objectType = "uri";
+              resourceJObject.put("type", objectType);
+              resourceJObject.put("value", objectString);
+              resourceJObject.put("prefixedPredicate", prefixedPredicate);
+            }
+
+            JSONArray objectsJArray = new JSONArray();
+            if (clsJObject.containsKey(predicateString)) {
+              objectsJArray = (JSONArray) clsJObject.get(predicateString);
+            }
+            // Add predicate and object to class JSON object
+            objectsJArray.add(resourceJObject);
+            clsJObject.put(predicateString, objectsJArray);
           }
+          if (clsLabel.isEmpty()) {
+            clsLabel.put("n/a", getLabelFromUri(cls.getURI()));
+          }
+          clsJObject.put("label", clsLabel);
+          entitiesJObject.put(cls.getURI(), clsJObject);
+
         }
       }
     }
