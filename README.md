@@ -4,18 +4,18 @@ Using Apache Tomcat 7 and Java 8
 
 ## Truc à résoudre pour la dernière semaine
 
-**Sur écran 4:3 le validation.jsp ne resize pas correctement la table**: table-layout: fixed; permet de le résoudre mais, la taille des cells ne s'adaptent pas au contenu
+~ **Sur écran 4:3 le validation.jsp ne resize pas correctement la table**: table-layout: fixed; permet de le résoudre mais, la taille des cells ne s'adaptent pas au contenu
 
 Enlever les 3 box (mettre le recouvrement proche de la table). Et running time dans le texte
 
-**Permettre de choisir plus d'exemples ! (différents couples)**
+X **Permettre de choisir plus d'exemples ! (différents couples)**
 2 Doremus, Anatomy, 2 Large Bio (FMA, NCI, SNOMED; utiliser une URL BioPortal ? Elles sont sur NCBO normalement). FMA NCI à partir des URLs de BioPortal NCBO : bloque entre "start processRequest" et "endUploadFile"
 
 X **On vire le choix de plusieurs matchers : seulement Very Large Scale**
 
 X **On vire la propriété "undefined"**
 
-**Bug nullPointer quand on ddl l'alignement parfois** (avec largeBio par ex)
+X **Bug nullPointer quand on ddl l'alignement parfois** (avec largeBio par ex)
 
 * Save la dernière version de l'alignment téléchargée
 
@@ -32,25 +32,9 @@ Trouver comment faire pour modifier le seuil des mappings qui sortent en résult
 
 **IMPORTANT**
 
-Permettre à l'admin de supprimer des ontologies (remplacer args ddl par delete?). Il manque sudo : demander à Joël.
-
-Faire en sorte de pouvoir récupérer mieux les différentes onto et alignments saved : une REST API ?
-
-Mail stack pour problème
-
 Séparer page user et admin ?
-Add des commentaires pour rendre admin page plus lisible
 
 Nommer admin direct dans la page admin
-Admin peut ajouter un field. Si j'y arrive pas : on fait en sorte qu'il faille changer seulement une liste quelque part et on documente dans README
-
-Remettre les timeouts : 10 min
-
-results iaml / diabolo : j'ai un undefined pour chaque mapping
-
-Faire en sorte de parfaitement récupérer le nom
-
-Ajouter mouseover pour le range des scores
 
 * Yampp online publi: 
   * Screenshot des trucs importants
