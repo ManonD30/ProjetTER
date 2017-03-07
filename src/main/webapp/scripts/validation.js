@@ -1,7 +1,4 @@
-console.log("begiiin validation.js!!!");
-$(document).ready(function () {  
-  console.log("document ready!");
-  
+$(document).ready(function () {    
   // This line SHOULD allow the scrollBar to stay fixed at the bottom of the screen. But not working
   // https://github.com/gromo/jquery.scrollbar. 
   // If not used: remove src/main/webapp/css/jquery.floatingscroll.css and src/main/webapp/scripts/jquery.floatingscroll.min.js
@@ -47,7 +44,6 @@ var validationApp = angular.module('validationApp', ['rzModule', 'ui.bootstrap']
  * ValidationApp controller, define all angular interactions
  */
 validationApp.controller('ValidationCtrl', function ($scope, $window) {
-  console.log("begiiin");
   // Get the 2 ont in an object
   if ($window.alignmentJson.srcOntologyURI === undefined) {
     $window.alignmentJson.srcOntologyURI = "Source entities";
@@ -90,10 +86,9 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
       }
     });
   });
-  console.log("before $scope onto");
 
   $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": srcOntoUri, "tarOntUri": tarOntoUri};
-  console.log($scope.ontologies);
+  //console.log($scope.ontologies);
   // Convert ontologies entity object to an array for filter
   $scope.srcOntArray = $.map($scope.ontologies.ont1.entities, function (value, index) {
     return [value];
@@ -101,8 +96,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.tarOntArray = $.map($scope.ontologies.ont2.entities, function (value, index) {
     return [value];
   });
-  console.log("srcOntArray:");
-  console.log($scope.srcOntArray);
+  //console.log($scope.srcOntArray);
 
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.sourceOnt.namespaces, $window.targetOnt.namespaces);
@@ -116,8 +110,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
   $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson.entities, $scope.ontologies);
-  console.log("alignments:");
-  console.log($scope.alignments);
+  //console.log($scope.alignments);
   alignments = $scope.alignments;
   $scope.langSelect = {"en": "en", "fr": "fr"};
 

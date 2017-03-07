@@ -31,28 +31,21 @@ for the sourceOnt and targetOnt ontology alignment -->
 <script src="https://rawgit.com/rzajac/angularjs-slider/master/dist/rzslider.js"></script>
 
 <main>
-  <script>
-    console.log("begiiin!!!");
-  </script>
 
   <%    // Get alignment Array with all aligned entities
     if (request.getAttribute("errorMessage") == null && request.getAttribute("alignment") != null) {
-      java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "START validation.jsp");
+      //java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "START validation.jsp");
       JSONObject alignmentObject = (JSONObject) request.getAttribute("alignment");
-      request.setAttribute("srcOntologyURI", (String) alignmentObject.get("srcOntologyURI"));
+      request.setAttribute("srcObioportal.bioontology.org/ontologies/NCITntologyURI", (String) alignmentObject.get("srcOntologyURI"));
       request.setAttribute("tarOntologyURI", (String) alignmentObject.get("tarOntologyURI"));
 
-      java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "get alignment (jsp)");
 
       // Trying to get ontology loaded using owlapi
       JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
-      java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "get sourceOnt (jsp)");
       JSONObject targetOnt = (JSONObject) request.getAttribute("targetOnt");
-      java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "get targetOnt (jsp)");
       String sourceName = (String) request.getAttribute("sourceName");
       String targetName = (String) request.getAttribute("targetName");
 
-      //java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, sourceOnt.toJSONString().substring(0, 100));
       String srcOverlappingProportion = "0";
       String tarOverlappingProportion = "0";
       if (request.getAttribute("srcOverlappingProportion") != null) {
@@ -63,21 +56,14 @@ for the sourceOnt and targetOnt ontology alignment -->
       }
       java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "get time (jsp)");
       //get the execution time from response
-      String time = (String) request.getAttribute("time");
-      java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "end get java (jsp)");
-  %>
+      String time = (String) request.getAttribute("time");  %>
   <script>
-    console.log("afffftezeer!!!");
-  </script>
-  <script>
-    console.log("after Java !");
     // Put params to javascript to use it with angularjs    
     var alignmentJson = <%=alignmentObject%>;
     var sourceOnt = <%=sourceOnt%>;
     var targetOnt = <%=targetOnt%>;
     var sourceName = "<%=sourceName%>";
     var targetName = "<%=targetName%>";
-    console.log("after Javascript get Java !");
   </script>
 
   <section class="main-section" ng-app="validationApp" ng-controller="ValidationCtrl">&nbsp;
@@ -149,7 +135,7 @@ for the sourceOnt and targetOnt ontology alignment -->
           }
           if (!tarOverlappingProportion.equals("0")) {%>
         <div class='col-md-4'>
-          <div class='panel panel-success'>
+          <div class='panel panel-success'>bioportal.bioontology.org/ontologies/NCIT
             <div class='panel-heading' style='text-align: center;'>
               <h3 class='panel-title'>Target ontology mapped</h3>
             </div>
