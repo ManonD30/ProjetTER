@@ -2,7 +2,16 @@
 
 Using Apache Tomcat 7 and Java 8
 
-## Truc à résoudre pour la dernière semaine
+
+
+## A résoudre
+
+* Emballement. Parfois ça s'emballe (surtout quand on s'amuse avec des grosses ontologies)
+  * Est-ce que ça viendrait de conflits quand on essaie de faire 2 matchings en même temps (lancer 2 matchings et regarder s'il y a overlap dans les logs)
+
+
+
+## Résolu
 
 ~ **Sur écran 4:3 le validation.jsp ne resize pas correctement la table**: table-layout: fixed; permet de le résoudre mais, la taille des cells ne s'adaptent pas au contenu
 
@@ -216,6 +225,20 @@ Normalement "mop" et "genre" : doit pas y avoir de mappings entre ces 2 là. App
 
 
 
+
+## Restart Tomcat if overload
+
+SSH connect to info-demo.lirmm.fr
+
+```shell
+ssh emonet@info-demo.lirmm.fr
+cd /home/emonet/docker-compose-yam
+docker-compose restart
+```
+
+
+
+
 ## How to change yampp-online code
 
 In case of problem contact Vincent Emonet or Joël Maizi
@@ -244,8 +267,6 @@ git pull
 # Compile the project (it will compile the newly modificated project and put it in docker). Careful you need the right to copy files into docker
 ./compile.sh
 ```
-
-
 
 
 
