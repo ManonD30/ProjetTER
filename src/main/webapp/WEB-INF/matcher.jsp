@@ -10,7 +10,15 @@
     <form action="matcherinterface" method="post" enctype="multipart/form-data" name=form
           onsubmit="return  validateForm()">
 
-      <button type="button" class="btn btn-sm btn-info" onclick="getExample()">Fill with example</button>
+      <select name="selectExample" id="selectExample" class="form-control"  style="width: auto; display:inline; margin-left: 1%;">
+        <option value="empty" selected>Try an example</option>
+        <option value="doremusMop">Doremus means of performance (iaml - diabolo)</option>
+        <option value="doremusGenre">Doremus Genre (redomi - diabolo)</option>
+        <option value="anatomy">Anatomy (human - mouse)</option>
+        <option value="oaeiFmaNci">OAEI Large Bio (FMA - NCI)</option>
+        <option value="oaeiFmaSnomed">OAEI Large Bio (FMA - SNOMED)</option>
+        <option value="oaeiNciSnomed">OAEI Large Bio (NCI - SNOMED)</option>
+      </select>
       <br/><br/>
 
       <div class="alert alert-warning" role="alert">
@@ -92,7 +100,7 @@
 
       <div id="paramsDiv" style="display:none;">
         <br/>
-        
+
         <div id="veryLargeParams" class="row" style="width: 150%; margin-left: -25%;">
 
           <p>More details on the matcher used and its parameters in 
@@ -159,13 +167,35 @@
 
 <script type="text/javascript">
   /**
-   * Fill sourceUrl fields with default ontologies from the GitLab opendata repo
+   * To fill ontologies URL with examples
    */
-  function getExample()
-  {
-    document.getElementById('sourceUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl";
-    document.getElementById('targetUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl";
-  }
+  $(function () {
+    $('#selectExample').change(function () {
+      var i = $('#selectExample').val();
+      if (i == "doremusMop") {
+        document.getElementById('sourceUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl";
+        document.getElementById('targetUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl";
+      } else if (i == "doremusGenre") {
+        document.getElementById('sourceUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/genre-redomi.ttl";
+        document.getElementById('targetUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/genre-diabolo.ttl";
+      } else if (i == "anatomy") {
+        document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/Anatomy/human.owl";
+        document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/Anatomy/mouse.owl";
+      } else if (i == "oaeiFmaNci") {
+        document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/oaei2016/oaei_FMA_whole_ontology.owl";
+        document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/oaei2016/oaei_NCI_whole_ontology.owl";
+      } else if (i == "oaeiFmaSnomed") {
+        document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/oaei2016/oaei_FMA_whole_ontology.owl";
+        document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/oaei2016/oaei_SNOMED_small_overlapping_fma.owl";
+      } else if (i == "oaeiNciSnomed") {
+        document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/oaei2016/oaei_NCI_whole_ontology.owl";
+        document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/oaei2016/oaei_SNOMED_small_overlapping_nci.owl";
+      } else {
+        document.getElementById('sourceUrl').value = "";
+        document.getElementById('targetUrl').value = "";
+      }
+    });
+  });
 
   /**
    * Check if source and target ontologies have been provided if the form
