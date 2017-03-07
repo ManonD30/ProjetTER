@@ -36,7 +36,7 @@ for the sourceOnt and targetOnt ontology alignment -->
     if (request.getAttribute("errorMessage") == null && request.getAttribute("alignment") != null) {
       //java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "START validation.jsp");
       JSONObject alignmentObject = (JSONObject) request.getAttribute("alignment");
-      request.setAttribute("srcObioportal.bioontology.org/ontologies/NCITntologyURI", (String) alignmentObject.get("srcOntologyURI"));
+      request.setAttribute("srcOntologyURI", (String) alignmentObject.get("srcOntologyURI"));
       request.setAttribute("tarOntologyURI", (String) alignmentObject.get("tarOntologyURI"));
 
 
@@ -135,7 +135,7 @@ for the sourceOnt and targetOnt ontology alignment -->
           }
           if (!tarOverlappingProportion.equals("0")) {%>
         <div class='col-md-4'>
-          <div class='panel panel-success'>bioportal.bioontology.org/ontologies/NCIT
+          <div class='panel panel-success'>
             <div class='panel-heading' style='text-align: center;'>
               <h3 class='panel-title'>Target ontology mapped</h3>
             </div>

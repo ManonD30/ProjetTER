@@ -61,8 +61,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   if (!tarOntoUri) {
     tarOntoUri = "Target Entities"
   }
-  $scope.sourceName = $window.sourceName.replace(new RegExp("\/|:", 'g'), "_");
-  $scope.targetName = $window.targetName.replace(new RegExp("\/|:", 'g'), "_");
+  $scope.sourceName = $window.sourceName.replace("http://").replace("https://").replace(new RegExp("\/|:", 'g'), "_");
+  $scope.targetName = $window.targetName.replace("http://").replace("https://").replace(new RegExp("\/|:", 'g'), "_");
   if ($scope.sourceName === "null") {
     $scope.sourceName = srcOntoUri.replace(new RegExp("\/|:", 'g'), "_");
   }

@@ -106,15 +106,19 @@ public class Download extends HttpServlet {
       // Use source and target onto Name to name alignment file. Or URI if names not provided
       String sourceName = (String) request.getParameter("sourceName");
       String targetName = (String) request.getParameter("targetName");
-      if (sourceName == null) {
+      if (sourceName == null && sourceUri != null) {
         sourceName = sourceUri.replaceAll("http://", "").replaceAll("https://", "").replaceAll("/", "_");
       }
-      if (targetName == null) {
+      if (targetName == null && targetUri != null) {
         targetName = targetUri.replaceAll("http://", "").replaceAll("https://", "").replaceAll("/", "_");
       }
       
-      response.setHeader("content-disposition", "inline; filename=\"alignment_" + sourceName
+      if (sourceName == null || targetName == null) {
+        response.setHeader("content-disposition", "inline; filename=\"alignment.rdf\"");
+      } else {
+        response.setHeader("content-disposition", "inline; filename=\"alignment_" + sourceName
               + "_" + targetName + ".rdf\"");
+      }
 
       HashMap<String, String> hashMapping = null;
       ArrayList<HashMap> arrayMappings = new ArrayList<>();
