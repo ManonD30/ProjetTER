@@ -23,16 +23,16 @@
 
     <h4>Using your browser</h4>
     <p>
-      <a href="rest/matcher?sourceUrl=<%=sourceUrl%>&targetUrl=<%=targetUrl%>&apikey=<%=apikey%>">
-        http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=<%=sourceUrl%>&targetUrl=<%=targetUrl%>&apikey=<%=apikey%>
+      <a href="api/matcher?sourceUrl=<%=sourceUrl%>&targetUrl=<%=targetUrl%>&apikey=<%=apikey%>">
+        http://yamplusplus.lirmm.fr/api/matcher?sourceUrl=<%=sourceUrl%>&targetUrl=<%=targetUrl%>&apikey=<%=apikey%>
       </a>
     </p>
     <br/>
 
     <h4>Using cURL command</h4>
 
-    <pre class="prettyprint">curl -X GET http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=<%=sourceUrl%>&targetUrl=<%=targetUrl%>&apikey=<%=apikey%>
-curl -X GET http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=<%=sourceUrl%>&targetUrl=<%=targetUrl%>&apikey=<%=apikey%>
+    <pre class="prettyprint">curl -X GET http://yamplusplus.lirmm.fr/api/matcher?sourceUrl=<%=sourceUrl%>&targetUrl=<%=targetUrl%>&apikey=<%=apikey%>
+curl -X GET http://yamplusplus.lirmm.fr/api/matcher?sourceUrl=<%=sourceUrl%>&targetUrl=<%=targetUrl%>&apikey=<%=apikey%>
     </pre>
 
     <h4>Using Java</h4>
@@ -71,13 +71,13 @@ curl -X GET http://yamplusplus.lirmm.fr/rest/matcher?sourceUrl=<%=sourceUrl%>&ta
 
     <pre class="prettyprint">curl -X POST -H \"Content-Type: multipart/form-data\ 
   -F sourceFile=@/path/to/source_ontology_file.owl 
-  http://yamplusplus.lirmm.fr/rest/matcher?targetUrl=<%=targetUrl%>&apikey=<%=apikey%>'
+  http://yamplusplus.lirmm.fr/api/matcher?targetUrl=<%=targetUrl%>&apikey=<%=apikey%>'
 curl -X POST -H "Content-Type: multipart/form-data" 
   -F sourceFile=@/path/to/source_ont.owl 
   -F targetFile=@/path/to/target_ont.owl 
   -d 'apikey=<%=apikey%>'
-  http://yamplusplus.lirmm.fr/rest/matcher
-curl -X POST http://localhost:8083/rest/matcher 
+  http://yamplusplus.lirmm.fr/api/matcher
+curl -X POST http://localhost:8083/api/matcher 
   -d 'sourceUrl=<%=sourceUrl%>'
   -d 'targetUrl=<%=targetUrl%>'
   -d 'apikey=<%=apikey%>'

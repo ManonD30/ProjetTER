@@ -18,7 +18,7 @@
 
     if (user != null) {%>
   <br><h2>Connected as <%=username%></h2>
-  <p class=contentCenter>Apikey to authenticate yourself to use the RESTful Matcher: <b><%=user.getApikey()%></b></p>
+  <p class=contentCenter>Apikey to authenticate yourself to use the Matcher API: <b><%=user.getApikey()%></b></p>
   <p class=contentCenter>Email: <b><%=user.getMail()%></b></p>
   <p class=contentCenter>You have done <%=user.getMatchCount()%> ontology matching.</p>
   <p class=contentCenter>Institut/Affiliate to <%=user.getIsAffiliateTo()%>.</p>

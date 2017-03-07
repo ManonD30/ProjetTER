@@ -30,11 +30,11 @@ public class Matcher extends HttpServlet {
    * parameters to define the 2 ontologies to work with Upload a file using
    * cURL: curl -X POST -H \"Content-Type: multipart/form-data\ -F
    * sourceFile=@/path/to/ontology_file.owl
-   * http://localhost:8083/rest/matcher?targetUrl=http://purl.obolibrary.org/obo/po.owl
+   * http://localhost:8083/api/matcher?targetUrl=http://purl.obolibrary.org/obo/po.owl
    * Only files: curl -X POST -H "Content-Type: multipart/form-data" -F
    * targetFile=@/srv/yam2013/cmt.owl -F sourceFile=@/srv/yam2013/Conference.owl
-   * http://localhost:8083/rest/matcher Only URL: curl -X POST
-   * http://localhost:8083/rest/matcher -d
+   * http://localhost:8083/api/matcher Only URL: curl -X POST
+   * http://localhost:8083/api/matcher -d
    * 'sourceUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl'
    * -d
    * 'targetUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl'
@@ -72,8 +72,8 @@ public class Matcher extends HttpServlet {
   /**
    * Get request. Use the processRequest method to upload file and run YAM curl
    * -X GET
-   * http://localhost:8083/rest/matcher?targetUrl=http://purl.obolibrary.org/obo/po.owl&sourceUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
-   * http://localhost:8083/rest/matcher?targetUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&sourceUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl
+   * http://localhost:8083/api/matcher?targetUrl=http://purl.obolibrary.org/obo/po.owl&sourceUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
+   * http://localhost:8083/api/matcher?targetUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&sourceUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl
    * http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db
    * http://data.bioportal.lirmm.fr/ontologies/CIF/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db
    *
@@ -110,11 +110,11 @@ public class Matcher extends HttpServlet {
         request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
       }
     } else {
-      // Print 2 examples to show how to use the REST matcher
-      responseString = "<b>Using the REST API:</b><li><a href='" + prop.getProperty("appurl") + "rest/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false'>"
-              + prop.getProperty("appurl") + "rest/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false</a></li>"
+      // Print 2 examples to show how to use the matcher API
+      responseString = "<b>Using the Matcher API:</b><li><a href='" + prop.getProperty("appurl") + "api/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false'>"
+              + prop.getProperty("appurl") + "api/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false</a></li>"
               + "<li><b>Parameters available:</b> explicitConflict (default: true), relativeConflict (default: true), crisscrossConflict (default: true), altLabel2altLabel (default: false), labelSimWeight (default: 0.34)</li>"
-              + "<li><b>cURL POST request:</b> curl -X POST -H \"Content-Type: multipart/form-data\" -F sourceFile=@/path/to/ontology_file.owl " + prop.getProperty("appurl") + "rest/matcher?targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl </li></ul>";
+              + "<li><b>cURL POST request:</b> curl -X POST -H \"Content-Type: multipart/form-data\" -F sourceFile=@/path/to/ontology_file.owl " + prop.getProperty("appurl") + "api/matcher?targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl </li></ul>";
       response.setContentType("text/html");
     }
 
