@@ -231,7 +231,7 @@ public class YamFileHandler {
    * @param oaeiResult
    * @return JSONObject
    */
-  public JSONObject parseOaeiAlignmentFormat(String oaeiResult) {
+  public JSONObject parseOaeiAlignmentFormat(String oaeiResult) throws SAXException, IOException {
     JSONObject jObjectAlign = new JSONObject();
     JSONObject jObject = null;
     JSONArray jArray = new JSONArray();
@@ -266,11 +266,7 @@ public class YamFileHandler {
     // Read OAEI alignment
     InputSource is = new InputSource(new StringReader(oaeiResult));
 
-    try {
-      doc = builder.parse(is);
-    } catch (SAXException | IOException ex) {
-      Logger.getLogger(Download.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    doc = builder.parse(is);
 
     // Get source and target ontology URI
     Element srcOntoElem = (Element) doc.getElementsByTagName("onto1").item(0);

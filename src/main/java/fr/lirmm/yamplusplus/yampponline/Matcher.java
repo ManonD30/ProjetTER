@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONObject;
+import org.xml.sax.SAXException;
 
 public class Matcher extends HttpServlet {
 
@@ -297,8 +298,14 @@ public class Matcher extends HttpServlet {
       //String sourceString = fileHandler.getOntFileFromRequest("source", request);
       //String targetString = fileHandler.getOntFileFromRequest("target", request);
       JSONObject alignmentJson = null;
-      // Parse OAEI alignment format to get the matcher results
-      alignmentJson = fileHandler.parseOaeiAlignmentFormat(matcherResult);
+      try {
+        // Parse OAEI alignment format to get the matcher results
+        alignmentJson = fileHandler.parseOaeiAlignmentFormat(matcherResult);
+      } catch (SAXException ex) {
+        Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
+        request.setAttribute("errorMessage", "Error while parsing the alignment file: " + ex.getMessage());
+        return request;
+      }
       // add cell data list of matcher results to response
       request.setAttribute("alignment", alignmentJson);
       
