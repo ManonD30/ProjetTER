@@ -22,6 +22,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.xml.sax.SAXException;
 
 //@Path("/matcher")
 public class Validator extends HttpServlet {
@@ -81,8 +82,14 @@ public class Validator extends HttpServlet {
       request.setAttribute("errorMessage", "Error uploading alignment file");
       this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
     }
-    // Parse the alignment file to put its data in an Array of Map
-    liste = fileHandler.parseOaeiAlignmentFormat(alignmentString);
+    try {
+      // Parse the alignment file to put its data in an Array of Map
+      liste = fileHandler.parseOaeiAlignmentFormat(alignmentString);
+    } catch (SAXException ex) {
+      java.util.logging.Logger.getLogger(Validator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      request.setAttribute("errorMessage", "Error while parsing the alignment file: " + ex.getMessage());
+      this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
+    }
     // add cell data list to response
     // TODO: Change liste variable name?
     request.setAttribute("alignment", liste);
