@@ -13,7 +13,7 @@
       <select name="selectExample" id="selectExample" class="form-control"  style="width: auto; display:inline; margin-left: 1%;">
         <option value="empty" selected>Try an example</option>
         <option value="doremusMop">Doremus means of performance (iaml - diabolo)</option>
-        <option value="doremusGenre">Doremus Genre (redomi - diabolo)</option>
+        <option value="doremusGenre">Doremus Genre (redomi - MIMO)</option>
         <option value="anatomy">Anatomy (human - mouse)</option>
         <option value="oaeiFmaNci">OAEI Large Bio (FMA - NCI)</option>
         <option value="oaeiFmaSnomed">OAEI Large Bio (FMA - SNOMED)</option>
@@ -177,7 +177,7 @@
         document.getElementById('targetUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl";
       } else if (i == "doremusGenre") {
         document.getElementById('sourceUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/genre-redomi.ttl";
-        document.getElementById('targetUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/genre-diabolo.ttl";
+        document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/doremus/MIMO.xml";
       } else if (i == "anatomy") {
         document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/Anatomy/human.owl";
         document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/Anatomy/mouse.owl";
