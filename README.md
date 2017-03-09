@@ -16,6 +16,8 @@ http://stackoverflow.com/questions/7268824/call-new-jvm-from-existing-jvm
 
 http://stackoverflow.com/questions/12533799/execute-shell-command-in-tomcat
 
+Andon: http://stackoverflow.com/questions/3468987/executing-another-application-from-java
+
 Utiliser ProcessBuilder
 Je peux recup l'output stream du process et le lire...
 Le mieux serait de définir le dir dans lequel on travaillera direct dans yampp-online et de le passer comme argument
