@@ -10,6 +10,16 @@ Using Apache Tomcat 7 and Java 8
   * Est-ce que ça viendrait de conflits quand on essaie de faire 2 matchings en même temps (lancer 2 matchings et regarder s'il y a overlap dans les logs)
 
 
+SOLUTION : il faut lancer le JAR dans une JVM à part (au moins ça sera bien compartimenté)
+
+http://stackoverflow.com/questions/7268824/call-new-jvm-from-existing-jvm
+
+http://stackoverflow.com/questions/12533799/execute-shell-command-in-tomcat
+
+Utiliser ProcessBuilder
+Je peux recup l'output stream du process et le lire...
+Le mieux serait de définir le dir dans lequel on travaillera direct dans yampp-online et de le passer comme argument
+
 
 ## Résolu
 
