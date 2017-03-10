@@ -2,7 +2,13 @@
 
 Using Apache Tomcat 7 and Java 8
 
+## Démo
 
+* Virer les grosse OAEI car marchent pas... (résoudre le bug d'abord)
+
+* Montrer un matching Doremus et un matching Anatomy
+
+* Montrer l'API
 
 ## A résoudre
 
