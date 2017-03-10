@@ -10,6 +10,8 @@ Using Apache Tomcat 7 and Java 8
 
 * Montrer l'API
 
+* Remplacer examples par "Available datasets"
+
 ## A résoudre
 
 * Emballement. Parfois ça s'emballe (surtout quand on s'amuse avec des grosses ontologies)
