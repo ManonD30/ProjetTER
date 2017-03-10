@@ -8,9 +8,16 @@ Using Apache Tomcat 7 and Java 8
 
 * Montrer un matching Doremus et un matching Anatomy
 
-* Montrer l'API
+* Save l'alignement (export aussi pour montrer)
+
+* Montrer le validateur avec l'alignement qu'on vient de save
+
+* Utiliser l'API (via command line)
 
 * Remplacer examples par "Available datasets"
+
+* Réflexion de fin : on pourrait imaginer de la collaboration des experts
+
 
 ## A résoudre
 
