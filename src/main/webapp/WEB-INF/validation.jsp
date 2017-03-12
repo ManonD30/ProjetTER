@@ -39,24 +39,25 @@ for the sourceOnt and targetOnt ontology alignment -->
       request.setAttribute("srcOntologyURI", (String) alignmentObject.get("srcOntologyURI"));
       request.setAttribute("tarOntologyURI", (String) alignmentObject.get("tarOntologyURI"));
 
-
       // Trying to get ontology loaded using owlapi
       JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
       JSONObject targetOnt = (JSONObject) request.getAttribute("targetOnt");
+      int srcMappingCount = (int) request.getAttribute("srcMappingCount");
+      int tarMappingCount = (int) request.getAttribute("tarMappingCount");
+      int srcConceptCount = ((Long) sourceOnt.get("entityCount")).intValue();
+      int tarConceptCount = ((Long) targetOnt.get("entityCount")).intValue();
+      
+      ((JSONObject) sourceOnt.get("entities")).size();
+
       String sourceName = (String) request.getAttribute("sourceName");
       String targetName = (String) request.getAttribute("targetName");
 
-      String srcOverlappingProportion = "0";
-      String tarOverlappingProportion = "0";
-      if (request.getAttribute("srcOverlappingProportion") != null) {
-        srcOverlappingProportion = request.getAttribute("srcOverlappingProportion").toString();
-      }
-      if (request.getAttribute("tarOverlappingProportion") != null) {
-        tarOverlappingProportion = request.getAttribute("tarOverlappingProportion").toString();
-      }
+      String srcOverlappingProportion = String.valueOf(srcMappingCount * 100 / srcConceptCount);
+      String tarOverlappingProportion = String.valueOf(tarMappingCount * 100 / tarConceptCount);
+
       java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "get time (jsp)");
       //get the execution time from response
-      String time = (String) request.getAttribute("time");  %>
+      String time = (String) request.getAttribute("time");%>
   <script>
     // Put params to javascript to use it with angularjs    
     var alignmentJson = <%=alignmentObject%>;
@@ -122,7 +123,7 @@ for the sourceOnt and targetOnt ontology alignment -->
               <h3 class='panel-title'>Source ontology mapped</h3>
             </div>
             <div class='panel-body' style='padding-bottom: 0px; text-align: center;'>
-              <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> entities on <%=sourceOnt.get("entityCount")%></span>
+              <span> Matched <%=srcMappingCount%> entities on <%=srcConceptCount%></span>
               <div class='progress'>
                 <div class='progress-bar' role='progressbar' aria-valuenow='<%=srcOverlappingProportion%>' aria-valuemin='0' aria-valuemax='100' 
                      style='width: <%=srcOverlappingProportion%>%;'><b><%=srcOverlappingProportion%>%</b>
@@ -140,7 +141,7 @@ for the sourceOnt and targetOnt ontology alignment -->
               <h3 class='panel-title'>Target ontology mapped</h3>
             </div>
             <div class='panel-body' style='padding-bottom: 0px; text-align: center;'>
-              <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> entities on <%=targetOnt.get("entityCount")%></span>
+              <span> Matched <%=tarMappingCount%> entities on <%=tarConceptCount%></span>
               <div class='progress'>
                 <div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='<%=tarOverlappingProportion%>' 
                      aria-valuemin='0' aria-valuemax='100' style='width: <%=tarOverlappingProportion%>%;'><b><%=tarOverlappingProportion%>%</b>

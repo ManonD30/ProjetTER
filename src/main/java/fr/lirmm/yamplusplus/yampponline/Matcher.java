@@ -14,11 +14,14 @@ import fr.lirmm.yamplusplus.yamppls.YamppOntologyMatcher;
 import fr.lirmm.yamplusplus.yamppls.YamppUtils;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -256,26 +259,6 @@ public class Matcher extends HttpServlet {
         scenarioName = org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(10).toUpperCase();
       }
 
-      String resultStoragePath = "error:Error while performing the matching";
-      //try {
-      /*resultStoragePath = matcher.alignInScenario(new File(sourceStoragePath).toURI(),
-                new File(targetStoragePath).toURI(), scenarioName);
-
-        RuntimeMXBean mx = ManagementFactory.getRuntimeMXBean();
-        List<String> jvmArgs = mx.getInputArguments();
-        String cp = mx.getClassPath();
-
-        List<String> listArgs = new ArrayList<String>();
-        listArgs.add("java");
-        listArgs.addAll(jvmArgs);
-        listArgs.add("-cp");
-        listArgs.add(cp);
-        listArgs.add(Main.class.getName());
-        listArgs.addAll(Arrays.asList(args));
-
-        String[] res = new String[listArgs.size()];
-        Runtime.getRuntime().exec(listArgs.toArray(res));*/
-
       //java -jar yampp-ls.jar -s ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_FMA_whole_ontology.owl -t ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_NCI_whole_ontology.owl
       ProcessBuilder pb = new ProcessBuilder("java", "-jar", "/srv/yampp-ls.jar", "-s", sourceStoragePath, "-t", targetStoragePath, "-sc", scenarioName,
               "--removeExplicitConflict", explicitConflict, "--removeCrisscrossConflict", crisscrossConflict, "--removeRelativeConflict", relativeConflict, "--altLabel2altLabel", altLabel2altLabel);
@@ -288,22 +271,6 @@ public class Matcher extends HttpServlet {
         Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, "errror: " + ex);
       }
 
-      //myLog.log(Level.WARNING, "After matcher.alignOntologies. Result storage path: {0}", resultStoragePath);
-      /*} catch (Exception e) {
-        myLog.log(Level.SEVERE, "Error while running matcher.alignOntologies: ", e);
-      }*/
-
- /*if (resultStoragePath == null) {
-        request.setAttribute("errorMessage", "Matching process returned nothing");
-        return request;
-      }
-      if (resultStoragePath.startsWith("error:")) {
-        request.setAttribute("errorMessage", resultStoragePath.substring(6));
-        return request;
-      }*/
-
- /*request.setAttribute("srcOverlappingProportion", matcher.getSrcOverlappingProportion());
-      request.setAttribute("tarOverlappingProportion", matcher.getTarOverlappingProportion());*/
       // No alignment file means no mappings found
       String matcherResult = "error: No mappings have been found";
       //if (resultStoragePath != null) {
@@ -349,6 +316,18 @@ public class Matcher extends HttpServlet {
       try {
         // Parse OAEI alignment format to get the matcher results
         alignmentJson = fileHandler.parseOaeiAlignmentFormat(matcherResult);
+        JSONArray alignedEntitiesArray = (JSONArray) alignmentJson.get("entities");
+        
+        // Count number of unique concepts mapped. To get the mapped proportion
+        HashSet srcUniqueValues = new HashSet<>();
+        HashSet tarUniqueValues = new HashSet<>();
+        for (int i = 0; i < alignedEntitiesArray.size(); i++) {
+          srcUniqueValues.add(((JSONObject) alignedEntitiesArray.get(i)).get("entity1").toString());
+          tarUniqueValues.add(((JSONObject) alignedEntitiesArray.get(i)).get("entity2").toString());
+        }
+        request.setAttribute("srcMappingCount", srcUniqueValues.size());
+        request.setAttribute("tarMappingCount", tarUniqueValues.size());
+
       } catch (SAXException ex) {
         Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
         request.setAttribute("errorMessage", "Error while parsing the alignment file: " + ex.getMessage());
@@ -357,15 +336,18 @@ public class Matcher extends HttpServlet {
       // add cell data list of matcher results to response
       request.setAttribute("alignment", alignmentJson);
 
-      HashMap<String, List<String>> alignmentConceptsArrays = YamppUtils.getAlignedConceptsArray(alignmentJson);
+      //HashMap<String, List<String>> alignmentConceptsArrays = YamppUtils.getAlignedConceptsArray(alignmentJson);
 
       //request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel(), (List<String>) alignmentConceptsArrays.get("source")));
       //request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel(), (List<String>) alignmentConceptsArrays.get("target")));
+      
       // Retrieve source and target ontology JSON
       JSONParser parser = new JSONParser();
       try {
         String sourceOntoString = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/sourceOntology.json"), "UTF-8");
-        request.setAttribute("sourceOnt", (JSONObject) parser.parse(sourceOntoString));
+        JSONObject sourceOntoJson = (JSONObject) parser.parse(sourceOntoString);
+        request.setAttribute("sourceOnt", sourceOntoJson);
+        request.setAttribute("sourceOnt", sourceOntoJson);
 
         String targetOntoString = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/targetOntology.json"), "UTF-8");
         request.setAttribute("targetOnt", (JSONObject) parser.parse(targetOntoString));
