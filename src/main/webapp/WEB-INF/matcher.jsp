@@ -135,7 +135,7 @@
                   <label><input type="checkbox" name="relativeConflict" id="relativeConflict">&nbsp;Remove Relative Disjoint conflicts</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" name="crisscrossConflictCheckbox" id="crisscrossConflict">&nbsp;Remove Crisscross conflicts</label>
+                  <label><input type="checkbox" name="crisscrossConflict" id="crisscrossConflict">&nbsp;Remove Crisscross conflicts</label>
                 </div>
               </div>
             </div>

@@ -217,19 +217,22 @@ public class Matcher extends HttpServlet {
       String relativeConflict = "true";
       String crisscrossConflict = "true";
       String altLabel2altLabel = "true";
-
+      
+      // If not checked it the checkbox is null. If checked it is "on"
       if (request.getParameter("explicitConflict") == null || request.getParameter("explicitConflict").equals("false")) {
         explicitConflict = "false";
         matcher.setVlsExplicitDisjoint(false);
       } else {
         matcher.setVlsExplicitDisjoint(true);
       }
+      
       if (request.getParameter("relativeConflict") == null || request.getParameter("relativeConflict").equals("false")) {
         relativeConflict = "false";
         matcher.setVlsRelativeDisjoint(false);
       } else {
         matcher.setVlsRelativeDisjoint(true);
       }
+      
       if (request.getParameter("crisscrossConflict") == null || request.getParameter("crisscrossConflict").equals("false")) {
         crisscrossConflict = "false";
         matcher.setVlsCrisscross(false);
@@ -258,7 +261,7 @@ public class Matcher extends HttpServlet {
       while (new File(yampplsWorkspace + scenarioName).exists()) {
         scenarioName = org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(10).toUpperCase();
       }
-
+      
       //java -jar yampp-ls.jar -s ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_FMA_whole_ontology.owl -t ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_NCI_whole_ontology.owl
       ProcessBuilder pb = new ProcessBuilder("java", "-jar", "/srv/yampp-ls.jar", "-s", sourceStoragePath, "-t", targetStoragePath, "-sc", scenarioName,
               "--removeExplicitConflict", explicitConflict, "--removeCrisscrossConflict", crisscrossConflict, "--removeRelativeConflict", relativeConflict, "--altLabel2altLabel", altLabel2altLabel);
