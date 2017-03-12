@@ -207,23 +207,33 @@ public class Matcher extends HttpServlet {
         matcher.setTargetType(InputType.valueOf(request.getParameter("targetType")));
       }*/
       // Remove conflicts true by default
+      
+      String explicitConflict = "true";
+      String relativeConflict = "true";
+      String crisscrossConflict = "true";
+      String altLabel2altLabel = "true";
+      
       if (request.getParameter("explicitConflict") == null || request.getParameter("explicitConflict").equals("false")) {
+        explicitConflict = "false";
         matcher.setVlsExplicitDisjoint(false);
       } else {
         matcher.setVlsExplicitDisjoint(true);
       }
       if (request.getParameter("relativeConflict") == null || request.getParameter("relativeConflict").equals("false")) {
+        relativeConflict = "false";
         matcher.setVlsRelativeDisjoint(false);
       } else {
         matcher.setVlsRelativeDisjoint(true);
       }
       if (request.getParameter("crisscrossConflict") == null || request.getParameter("crisscrossConflict").equals("false")) {
+        crisscrossConflict = "false";
         matcher.setVlsCrisscross(false);
       } else {
         matcher.setVlsCrisscross(true);
       }
       // subLab2suLab and label sim weight false by default
       if (request.getParameter("altLabel2altLabel") == null || request.getParameter("altLabel2altLabel").equals("false")) {
+        altLabel2altLabel = "false";
         matcher.setVlsSubSrc2subTar(false);
         matcher.setVlsAllLevels(false);
       } else {
@@ -265,8 +275,10 @@ public class Matcher extends HttpServlet {
         Runtime.getRuntime().exec(listArgs.toArray(res));*/
         
         //java -jar yampp-ls.jar -s ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_FMA_whole_ontology.owl -t ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_NCI_whole_ontology.owl
-        ProcessBuilder pb = new ProcessBuilder("java", "-jar", "/srv/yampp-ls.jar", "-s", sourceStoragePath, "-t", targetStoragePath, "-sc", scenarioName);
-        pb.redirectErrorStream(true); // equivalent of 2>&1
+        ProcessBuilder pb = new ProcessBuilder("java", "-jar", "/srv/yampp-ls.jar", "-s", sourceStoragePath, "-t", targetStoragePath, "-sc", scenarioName, 
+                "--removeExplicitConflict", explicitConflict, "--removeCrisscrossConflict", crisscrossConflict, "--removeRelativeConflict", relativeConflict, "--altLabel2altLabel", altLabel2altLabel);
+        
+        pb.redirectErrorStream(true); // equivalent of 2>&
         Process p = pb.start();
       try {
         p.waitFor();
@@ -279,24 +291,24 @@ public class Matcher extends HttpServlet {
         myLog.log(Level.SEVERE, "Error while running matcher.alignOntologies: ", e);
       }*/
 
-      if (resultStoragePath == null) {
+      /*if (resultStoragePath == null) {
         request.setAttribute("errorMessage", "Matching process returned nothing");
         return request;
       }
       if (resultStoragePath.startsWith("error:")) {
         request.setAttribute("errorMessage", resultStoragePath.substring(6));
         return request;
-      }
+      }*/
 
-      request.setAttribute("srcOverlappingProportion", matcher.getSrcOverlappingProportion());
-      request.setAttribute("tarOverlappingProportion", matcher.getTarOverlappingProportion());
+      /*request.setAttribute("srcOverlappingProportion", matcher.getSrcOverlappingProportion());
+      request.setAttribute("tarOverlappingProportion", matcher.getTarOverlappingProportion());*/
 
       // No alignment file means no mappings found
       String matcherResult = "error: No mappings have been found";
-      if (resultStoragePath != null) {
+      //if (resultStoragePath != null) {
         //matcherResult = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
         matcherResult = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/alignment.rdf"), "UTF-8");
-      }
+      //}
 
       // Save file if asked
       //FileUtils.writeStringToFile(new File(sourceStoragePath), matcherResult, "UTF-8");

@@ -19,6 +19,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -50,7 +51,7 @@ public class TestOaeiAlignment {
   // @Test
   // public void hello() {}
   @Test
-  public void testOaeiAlignment() throws IOException, ClassNotFoundException, OWLOntologyStorageException {
+  public void testOaeiAlignment() throws IOException, ClassNotFoundException, OWLOntologyStorageException, SAXException {
 
     String iamlRameauAlignment = FileUtils.readFileToString(new File("src/test/resources/iaml-rameau_valid_test.rdf"), "UTF-8");
 
