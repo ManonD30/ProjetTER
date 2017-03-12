@@ -117,9 +117,9 @@ public class Validator extends HttpServlet {
     Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "AFTER JENA");
     java.util.logging.Logger.getLogger(Matcher.class.getName()).log(java.util.logging.Level.INFO, "AFTER JENA java util log");
 
-    HashMap<String, List<String>> alignmentConceptsArrays = YamFileHandler.getAlignedConceptsArray(liste);
-    JSONObject sourceOntJson = YamFileHandler.getOntoJsonFromJena(srcJenaModel, (List<String>) alignmentConceptsArrays.get("source"));
-    JSONObject targetOntJson = YamFileHandler.getOntoJsonFromJena(tarJenaModel, (List<String>) alignmentConceptsArrays.get("target"));
+    HashMap<String, List<String>> alignmentConceptsArrays = YamppUtils.getAlignedConceptsArray(liste);
+    JSONObject sourceOntJson = YamppUtils.getOntoJsonFromJena(srcJenaModel, (List<String>) alignmentConceptsArrays.get("source"));
+    JSONObject targetOntJson = YamppUtils.getOntoJsonFromJena(tarJenaModel, (List<String>) alignmentConceptsArrays.get("target"));
     
     request.setAttribute("sourceOnt", sourceOntJson);
     request.setAttribute("targetOnt", targetOntJson);

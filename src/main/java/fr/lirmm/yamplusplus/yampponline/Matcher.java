@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.RandomStringUtils;
 
 import fr.lirmm.yamplusplus.yamppls.YamppOntologyMatcher;
+import fr.lirmm.yamplusplus.yamppls.YamppUtils;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 
 public class Matcher extends HttpServlet {
@@ -207,12 +210,11 @@ public class Matcher extends HttpServlet {
         matcher.setTargetType(InputType.valueOf(request.getParameter("targetType")));
       }*/
       // Remove conflicts true by default
-      
       String explicitConflict = "true";
       String relativeConflict = "true";
       String crisscrossConflict = "true";
       String altLabel2altLabel = "true";
-      
+
       if (request.getParameter("explicitConflict") == null || request.getParameter("explicitConflict").equals("false")) {
         explicitConflict = "false";
         matcher.setVlsExplicitDisjoint(false);
@@ -256,7 +258,7 @@ public class Matcher extends HttpServlet {
 
       String resultStoragePath = "error:Error while performing the matching";
       //try {
-        /*resultStoragePath = matcher.alignInScenario(new File(sourceStoragePath).toURI(),
+      /*resultStoragePath = matcher.alignInScenario(new File(sourceStoragePath).toURI(),
                 new File(targetStoragePath).toURI(), scenarioName);
 
         RuntimeMXBean mx = ManagementFactory.getRuntimeMXBean();
@@ -273,25 +275,25 @@ public class Matcher extends HttpServlet {
 
         String[] res = new String[listArgs.size()];
         Runtime.getRuntime().exec(listArgs.toArray(res));*/
-        
-        //java -jar yampp-ls.jar -s ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_FMA_whole_ontology.owl -t ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_NCI_whole_ontology.owl
-        ProcessBuilder pb = new ProcessBuilder("java", "-jar", "/srv/yampp-ls.jar", "-s", sourceStoragePath, "-t", targetStoragePath, "-sc", scenarioName, 
-                "--removeExplicitConflict", explicitConflict, "--removeCrisscrossConflict", crisscrossConflict, "--removeRelativeConflict", relativeConflict, "--altLabel2altLabel", altLabel2altLabel);
-        
-        pb.redirectErrorStream(true); // equivalent of 2>&
-        Process p = pb.start();
+
+      //java -jar yampp-ls.jar -s ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_FMA_whole_ontology.owl -t ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_NCI_whole_ontology.owl
+      ProcessBuilder pb = new ProcessBuilder("java", "-jar", "/srv/yampp-ls.jar", "-s", sourceStoragePath, "-t", targetStoragePath, "-sc", scenarioName,
+              "--removeExplicitConflict", explicitConflict, "--removeCrisscrossConflict", crisscrossConflict, "--removeRelativeConflict", relativeConflict, "--altLabel2altLabel", altLabel2altLabel);
+
+      pb.redirectErrorStream(true); // equivalent of 2>&
+      Process p = pb.start();
       try {
         p.waitFor();
       } catch (InterruptedException ex) {
         Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, "errror: " + ex);
       }
 
-        //myLog.log(Level.WARNING, "After matcher.alignOntologies. Result storage path: {0}", resultStoragePath);
+      //myLog.log(Level.WARNING, "After matcher.alignOntologies. Result storage path: {0}", resultStoragePath);
       /*} catch (Exception e) {
         myLog.log(Level.SEVERE, "Error while running matcher.alignOntologies: ", e);
       }*/
 
-      /*if (resultStoragePath == null) {
+ /*if (resultStoragePath == null) {
         request.setAttribute("errorMessage", "Matching process returned nothing");
         return request;
       }
@@ -300,14 +302,13 @@ public class Matcher extends HttpServlet {
         return request;
       }*/
 
-      /*request.setAttribute("srcOverlappingProportion", matcher.getSrcOverlappingProportion());
+ /*request.setAttribute("srcOverlappingProportion", matcher.getSrcOverlappingProportion());
       request.setAttribute("tarOverlappingProportion", matcher.getTarOverlappingProportion());*/
-
       // No alignment file means no mappings found
       String matcherResult = "error: No mappings have been found";
       //if (resultStoragePath != null) {
-        //matcherResult = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
-        matcherResult = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/alignment.rdf"), "UTF-8");
+      //matcherResult = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
+      matcherResult = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/alignment.rdf"), "UTF-8");
       //}
 
       // Save file if asked
@@ -356,10 +357,22 @@ public class Matcher extends HttpServlet {
       // add cell data list of matcher results to response
       request.setAttribute("alignment", alignmentJson);
 
-      HashMap<String, List<String>> alignmentConceptsArrays = YamFileHandler.getAlignedConceptsArray(alignmentJson);
+      HashMap<String, List<String>> alignmentConceptsArrays = YamppUtils.getAlignedConceptsArray(alignmentJson);
 
-      request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel(), (List<String>) alignmentConceptsArrays.get("source")));
-      request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel(), (List<String>) alignmentConceptsArrays.get("target")));
+      //request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel(), (List<String>) alignmentConceptsArrays.get("source")));
+      //request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel(), (List<String>) alignmentConceptsArrays.get("target")));
+      // Retrieve source and target ontology JSON
+      JSONParser parser = new JSONParser();
+      try {
+        String sourceOntoString = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/sourceOntology.json"), "UTF-8");
+        request.setAttribute("sourceOnt", (JSONObject) parser.parse(sourceOntoString));
+
+        String targetOntoString = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/targetOntology.json"), "UTF-8");
+        request.setAttribute("targetOnt", (JSONObject) parser.parse(targetOntoString));
+      } catch (ParseException ex) {
+        Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
+        request.setAttribute("errorMessage", "Fail getting ontologies objects");
+      }
 
     } else {
       request.setAttribute("errorMessage", "Provide a valid apikey to match ontologies (get it by logging in)");
