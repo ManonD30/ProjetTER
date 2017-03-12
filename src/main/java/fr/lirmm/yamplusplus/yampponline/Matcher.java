@@ -135,6 +135,9 @@ public class Matcher extends HttpServlet {
     Logger myLog = Logger.getLogger(Matcher.class.getName());
     myLog.log(Level.SEVERE, "Start processRequest...");
 
+    // Set the workspace for yampp-ls lib. Just used to check if scenario already existing
+    String yampplsWorkspace = "/tmp/yamppls/";
+
     // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
     String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
 
@@ -192,7 +195,6 @@ public class Matcher extends HttpServlet {
       YamppOntologyMatcher matcher = new YamppOntologyMatcher();
 
       // Set params
-      
       // To set matcherType
       /*if (request.getParameter("matcherType") != null) {
         matcher.setMatcherType(MatcherType.valueOf(request.getParameter("matcherType")));
@@ -236,14 +238,46 @@ public class Matcher extends HttpServlet {
       // Soon to be String resultStoragePath = matcher.alignOntologies()
       myLog.log(Level.WARNING, "Before matcher.alignOntologies...");
 
-      String resultStoragePath = "error:Error while performing the matching";
-      try {
-        resultStoragePath = matcher.alignOntologies(new File(sourceStoragePath).toURI(),
-                new File(targetStoragePath).toURI());
-        myLog.log(Level.WARNING, "After matcher.alignOntologies. Result storage path: {0}", resultStoragePath);
-      } catch (Exception e) {
-        myLog.log(Level.SEVERE, "Error while running matcher.alignOntologies: ", e);
+      String scenarioName = org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(10).toUpperCase();
+      // Randomly generate the scenario name and check if a dir already got this name
+      while (new File(yampplsWorkspace + scenarioName).exists()) {
+        scenarioName = org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(10).toUpperCase();
       }
+
+      String resultStoragePath = "error:Error while performing the matching";
+      //try {
+        /*resultStoragePath = matcher.alignInScenario(new File(sourceStoragePath).toURI(),
+                new File(targetStoragePath).toURI(), scenarioName);
+
+        RuntimeMXBean mx = ManagementFactory.getRuntimeMXBean();
+        List<String> jvmArgs = mx.getInputArguments();
+        String cp = mx.getClassPath();
+
+        List<String> listArgs = new ArrayList<String>();
+        listArgs.add("java");
+        listArgs.addAll(jvmArgs);
+        listArgs.add("-cp");
+        listArgs.add(cp);
+        listArgs.add(Main.class.getName());
+        listArgs.addAll(Arrays.asList(args));
+
+        String[] res = new String[listArgs.size()];
+        Runtime.getRuntime().exec(listArgs.toArray(res));*/
+        
+        //java -jar yampp-ls.jar -s ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_FMA_whole_ontology.owl -t ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_NCI_whole_ontology.owl
+        ProcessBuilder pb = new ProcessBuilder("java", "-jar", "/srv/yampp-ls.jar", "-s", sourceStoragePath, "-t", targetStoragePath, "-sc", scenarioName);
+        pb.redirectErrorStream(true); // equivalent of 2>&1
+        Process p = pb.start();
+      try {
+        p.waitFor();
+      } catch (InterruptedException ex) {
+        Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, "errror: " + ex);
+      }
+
+        //myLog.log(Level.WARNING, "After matcher.alignOntologies. Result storage path: {0}", resultStoragePath);
+      /*} catch (Exception e) {
+        myLog.log(Level.SEVERE, "Error while running matcher.alignOntologies: ", e);
+      }*/
 
       if (resultStoragePath == null) {
         request.setAttribute("errorMessage", "Matching process returned nothing");
@@ -260,11 +294,12 @@ public class Matcher extends HttpServlet {
       // No alignment file means no mappings found
       String matcherResult = "error: No mappings have been found";
       if (resultStoragePath != null) {
-        matcherResult = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
+        //matcherResult = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
+        matcherResult = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/alignment.rdf"), "UTF-8");
       }
 
       // Save file if asked
-      FileUtils.writeStringToFile(new File(sourceStoragePath), matcherResult, "UTF-8");
+      //FileUtils.writeStringToFile(new File(sourceStoragePath), matcherResult, "UTF-8");
       if (request.getParameter("saveFile") != null) {
         String sourceName = "source";
         String targetName = "target";
@@ -308,9 +343,9 @@ public class Matcher extends HttpServlet {
       }
       // add cell data list of matcher results to response
       request.setAttribute("alignment", alignmentJson);
-      
+
       HashMap<String, List<String>> alignmentConceptsArrays = YamFileHandler.getAlignedConceptsArray(alignmentJson);
-      
+
       request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel(), (List<String>) alignmentConceptsArrays.get("source")));
       request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel(), (List<String>) alignmentConceptsArrays.get("target")));
 
