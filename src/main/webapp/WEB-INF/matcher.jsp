@@ -15,9 +15,9 @@
         <option value="doremusMop">Doremus means of performance (iaml - diabolo)</option>
         <option value="doremusGenre">Doremus Genre (redomi - rameau)</option>
         <option value="anatomy">Anatomy (human - mouse)</option>
+        <option value="oaeiFmaNci">OAEI Large Bio (FMA - NCI)</option>
         <option value="oaeiFmaSnomed">OAEI Large Bio (FMA - SNOMED)</option>
-        <!--option value="oaeiFmaNci">OAEI Large Bio (FMA - NCI)</option>
-        <option value="oaeiNciSnomed">OAEI Large Bio (NCI - SNOMED)</option-->
+        <option value="oaeiNciSnomed">OAEI Large Bio (NCI - SNOMED)</option>
       </select>
       <br/><br/>
 
