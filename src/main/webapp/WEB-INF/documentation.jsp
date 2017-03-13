@@ -77,10 +77,8 @@ curl -X POST -H "Content-Type: multipart/form-data"
   -F targetFile=@/path/to/target_ont.owl 
   -d 'apikey=<%=apikey%>'
   http://yamplusplus.lirmm.fr/api/matcher
-curl -X POST http://localhost:8083/api/matcher 
-  -d 'sourceUrl=<%=sourceUrl%>'
-  -d 'targetUrl=<%=targetUrl%>'
-  -d 'apikey=<%=apikey%>'
+curl -X POST http://yamplusplus.lirmm.fr/api/matcher 
+  -d 'sourceUrl=<%=sourceUrl%>&targetUrl=<%=targetUrl%>&apikey=<%=apikey%>'
     </pre>
 
   </div>
