@@ -11,7 +11,7 @@
           onsubmit="return  validateForm()">
 
       <select name="selectExample" id="selectExample" class="form-control"  style="width: auto; display:inline; margin-left: 1%;">
-        <option value="empty" selected>Try an example</option>
+        <option value="empty" selected>Select a dataset to try</option>
         <option value="doremusMop">Doremus means of performance (iaml - diabolo)</option>
         <option value="doremusGenre">Doremus Genre (redomi - rameau)</option>
         <option value="anatomy">Anatomy (human - mouse)</option>
