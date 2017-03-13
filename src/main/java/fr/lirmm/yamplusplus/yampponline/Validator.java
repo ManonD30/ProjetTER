@@ -136,10 +136,8 @@ public class Validator extends HttpServlet {
       targetUniqueMappings.add(((JSONObject) alignmentJsonArray.get(i)).get("entity2").toString());;
     }
     // number of mapped concept * 100 / number of concept in the ontology
-    int srcOverlappingProportion = sourceUniqueMappings.size() * 100 / ((JSONObject) sourceOntJson.get("entities")).size();
-    int tarOverlappingProportion = targetUniqueMappings.size() * 100 / ((JSONObject) targetOntJson.get("entities")).size();
-    request.setAttribute("srcOverlappingProportion", srcOverlappingProportion);
-    request.setAttribute("tarOverlappingProportion", tarOverlappingProportion);
+    request.setAttribute("srcMappingCount", sourceUniqueMappings.size());
+    request.setAttribute("tarMappingCount", targetUniqueMappings.size());
 
     java.util.logging.Logger.getLogger(Matcher.class.getName()).log(java.util.logging.Level.INFO, "just before dispatcher");
     
