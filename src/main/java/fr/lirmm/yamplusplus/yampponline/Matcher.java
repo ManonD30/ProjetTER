@@ -264,7 +264,7 @@ public class Matcher extends HttpServlet {
       
       //java -jar yampp-ls.jar -s ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_FMA_whole_ontology.owl -t ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_NCI_whole_ontology.owl
       ProcessBuilder pb = new ProcessBuilder("java", "-jar", "/srv/yampp-ls.jar", "-s", sourceStoragePath, "-t", targetStoragePath, "-sc", scenarioName,
-              "--removeExplicitConflict", explicitConflict, "--removeCrisscrossConflict", crisscrossConflict, "--removeRelativeConflict", relativeConflict, "--altLabel2altLabel", altLabel2altLabel);
+              "-ec", explicitConflict, "-cc", crisscrossConflict, "-rc", relativeConflict, "--altLabel2altLabel", altLabel2altLabel);
 
       pb.redirectErrorStream(true); // equivalent of 2>&
       Process p = pb.start();

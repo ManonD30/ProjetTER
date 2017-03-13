@@ -295,6 +295,15 @@ git pull
 ./compile.sh
 ```
 
+### Change in yampp-ls
+
+If you change something in yampp-ls, you need to 
+* put the new yampp-ls.jar in `src/main/webapp/WEB-INF/lib`
+* In docker-compose, needed to run the lib from the commandline to create a new JVM and avoid conflict when multiple matching simultaneously:
+  * put the new yampp-ls.jar in `docker-compose-yam/service-app`
+  * `docker-compose build` to build the new image
+  * `docker-compose up -d` to restart the container
+
 
 
 ## User administration
