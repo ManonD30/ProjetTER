@@ -12,6 +12,7 @@ import org.apache.commons.lang.RandomStringUtils;
 
 import fr.lirmm.yamplusplus.yamppls.YamppOntologyMatcher;
 import fr.lirmm.yamplusplus.yamppls.YamppUtils;
+import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -278,8 +279,12 @@ public class Matcher extends HttpServlet {
       String matcherResult = "error: No mappings have been found";
       //if (resultStoragePath != null) {
       //matcherResult = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
-      matcherResult = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/alignment.rdf"), "UTF-8");
-      //}
+      try {
+        matcherResult = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/alignment.rdf"), "UTF-8");  
+      } catch (FileNotFoundException e) {
+        request.setAttribute("errorMessage", "Server too busy");
+        return request;
+      }
 
       // Save file if asked
       //FileUtils.writeStringToFile(new File(sourceStoragePath), matcherResult, "UTF-8");

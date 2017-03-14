@@ -7,7 +7,9 @@ package fr.lirmm.yamplusplus.yampponline;
  * and open the template in the editor.
  */
 //import main.MainProgram;
+import fr.lirmm.yamplusplus.yamppls.YamppOntologyMatcher;
 import fr.lirmm.yamplusplus.yampponline.YamFileHandler;
+import java.io.File;
 import java.io.IOException;
 import java.lang.String;
 import org.junit.After;
@@ -77,7 +79,7 @@ public class TestYam {
     //YamFileHandler fileHandler = new YamFileHandler();
     //System.out.println("print in test");
 
-    ProcessBuilder pb = new ProcessBuilder("java", "-jar", "/home/emonet/java_workspace/yampp-ls/target/yampp-ls.jar", "-s", "/home/emonet/test_yam/mop-iaml.ttl", "-t", "/home/emonet/test_yam/mop-rameau.ttl", "-sc", "TEST", 
+    ProcessBuilder pb = new ProcessBuilder("java", "-jar", "/home/emonet/java_workspace/yampp-ls/target/yampp-ls.jar", "-s", "/home/emonet/test_yam/mop-iaml.ttl", "-t", "/home/emonet/test_yam/mop-diabolo.ttl", "-sc", "TEST", 
             "--removeExplicitConflict", "false", "--removeCrisscrossConflict", "false", "--removeRelativeConflict", "false", "--altLabel2altLabel", "true");
     pb.redirectErrorStream(true); // equivalent of 2>&1
     Process p = pb.start();
@@ -92,4 +94,22 @@ public class TestYam {
 
     //assertEquals("lalala", fileHandler.getUrlContent("http://advanse.lirmm.fr:8082/advanse_api/preprocessing/argot?text=lalala"));
   }
+  
+  /**
+   * mvn -Dtest=TestYam#testRunMatcher test -Dmaven.test.skip=false
+   * 
+   * @throws IOException
+   * @throws ClassNotFoundException
+   * @throws InterruptedException 
+   */
+  @Test
+  public void testRunMatcher() throws IOException, ClassNotFoundException, InterruptedException {
+    YamppOntologyMatcher matcher = new YamppOntologyMatcher();
+    matcher.setVlsExplicitDisjoint(false);
+    matcher.setVlsRelativeDisjoint(false);
+    matcher.setVlsCrisscross(false);
+    
+    matcher.alignOntologies(new File("/home/emonet/test_yam/mop-iaml.ttl").toURI(), new File("/home/emonet/test_yam/mop-diabolo.ttl").toURI());
+  }
+  
 }
