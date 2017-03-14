@@ -53,6 +53,9 @@ public class Download extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     String format = request.getParameter("validationSubmit");
+    if (format == null) {
+      format = "AlignmentAPI format";
+    }
 
     /*if (format.equals("Extended validation")) {
       this.getServletContext().getRequestDispatcher("/WEB-INF/extendedValidation.jsp").forward(request, response);
