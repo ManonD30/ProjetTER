@@ -85,14 +85,8 @@ public class TestYam {
     Process p = pb.start();
     p.waitFor();
     
-    //java -jar /home/emonet/java_workspace/yampp-ls/target/yampp-ls.jar -s https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl -t https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl -sc TEST
     //java -jar /home/emonet/java_workspace/yampp-ls/target/yampp-ls.jar -s /home/emonet/test_yam/mop-diabolo.ttl -t /home/emonet/test_yam/mop-iaml.ttl -sc TEST
-
-
-    //assertEquals("/srv/yam-gui", fileHandler.getWorkDir());
-    //assertTrue(fileHandler.getWorkDir() instanceof String);
-
-    //assertEquals("lalala", fileHandler.getUrlContent("http://advanse.lirmm.fr:8082/advanse_api/preprocessing/argot?text=lalala"));
+    //java -jar /home/emonet/java_workspace/yampp-ls/target/yampp-ls.jar -Xmx15g -s /home/emonet/java_workspace/yampp-ls/src/test/resources/bk_amina/MESH.ttl -t /home/emonet/java_workspace/yampp-ls/src/test/resources/bk_amina/oaei_NCI.owl -sc TEST -ec false - cc false -rc false
   }
   
   /**
