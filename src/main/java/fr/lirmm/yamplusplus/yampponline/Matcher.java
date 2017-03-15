@@ -355,7 +355,6 @@ public class Matcher extends HttpServlet {
         String sourceOntoString = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/sourceOntology.json"), "UTF-8");
         JSONObject sourceOntoJson = (JSONObject) parser.parse(sourceOntoString);
         request.setAttribute("sourceOnt", sourceOntoJson);
-        request.setAttribute("sourceOnt", sourceOntoJson);
 
         String targetOntoString = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/targetOntology.json"), "UTF-8");
         request.setAttribute("targetOnt", (JSONObject) parser.parse(targetOntoString));
