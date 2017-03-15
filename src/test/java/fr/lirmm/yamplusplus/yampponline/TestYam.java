@@ -86,7 +86,7 @@ public class TestYam {
     p.waitFor();
     
     //java -jar /home/emonet/java_workspace/yampp-ls/target/yampp-ls.jar -s /home/emonet/test_yam/mop-diabolo.ttl -t /home/emonet/test_yam/mop-iaml.ttl -sc TEST
-    //java -jar /home/emonet/java_workspace/yampp-ls/target/yampp-ls.jar -Xmx15g -s /home/emonet/java_workspace/yampp-ls/src/test/resources/bk_amina/MESH.ttl -t /home/emonet/java_workspace/yampp-ls/src/test/resources/bk_amina/oaei_NCI.owl -sc TEST -ec false - cc false -rc false
+    //java -Xmx15g -jar /home/emonet/java_workspace/yampp-ls/target/yampp-ls.jar -s /home/emonet/java_workspace/yampp-ls/src/test/resources/bk_amina/MESH.ttl -t /home/emonet/java_workspace/yampp-ls/src/test/resources/bk_amina/oaei_NCI.owl -sc TEST -ec false - cc false -rc false
   }
   
   /**
