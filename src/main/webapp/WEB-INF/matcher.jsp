@@ -15,9 +15,8 @@
         <option value="doremusMop">Doremus means of performance (iaml - diabolo)</option>
         <option value="doremusGenre">Doremus Genre (redomi - rameau)</option>
         <option value="anatomy">Anatomy (human - mouse)</option>
-        <option value="oaeiFmaNci">OAEI Large Bio (FMA - NCI)</option>
-        <option value="oaeiFmaSnomed">OAEI Large Bio (FMA - SNOMED)</option>
-        <option value="oaeiNciSnomed">OAEI Large Bio (NCI - SNOMED)</option>
+        <option value="oaeiTask1">OAEI LargeBio Task1</option>
+        <option value="oaeiTask3">OAEI LargeBio Task3</option>
       </select>
       <br/><br/>
 
@@ -181,15 +180,12 @@
       } else if (i == "anatomy") {
         document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/Anatomy/human.owl";
         document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/Anatomy/mouse.owl";
-      } else if (i == "oaeiFmaNci") {
-        document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/oaei2016/oaei_FMA_whole_ontology.owl";
-        document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/oaei2016/oaei_NCI_whole_ontology.owl";
-      } else if (i == "oaeiFmaSnomed") {
-        document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/oaei2016/oaei_FMA_whole_ontology.owl";
-        document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/oaei2016/oaei_SNOMED_small_overlapping_fma.owl";
-      } else if (i == "oaeiNciSnomed") {
-        document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/oaei2016/oaei_NCI_whole_ontology.owl";
-        document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/oaei2016/oaei_SNOMED_small_overlapping_nci.owl";
+      } else if (i == "oaeiTask1") {
+        document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/oaei_task1/oaei_FMA_small_overlapping_nci.owl";
+        document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/oaei_task1/oaei_NCI_small_overlapping_fma.owl";
+      } else if (i == "oaeiTask3") {
+        document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/oaei_task3/oaei_SNOMED_small_overlapping_fma.owl";
+        document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/oaei_task3/oaei_FMA_small_overlapping_snomed.owl";
       } else {
         document.getElementById('sourceUrl').value = "";
         document.getElementById('targetUrl').value = "";
