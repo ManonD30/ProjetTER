@@ -9,6 +9,10 @@
 
 <div class="container theme-showcase" role="main">
 
+  <% if (request.getSession().getAttribute("apikey") == null) { %>
+  <p style="margin: 4%; text-align: center;"><b><a href="sign">Login or signup</a></b> to use Yam++ Online alignment validator</p>
+        <% } else { %>
+
   <h3 class=contentText>Select the alignment to validate and the corresponding ontologies</h3>
   <p style="text-align: center;">
     The Yam++ Online Validator is an interface for human validation of already generated mappings. 
@@ -72,14 +76,16 @@
     </form>
   </div>
 
+  <% } %>
+
 
   <%@page import="java.io.*" %>
   <%@page import="java.net.*" %>
   <%@page import="org.apache.http.client.utils.URIBuilder" %>
 
   <%
-    // TODO: define ApiKey in conf.properties
-    // Goal here: getting Stageportal ontologies to let the user choose from them
+    // TODO:  getting Stageportal / bioportal ontologies to let the user choose from them
+    /* define ApiKey in conf.properties
     String myApiKey = "ffdfa1d6-8db4-4257-a25f-43dd9671063e";
 
     CloseableHttpClient client = HttpClientBuilder.create().build();
