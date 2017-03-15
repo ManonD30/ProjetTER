@@ -44,17 +44,16 @@ for the sourceOnt and targetOnt ontology alignment -->
       JSONObject targetOnt = (JSONObject) request.getAttribute("targetOnt");
       int srcMappingCount = (int) request.getAttribute("srcMappingCount");
       int tarMappingCount = (int) request.getAttribute("tarMappingCount");
-      int srcConceptCount = 1;
-      int tarConceptCount = 1;
+      int srcConceptCount = ((Long) sourceOnt.get("entityCount")).intValue();
+      int tarConceptCount = ((Long) targetOnt.get("entityCount")).intValue();
+      
       String srcOverlappingProportion;
       String tarOverlappingProportion;
       
-      try {
-        srcConceptCount = ((Long) sourceOnt.get("entityCount")).intValue();
-        tarConceptCount = ((Long) targetOnt.get("entityCount")).intValue();
+      if (srcConceptCount != 0 && tarConceptCount != 0) {
         srcOverlappingProportion = String.valueOf(srcMappingCount * 100 / srcConceptCount);
         tarOverlappingProportion = String.valueOf(tarMappingCount * 100 / tarConceptCount);
-      } catch (ClassCastException e) {
+      } else {
         srcOverlappingProportion = "0";
         tarOverlappingProportion = "0";
       }
@@ -64,8 +63,6 @@ for the sourceOnt and targetOnt ontology alignment -->
       String sourceName = (String) request.getAttribute("sourceName");
       String targetName = (String) request.getAttribute("targetName");
 
-
-      java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "get time (jsp)");
       //get the execution time from response
       String time = (String) request.getAttribute("time");%>
   <script>
