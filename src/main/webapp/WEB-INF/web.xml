@@ -55,6 +55,19 @@
     <servlet-name>Validator</servlet-name>
     <url-pattern>/validator</url-pattern>
   </servlet-mapping>
+  
+  <!-- Mapping /sameAsValidator to SameAsValidator.java class for the SameAsValidator webpage-->
+  <servlet>
+    <servlet-name>SameAsValidator</servlet-name>
+    <servlet-class>fr.lirmm.yamplusplus.yampponline.SameAsValidator</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SameAsValidator</servlet-name>
+    <url-pattern>/sameAsValidator</url-pattern>
+  </servlet-mapping>
+  
+  
   <!-- Mapping /download to Download.java class. When called it forces align file ddl, so the webpage is never really opened -->
   <servlet>
     <servlet-name>Download</servlet-name>
