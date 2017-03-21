@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <!-- Bootstrap core CSS and theme -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="scripts/javascript.js"></script>
+    <title>YAM++</title>
+  </head>
+  <body role="document" style="background-color:#f2f7f9">
+    <header>
+      <div class=nav>
+        <ul id=nav-box class="main-nav">
+          <li><a href=index>
+              <img class=navLogo alt="Home" src="images/yam_top.png">
+            </a></li>
+          <li><a href=matcher>Matcher</a></li>
+          <li><a href=validator>Validator</a></li>
+          <li><a href=documentation>API</a></li>
+          <li><a href=aboutus>About us</a></li>
+          <li><a href=sign>The_user</a></li>
+        </ul>
+      </div>
+    </header>
+
+<div class="container theme-showcase" role="main">
+
+  <h3 class=contentText>Select the alignment to validate and the corresponding ontologies</h3>
+  <p style="text-align: center;">
+    The Yam++ Online Validator is an interface for human validation of already generated mappings. 
+    It takes as an input an alignment in AlignmentAPI RDF format and the corresponding ontologies. 
+    Then it displays the concepts details for each mapping to help the user choose the relation between the concepts or unvalidate it. 
+    The validated alignment can be stored using one of the available formats.
+  </p>
+
+  <div class=form>
+    <form action="validator" method="post"
+          enctype="multipart/form-data" name=form>
+
+      <label>
+        AlignmentAPI RDF file
+        <a class="infolink" href="http://alignapi.gforge.inria.fr/format.html" target="_blank"></a>
+      </label> <br/>
+
+      <label class="btn btn-info btn-file" title="Accepting alignment files of following extensions: .rdf, .xml">
+        Choose file
+        <input id=rdfAlignmentFile type="file" name="rdfAlignmentFile" accept=".rdf, .xml" 
+               onchange="refreshFileUpload('rdfAlignmentFile', 'fileRdfAlignmentFile');" style="display: none;" />
+      </label> <br/>
+
+      <label id="fileRdfAlignmentFile" style="font-weight: normal;"></label>
+
+      <div class="row">
+        <div class="col-md-6" style="border-right: 1px solid #ccc;">
+          <label for=sourceUrl>Source Ontology</label> <br/>
+          <input type="url" class='ontologyUrl' id="sourceUrl" name="sourceUrl" placeholder="Enter ontology URL"/>
+          <br/>
+          <span style="text-align: center">or</span> <br/>
+          <label class="btn btn-info btn-file" title='Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml'>
+            Choose file
+            <input id=sourceFile type="file" name="sourceFile" accept='.owl, .rdf, .nt, .ttl, .jsonld, .json, .xml'
+                   onchange="refreshFileUpload('sourceFile', 'sourceFilename');" style="display: none;"/>
+          </label>
+          <a class="infolink" title='Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml' target="_blank"></a>
+          <br/>
+          <label id="sourceFilename" style="font-weight: normal;"></label>
+        </div>
+        <div class="col-md-6">
+          <label for=targetUrl>Target Ontology</label> <br/>
+          <input type="url" class='ontologyUrl' id="targetUrl" name="targetUrl" placeholder="Enter ontology URL"/>
+          <br/>
+          <span style="text-align: center">or</span> <br/>
+          <label class="btn btn-info btn-file" title='Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml'>
+            Choose file
+            <input id=targetFile type="file" name="targetFile" accept='.owl, .rdf, .nt, .ttl, .jsonld, .json, .xml'
+                   onchange="refreshFileUpload('targetFile', 'targetFilename');" style="display: none;" />
+          </label>
+          <a class="infolink" title='Accepting ontology files of following extensions: .owl, .rdf, .nt, .ttl, .jsonld, .json, .xml' target="_blank"></a>
+          <br/>
+          <label id="targetFilename" style="font-weight: normal;"></label>
+        </div>
+      </div>
+      <br/>
+      <input class="btn btnSubmit " type="submit" value="Validate!"/>
+    </form>
+  </div>
+
+
+  <div id="overlay">
+    <div class="popup_block">
+      <img width=300 alt="" src="images/loading-blue.gif">
+      <p class=popup_text>Please wait...</p>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    
+        <footer>
+      <a href=http://www.lirmm.fr class=footerImg target="_blank">
+        <img class=footerImg alt="LIRMM" src="images/favicon.ico">
+      </a>
+      <a href=http://www.umontpellier.fr class=footerImg target="_blank">
+        <img class=footerImg alt="LIRMM" src="images/um.png">
+      </a>
+      <a href=http://www.cnrs.fr class=footerImg target="_blank">
+        <img class=footerImg alt="LIRMM" src="images/cnrs.png">
+      </a> 
+      <a href=http://www.doremus.org class=footerImg target="_blank">
+        <img class=footerImg alt="LIRMM" src="images/doremus.png">
+      </a>
+      <a href=https://www.mesrs.dz class=footerImg target="_blank">
+        <img class=footerImg alt="LIRMM" src="images/MESRS.png">
+      </a>
+    </footer>
+  </body>
+</html>
