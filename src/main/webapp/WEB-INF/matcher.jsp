@@ -10,7 +10,14 @@
     <form action="matcherinterface" method="post" enctype="multipart/form-data" name=form
           onsubmit="return  validateForm()">
 
-      <button type="button" class="btn btn-sm btn-info" onclick="getExample()">Fill with example</button>
+      <select name="selectExample" id="selectExample" class="form-control"  style="width: auto; display:inline; margin-left: 1%;">
+        <option value="empty" selected>Select a dataset to try</option>
+        <option value="doremusMop">Doremus means of performance (iaml - diabolo)</option>
+        <option value="doremusGenre">Doremus Genre (redomi - rameau)</option>
+        <option value="anatomy">Anatomy (human - mouse)</option>
+        <option value="oaeiTask1">OAEI LargeBio Task1</option>
+        <option value="oaeiTask3">OAEI LargeBio Task3</option>
+      </select>
       <br/><br/>
 
       <div class="alert alert-warning" role="alert">
@@ -93,21 +100,6 @@
       <div id="paramsDiv" style="display:none;">
         <br/>
 
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title" style="font-weight: bold;">Matcher type</h3>
-          </div>
-          <div class="panel-body">
-            <p>Changing the matcher type can change the matching results. Use the Very Large Scale matcher for ontologies bigger than 4 000 concepts</p>
-            <select name="matcherType" id="matcherType" class="form-control"  style="width: auto; display:inline; margin-left: 1%;">
-              <option value="VERYLARGE" selected>Very Large Scale (for big ontologies)</option>
-              <option value="LARGE">Large Scale</option>
-              <option value="SCALABILITY">Scalability versionning (for ontologies containing less than 4000 concepts)</option>
-              <option value="SMALL">Small Scale (for ontologies containing less than 500 concepts)</option>
-            </select>
-          </div>
-        </div>
-        <br/>
         <div id="veryLargeParams" class="row" style="width: 150%; margin-left: -25%;">
 
           <p>More details on the matcher used and its parameters in 
@@ -142,7 +134,7 @@
                   <label><input type="checkbox" name="relativeConflict" id="relativeConflict">&nbsp;Remove Relative Disjoint conflicts</label>
                 </div>
                 <div class="checkbox">
-                  <label><input type="checkbox" name="crisscrossConflictCheckbox" id="crisscrossConflict">&nbsp;Remove Crisscross conflicts</label>
+                  <label><input type="checkbox" name="crisscrossConflict" id="crisscrossConflict">&nbsp;Remove Crisscross conflicts</label>
                 </div>
               </div>
             </div>
@@ -174,13 +166,32 @@
 
 <script type="text/javascript">
   /**
-   * Fill sourceUrl fields with default ontologies from the GitLab opendata repo
+   * To fill ontologies URL with examples
    */
-  function getExample()
-  {
-    document.getElementById('sourceUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl";
-    document.getElementById('targetUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl";
-  }
+  $(function () {
+    $('#selectExample').change(function () {
+      var i = $('#selectExample').val();
+      if (i == "doremusMop") {
+        document.getElementById('sourceUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl";
+        document.getElementById('targetUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl";
+      } else if (i == "doremusGenre") {
+        document.getElementById('sourceUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/genre-redomi.ttl";
+        document.getElementById('targetUrl').value = "https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/genre-rameau.ttl";
+      } else if (i == "anatomy") {
+        document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/Anatomy/human.owl";
+        document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-ls/raw/master/src/test/resources/Anatomy/mouse.owl";
+      } else if (i == "oaeiTask1") {
+        document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/oaei_task1/oaei_FMA_small_overlapping_nci.owl";
+        document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/oaei_task1/oaei_NCI_small_overlapping_fma.owl";
+      } else if (i == "oaeiTask3") {
+        document.getElementById('sourceUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/oaei_task3/oaei_SNOMED_small_overlapping_fma.owl";
+        document.getElementById('targetUrl').value = "https://gite.lirmm.fr/opendata/yampp-online/raw/master/src/test/resources/oaei_task3/oaei_FMA_small_overlapping_snomed.owl";
+      } else {
+        document.getElementById('sourceUrl').value = "";
+        document.getElementById('targetUrl').value = "";
+      }
+    });
+  });
 
   /**
    * Check if source and target ontologies have been provided if the form
@@ -243,20 +254,6 @@
      //document.getElementById("paramsBtn").innerText = "Hide matcher parameters";
      }*/
   }
-
-  /**
-   * To show/hide the VeryLargeScale matcher params (when selected in dropdown)
-   */
-  $(function () {
-    $('#matcherType').change(function () {
-      var i = $('#matcherType').val();
-      if (i == "VERYLARGE") {
-        $('#veryLargeParams').show();
-      } else {
-        $('#veryLargeParams').hide();
-      }
-    });
-  });
 </script>
 
 <%@include file="footer.jsp" %>

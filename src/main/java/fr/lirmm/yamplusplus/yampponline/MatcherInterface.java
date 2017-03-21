@@ -77,14 +77,6 @@ public class MatcherInterface extends HttpServlet {
     // add matching time to response
     request.setAttribute("time", s);
 
-    //String sourceString = fileHandler.getOntFileFromRequest("source", request);
-    //String targetString = fileHandler.getOntFileFromRequest("target", request);
-    JSONObject alignmentJson = null;
-    // Parse OAEI alignment format to get the matcher results
-    alignmentJson = fileHandler.parseOaeiAlignmentFormat(matcherResult);
-    // add cell data list of matcher results to response
-    request.setAttribute("alignment", alignmentJson);
-
     // Call validation.jsp to display results in /result URL path and send the request with sourceOnt, targetOnt and alignment results
     this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
   }

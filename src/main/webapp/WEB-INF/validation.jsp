@@ -34,32 +34,39 @@ for the sourceOnt and targetOnt ontology alignment -->
 
   <%    // Get alignment Array with all aligned entities
     if (request.getAttribute("errorMessage") == null && request.getAttribute("alignment") != null) {
+      //java.util.logging.Logger.getLogger("fr.lirmm.yamplusplus.yampponline.Validation").log(java.util.logging.Level.INFO, "START validation.jsp");
       JSONObject alignmentObject = (JSONObject) request.getAttribute("alignment");
       request.setAttribute("srcOntologyURI", (String) alignmentObject.get("srcOntologyURI"));
       request.setAttribute("tarOntologyURI", (String) alignmentObject.get("tarOntologyURI"));
-      
 
       // Trying to get ontology loaded using owlapi
       JSONObject sourceOnt = (JSONObject) request.getAttribute("sourceOnt");
       JSONObject targetOnt = (JSONObject) request.getAttribute("targetOnt");
+      int srcMappingCount = (int) request.getAttribute("srcMappingCount");
+      int tarMappingCount = (int) request.getAttribute("tarMappingCount");
+      int srcConceptCount = ((Long) sourceOnt.get("entityCount")).intValue();
+      int tarConceptCount = ((Long) targetOnt.get("entityCount")).intValue();
       
+      String srcOverlappingProportion;
+      String tarOverlappingProportion;
+      
+      if (srcConceptCount != 0 && tarConceptCount != 0) {
+        srcOverlappingProportion = String.valueOf(srcMappingCount * 100 / srcConceptCount);
+        tarOverlappingProportion = String.valueOf(tarMappingCount * 100 / tarConceptCount);
+      } else {
+        srcOverlappingProportion = "0";
+        tarOverlappingProportion = "0";
+      }
+      
+      ((JSONObject) sourceOnt.get("entities")).size();
+
       String sourceName = (String) request.getAttribute("sourceName");
       String targetName = (String) request.getAttribute("targetName");
 
-      String srcOverlappingProportion = "0";
-      String tarOverlappingProportion = "0";
-      if (request.getAttribute("srcOverlappingProportion") != null) {
-        srcOverlappingProportion = request.getAttribute("srcOverlappingProportion").toString();
-      }
-      if (request.getAttribute("tarOverlappingProportion") != null) {
-        tarOverlappingProportion = request.getAttribute("tarOverlappingProportion").toString();
-      }
-
       //get the execution time from response
-      String time = (String) request.getAttribute("time");
-  %>
-  <script type="text/javascript">
-    // Put params to javascript to use it with angularjs
+      String time = (String) request.getAttribute("time");%>
+  <script>
+    // Put params to javascript to use it with angularjs    
     var alignmentJson = <%=alignmentObject%>;
     var sourceOnt = <%=sourceOnt%>;
     var targetOnt = <%=targetOnt%>;
@@ -97,7 +104,9 @@ for the sourceOnt and targetOnt ontology alignment -->
 
       <p>
         This UI displays the results of the ontology matching and allows the user to validate or not each mapping.
-        It shows informations about mapped concepts extracted from the provided ontologies on the right.
+        It shows informations about mapped concepts extracted from the provided ontologies on the right.<br>
+        The user can also add new mappings that have not been found by the Yam++ Matcher (note that 
+        for performance reason only the aligned concepts are retrieved for ontologies with more than 30 000 statements)
       </p>
       <div style="width: 100%; display: inline-block;">
         <%
@@ -121,7 +130,7 @@ for the sourceOnt and targetOnt ontology alignment -->
               <h3 class='panel-title'>Source ontology mapped</h3>
             </div>
             <div class='panel-body' style='padding-bottom: 0px; text-align: center;'>
-              <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> entities on <%=((JSONObject) sourceOnt.get("entities")).size()%></span>
+              <span> Matched <%=srcMappingCount%> entities on <%=srcConceptCount%></span>
               <div class='progress'>
                 <div class='progress-bar' role='progressbar' aria-valuenow='<%=srcOverlappingProportion%>' aria-valuemin='0' aria-valuemax='100' 
                      style='width: <%=srcOverlappingProportion%>%;'><b><%=srcOverlappingProportion%>%</b>
@@ -139,7 +148,7 @@ for the sourceOnt and targetOnt ontology alignment -->
               <h3 class='panel-title'>Target ontology mapped</h3>
             </div>
             <div class='panel-body' style='padding-bottom: 0px; text-align: center;'>
-              <span> Matched <%=((JSONArray) alignmentObject.get("entities")).size()%> entities on <%=((JSONObject) targetOnt.get("entities")).size()%></span>
+              <span> Matched <%=tarMappingCount%> entities on <%=tarConceptCount%></span>
               <div class='progress'>
                 <div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='<%=tarOverlappingProportion%>' 
                      aria-valuemin='0' aria-valuemax='100' style='width: <%=tarOverlappingProportion%>%;'><b><%=tarOverlappingProportion%>%</b>
@@ -167,7 +176,7 @@ for the sourceOnt and targetOnt ontology alignment -->
                 ng-options="k as v for (k, v) in langSelect" ng-init="selectedLang = langSelect['fr']"></select>
       </div>
 
-      <form action='download' method='post' style="overflow-x: scroll;">
+      <form action='download' method='post'>
         <table id=table class="table table-striped">
           <thead>
             <tr style="cursor: pointer;">
@@ -212,7 +221,7 @@ for the sourceOnt and targetOnt ontology alignment -->
                 </select>
               </td>
               <td>
-                <input ty              pe="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" 
+                <input type="text" id="{{alignment.measure}}" name="measure" value="{{alignment.measure}}" 
                        style="display: none;" readonly>{{alignment.measure}}</input>
               </td>
             </tr>
@@ -321,7 +330,7 @@ for the sourceOnt and targetOnt ontology alignment -->
 
   <!-- Createwindow at the right of the screen (to display entities details) -->
   <aside>
-    <nav class="    switch-nav">
+    <nav class="switch-nav">
       <ul>
         <!-- the 2 glyphicons to choose between list a    nd graph view -->
         <li class="text"><button type="button" class="btn btn-default btn-info" aria-label="Left Align">

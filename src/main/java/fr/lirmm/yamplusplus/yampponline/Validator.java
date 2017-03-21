@@ -7,7 +7,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import javax.servlet.ServletException;
 
 import javax.servlet.http.HttpServlet;
@@ -20,6 +22,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.xml.sax.SAXException;
 
 //@Path("/matcher")
 public class Validator extends HttpServlet {
@@ -51,7 +54,7 @@ public class Validator extends HttpServlet {
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    //Logger myLog = Logger.getLogger(Validator.class.getName());
+    java.util.logging.Logger.getLogger(Matcher.class.getName()).log(java.util.logging.Level.INFO, "Start doPost Validator");
 
     // Retrieve ontologies String from file or URL
     YamFileHandler fileHandler = null;
@@ -79,8 +82,14 @@ public class Validator extends HttpServlet {
       request.setAttribute("errorMessage", "Error uploading alignment file");
       this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
     }
-    // Parse the alignment file to put its data in an Array of Map
-    liste = fileHandler.parseOaeiAlignmentFormat(alignmentString);
+    try {
+      // Parse the alignment file to put its data in an Array of Map
+      liste = fileHandler.parseOaeiAlignmentFormat(alignmentString);
+    } catch (SAXException ex) {
+      java.util.logging.Logger.getLogger(Validator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      request.setAttribute("errorMessage", "Error while parsing the alignment file: " + ex.getMessage());
+      this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
+    }
     // add cell data list to response
     // TODO: Change liste variable name?
     request.setAttribute("alignment", liste);
@@ -100,14 +109,21 @@ public class Validator extends HttpServlet {
       this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
     }
 
+    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "BEFORE JENA apache");
+    java.util.logging.Logger.getLogger(Matcher.class.getName()).log(java.util.logging.Level.INFO, "BEFORE JENA java util log");
     // Read ontology with Jena and get ontology JSON model for JavaScript
     Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI(), Logger.getLogger(Validator.class.getName()));
     Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI(), Logger.getLogger(Validator.class.getName()));
+    Logger.getLogger(Matcher.class.getName()).log(Level.INFO, "AFTER JENA");
+    java.util.logging.Logger.getLogger(Matcher.class.getName()).log(java.util.logging.Level.INFO, "AFTER JENA java util log");
 
-    JSONObject sourceOntJson = YamFileHandler.getOntoJsonFromJena(srcJenaModel);
-    JSONObject targetOntJson = YamFileHandler.getOntoJsonFromJena(tarJenaModel);
+    HashMap<String, List<String>> alignmentConceptsArrays = YamppUtils.getAlignedConceptsArray(liste);
+    JSONObject sourceOntJson = YamppUtils.getOntoJsonFromJena(srcJenaModel, (List<String>) alignmentConceptsArrays.get("source"));
+    JSONObject targetOntJson = YamppUtils.getOntoJsonFromJena(tarJenaModel, (List<String>) alignmentConceptsArrays.get("target"));
+    
     request.setAttribute("sourceOnt", sourceOntJson);
     request.setAttribute("targetOnt", targetOntJson);
+    java.util.logging.Logger.getLogger(Matcher.class.getName()).log(java.util.logging.Level.INFO, "setAttribute ontologies DONE");
 
     //  In percentage the proportion of a mapped ontology. Given the mapping count
     // Get number of mappings
@@ -120,11 +136,11 @@ public class Validator extends HttpServlet {
       targetUniqueMappings.add(((JSONObject) alignmentJsonArray.get(i)).get("entity2").toString());;
     }
     // number of mapped concept * 100 / number of concept in the ontology
-    int srcOverlappingProportion = sourceUniqueMappings.size() * 100 / ((JSONObject) sourceOntJson.get("entities")).size();
-    int tarOverlappingProportion = targetUniqueMappings.size() * 100 / ((JSONObject) targetOntJson.get("entities")).size();
-    request.setAttribute("srcOverlappingProportion", srcOverlappingProportion);
-    request.setAttribute("tarOverlappingProportion", tarOverlappingProportion);
+    request.setAttribute("srcMappingCount", sourceUniqueMappings.size());
+    request.setAttribute("tarMappingCount", targetUniqueMappings.size());
 
+    java.util.logging.Logger.getLogger(Matcher.class.getName()).log(java.util.logging.Level.INFO, "just before dispatcher");
+    
     // Call validation.jsp to display results in /validator URL path and send the request with sourceOnt, targetOnt and alignment results
     this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
   }

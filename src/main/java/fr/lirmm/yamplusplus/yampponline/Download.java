@@ -53,6 +53,9 @@ public class Download extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
     String format = request.getParameter("validationSubmit");
+    if (format == null) {
+      format = "AlignmentAPI format";
+    }
 
     /*if (format.equals("Extended validation")) {
       this.getServletContext().getRequestDispatcher("/WEB-INF/extendedValidation.jsp").forward(request, response);
@@ -106,15 +109,19 @@ public class Download extends HttpServlet {
       // Use source and target onto Name to name alignment file. Or URI if names not provided
       String sourceName = (String) request.getParameter("sourceName");
       String targetName = (String) request.getParameter("targetName");
-      if (sourceName == null) {
+      if (sourceName == null && sourceUri != null) {
         sourceName = sourceUri.replaceAll("http://", "").replaceAll("https://", "").replaceAll("/", "_");
       }
-      if (targetName == null) {
+      if (targetName == null && targetUri != null) {
         targetName = targetUri.replaceAll("http://", "").replaceAll("https://", "").replaceAll("/", "_");
       }
       
-      response.setHeader("content-disposition", "inline; filename=\"alignment_" + sourceName
+      if (sourceName == null || targetName == null) {
+        response.setHeader("content-disposition", "inline; filename=\"alignment.rdf\"");
+      } else {
+        response.setHeader("content-disposition", "inline; filename=\"alignment_" + sourceName
               + "_" + targetName + ".rdf\"");
+      }
 
       HashMap<String, String> hashMapping = null;
       ArrayList<HashMap> arrayMappings = new ArrayList<>();

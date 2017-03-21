@@ -1,9 +1,8 @@
-$(document).ready(function () {
-  
+$(document).ready(function () {    
   // This line SHOULD allow the scrollBar to stay fixed at the bottom of the screen. But not working
   // https://github.com/gromo/jquery.scrollbar. 
   // If not used: remove src/main/webapp/css/jquery.floatingscroll.css and src/main/webapp/scripts/jquery.floatingscroll.min.js
-  $(".validationForm").floatingScroll();
+  //$(".validationForm").floatingScroll();
   
 // Function to resize navbar, footer and right entity details window depending on screen size
   function resizePanels() {
@@ -65,8 +64,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   if (!tarOntoUri) {
     tarOntoUri = "Target Entities"
   }
-  $scope.sourceName = $window.sourceName.replace(new RegExp("\/|:", 'g'), "_");
-  $scope.targetName = $window.targetName.replace(new RegExp("\/|:", 'g'), "_");
+  $scope.sourceName = $window.sourceName.replace("http://").replace("https://").replace(new RegExp("\/|:", 'g'), "_");
+  $scope.targetName = $window.targetName.replace("http://").replace("https://").replace(new RegExp("\/|:", 'g'), "_");
   if ($scope.sourceName === "null") {
     $scope.sourceName = srcOntoUri.replace(new RegExp("\/|:", 'g'), "_");
   }
@@ -92,7 +91,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   });
 
   $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": srcOntoUri, "tarOntUri": tarOntoUri};
-  console.log($scope.ontologies);
+  //console.log($scope.ontologies);
   // Convert ontologies entity object to an array for filter
   $scope.srcOntArray = $.map($scope.ontologies.ont1.entities, function (value, index) {
     return [value];
@@ -100,8 +99,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.tarOntArray = $.map($scope.ontologies.ont2.entities, function (value, index) {
     return [value];
   });
-  console.log("srcOntArray:");
-  console.log($scope.srcOntArray);
+  //console.log($scope.srcOntArray);
 
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.sourceOnt.namespaces, $window.targetOnt.namespaces);
@@ -115,8 +113,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
   $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson.entities, $scope.ontologies);
-  console.log("alignments:");
-  console.log($scope.alignments);
+  //console.log($scope.alignments);
   alignments = $scope.alignments;
   $scope.langSelect = {"en": "en", "fr": "fr"};
 
@@ -206,7 +203,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
     alignment.relation = angular.element($event.currentTarget).val();
   };
   /**
-   * Change details div to show selected entity details
+   * Change details div to show selected entity details. Getting details from $scope.ontologies
    * @param {boolean} clickedOn
    * @returns {undefined}
    */
@@ -401,7 +398,10 @@ function buildEntityDetailsHtml(entity, entityName, selectedLang, ontologies) {
   // add each property object linked to each subject
   // Iterate over the different properties (predicates) of an entity
   Object.keys(entity).sort().forEach(function (key) {
-    if (key !== "id" && key !== "label") {
+    
+    if (key !== "id" && key !== "label" && key !== "$$hashKey") {
+      // Don't display if id, label or $$hashKey (used by angularJs)
+      
       orderedEntities[key] = null;
       // Iterate over the different values of the object of a predicate (the same property can point to different objects)
       for (var valuesObject in entity[key]) {
@@ -484,7 +484,7 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
   // Iterate over the different properties (predicates) of an entity
   // To get properties values grouped by property
   Object.keys(entity).sort().forEach(function (key) {
-    if (key !== "id" && key !== "label") {
+    if (key !== "id" && key !== "label" && key !== "$$hashKey") {
       orderedEntities[key] = null;
       // Iterate over the different values of the object of a predicate (the same property can point to different objects)
       for (var valuesObject in entity[key]) {
@@ -546,7 +546,7 @@ function buildNetwork(ontology, entity, selectedLang, ontologies) {
       // To get properties values grouped by property
       if (linkedEntity != null && getLinkedProperties === true) {
         Object.keys(linkedEntity).sort().forEach(function (key) {
-          if (key !== "id" && key !== "label") {
+          if (key !== "id" && key !== "label" && key !== "$$hashKey") {
             linkedEntityProperties[key] = null;
             // Iterate over the different values of the object of a predicate (the same property can point to different objects)
             for (var valuesObject in linkedEntity[key]) {

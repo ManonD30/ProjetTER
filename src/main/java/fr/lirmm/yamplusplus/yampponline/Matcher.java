@@ -1,7 +1,5 @@
 package fr.lirmm.yamplusplus.yampponline;
 
-import fr.lirmm.yamplusplus.yamppls.InputType;
-import fr.lirmm.yamplusplus.yamppls.MatcherType;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,11 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.RandomStringUtils;
 
 import fr.lirmm.yamplusplus.yamppls.YamppOntologyMatcher;
+import fr.lirmm.yamplusplus.yamppls.YamppUtils;
+import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.xml.sax.SAXException;
 
 public class Matcher extends HttpServlet {
 
@@ -29,11 +38,11 @@ public class Matcher extends HttpServlet {
    * parameters to define the 2 ontologies to work with Upload a file using
    * cURL: curl -X POST -H \"Content-Type: multipart/form-data\ -F
    * sourceFile=@/path/to/ontology_file.owl
-   * http://localhost:8083/rest/matcher?targetUrl=http://purl.obolibrary.org/obo/po.owl
+   * http://localhost:8083/api/matcher?targetUrl=http://purl.obolibrary.org/obo/po.owl
    * Only files: curl -X POST -H "Content-Type: multipart/form-data" -F
    * targetFile=@/srv/yam2013/cmt.owl -F sourceFile=@/srv/yam2013/Conference.owl
-   * http://localhost:8083/rest/matcher Only URL: curl -X POST
-   * http://localhost:8083/rest/matcher -d
+   * http://localhost:8083/api/matcher Only URL: curl -X POST
+   * http://localhost:8083/api/matcher -d
    * 'sourceUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl'
    * -d
    * 'targetUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl'
@@ -71,8 +80,8 @@ public class Matcher extends HttpServlet {
   /**
    * Get request. Use the processRequest method to upload file and run YAM curl
    * -X GET
-   * http://localhost:8083/rest/matcher?targetUrl=http://purl.obolibrary.org/obo/po.owl&sourceUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
-   * http://localhost:8083/rest/matcher?targetUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&sourceUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl
+   * http://localhost:8083/api/matcher?targetUrl=http://purl.obolibrary.org/obo/po.owl&sourceUrl=https://web.archive.org/web/20111213110713/http://www.movieontology.org/2010/01/movieontology.owl
+   * http://localhost:8083/api/matcher?targetUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/Conference.owl&sourceUrl=https://raw.githubusercontent.com/vemonet/sifr_project_ruby_scripts/master/src/cmt.owl
    * http://data.bioportal.lirmm.fr/ontologies/MEDLINEPLUS/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db
    * http://data.bioportal.lirmm.fr/ontologies/CIF/download?apikey=7b82f0a5-a784-494c-9d2e-cae6698099db
    *
@@ -109,11 +118,11 @@ public class Matcher extends HttpServlet {
         request.setAttribute("errorMessage", "YAM matcher execution failed: " + e.getMessage());
       }
     } else {
-      // Print 2 examples to show how to use the REST matcher
-      responseString = "<b>Using the REST API:</b><li><a href='" + prop.getProperty("appurl") + "rest/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false'>"
-              + prop.getProperty("appurl") + "rest/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false</a></li>"
-              + "<li><b>Parameters available:</b> matcherType (VERYLARGE, LARGE, SCALABILITY, SMALL), explicitConflict (default: true), relativeConflict (default: true), crisscrossConflict (default: true), altLabel2altLabel (default: false), labelSimWeight (default: 0.34)</li>"
-              + "<li><b>cURL POST request:</b> curl -X POST -H \"Content-Type: multipart/form-data\" -F sourceFile=@/path/to/ontology_file.owl " + prop.getProperty("appurl") + "rest/matcher?targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl </li></ul>";
+      // Print 2 examples to show how to use the matcher API
+      responseString = "<b>Using the Matcher API:</b><li><a href='" + prop.getProperty("appurl") + "api/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false'>"
+              + prop.getProperty("appurl") + "api/matcher?sourceUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl&targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-diabolo.ttl&crisscrossConflict=false</a></li>"
+              + "<li><b>Parameters available:</b> explicitConflict (default: true), relativeConflict (default: true), crisscrossConflict (default: true), altLabel2altLabel (default: false), labelSimWeight (default: 0.34)</li>"
+              + "<li><b>cURL POST request:</b> curl -X POST -H \"Content-Type: multipart/form-data\" -F sourceFile=@/path/to/ontology_file.owl " + prop.getProperty("appurl") + "api/matcher?targetUrl=https://raw.githubusercontent.com/DOREMUS-ANR/knowledge-base/master/vocabularies/mop-iaml.ttl </li></ul>";
       response.setContentType("text/html");
     }
 
@@ -132,6 +141,9 @@ public class Matcher extends HttpServlet {
     YamFileHandler fileHandler = new YamFileHandler();
     Logger myLog = Logger.getLogger(Matcher.class.getName());
     myLog.log(Level.SEVERE, "Start processRequest...");
+
+    // Set the workspace for yampp-ls lib. Just used to check if scenario already existing
+    String yampplsWorkspace = "/tmp/yamppls/";
 
     // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
     String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
@@ -190,9 +202,10 @@ public class Matcher extends HttpServlet {
       YamppOntologyMatcher matcher = new YamppOntologyMatcher();
 
       // Set params
-      if (request.getParameter("matcherType") != null) {
+      // To set matcherType
+      /*if (request.getParameter("matcherType") != null) {
         matcher.setMatcherType(MatcherType.valueOf(request.getParameter("matcherType")));
-      }
+      }*/
       // To retrieve sourceType (to enable XSD parsing)
       /*if (request.getParameter("sourceType") != null) {
         matcher.setSourceType(InputType.valueOf(request.getParameter("sourceType")));
@@ -201,23 +214,35 @@ public class Matcher extends HttpServlet {
         matcher.setTargetType(InputType.valueOf(request.getParameter("targetType")));
       }*/
       // Remove conflicts true by default
+      String explicitConflict = "true";
+      String relativeConflict = "true";
+      String crisscrossConflict = "true";
+      String altLabel2altLabel = "true";
+      
+      // If not checked it the checkbox is null. If checked it is "on"
       if (request.getParameter("explicitConflict") == null || request.getParameter("explicitConflict").equals("false")) {
+        explicitConflict = "false";
         matcher.setVlsExplicitDisjoint(false);
       } else {
         matcher.setVlsExplicitDisjoint(true);
       }
+      
       if (request.getParameter("relativeConflict") == null || request.getParameter("relativeConflict").equals("false")) {
+        relativeConflict = "false";
         matcher.setVlsRelativeDisjoint(false);
       } else {
         matcher.setVlsRelativeDisjoint(true);
       }
+      
       if (request.getParameter("crisscrossConflict") == null || request.getParameter("crisscrossConflict").equals("false")) {
+        crisscrossConflict = "false";
         matcher.setVlsCrisscross(false);
       } else {
         matcher.setVlsCrisscross(true);
       }
       // subLab2suLab and label sim weight false by default
       if (request.getParameter("altLabel2altLabel") == null || request.getParameter("altLabel2altLabel").equals("false")) {
+        altLabel2altLabel = "false";
         matcher.setVlsSubSrc2subTar(false);
         matcher.setVlsAllLevels(false);
       } else {
@@ -232,38 +257,37 @@ public class Matcher extends HttpServlet {
       // Soon to be String resultStoragePath = matcher.alignOntologies()
       myLog.log(Level.WARNING, "Before matcher.alignOntologies...");
 
-      String resultStoragePath = "error:Error while performing the matching";
-      try {
-        resultStoragePath = matcher.alignOntologies(new File(sourceStoragePath).toURI(),
-                new File(targetStoragePath).toURI());
-        myLog.log(Level.WARNING, "After matcher.alignOntologies. Result storage path: {0}", resultStoragePath);
-      } catch (Exception e) {
-        myLog.log(Level.SEVERE, "Error while running matcher.alignOntologies: ", e);
+      String scenarioName = org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(10).toUpperCase();
+      // Randomly generate the scenario name and check if a dir already got this name
+      while (new File(yampplsWorkspace + scenarioName).exists()) {
+        scenarioName = org.apache.commons.lang3.RandomStringUtils.randomAlphabetic(10).toUpperCase();
       }
       
-      if (resultStoragePath == null) {
-        request.setAttribute("errorMessage", "Matching process returned nothing");
-        return request;
-      }
-      if (resultStoragePath.startsWith("error:")) {
-        request.setAttribute("errorMessage", resultStoragePath.substring(6));
-        return request;
-      }
+      //java -jar yampp-ls.jar -s ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_FMA_whole_ontology.owl -t ~/java_workspace/yampp-ls/src/test/resources/oaei2013/oaei2013_NCI_whole_ontology.owl
+      ProcessBuilder pb = new ProcessBuilder("java", "-jar", "/srv/yampp-ls.jar", "-s", sourceStoragePath, "-t", targetStoragePath, "-sc", scenarioName,
+              "-ec", explicitConflict, "-cc", crisscrossConflict, "-rc", relativeConflict, "--altLabel2altLabel", altLabel2altLabel);
 
-      request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel()));
-      request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel()));
-
-      request.setAttribute("srcOverlappingProportion", matcher.getSrcOverlappingProportion());
-      request.setAttribute("tarOverlappingProportion", matcher.getTarOverlappingProportion());
+      pb.redirectErrorStream(true); // equivalent of 2>&
+      Process p = pb.start();
+      try {
+        p.waitFor();
+      } catch (InterruptedException ex) {
+        Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, "errror: " + ex);
+      }
 
       // No alignment file means no mappings found
       String matcherResult = "error: No mappings have been found";
-      if (resultStoragePath != null) {
-        matcherResult = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
+      //if (resultStoragePath != null) {
+      //matcherResult = FileUtils.readFileToString(new File(resultStoragePath), "UTF-8");
+      try {
+        matcherResult = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/alignment.rdf"), "UTF-8");  
+      } catch (FileNotFoundException e) {
+        request.setAttribute("errorMessage", "Server too busy");
+        return request;
       }
 
       // Save file if asked
-      FileUtils.writeStringToFile(new File(sourceStoragePath), matcherResult, "UTF-8");
+      //FileUtils.writeStringToFile(new File(sourceStoragePath), matcherResult, "UTF-8");
       if (request.getParameter("saveFile") != null) {
         String sourceName = "source";
         String targetName = "target";
@@ -293,6 +317,52 @@ public class Matcher extends HttpServlet {
       } else {
         request.setAttribute("matcherResult", matcherResult);
       }
+
+      //String sourceString = fileHandler.getOntFileFromRequest("source", request);
+      //String targetString = fileHandler.getOntFileFromRequest("target", request);
+      JSONObject alignmentJson = null;
+      try {
+        // Parse OAEI alignment format to get the matcher results
+        alignmentJson = fileHandler.parseOaeiAlignmentFormat(matcherResult);
+        JSONArray alignedEntitiesArray = (JSONArray) alignmentJson.get("entities");
+        
+        // Count number of unique concepts mapped. To get the mapped proportion
+        HashSet srcUniqueValues = new HashSet<>();
+        HashSet tarUniqueValues = new HashSet<>();
+        for (int i = 0; i < alignedEntitiesArray.size(); i++) {
+          srcUniqueValues.add(((JSONObject) alignedEntitiesArray.get(i)).get("entity1").toString());
+          tarUniqueValues.add(((JSONObject) alignedEntitiesArray.get(i)).get("entity2").toString());
+        }
+        request.setAttribute("srcMappingCount", srcUniqueValues.size());
+        request.setAttribute("tarMappingCount", tarUniqueValues.size());
+
+      } catch (SAXException ex) {
+        Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
+        request.setAttribute("errorMessage", "Error while parsing the alignment file: " + ex.getMessage());
+        return request;
+      }
+      // add cell data list of matcher results to response
+      request.setAttribute("alignment", alignmentJson);
+
+      //HashMap<String, List<String>> alignmentConceptsArrays = YamppUtils.getAlignedConceptsArray(alignmentJson);
+
+      //request.setAttribute("sourceOnt", YamFileHandler.getOntoJsonFromJena(matcher.getSrcJenaModel(), (List<String>) alignmentConceptsArrays.get("source")));
+      //request.setAttribute("targetOnt", YamFileHandler.getOntoJsonFromJena(matcher.getTarJenaModel(), (List<String>) alignmentConceptsArrays.get("target")));
+      
+      // Retrieve source and target ontology JSON
+      JSONParser parser = new JSONParser();
+      try {
+        String sourceOntoString = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/sourceOntology.json"), "UTF-8");
+        JSONObject sourceOntoJson = (JSONObject) parser.parse(sourceOntoString);
+        request.setAttribute("sourceOnt", sourceOntoJson);
+
+        String targetOntoString = FileUtils.readFileToString(new File(yampplsWorkspace + scenarioName + "/targetOntology.json"), "UTF-8");
+        request.setAttribute("targetOnt", (JSONObject) parser.parse(targetOntoString));
+      } catch (ParseException ex) {
+        Logger.getLogger(Matcher.class.getName()).log(Level.SEVERE, null, ex);
+        request.setAttribute("errorMessage", "Fail getting ontologies objects");
+      }
+
     } else {
       request.setAttribute("errorMessage", "Provide a valid apikey to match ontologies (get it by logging in)");
     }

@@ -14,16 +14,16 @@
     <welcome-file>index</welcome-file>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-  <!-- Mapping /rest/matcher to the Matcher.java class. For the RESTful service. We don't need to use 
+  <!-- Mapping /api/matcher to the Matcher.java class. For the HTTP API service. We don't need to use 
   Jersey  or Spring at the moment, since it is just for a matcher service -->
   <servlet>
-    <servlet-name>REST Matcher</servlet-name>
+    <servlet-name>API Matcher</servlet-name>
     <servlet-class>fr.lirmm.yamplusplus.yampponline.Matcher</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>REST Matcher</servlet-name>
-    <url-pattern>/rest/matcher</url-pattern>
+    <servlet-name>API Matcher</servlet-name>
+    <url-pattern>/api/matcher</url-pattern>
   </servlet-mapping>
   <!-- Mapping /matcher to matcher.jsp file -->
   <servlet>

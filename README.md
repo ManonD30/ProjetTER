@@ -2,18 +2,59 @@
 
 Using Apache Tomcat 7 and Java 8
 
-## Truc à résoudre pour la dernière semaine
+## Démo
 
-f
 
-**Sur écran 4:3 le validation.jsp ne resize pas correctement la table**: table-layout: fixed; permet de le résoudre mais, la taille des cells ne s'adaptent pas au contenu
+* Virer les grosse OAEI car marchent pas... (résoudre le bug d'abord)
+
+* Montrer un matching Doremus et un matching Anatomy
+
+* Save l'alignement (export aussi pour montrer)
+
+* Montrer le validateur avec l'alignement qu'on vient de save
+
+* Utiliser l'API (via command line)
+
+* Remplacer examples par "Available datasets"
+
+* Réflexion de fin : on pourrait imaginer de la collaboration des experts
+
+
+## A résoudre
+
+* Emballement. Parfois ça s'emballe (surtout quand on s'amuse avec des grosses ontologies)
+  * Est-ce que ça viendrait de conflits quand on essaie de faire 2 matchings en même temps (lancer 2 matchings et regarder s'il y a overlap dans les logs)
+
+
+SOLUTION : il faut lancer le JAR dans une JVM à part (au moins ça sera bien compartimenté)
+
+http://stackoverflow.com/questions/7268824/call-new-jvm-from-existing-jvm
+
+http://stackoverflow.com/questions/12533799/execute-shell-command-in-tomcat
+
+Andon: http://stackoverflow.com/questions/3468987/executing-another-application-from-java
+
+Utiliser ProcessBuilder
+Je peux recup l'output stream du process et le lire...
+Le mieux serait de définir le dir dans lequel on travaillera direct dans yampp-online et de le passer comme argument
+
+
+## Résolu
+
+~ **Sur écran 4:3 le validation.jsp ne resize pas correctement la table**: table-layout: fixed; permet de le résoudre mais, la taille des cells ne s'adaptent pas au contenu
 
 Enlever les 3 box (mettre le recouvrement proche de la table). Et running time dans le texte
 
-**Permettre de choisir plus d'exemples ! (différents couples)**
-2 Doremus, Anatomy, 2 Large Bio (FMA, NCI, SNOMED; utiliser une URL BioPortal ? Elles sont sur NCBO normalement)
+X **Permettre de choisir plus d'exemples ! (différents couples)**
+2 Doremus, Anatomy, 2 Large Bio (FMA, NCI, SNOMED; utiliser une URL BioPortal ? Elles sont sur NCBO normalement). FMA NCI à partir des URLs de BioPortal NCBO : bloque entre "start processRequest" et "endUploadFile"
 
-**On vire le choix de plusieurs matchers : seulement Very Large Scale**
+X **On vire le choix de plusieurs matchers : seulement Very Large Scale**
+
+X **On vire la propriété "undefined"**
+
+X **Bug nullPointer quand on ddl l'alignement parfois** (avec largeBio par ex)
+
+* Save la dernière version de l'alignment téléchargée
 
 
 
@@ -28,25 +69,9 @@ Trouver comment faire pour modifier le seuil des mappings qui sortent en résult
 
 **IMPORTANT**
 
-Permettre à l'admin de supprimer des ontologies (remplacer args ddl par delete?). Il manque sudo : demander à Joël.
-
-Faire en sorte de pouvoir récupérer mieux les différentes onto et alignments saved : une REST API ?
-
-Mail stack pour problème
-
 Séparer page user et admin ?
-Add des commentaires pour rendre admin page plus lisible
 
 Nommer admin direct dans la page admin
-Admin peut ajouter un field. Si j'y arrive pas : on fait en sorte qu'il faille changer seulement une liste quelque part et on documente dans README
-
-Remettre les timeouts : 10 min
-
-results iaml / diabolo : j'ai un undefined pour chaque mapping
-
-Faire en sorte de parfaitement récupérer le nom
-
-Ajouter mouseover pour le range des scores
 
 * Yampp online publi: 
   * Screenshot des trucs importants
@@ -228,6 +253,20 @@ Normalement "mop" et "genre" : doit pas y avoir de mappings entre ces 2 là. App
 
 
 
+
+## Restart Tomcat if overload
+
+SSH connect to info-demo.lirmm.fr
+
+```shell
+ssh emonet@info-demo.lirmm.fr
+cd /home/emonet/docker-compose-yam
+docker-compose restart
+```
+
+
+
+
 ## How to change yampp-online code
 
 In case of problem contact Vincent Emonet or Joël Maizi
@@ -257,7 +296,14 @@ git pull
 ./compile.sh
 ```
 
+### Change in yampp-ls
 
+If you change something in yampp-ls, you need to 
+* put the new yampp-ls.jar in `src/main/webapp/WEB-INF/lib`
+* In docker-compose, needed to run the lib from the commandline to create a new JVM and avoid conflict when multiple matching simultaneously:
+  * put the new yampp-ls.jar in `docker-compose-yam/service-app`
+  * `docker-compose build` to build the new image
+  * `docker-compose up -d` to restart the container
 
 
 
