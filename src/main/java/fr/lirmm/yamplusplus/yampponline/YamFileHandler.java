@@ -230,6 +230,8 @@ public class YamFileHandler {
    *
    * @param oaeiResult
    * @return JSONObject
+   * @throws org.xml.sax.SAXException
+   * @throws java.io.IOException
    */
   public JSONObject parseOaeiAlignmentFormat(String oaeiResult) throws SAXException, IOException {
     JSONObject jObjectAlign = new JSONObject();

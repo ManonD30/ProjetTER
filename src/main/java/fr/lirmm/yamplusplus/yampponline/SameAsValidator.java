@@ -2,12 +2,11 @@ package fr.lirmm.yamplusplus.yampponline;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import fr.lirmm.yamplusplus.yamppls.YamppUtils;
-import java.io.File;
+import static fr.lirmm.yamplusplus.yampponline.MatcherInterface.liste;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashSet;
 import javax.servlet.ServletException;
 
 import javax.servlet.http.HttpServlet;
@@ -15,11 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.xml.sax.SAXException;
 
 //@Path("/matcher")
 public class SameAsValidator extends HttpServlet {
@@ -77,7 +75,15 @@ public class SameAsValidator extends HttpServlet {
     }
     
     // Parse the alignment file to put its data in an Array of Map
-    alignmentJson = fileHandler.parseOaeiAlignmentFormat(alignmentString);
+    try {
+      // Parse the alignment file to put its data in an Array of Map
+      alignmentJson = fileHandler.parseOaeiAlignmentFormat(alignmentString);
+    } catch (SAXException ex) {
+      java.util.logging.Logger.getLogger(Validator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      request.setAttribute("errorMessage", "Error while parsing the alignment file: " + ex.getMessage());
+      this.getServletContext().getRequestDispatcher("/WEB-INF/validation.jsp").forward(request, response);
+    }
+    
     // Save alignment JSON in the request (to be sent to the sameAsValidation.jsp)
     request.setAttribute("alignment", alignmentJson);
 
@@ -120,8 +126,8 @@ public class SameAsValidator extends HttpServlet {
     Model tarJenaModel = YamppUtils.readUriWithJena(targetUrl, Logger.getLogger(SameAsValidator.class.getName()));
 
     // Generate the ontology JSON from the Jena Model 
-    JSONObject sourceOntJson = YamFileHandler.getOntoJsonFromJena(srcJenaModel);
-    JSONObject targetOntJson = YamFileHandler.getOntoJsonFromJena(tarJenaModel);
+    JSONObject sourceOntJson = YamppUtils.getOntoJsonFromJena(srcJenaModel, null);
+    JSONObject targetOntJson = YamppUtils.getOntoJsonFromJena(tarJenaModel, null);
     
     // Save the ontologies in the request to pass it to the validation page
     request.setAttribute("sourceOnt", sourceOntJson);
