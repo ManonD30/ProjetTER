@@ -14,9 +14,7 @@ for the sourceOnt and targetOnt ontology alignment -->
 <link rel="stylesheet" href="css/vis.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 <script type="text/javascript" src="scripts/vis.min.js"></script>
-<script src="scripts/validation.js"></script>
-<!--script src="scripts/jquery.tablesorter.js"></script>
-<script src="scripts/jquery.tablesorter.pager.js"></script-->
+<script src="scripts/sameAsValidation.js"></script>
 
 <!-- To remove if jQuery floatingScroll don't work -->
 <link rel="stylesheet" href="css/jquery.floatingscroll.css" />

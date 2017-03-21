@@ -45,8 +45,10 @@ var validationApp = angular.module('validationApp', ['rzModule', 'ui.bootstrap']
  * ValidationApp controller, define all angular interactions
  */
 validationApp.controller('ValidationCtrl', function ($scope, $window) {
-  console.log("Objet alignment: ");
+  console.log("teest");
   console.log($window.alignmentJson);
+  
+  $scope.alignmentJson = {"entities": [{"entities1": "http://fzeufhzd", "entities2": "http://zdhfiuhd"}]}
   
   // Get the 2 ont in an object
   if ($window.alignmentJson.srcOntologyURI === undefined) {
