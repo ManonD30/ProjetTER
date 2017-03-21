@@ -2,10 +2,10 @@ package fr.lirmm.yamplusplus.yampponline;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import fr.lirmm.yamplusplus.yamppls.YamppUtils;
-import static fr.lirmm.yamplusplus.yampponline.MatcherInterface.liste;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashSet;
 import javax.servlet.ServletException;
@@ -51,7 +51,8 @@ public class SameAsValidator extends HttpServlet {
    */
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
-    //Logger myLog = Logger.getLogger(Validator.class.getName());
+    
+    JSONObject alignmentJson = new JSONObject();
 
     // Retrieve ontologies String from file or URL
     YamFileHandler fileHandler = null;
@@ -67,30 +68,27 @@ public class SameAsValidator extends HttpServlet {
     Part filePart = null;
 
     String alignmentString = "error: loading alignment file";
-    // Retrieve file from input where name is sourceFile or targetFile
+    // Retrieve Alignment file from html input 
     filePart = request.getPart("rdfAlignmentFile");
     if (filePart != null) {
       String filename = filePart.getSubmittedFileName();
       InputStream fileStream = filePart.getInputStream();
       alignmentString = IOUtils.toString(fileStream, "UTF-8");
     }
-
-    if (alignmentString.startsWith("error:")) {
-      request.setAttribute("errorMessage", "Error uploading alignment file");
-      this.getServletContext().getRequestDispatcher("/WEB-INF/sameAsValidation.jsp").forward(request, response);
-    }
+    
     // Parse the alignment file to put its data in an Array of Map
-    liste = fileHandler.parseOaeiAlignmentFormat(alignmentString);
-    // add cell data list to response
-    // TODO: Change liste variable name?
-    request.setAttribute("alignment", liste);
+    alignmentJson = fileHandler.parseOaeiAlignmentFormat(alignmentString);
+    // Save alignment JSON in the request (to be sent to the sameAsValidation.jsp)
+    request.setAttribute("alignment", alignmentJson);
 
+    /*
     // Generate sub directory name randomly (example: BEN6J8VJPDUTWUA)
     String subDirName = RandomStringUtils.randomAlphanumeric(15).toUpperCase();
     // Store ontology from URI or file in /tmp/yampponline/SCENARIO_HASH/source.rdf
 
     String sourceStoragePath = "error: loading source file";
     String targetStoragePath = "error: loading target file";
+    // UploadFile save the ontology file on the server (taking it from the URL or the uploaded file)
     try {
       sourceStoragePath = fileHandler.uploadFile("source", subDirName, request);
       targetStoragePath = fileHandler.uploadFile("target", subDirName, request);
@@ -103,17 +101,38 @@ public class SameAsValidator extends HttpServlet {
     // Read ontology with Jena and get ontology JSON model for JavaScript
     Model srcJenaModel = YamppUtils.readUriWithJena(new File(sourceStoragePath).toURI(), Logger.getLogger(SameAsValidator.class.getName()));
     Model tarJenaModel = YamppUtils.readUriWithJena(new File(targetStoragePath).toURI(), Logger.getLogger(SameAsValidator.class.getName()));
+    */
+    
+    // Retrieve provided URL
+    URI sourceUrl = null;
+    URI targetUrl = null;
+    try {
+      sourceUrl = new URI(request.getParameter("sourceUrl"));
+      targetUrl = new URI(request.getParameter("targetUrl"));
+    } catch (URISyntaxException ex) {
+      java.util.logging.Logger.getLogger(SameAsValidator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+      request.setAttribute("errorMessage", "Provided URL not valid");
+      this.getServletContext().getRequestDispatcher("/WEB-INF/sameAsValidation.jsp").forward(request, response);
+    }
+    
+    // Read ontology with Jena and get ontology JSON model for JavaScript from the provided URL
+    Model srcJenaModel = YamppUtils.readUriWithJena(sourceUrl, Logger.getLogger(SameAsValidator.class.getName()));
+    Model tarJenaModel = YamppUtils.readUriWithJena(targetUrl, Logger.getLogger(SameAsValidator.class.getName()));
 
+    // Generate the ontology JSON from the Jena Model 
     JSONObject sourceOntJson = YamFileHandler.getOntoJsonFromJena(srcJenaModel);
     JSONObject targetOntJson = YamFileHandler.getOntoJsonFromJena(tarJenaModel);
+    
+    // Save the ontologies in the request to pass it to the validation page
     request.setAttribute("sourceOnt", sourceOntJson);
     request.setAttribute("targetOnt", targetOntJson);
 
+    /*
     //  In percentage the proportion of a mapped ontology. Given the mapping count
     // Get number of mappings
     HashSet sourceUniqueMappings = new HashSet<>();
     HashSet targetUniqueMappings = new HashSet<>();
-    JSONArray alignmentJsonArray = (JSONArray) liste.get("entities");
+    JSONArray alignmentJsonArray = (JSONArray) alignmentJson.get("entities");
     // Get all mapped entities in an hashset to get the number of different concepts that have matched (not the number of match)
     for (int i = 0; i < alignmentJsonArray.size(); i++) {
       sourceUniqueMappings.add(((JSONObject) alignmentJsonArray.get(i)).get("entity1").toString());;
@@ -123,7 +142,7 @@ public class SameAsValidator extends HttpServlet {
     int srcOverlappingProportion = sourceUniqueMappings.size() * 100 / ((JSONObject) sourceOntJson.get("entities")).size();
     int tarOverlappingProportion = targetUniqueMappings.size() * 100 / ((JSONObject) targetOntJson.get("entities")).size();
     request.setAttribute("srcOverlappingProportion", srcOverlappingProportion);
-    request.setAttribute("tarOverlappingProportion", tarOverlappingProportion);
+    request.setAttribute("tarOverlappingProportion", tarOverlappingProportion);*/
 
     // Call sameAsValidation.jsp to display results in /validator URL path and send the request with sourceOnt, targetOnt and alignment results
     this.getServletContext().getRequestDispatcher("/WEB-INF/sameAsValidation.jsp").forward(request, response);
