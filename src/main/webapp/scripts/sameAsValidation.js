@@ -48,7 +48,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   console.log("Alignment JSON:");
   console.log($window.alignmentJson);
   
-  $scope.alignmentJson = {"entities": [{"entities1": "http://fzeufhzd", "entities2": "http://zdhfiuhd"}]}
+  // USE TEST VALUES (to comment or erase to use values send by sameAsValidator)
+  $window.alignmentJson = require('./alignment.json');
   
   // Get the 2 ont in an object
   if ($window.alignmentJson.srcOntologyURI === undefined) {
@@ -96,8 +97,11 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   });
 
   $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": srcOntoUri, "tarOntUri": tarOntoUri};
+  // USE TEST VALUES (to comment or erase to use values send by sameAsValidator)
+  $scope.ontologies = require('./ontologies.json');
   console.log("Ontologies JSON:");
   console.log($scope.ontologies);
+  console.log(JSON.stringify($scope.ontologies));
   // Convert ontologies entity object to an array for filter
   $scope.srcOntArray = $.map($scope.ontologies.ont1.entities, function (value, index) {
     return [value];
