@@ -48,8 +48,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   console.log("Alignment JSON:");
   console.log($window.alignmentJson);
   
-  // USE TEST VALUES (to comment or erase to use values send by sameAsValidator)
-  $window.alignmentJson = require('./alignment.json');
+  // USE TEST VALUES (to comment or erase to use values send by sameAsValidator) to be able to use the html
+  //$window.alignmentJson = require('scripts/alignment.json');
   
   // Get the 2 ont in an object
   if ($window.alignmentJson.srcOntologyURI === undefined) {
@@ -98,7 +98,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
 
   $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": srcOntoUri, "tarOntUri": tarOntoUri};
   // USE TEST VALUES (to comment or erase to use values send by sameAsValidator)
-  $scope.ontologies = require('./ontologies.json');
+  //$scope.ontologies = require('scripts/ontologies.json');
   console.log("Ontologies JSON:");
   console.log($scope.ontologies);
   console.log(JSON.stringify($scope.ontologies));
