@@ -42,11 +42,13 @@ $(document).ready(function () {
 // Using rzSlider for 2 sliders range input
 var validationApp = angular.module('validationApp', ['rzModule', 'ui.bootstrap']);
 /**
- * ValidationApp controller, define all angular interactions
+ * ValidationApp controller, define all angular interactions. A lot happens here.
  */
 validationApp.controller('ValidationCtrl', function ($scope, $window) {
-  console.log("Objet alignment: ");
+  console.log("Alignment JSON:");
   console.log($window.alignmentJson);
+  
+  $scope.alignmentJson = {"entities": [{"entities1": "http://fzeufhzd", "entities2": "http://zdhfiuhd"}]}
   
   // Get the 2 ont in an object
   if ($window.alignmentJson.srcOntologyURI === undefined) {
@@ -65,6 +67,8 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   if (!tarOntoUri) {
     tarOntoUri = "Target Entities"
   }
+  
+  // Get source/target Name if provided
   $scope.sourceName = $window.sourceName.replace(new RegExp("\/|:", 'g'), "_");
   $scope.targetName = $window.targetName.replace(new RegExp("\/|:", 'g'), "_");
   if ($scope.sourceName === "null") {
@@ -92,6 +96,7 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   });
 
   $scope.ontologies = {"ont1": $window.sourceOnt, "ont2": $window.targetOnt, "srcOntUri": srcOntoUri, "tarOntUri": tarOntoUri};
+  console.log("Ontologies JSON:");
   console.log($scope.ontologies);
   // Convert ontologies entity object to an array for filter
   $scope.srcOntArray = $.map($scope.ontologies.ont1.entities, function (value, index) {
@@ -100,8 +105,6 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   $scope.tarOntArray = $.map($scope.ontologies.ont2.entities, function (value, index) {
     return [value];
   });
-  console.log("srcOntArray:");
-  console.log($scope.srcOntArray);
 
   // Merge namespaces from the 2 ont:
   $scope.namespaces = $.extend($window.sourceOnt.namespaces, $window.targetOnt.namespaces);
@@ -112,11 +115,10 @@ validationApp.controller('ValidationCtrl', function ($scope, $window) {
   // init the ng-model used by the relation select dropdown
   $scope.selectRelationModel = {};
   $scope.hideValidatedAlignments = false;
+  
   // Get an object with the entities of the alignment as key and their properties
   // (extracted from the ontologies) as object
   $scope.alignments = getAlignmentsWithOntologiesData($window.alignmentJson.entities, $scope.ontologies);
-  console.log("alignments:");
-  console.log($scope.alignments);
   alignments = $scope.alignments;
   $scope.langSelect = {"en": "en", "fr": "fr"};
 

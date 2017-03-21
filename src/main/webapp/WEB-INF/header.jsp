@@ -27,6 +27,7 @@
             </a></li>
           <li><a href=matcher>Matcher</a></li>
           <li><a href=validator>Validator</a></li>
+          <li><a href=sameAsValidator>SameAs Validator</a></li>
           <li><a href=documentation>API</a></li>
           <li><a href=aboutus>About us</a></li>
           <li><a href=sign><%=signLabel%></a></li>
